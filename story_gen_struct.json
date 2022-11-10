@@ -1,0 +1,90 @@
+{
+    "INV":{
+        "OBJ":[
+            ["Deliver","-"],
+            ["Exchange","-","OBJ"]
+        ],
+        "HVT":[
+            ["Interrogate","%INT"],
+            ["Exchange","ALY"]
+        ]
+    },
+    "TGT":{
+        "OBJ":[
+            ["Secure","%INT"],
+            ["Destroy","-"]
+        ],
+        "VIP":[
+            ["Hostage Rescue","%INT"],
+            ["QRF Extract","%INT"],
+            ["Extract","%INT"],
+            ["Protect","%INT"],
+            ["Gather Intel","%INT"],
+            ["Escort","%INT"]
+        ],
+        "HVT":[
+            ["Capture","INV"],
+            ["Eliminate","-"],
+            ["Surveil","%INT"],
+            ["Decieve","INT"]
+        ],
+        "NPC":[
+            ["Hostage Rescue","%ALY"],
+            ["Extract","%ALY","%INT"],
+            ["Secure","%ALY"],
+            ["Surveil","%INT"],
+            ["Recruit","ALY"]
+        ]
+    },
+    "PTY":{
+        "ALY":[
+            ["QRF Intervene","%INT"],
+            ["Support","%INT"],
+            ["Gather Intel","%INT"],
+            ["Advise","%INT"],
+            ["Train","%INT"],
+            ["Escort","%INT"]
+        ],
+        "OFE":[
+            ["Intercept","-","%OBJ"],
+            ["Capture","INV"],
+            ["Evade","%INT"],
+            ["Skirmish","-"],
+            ["Surveil","INT"],
+            ["Infiltrate","INT"]
+        ],
+        "NTL":[
+            ["Recruit","ALY"],
+            ["Gather Intel","%INT"]
+        ]
+    },
+    "LOC":{
+        "OFL":[
+            ["Raid","-"],
+            ["Recon","%INT"],
+            ["Capture","ALC"],
+            ["Destroy","-"],
+            ["Infiltrate","INT"]
+        ],
+        "ALC":[
+            ["Riot Control","%INT"],
+            ["Patrol","%INT"],
+            ["Defend","%INT"],
+            ["QRF Defend","INT"],
+            ["Abandon","OFL"],
+            ["Gather Intel","%INT"],
+            ["Fortify","%INT"]
+        ],
+        "NTL":[
+            ["Recon","%INT"],
+            ["Patrol","%INT"],
+            ["Surveil","INT"],
+            ["Search","%OBJ","%INT"],
+            ["Investigate","%INT"],
+            ["Gather Intel","%INT"],
+            ["Fortify","ALC"],
+            ["Secure Resource(s)","OBJ"],
+            ["Recruit Forces","%ALY"]
+        ]
+    }
+}

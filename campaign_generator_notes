@@ -1,0 +1,58 @@
+
+
+Locations (LOC)
+    Allied Locations    (ALC)
+        FOB/Compound
+            Command center
+            Depot
+            Armory
+            Motor pool
+            Barracks
+            Offices
+        Observation Post
+        Signal Post
+        Covert Safehouse
+        Checkpoint
+    Opfor Locations     (OFL)
+        Compound
+        Checkpoint
+        Safehouse
+    Neutral Locations   (NTL)
+
+Targets (TGT)
+    Objective           (OBJ)
+    VIP                 (VIP)
+    High Value Target   (HVT)
+    Non-Partisan        (NPC)
+
+Parties (PTY)
+    Allies              (ALY)
+    Opfor Elements      (OFE)
+    Neutral El.         (NTL)
+
+
+
+
+
+
+
+
+madlibs.json (template):
+{
+    "TGT":{
+        "OBJ":[],
+        "VIP":[],
+        "HVT":[],
+        "NPC":[]
+    },
+    "PTY":{
+        "ALY":[],
+        "OFE":[],
+        "NTL":[]
+    },
+    "LOC":{
+        "OFL":[],
+        "ALC":[],
+        "NTL":[]
+    }
+}
