@@ -1,0 +1,114 @@
+{
+    "DirectAction":{
+        "HLC":[
+            ["Raid","NLC"],
+            ["Recon",""],
+            ["Capture","NLC"],
+            ["Destroy","-"]
+        ],
+        "FLC":[
+            ["Riot Control at",""],
+            ["Secure",""],
+            ["Defend",""]
+        ],
+        "OBJ":[
+            ["Capture",""],
+            ["Intercept",""],
+            ["Destroy","-"]
+        ],
+        "VIP":[
+            ["Extract",""],
+            ["Hostage Rescue",""]
+        ],
+        "HVT":[
+            ["Capture","INV"],
+            ["Eliminate","-"],
+            ["Intercept","INV"]
+        ],
+        "ALY":[
+            ["Support",""]
+        ]
+        
+    },
+    "PassiveOps":{
+        "NLC":[
+            ["Recon",""],
+            ["Patrol",""],
+            ["Search",""],
+            ["Investigate",""],
+            ["Secure","+FLC"]
+        ],
+        "FLC":[
+            ["Fortify",""]
+        ],
+        "OBJ":[
+            ["Exchange","-INV"],
+            ["Stash","-INV"],
+            ["Secure","+INV"],
+            ["Deliver","-INV"]
+        ],
+        "VIP":[
+            ["Protect",""],
+            ["Gather Intel from",""],
+            ["Escort",""]
+        ],
+        "HVT":[
+            ["Monitor",""]
+        ],
+        "ALY":[
+            ["Gather Intel from",""],
+            ["Advise",""],
+            ["Escort Convoy",""],
+            ["Recruit",""]
+        ],
+        "UNQ":[
+            ["Recruit Source",""]
+        ]
+    },
+    "CovertOps":{
+        "HLC":[
+            ["Surveil",""],
+            ["Infiltrate",""]
+        ],
+        "NLC":[
+            ["Investigate",""],
+            ["Secure",""]
+        ],
+        "FLC":[
+            ["Gather Intel from",""],
+            ["(QRF) Defend",""]
+        ],
+        "OBJ":[
+            ["Gather Intel from",""]
+        ],
+        "VIP":[
+            ["(QRF) Extract",""],
+            ["Escort",""],
+            ["Protect",""],
+            ["Extract",""],
+            ["Gather Intel from",""]
+        ],
+        "HVT":[
+            ["Eliminate",""],
+            ["Decieve",""],
+            ["Abduct","INV"],
+            ["Interrogate",""],
+            ["Track",""],
+            ["Surveil",""]
+        ],
+        "ALY":[
+            ["Gather Intel from",""],
+            ["Train",""],
+            ["(QRF) Rescue",""]
+        ],
+        "UNQ":[
+            ["Evade Opfor",""],
+            ["Recruit","ALY"]
+        ]
+           
+    }
+}
+
+
+
+

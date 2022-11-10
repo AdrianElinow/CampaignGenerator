@@ -1,0 +1,73 @@
+{
+    "INV":[],
+    "HLC":[
+        "Villa di Briano",
+        "Kalaheo",
+        "Attenburg",
+        "Shenorock",
+        "Pinewood",
+        "Alagra",
+        "Southchase",
+        "Aberdant"
+    ],
+    "FLC":[
+        "Woodville",
+        "Clay",
+        "Stevensford",
+        "Yreka",
+        "Athur",
+        "Danvers",
+        "Easton",
+        "Wichitaw"
+    ],
+    "NLC":[
+        "La Crosse",
+        "Irwin",
+        "Plainsville",
+        "MacMoud",
+        "Mt. Alfred",
+        "Hounds Point"
+    ],
+    "OBJ":[
+        "Iphone",
+        "Laptop",
+        "Hard Drive",
+        "Radio Equipment",
+        "High-Value Package"
+    ],
+    "VIP":[
+        "VIP Alpha",
+        "VIP Bravo",
+        "VIP Charlie",
+        "VIP Delta",
+        "VIP Echo"
+    ],
+    "HVT":[
+        "HVT Alpha",
+        "HVT Bravo",
+        "HVT Charlie",
+        "HVT Delta",
+        "HVT Echo"
+    ],
+    "ALY":[
+        "Anna",
+        "Danny",
+        "Ryan",
+        "Gus",
+        "Owen",
+        "Kevin"
+    ],
+    "TGT":[
+        "TgT"
+    ],
+    "EVT":[
+        "Bombing",
+        "Riot",
+        "Assassination",
+        "Civilian Report",
+        "Report",
+        "Raid"
+    ],
+    "UNQ":["",""]
+
+}
