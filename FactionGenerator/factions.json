@@ -1,0 +1,99 @@
+[
+    {"type": "Mercenaries", "name": "Angel Consulting", "acronym": "AC"},
+    {"type": "Company", "name": "Gamma Contracting", "acronym": "GC"}, 
+    {"type": "Political", "name": "Sigma Bloc", "acronym": "SB"}, 
+    {"type": "Company", "name": "Saturn Services", "acronym": "SS"}, 
+    {"type": "Company", "name": "United Company", "acronym": "UC"}, 
+    {"type": "Military", "name": "Sigma Task-Force", "acronym": "STF"}, 
+    {"type": "Mercenaries", "name": "Slick Solutions", "acronym": "SS"}, 
+    {"type": "Intelligence", "name": "Omicron Group", "acronym": "OG"}, 
+    {"type": "Mercenaries", "name": "Spider Outcomes", "acronym": "SO"}, 
+    {"type": "Military", "name": "Red-Harbor Battallion", "acronym": "HRB"}, 
+    {"type": "Intelligence", "name": "Harbor Group", "acronym": "HG"}, 
+    {"type": "Military", "name": "Shadow Specialists", "acronym": "SSS"}, 
+    {"type": "Government", "name": "Zeus Autocracy", "acronym": "ZA"}, 
+    {"type": "Mercenaries", "name": "Nocturn", "acronym": "N"}, 
+    {"type": "Intelligence", "name": "Pinnacle Recon", "acronym": "PR"}, 
+    {"type": "Company", "name": "Omega Co.", "acronym": "OC"},
+    {"type": "Mercenaries", "name": "Meridian Consulting", "acronym": "MC"},
+    {
+        "nodetype": "Religious",
+         "name": "Jupiter Cult",
+         "acronym": "JC", 
+         "policy": {
+            "Economy": ["Indifferent", 0.4247378603071247], 
+            "Liberty": ["Libertarian", 0.06100482832836274], 
+            "Culture": ["Accelerationist", 0.9998852294992246], 
+            "Diplomacy": ["Nationalist", 0.6727636139334098], 
+            "Militancy": ["Indifferent", 0.7556941617893835], 
+            "Diversity": ["Heterogeneous", 0.7681507775403869], 
+            "Secularity": ["Indifferent", 0.5742405832961257], 
+            "Justice": ["Indifferent", 0.9016075864409954], 
+            "Natural-Balance": ["Naturalist", 0.060936625410514256], 
+            "Government": ["Republican", 0.36012269838466504]
+        }
+    }, 
+    {
+        "nodetype": "Mercenaries", 
+        "name": "Demon Results", 
+        "acronym": "DR", 
+        "policy": {
+            "Economy": ["Indifferent", 0.16052793939844667], 
+            "Liberty": ["Libertarian", 0.556489853273053], 
+            "Culture": ["Indifferent", 0.21348094295978393], 
+            "Diplomacy": ["Patriotic", 0.3879076034982831], 
+            "Militancy": ["Indifferent", 0.04590725476624313], 
+            "Diversity": ["Indifferent", 0.125464819822238], 
+            "Secularity": ["Religious", 0.5471663299388356], 
+            "Justice": ["Indifferent", 0.5480897928740969], 
+            "Natural-Balance": ["Industrialist", 0.8638534372345312], 
+            "Government": ["Democratic", 0.9331137260483237]
+        }
+    },{
+        "nodetype": "Gang",
+        "name": "Meridian Ring",
+        "acronym": "MR",
+        "policy": {
+            "Economy": [
+                "Capitalist",
+                0.7254613216603911
+            ],
+            "Liberty": [
+                "Anarchist",
+                0.11344689172432099
+            ],
+            "Culture": [
+                "Conservative",
+                0.8997605902009186
+            ],
+            "Diplomacy": [
+                "Indifferent",
+                0.21915035140182837
+            ],
+            "Militancy": [
+                "Diplomatic",
+                0.5793839601053777
+            ],
+            "Diversity": [
+                "Indifferent",
+                0.29108953520612835
+            ],
+            "Secularity": [
+                "Religious",
+                0.20483075120617433
+            ],
+            "Justice": [
+                "Indifferent",
+                0.7440364725036267
+            ],
+            "Natural-Balance": [
+                "Productivist",
+                0.5535432543528562
+            ],
+            "Government": [
+                "Autocratic",
+                0.1983275654133272
+            ]
+        }
+    }
+]

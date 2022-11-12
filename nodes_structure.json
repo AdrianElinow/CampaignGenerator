@@ -1,0 +1,32 @@
+{
+    "Factions":[
+        {
+            "Name":"",
+            "Acronym":"",
+            "Policy":{
+
+            },
+            "Relationships":[
+
+            ],
+            "Nodes":{
+                "POI":[],
+                "PTY":[],
+                "LOC":[],
+                "OBJ":[]  
+            }
+        }
+    ],
+    "Nodes":{
+        "POI":[
+            {
+                "Name":"",
+                "Policy":{},
+                "Relationships":[]
+            }
+        ],
+        "PTY":[],
+        "LOC":[],
+        "OBJ":[]    
+    }
+}

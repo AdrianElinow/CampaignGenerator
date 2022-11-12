@@ -1,0 +1,1 @@
+python3 faction_generator.py faction-gen-settings.json factions-1.json
