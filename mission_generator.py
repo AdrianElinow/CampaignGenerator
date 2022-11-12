@@ -23,11 +23,11 @@ class NGIN:
                 0)
 
 
-    def generate_state( self, num_elements ):
+    def generate_state( self, num_nodes ):
         ''' generates multiple new random nodes to (re)populate the game-state '''
 
         n_state = []
-        for i in range(num_elements):
+        for i in range(num_nodes):
             n_state.append(self.generate_element())
         return n_state
 
@@ -154,6 +154,10 @@ class NGIN:
 
 
     def generate_event( self ):
+        ''' Selects a node as event basis, then generates an event based on 
+                the node's type. Events are similar to missions, but are
+                essentially the mission outcomes of other entities
+        '''
         
         # choose node as event basis
         subj = random.choice(self.state)
