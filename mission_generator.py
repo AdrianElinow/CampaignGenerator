@@ -197,7 +197,7 @@ class NGIN:
 def main():
     
     ''' required import(s) '''
-    mission_struct = json.load( open('story_struct.json') )
+    mission_struct = json.load( open( sys.argv[1] ) )
     madlibs = [
         "Alpha",
         "Beta",

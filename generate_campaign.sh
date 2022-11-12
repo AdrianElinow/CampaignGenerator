@@ -1,0 +1,1 @@
+python3 mission_generator.py story_struct.json
