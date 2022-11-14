@@ -1,5 +1,12 @@
 # CampaignGenerator
-	Adaptive and Modular Mission Generator for RPG
+- Adaptive and Modular Mission Generator for RPG campaign. As a DM resource to dynamically generate new missions given the current game-state
+
+## TODO
+1. Implement scenarios, presets, etc. (save/load system)
+2. Option to choose from presented mission options
+	* Rather than have one presented automatically. 
+	* Incorporate mission outcomes in a dynamic manner (mission success vs. failure lead to different outcomes, affecting 
+3. Webpage UI/UX (P5.js, PHP?)
 
 ## Mission Generator
 	mission_generator.py
