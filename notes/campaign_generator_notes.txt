@@ -56,3 +56,6 @@ Faction/POI interractions:
     ["Ecologist", "Naturalist", "Neutral", "Productivist", "Industrialist"],
 "Government":   
     ["Democratic", "Republican", "Neutral", "Oligarchic", "Monarchist"]
+
+
+    

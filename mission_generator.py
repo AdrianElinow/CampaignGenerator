@@ -1,18 +1,51 @@
 
+
 import json, sys, random, os
 from pprint import pprint
 
 
+''' 
+
+Simulae
+    References
+    Attributes
+    Assembly
+    Memory
+    Checks
+
+
+SimulaeNode    
+
+    References
+        name
+        ntype
+    Attributes
+        Interractions
+        stats
+    Relationships
+        faction
+        location
+
+    Checks
+
+'''
+
+
 class Node:
 
-    def __init__(self, name, disposition, ntype, interactions=0):
+    def __init__(self, name, disposition, ntype, interactions=0, location=None, faction=None ):
         self.name = name
         self.ntype = ntype
+        self.faction = None
+        self.location = None
         self.disposition = disposition
+        self.reputations = {}
         self.interactions = interactions
+
 
     def unpack(self):
         return self.name, self.disposition, self.ntype, self.interactions
+
 
     def __str__(self):
         return ( self.name + ' : ' + self.disposition + ' ' + self.ntype + ' (' + str(self.interactions) + ')')

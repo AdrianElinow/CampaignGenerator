@@ -2,6 +2,7 @@
 # Story Arcs
 Assorted story arcs (generated and from irl media) framed in mission-generator format
 
+
 ## Generated Campagin 1
 
 - [ Passive Ops ] Gather Intel      {Day}
