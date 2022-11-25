@@ -96,7 +96,6 @@ class NGIN:
                 disposition = "Neutral"
 
             opt = ( subj, random.choice( self.mission_struct[disposition][subj.nodetype] ) )
-
             options.append(opt)
 
 
@@ -110,6 +109,44 @@ class NGIN:
                 the node's type. Events are similar to missions, but are
                 essentially the mission outcomes of other entities
         '''
+
+        # choose node as event basis
+        subj = random.choice(self.state)
+        name, disp, objective, interractions = subj.unpack()
+
+        # avoid modifying hostile nodes to maintain tension
+        if disp in ['Neutral','Friendly']:
+            roll = int(random.random() * 100)
+
+            if roll < 25:
+                print(name,'has', \
+                    ('been captured by opfor' if objective in ['LOC','OBJ'] \
+                    else "defected to the opfor"))
+
+                subject_index = self.state.index(subj)
+
+                # find and modify subject in game-state
+                subj.disposition = "Hostile"
+                subj.interractions += 1
+
+                if subject_index:
+                    self.state[subject_index] = subj
+
+            elif roll < 50:
+                print(name, 'has been', \
+                    ('Destroyed' if objective in ['LOC','OBJ'] \
+                    else 'Killed'))
+
+                # find and remove subject in game-state
+                self.state.remove(subj)
+
+            # no mission for these types of random events
+            return subj, None, self.state
+
+        # 
+        return  subj, \
+                random.choice(self.mission_struct[disp][objective]), \
+                self.state
         pass
 
 
@@ -186,9 +223,13 @@ class NGIN:
 
 
     def remove_node(self, node):
-
+        ''' not yet implemented '''
         pass
 
+
+    def save(self):
+        ''' not yet implemented '''
+        pass
 
     def start(self):
 
@@ -372,6 +413,8 @@ def main():
     ngin = NGIN( mission_struct, madlibs, save_file )
 
     ngin.start()
+
+    ngin.save()
 
 
 
