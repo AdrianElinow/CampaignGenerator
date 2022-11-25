@@ -74,6 +74,182 @@ Assorted story arcs (generated and from irl media) framed in mission-generator f
 	- [ Covert Ops  ] Gather Intel        {Night}
 	- [ Covert Ops  ] Abduct HVT          {Day}
 
+# Campaign Arc Brainstorming
+
+## Custom Campaign Arcs
+- Government
+    - Law Enforcement
+    - Military
+    - Intelligence
+    - Local Gov.
+- Companies/Corporations
+    - Corporate War / Sabotage Plot
+
+	- Transportation
+	- Agriculture
+	- Manufacturing
+	- Chemical
+	- Financial
+	- Construction
+	- Education
+	- Food Service
+	- Pharmacueticals
+	- Medical
+	- Tourism 
+	- Mining
+	- Engineering
+	- Electronics
+	- Software
+	- Media / Entertainment
+	- Telecommunications
+	- Textiles
+	- Utilities (Water, Energy)
+	- Security
+- Criminal Organizations
+	- Street Gang
+	- Mafia / Yakuza
+	- White Collar Syndicate
+- Religious
+   - Cult
+   - Church
+- Political Groups
+   - Activist Group?
+- Build-a-Settlement
+	- ...
+- Cultural/Ethnic Groups
+- Adventuring groups
+- Affinity Groups
+
+
+## Scenarios (Gamemode inspired)
+
+
+### Std. Board
+
+- (5) Destruction (S&D, Bomb Defusal, Livewire, etc.)
+    - Plant + Defend Bomb for X turns / Defend points + Disarm Bomb by X turns
+- (1,2) Skirmish (Deathmatch)
+    - Kill enemy units
+- (3) Objective Capture
+- Firefight
+- Oddball (gridiron, ?)
+    - Capture + Control OBJ for most number of rounds
+    - Capture + Control OBJ by end-of-game
+- Gunfight
+    - 75 pt Skirmish
+- Hostage Rescue    
+    - Capture VIP / Defend Captured HVT
+
+
+### Phaseline Board
+
+- Frontline (Also Push, GroundWar, etc.)
+    - Capture points in succession
+- (4) VIP Extraction (Ambush, Escort, etc.)
+    - Escort VIP / Capture/Kill HVT
+- Firefight
+- Capture the Flag
+- (6) Kill Team (Defend the VIP)
+    - Kill VIP \ Defend VIP
+
+
+### Other
+
+- Infected
+- Extraction (DMZ, Tarkov)
+    - Start with 50pt Teams of (2-6) Militia units
+        - 'Loot' allows unit upgrades
+            - New weapons = New roles / Abilities
+                - MG
+                - Heavy MG
+                - Drone Controller
+                - DMR
+            - Equipment
+                - Frags & GL Ammo
+                - Drones & Jammers
+                - AP Mines / IEDs 
+            - Armor = better save role thresholds
+            - Extract adds experience (Better hit chances)
+                - decreases hit threshold by 1 per kill (minimum of 6)
+        - Must extract to keep loot + upgrade units
+        - Resolve points-of-interest 
+            - Enemies
+            - Loot (Equipment, vehicle, resources, NPCs, etc.)
+            - Nothing
+- Battle Royale
+    - 100pt Teams (~3 units)
+    - Last team standing
+- Anomaly (Capture and return artifacts to cache)
+    - Capture 3 Artifacts + return to cache
+
+
+## Quick Mission Generation:
+- Roll for objective
+    1. Skirmish             (Eliminate Opfor)
+    2. VIP Extraction       (Escort VIP / Capture HVT)
+    3. Demolition           (Plant Bomb / Defuse Bomb)
+    4. Skirmish             (Eliminate Opfor)
+    5. Secure Objective     (Capture OBJ / Defend OBJ)
+    6. Kill Team            (Eliminate HVT / Defend VIP)
+    7. Demolition           (Plant Bomb / Defuse Bomb)
+    8. Caches               (Destroy 2 caches / Defend 2 caches)
+- Choose mapspace
+
+
+# Brainstorm Campaigns
+
+## Governments:
+
+### Military (Special Forces)
+
+### Intelligence (Covert Ops)
+- CIA / Mossad /  
+- Private Intelligence organization
+
+### Civil War (US Insurgency)
+- US Civilians vs Anarchists vs Military?
+- Post-Collapse faction building
+    - Settlement building
+    - Expeditions to complete external tasks (See Extraction scenario)
+
+### WW-III (US & Allies vs. China, Russia, etc.)
+
+
+## Companies / Corporations
+
+### PMC Arcs
+ - Corporate War
+ - Gov. Contract PMC (Wagner)
+ - Trauma Team lite
+
+## Criminal Organization
+
+
+
+
+# BPRE Taskings
+
+## Infil
+ - "Oasis Hemlock" Destroy/Defend Radio Jammer
+ - "Veiled Fever"  Eliminate Opfor
+ - "Evergreen Citadel" Preserve/Eliminate Advisor
+ - "Amber Lathe"   Eliminate Opfor 
+
+## Actions On
+ - "Disparate Vertigo" Capture the Flag / Defend Flag
+ - "Quivering Briar" Plant Explosives / Prevent plant
+ - "Perdition Charter" Exfil / Prevent Exfil
+
+## Exfil
+ - "Antler Vine" Defend Strongpoint / Invade Strongpoint
+ - "Thorned Reef" Eliminate Opfor
+ - "Usurper's Mandible" Exfil / Prevent Exfil
+ - "Carcass Wrath" Defend Strongpoint / Destroy Strongpoint 
+ 
+
+# Other Campaigns
+
+
 ## Tactical Campaign 2 
     [ Passive Ops ] Investigate Location {Day}
         A recent bombing just outside of the city center left behind a lot of evidence. Make sure the forensics team is kept safe.

@@ -1,11 +1,6 @@
 
 
 
-
-
-
-
-
 Faction/POI interractions:
     Positive Rep
         Missions
@@ -59,3 +54,72 @@ Faction/POI interractions:
 
 
     
+
+
+
+
+
+PMC Questline
+
+    Contracts that are chosen / fullfilled open up access to specialized equipment supplied by the clientelle.
+
+        Transportation
+            + Additional Deployment options
+        Agriculture
+        Manufacturing
+            + Decreased equipment upgrade costs
+        Chemical
+            + Access to improved explosives
+        Financial
+            + Able to invest funds
+        Construction
+            + Decreased costs of building upgrades / construction
+        Education
+        Food Service
+        Pharmacueticals
+            + Decreased costs for medical items
+            + Allows access to 
+        Medical
+        Tourism 
+        Mining
+        Engineering
+            +
+        Electronics
+            + Grants access to advanced systems (Drones, Scanners, etc.)
+        Software
+        Media / Entertainment
+        Telecommunications
+            + Access to improved radio / mapping equipment
+        Textiles
+        Utilities (Water, Energy)
+        Security
+            + Subcontract out additional work
+
+
+Uprising / Insurgency 
+
+    Militia group fighting to eliminate foreign influence and promote freedom 
+        in their country. With the country plunged into civil conflict,
+        small township-level groups formed to attempt to return order. 
+    Former military, police, and prepared civilians have stepped up
+        to fill the power vacuum. Coming into direct conflict with anarchists,
+        organized crime, and foreign intelligence elements, and security
+        contractors.
+    While civilian firearm ownership was relatively common due to the culture,
+        
+
+
+Criminal Organization
+
+    Set up rackets in 
+
+
+
+
+
+
+
+
+
+
+

@@ -1,14 +1,22 @@
 
 
 import json, sys, random, os
+
+#from json import JSONEncoder
 from pprint import pprint
 
 
 class SimulaeNode:
 
-    def __init__(self, given_id, references={
+    # id, ntype, refs, attrs, reltn, checks, abilities
+
+    def __init(self):
+        pass
+
+    def __init__(self,  given_id=None, 
+                        nodetype="OBJ",
+                        references={
                             "name":None,
-                            "nodetype":"OBJ",
                             "FAC":None,
                             "policy":{
                                 "Economy":          ["Indifferent", 0.5],
@@ -26,25 +34,61 @@ class SimulaeNode:
                         attributes={
                             "interactions":0
                         }, 
-                        relationships={}, 
+                        relations={}, 
                         checks={}, 
                         abilities={}):
         self.id = given_id
         self.references = references
+        self.nodetype = nodetype
         self.attributes = attributes
-        self.relationships = relationships if references['nodetype'] in ['POI','PTY'] else None
+        self.relations = relations
         self.checks = checks
         self.abilities = abilities
+
+    def summary(self):
+        return "{0}".format(self.references['name'])
+
+
+    def check_membership(self, node):
+        ''' check_membership(..., node) checks for relations between self and given node
+                if node is of types OBJ or LOC, checks of self has ownership of node
+                if node is of types FAC or PTY, checks that node has membership with self
+        '''
+
+        if not (node and node.nodetype and node.id):
+            raise ValueError
+
+        if self.nodetype in ['PTY','POI']:
+
+            # check self's ownership of node
+            if node.nodetype in ['OBJ','LOC'] and node.id in self.relations['PPT'][node.nodetype]:
+                return True
+            # check self's membership as apart of node
+            elif node.nodetype in ['FAC','PTY'] and node.relations[self.nodetype][self.id]['Disposition'] == 'Member':
+                return True
+
+        elif self.nodetype in ['Fac']:
+
+            if node.nodetype in ['OBJ','LOC'] and node.id in self.relations['PPT'][node.nodetype]:
+                return True
+            elif node.nodetype in ['PTY','POI'] and self.relations[node.nodetype][node.id]['Disposition'] == "Member":
+                return True
+
+        return False
 
 
     def update_relationship( self, node, interaction=None, reciprocate=False, new_relationship=True ):
         
-        policy_diff = self.policy_diff( node.references['Policy'] )
+        if not node:
+            raise TypeError
+        if node.nodetype not in ['FAC','POI','PTY']:
+            raise ValueError
 
-        #print(policy_diff)
-        self.relationships[ node.id ] = {
-            "nodetype":node.references['nodetype'],
-            "Policy":policy_diff,
+        policy_diff = self.policy_diff( node.references['policy'] )
+
+        self.relations[node.nodetype][ node.id ] = {
+            "nodetype":node.nodetype,
+            "policy":policy_diff,
             "Reputation":[0,0],
             "Interractions":1,
             "Disposition":"Neutral"
@@ -56,7 +100,7 @@ class SimulaeNode:
 
     def has_relationship( self, node ):
         
-        if self.relationships[node.id]:
+        if self.relations[node.ntype][node.id]:
             return True
         return False
 
@@ -66,7 +110,7 @@ class SimulaeNode:
         summary = {}
         diff = 0
 
-        for factor, policy in self.references['Policy'].items():
+        for factor, policy in self.references['policy'].items():
             
             delta = abs( self.get_policy_index(factor, policy) - self.get_policy_index( factor, compare_policy[factor] ) )
 
@@ -104,39 +148,104 @@ class SimulaeNode:
         return policies[factor].index(policy[0])
 
 
+    def toJSON(self):
+        d = self.__dict__
+
+        for k,v in self.relations.items():
+            v =  v = { nid:node.__dict__ for nid, node in v.items() }
+            d['relations'][k] = v
+
+        return d
+
+
+
+def jsonify( state ):
+
+    d = state.__dict__
+
+    for k,v in state.relations.items():
+
+        v =  v = { nid:node.__dict__ for nid, node in v.items() }
+        d['relations'][k] = v
+
+    return d
+
+
+
 def SimulaeNode_test():
 
     raw_nodes = json.load( open('./nodes_structure.json') )
 
-    state = {
+    state = SimulaeNode(
+            "state",
+            "",
+            {},
+            {},
+            {
+                "FAC":{},
+                "PTY":{},
+                "POI":{},
+                "OBJ":{},
+                "LOC":{}
+            },
+            {},
+            {}
+        )
+
+
+    '''
+    {
         "FAC":{},
         "POI":{},
         "PTY":{},
         "LOC":{},
         "OBJ":{}
-    }
+    }#'''
 
-    for k,v in raw_nodes['POI'].items():
+    for nodetype in state.relations.keys():
 
-        state[ v['references']['nodetype'] ][ v['id'] ] = SimulaeNode(   v['id'], 
-                                                    v['references'], 
-                                                    v['attributes'],
-                                                    v['relationships'],
-                                                    v['checks'],
-                                                    v['abilities'] )
+        print('Processing',nodetype,'\'s')
+
+        for k,v in raw_nodes[nodetype].items():
+            state.relations[ nodetype ][ v['id'] ] = SimulaeNode(   
+                                                        v['id'], 
+                                                        v['nodetype'],
+                                                        v['references'], 
+                                                        v['attributes'],
+                                                        v['relations'],
+                                                        v['checks'],
+                                                        v['abilities'] )
+
+
     # introduce each other
-
-    for poi_id_a, poi_node_a in state['POI'].items():
-        for poi_id_b, poi_node_b in state['POI'].items():
+    for poi_id_a, poi_node_a in state.relations['POI'].items():
+        for poi_id_b, poi_node_b in state.relations['POI'].items():
             if poi_id_a == poi_id_b:
                 continue
 
             poi_node_a.update_relationship( poi_node_b, reciprocate=True )
 
-    for nid, node in state['POI'].items():
+        for fac_id, fac_node in state.relations['FAC'].items():
+            poi_node_a.update_relationship( fac_node, reciprocate=True )
+
+
+    """
+    for nid, node in state.relations['POI'].items():
         pprint(node.__dict__)
+    #"""
+    input("factions >")
+
+    for fid, fnode in state.relations['FAC'].items():
+        pprint(fnode.__dict__)
+        for poi_id, poi_node in state.relations['POI'].items():
+            print(poi_id,'membership in',fid, ':',fnode.check_membership(poi_node))
+    
+    print('Done')
 
 
+    with open('nodes_structure_sv.json','w') as sv:
+        sv.write( json.dumps( state.toJSON() , indent=4) )
+        print('written')
 
 
 if __name__ == '__main__':

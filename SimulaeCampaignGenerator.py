@@ -1,49 +1,13 @@
 
-
 import json, sys, random, os
 from pprint import pprint
 
-#from SimulaeNode import SimulaeNode
-
-''' 
-
-Simulae
-    References
-    Attributes
-    Assembly
-    Memory
-    Checks
-
-
-SimulaeNode    
-    # id, ntype, refs, attrs, reltn, checks, abilities
-
-'''
-
-
-class Node:
-
-    def __init__(self, name, disposition, ntype, interactions=0, location=None, faction=None ):
-        self.name = name
-        self.ntype = ntype
-        self.faction = None
-        self.location = None
-        self.disposition = disposition
-        self.reputations = {}
-        self.interactions = interactions
-
-
-    def unpack(self):
-        return self.name, self.disposition, self.ntype, self.interactions
-
-
-    def __str__(self):
-        return ( self.name + ' : ' + self.disposition + ' ' + self.ntype + ' (' + str(self.interactions) + ')')
+from SimulaeNode import SimulaeNode
 
 
 class NGIN:
 
-    def __init__(self, mission_struct, madlibs ):
+    def __init__(self, mission_struct, madlibs, save_file=None ):
         self.mission_struct = mission_struct
         self.madlibs = madlibs
         self.state = state = SimulaeNode(
@@ -61,7 +25,24 @@ class NGIN:
                         {},
                         {}
                     )
-        self.state = self.generate_state(4) # generate start state with 4 initial nodes
+
+        if save_file:
+
+            print('found save file')
+
+            for nodetype, nodes in save_file['relations'].items():
+                for nid, node in nodes.items():
+                    # id, ntype, refs, attrs, reltn, checks, abilities
+                    print('creating node ',nid, nodetype)
+                    self.state.relations[nodetype][nid] = SimulaeNode(  nid,
+                                                                        node['nodetype'],
+                                                                        node['references'], 
+                                                                        node['attributes'],
+                                                                        node['relations'],
+                                                                        node['checks'],
+                                                                        node['abilities'] )
+        else:
+            self.state = self.generate_state(4) # generate start state with 4 initial nodes
 
 
     def generate_element( self ):
@@ -70,15 +51,15 @@ class NGIN:
         name = random.choice( [ m for m in self.madlibs \
             if m not in [ subj.name for subj in ( self.state ) ]] )
 
-        ntype = random.choice( ['POI','PTY','OBJ','LOC'] )
+        nodetype = random.choice( ['POI','PTY','OBJ','LOC'] )
         references = {}
         attributes = {}
         relations  = {}
         checks     = {}
         abilities  = {}
 
-        # id, ntype, refs, attrs, reltn, checks, abilities
-        return SimulaeNode( name, ntype, references, attributes, relations, checks, abilities )
+        # id, nodetype, refs, attrs, reltn, checks, abilities
+        return SimulaeNode( name, nodetype, references, attributes, relations, checks, abilities )
 
 
     def generate_state( self, num_nodes ):
@@ -88,113 +69,40 @@ class NGIN:
         for i in range(num_nodes):
             n_state.append(self.generate_element())
         return n_state
+            
 
-
-    def choose_mission(self, actor_node, num_opts=3 ):
+    def choose_mission(self, actor_node=None, num_opts=3 ):
         ''' To add more interractivity and user-control
                 this function will give several available options to allow
                 the player to 'control' their actions and interract
                 with other nodes in a manner of their choice.
         '''
-
         options = []
 
-        while len(opts) < 3:
+        while len(options) < 3:
 
-            subj = random.choice(self.state.relations[ random.choice(["POI","PTY","OBJ","LOC"]) ])
+            ntype = random.choice([ nt for nt in ["POI","PTY","OBJ","LOC"] if len(self.state.relations[nt]) >= 1 ])
+            #print(list(self.state.relations[ ntype ].values()))
 
-            if subj.ntype in ["POI","PTY"]:
-                actor_node.update_relationship( subj, reciprocate=True )
-                disposition = actor_node.relations[subj.ntype][subj.id]["Disposition"]
+            subj = random.choice( list(self.state.relations[ ntype ].values()) )
+
+            #print('subj: ',subj)
+
+            if subj.nodetype in ["POI","PTY"]:
+                #actor_node.update_relationship( subj, reciprocate=True )
+                #disposition = actor_node.relations[subj.nodetype][subj.id]["Disposition"]
+                disposition = "Neutral"
             else:
                 disposition = "Neutral"
 
-            opt = ( subj, random.choice( self.mission_struct[disposition][subj.ntype] ) )
+            opt = ( subj, random.choice( self.mission_struct[disposition][subj.nodetype] ) )
 
             options.append(opt)
 
 
-        choice = self.user_choice( opts, random_opt=True )
-        print('Chose', choice)
+        choice = self.user_choice( options, random_opt=True )
+
         return subj, choice[1], self.state
-
-
-
-
-    def start(self):
-
-        ''' Iterates through the game state generating missions based on
-                available nodes in the state.
-        '''
-
-        while True:
-
-            os.system('clear') # clear screen
-            
-
-            print('\nNodes:')
-            for node in [ node for nid, node in nodes for ntype, nodes in self.state ]:
-                print('\t',str(node))
-
-
-            if not self.state:
-                self.state = self.generate_state(5)
-
-            #subject, mission, self.state = self.generate_mission()
-
-            subject, mission, self.state = self.choose_mission( )
-
-            print(  '\n(',mission[1],') [',
-                    mission[0],subject.name,'] {',
-                    subject.disposition,subject.ntype,'}')
-
-
-            success = self.user_choice( ['yes','no'], literal=True )
-
-            if success == 'yes':
-
-                if mission[0] in ['Eliminate','Destroy']:
-                    # find and remove subject
-                    self.state.remove(subject)
-
-                elif mission[0] in ['Capture']:
-
-                    if subject.ntype in ['LOC','OBJ']:
-
-                        self.state.remove(subject)
-                        # find and modify subject
-                        subject.disposition = "Friendly"
-
-                        self.state.append(subject)
-
-                    else:
-                        # find and remove subject
-                        self.state.remove(subject)
-
-
-            if random.random() <= 0.5:
-                # generate new element to keep sim going
-                print('\nNew Intel')
-                intel = self.generate_element()
-                pprint(('discovered '+intel.__str__()))
-                self.state.append(intel)
-
-            if random.random() <= 0.4:
-                # generate random event to keep things interesting
-                subject, mission, self.state = self.generate_event()
-
-                if mission:
-                    print(  '\n(',mission[1],') [',
-                            mission[0],subject.name,'] {',
-                            subject.disposition,subject.ntype,'}')
-
-                    if mission[0] in ['Eliminate','Destroy']:
-                        # find and remove subject in game-state
-                        self.state.remove(subject)
-
-            cmd = input('> ')
-            if cmd in ['q','quit']:
-                sys.exit(0)
 
 
     def generate_event( self ):
@@ -202,44 +110,7 @@ class NGIN:
                 the node's type. Events are similar to missions, but are
                 essentially the mission outcomes of other entities
         '''
-        
-        # choose node as event basis
-        subj = random.choice(self.state)
-        name, disp, objective, interractions = subj.unpack()
-
-        # avoid modifying hostile nodes to maintain tension
-        if disp in ['Neutral','Friendly']:
-            roll = int(random.random() * 100)
-
-            if roll < 25:
-                print(name,'has', \
-                    ('been captured by opfor' if objective in ['LOC','OBJ'] \
-                    else "defected to the opfor"))
-
-                subject_index = self.state.index(subj)
-
-                # find and modify subject in game-state
-                subj.disposition = "Hostile"
-                subj.interractions += 1
-
-                if subject_index:
-                    self.state[subject_index] = subj
-
-            elif roll < 50:
-                print(name, 'has been', \
-                    ('Destroyed' if objective in ['LOC','OBJ'] \
-                    else 'Killed'))
-
-                # find and remove subject in game-state
-                self.state.remove(subj)
-
-            # no mission for these types of random events
-            return subj, None, self.state
-
-        # 
-        return  subj, \
-                random.choice(self.mission_struct[disp][objective]), \
-                self.state
+        pass
 
 
     def user_choice( self, user_options, literal=False, random_opt=False ):
@@ -257,10 +128,9 @@ class NGIN:
         chosen = None
 
         if literal:
-            print( ' / '.join(user_options) )
 
             while not choice:
-                choice = input('> ')
+                choice = input(' / '.join(user_options)+'> ')
 
                 for i, opt in enumerate(user_options):
                     if choice in opt:
@@ -283,16 +153,16 @@ class NGIN:
             for i, opt in enumerate(user_options):
                 # account for lists / tuples
                 if type(opt) in [ type( (0,0) ), type( [1,1] ) ]: 
-                    print('({0}) {1}'.format(i, ' '.join([ str(e) for e in opt ])))
+                    print('({0}) {1}'.format(i, ' '.join([ e.summary() if type(e) == type(SimulaeNode()) else str(e) for e in opt ])))
                 else: # simple items
-                    print('({0}) {1}'.format(i, str(opt) ))
+                    print('({0}) {1}'.format(i, opt.summary() if type(opt) == type(SimulaeNode()) else str(opt) ))
             if random_opt:
                 print('({0}) {1}'.format(len(user_options), 'random'))
 
             # take user selection
             while not choice:
                 try:
-                    choice = input('> ')
+                    choice = input('(Choice) > ')
                     if choice in ['q','quit']:
                         raise KeyboardInterrupt
 
@@ -300,9 +170,9 @@ class NGIN:
                     if choice in range(len(user_options) + (1 if random_opt else 0)):
                         if choice == len(user_options):
                             chosen = random.choice(user_options)
-
+                            print(chosen)
                             return chosen
-                            
+                        print(user_options[choice])
                         return user_options[choice]
                 except ValueError as ve:
                     pass
@@ -314,10 +184,98 @@ class NGIN:
         return choice
 
 
+
+    def remove_node(self, node):
+
+        pass
+
+
+    def start(self):
+
+        ''' Iterates through the game state generating missions based on
+                available nodes in the state.
+        '''
+
+        input('starting>')
+
+        while True:
+
+            os.system('clear') # clear screen
+
+
+            print('\nNodes:')
+
+            for node in [ node for nodetype, nodes in self.state.relations.items() for nid, node in nodes.items() ]:
+                pprint( (node.id, node.nodetype) )
+
+
+            # generate mission
+
+            subject, mission, self.state = self.choose_mission(  )
+            print(  '\n(',mission[1],') [',
+                    mission[0],subject.summary(),']')
+
+
+            # Handle success
+
+            success = self.user_choice( ['yes','no'], literal=True )
+
+            if success == 'yes':
+
+                if mission[0] in ['Eliminate','Destroy']:
+                    # find and remove subject
+                    del self.state.relations[subject.nodetype][subject.id]
+
+                elif mission[0] in ['Capture']:
+
+                    if subject.nodetype in ['LOC','OBJ']:
+
+                        self.state.relations[subject.nodetype][subject.id].relations
+
+                        #self.state.remove(subject)
+                        # find and modify subject
+                        #subject.disposition = "Friendly"
+
+                        #self.state.append(subject)
+
+                    else:
+                        # find and remove subject
+                        del self.state.relations[subject.nodetype][subject.id]
+
+            '''
+            if random.random() <= 0.5:
+                # generate new element to keep sim going
+                print('\nNew Intel')
+                intel = self.generate_element()
+                pprint(('discovered '+intel.__str__()))
+                self.state.append(intel)
+
+            if random.random() <= 0.4:
+                # generate random event to keep things interesting
+                subject, mission, self.state = self.generate_event()
+
+                if mission:
+                    print(  '\n(',mission[1],') [',
+                            mission[0],subject.name,'] {',
+                            subject.disposition,subject.nodetype,'}')
+
+                    if mission[0] in ['Eliminate','Destroy']:
+                        # find and remove subject in game-state
+                        self.state.remove(subject)
+            '''
+
+            cmd = input('continue [enter] / [q]uit ?> ')
+            if cmd in ['q','quit']:
+                sys.exit(0)
+
 def main():
     
     ''' required import(s) '''
     mission_struct = json.load( open( sys.argv[1] ) )
+    save_file = json.load( open(sys.argv[2]) )
+
+    print(save_file)
+
     madlibs = [
         "Alpha",
         "Beta",
@@ -411,7 +369,7 @@ def main():
         "Diesel"
     ]
 
-    ngin = NGIN( mission_struct, madlibs )
+    ngin = NGIN( mission_struct, madlibs, save_file )
 
     ngin.start()
 
@@ -419,4 +377,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
 

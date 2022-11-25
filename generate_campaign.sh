@@ -1,1 +1,1 @@
-python3 mission_generator.py story_struct.json
+python3 SimulaeCampaignGenerator.py story_struct.json nodes_structure_sv.json
