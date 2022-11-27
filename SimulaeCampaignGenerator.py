@@ -10,7 +10,7 @@ class NGIN:
     def __init__(self, mission_struct, madlibs, save_file=None ):
         self.mission_struct = mission_struct
         self.madlibs = madlibs
-        self.state = state = SimulaeNode(
+        self.state = SimulaeNode(
                         "state",
                         "",
                         {},
@@ -247,7 +247,7 @@ class NGIN:
             print('\nNodes:')
 
             for node in [ node for nodetype, nodes in self.state.relations.items() for nid, node in nodes.items() ]:
-                pprint( (node.id, node.nodetype) )
+                pprint( node.summary() )
 
 
             # generate mission
@@ -411,6 +411,10 @@ def main():
     ]
 
     ngin = NGIN( mission_struct, madlibs, save_file )
+
+
+    print('### ### ###\nCOMPLETE THE REFACTOR OF SimulaeNode.policies !!!!!\n### ### ###')
+    sys.exit(1);
 
     ngin.start()
 

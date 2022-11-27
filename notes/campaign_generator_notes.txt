@@ -93,7 +93,7 @@ PMC Questline
         Textiles
         Utilities (Water, Energy)
         Security
-            + Subcontract out additional work
+            + Subcontract out some missions
 
 
 Uprising / Insurgency 

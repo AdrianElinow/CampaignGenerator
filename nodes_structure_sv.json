@@ -9,7 +9,71 @@
                 "id": "sigma",
                 "references": {
                     "name": "FAC Sigma",
-                    "policy": {
+                },
+                "nodetype": "FAC",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {
+                        "omega": {
+                            "nodetype": "POI",
+                            "policies": [
+                                0,
+                                {
+                                    "Economy": "Agreement",
+                                    "Liberty": "Agreement",
+                                    "Culture": "Agreement",
+                                    "Diplomacy": "Agreement",
+                                    "Militancy": "Agreement",
+                                    "Diversity": "Agreement",
+                                    "Secularity": "Agreement",
+                                    "Justice": "Agreement",
+                                    "Natural-Balance": "Agreement",
+                                    "Government": "Agreement"
+                                }
+                            ],
+                            "Reputation": [
+                                0,
+                                0
+                            ],
+                            "Interractions": 1,
+                            "Disposition": "Neutral"
+                        },
+                        "gamma": {
+                            "nodetype": "POI",
+                            "policies": [
+                                9,
+                                {
+                                    "Economy": "Agreement",
+                                    "Liberty": "Agreement",
+                                    "Culture": "Contentious",
+                                    "Diplomacy": "Civil",
+                                    "Militancy": "Agreement",
+                                    "Diversity": "Civil",
+                                    "Secularity": "Civil",
+                                    "Justice": "Agreement",
+                                    "Natural-Balance": "Opposition",
+                                    "Government": "Civil"
+                                }
+                            ],
+                            "Reputation": [
+                                0,
+                                0
+                            ],
+                            "Interractions": 1,
+                            "Disposition": "Neutral"
+                        }
+                    },
+                    "PTY": {},
+                    "PPT": {
+                        "LOC": [
+                            "safehouse"
+                        ],
+                        "OBJ": []
+                    }
+                },
+                "checks": {},
+                "policies": {
                         "Economy": [
                             "Indifferent",
                             0.425
@@ -50,28 +114,46 @@
                             "Republican",
                             0.36
                         ]
-                    }
+                    },
+                "abilities": {}
+            }
+        },
+        "PTY": {},
+        "POI": {
+            "gamma": {
+                "id": "gamma",
+                "references": {
+                    "name": "POI Gamma",
+                    "location": "hideout",
                 },
-                "nodetype": "FAC",
-                "attributes": {},
+                "nodetype": "POI",
+                "attributes": {
+                    "strength": 5,
+                    "perception": 5,
+                    "endurance": 5,
+                    "charisma": 5,
+                    "intelligence": 5,
+                    "agility": 5,
+                    "luck": 5
+                },
                 "relations": {
-                    "FAC": {},
-                    "POI": {
-                        "omega": {
-                            "nodetype": "POI",
-                            "policy": [
-                                0,
+                    "INV":{},
+                    "FAC": {
+                        "sigma": {
+                            "nodetype": "FAC",
+                            "policies": [
+                                9,
                                 {
                                     "Economy": "Agreement",
                                     "Liberty": "Agreement",
-                                    "Culture": "Agreement",
-                                    "Diplomacy": "Agreement",
+                                    "Culture": "Contentious",
+                                    "Diplomacy": "Civil",
                                     "Militancy": "Agreement",
-                                    "Diversity": "Agreement",
-                                    "Secularity": "Agreement",
+                                    "Diversity": "Civil",
+                                    "Secularity": "Civil",
                                     "Justice": "Agreement",
-                                    "Natural-Balance": "Agreement",
-                                    "Government": "Agreement"
+                                    "Natural-Balance": "Opposition",
+                                    "Government": "Civil"
                                 }
                             ],
                             "Reputation": [
@@ -80,10 +162,12 @@
                             ],
                             "Interractions": 1,
                             "Disposition": "Neutral"
-                        },
-                        "gamma": {
+                        }
+                    },
+                    "POI": {
+                        "omega": {
                             "nodetype": "POI",
-                            "policy": [
+                            "policies": [
                                 9,
                                 {
                                     "Economy": "Agreement",
@@ -108,24 +192,12 @@
                     },
                     "PTY": {},
                     "PPT": {
-                        "LOC": [
-                            "safehouse"
-                        ],
+                        "LOC": [],
                         "OBJ": []
                     }
                 },
                 "checks": {},
-                "abilities": {}
-            }
-        },
-        "PTY": {},
-        "POI": {
-            "gamma": {
-                "id": "gamma",
-                "references": {
-                    "name": "POI Gamma",
-                    "location": "hideout",
-                    "policy": {
+                "policies": {
                         "Economy": [
                             "Indifferent",
                             0.161
@@ -166,78 +238,7 @@
                             "Democratic",
                             0.933
                         ]
-                    }
-                },
-                "nodetype": "POI",
-                "attributes": {
-                    "strength": 5,
-                    "perception": 5,
-                    "endurance": 5,
-                    "charisma": 5,
-                    "intelligence": 5,
-                    "agility": 5,
-                    "luck": 5
-                },
-                "relations": {
-                    "FAC": {
-                        "sigma": {
-                            "nodetype": "FAC",
-                            "policy": [
-                                9,
-                                {
-                                    "Economy": "Agreement",
-                                    "Liberty": "Agreement",
-                                    "Culture": "Contentious",
-                                    "Diplomacy": "Civil",
-                                    "Militancy": "Agreement",
-                                    "Diversity": "Civil",
-                                    "Secularity": "Civil",
-                                    "Justice": "Agreement",
-                                    "Natural-Balance": "Opposition",
-                                    "Government": "Civil"
-                                }
-                            ],
-                            "Reputation": [
-                                0,
-                                0
-                            ],
-                            "Interractions": 1,
-                            "Disposition": "Neutral"
-                        }
                     },
-                    "POI": {
-                        "omega": {
-                            "nodetype": "POI",
-                            "policy": [
-                                9,
-                                {
-                                    "Economy": "Agreement",
-                                    "Liberty": "Agreement",
-                                    "Culture": "Contentious",
-                                    "Diplomacy": "Civil",
-                                    "Militancy": "Agreement",
-                                    "Diversity": "Civil",
-                                    "Secularity": "Civil",
-                                    "Justice": "Agreement",
-                                    "Natural-Balance": "Opposition",
-                                    "Government": "Civil"
-                                }
-                            ],
-                            "Reputation": [
-                                0,
-                                0
-                            ],
-                            "Interractions": 1,
-                            "Disposition": "Neutral"
-                        }
-                    },
-                    "PTY": {},
-                    "PPT": {
-                        "LOC": [],
-                        "OBJ": []
-                    }
-                },
-                "checks": {},
                 "abilities": {}
             },
             "omega": {
@@ -245,7 +246,7 @@
                 "references": {
                     "name": "POI Omega",
                     "location": "safehouse",
-                    "policy": {
+                    "policies": {
                         "Economy": [
                             "Indifferent",
                             0.425
@@ -299,10 +300,11 @@
                     "luck": 5
                 },
                 "relations": {
+                    "INV":{},
                     "FAC": {
                         "sigma": {
                             "nodetype": "FAC",
-                            "policy": [
+                            "policies": [
                                 0,
                                 {
                                     "Economy": "Agreement",
@@ -328,7 +330,7 @@
                     "POI": {
                         "gamma": {
                             "nodetype": "POI",
-                            "policy": [
+                            "policies": [
                                 9,
                                 {
                                     "Economy": "Agreement",
@@ -367,11 +369,12 @@
                 "id": "safehouse",
                 "references": {
                     "name": "LOC Safehouse",
-                    "policy": null
+                    "policies": null
                 },
                 "nodetype": "LOC",
                 "attributes": {},
                 "relations": {
+                    "INV":{},
                     "owners": [
                         "sigma"
                     ],
@@ -386,7 +389,7 @@
                 "id": "hideout",
                 "references": {
                     "name": "LOC Hideout",
-                    "policy": null
+                    "policies": null
                 },
                 "nodetype": "LOC",
                 "attributes": {},
