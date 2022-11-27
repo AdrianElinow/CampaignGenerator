@@ -9,55 +9,31 @@
 3. Webpage UI/UX (P5.js, PHP?)
 
 ## Mission Generator
-	SimulaeCampaignGenerator.py
+	mission_generator.py
 	NGIN
 		generate_element()
 			creates a new node with random attributes 
-		generate_event()
-			Selects a node as event basis, then generates an event based on 
-	                the node's type. Events are similar to missions, but are
-	                essentially the mission outcomes of other entities
-		generate_state()
-			generates multiple new random nodes to (re)populate the game-state '''
+		generate_state( num_nodes )
+			generates multiple new random nodes to (re)populate the game-state
+		generate_missions()
+			Selects (at random) a node in the game-state and randomizes a
+                mission based on the available options for the chosen node's
+                type and player-disposition
+		search()
+			returns index of subject (by name and node-type only) necessitated 
+				by the inefficient search structure's node organization
 		choose_mission()
 			To add more interractivity and user-control
                 this function will give several available options to allow
                 the player to 'control' their actions and interract
                 with other nodes in a manner of their choice.
-		user_choice()
-			Present user with available options, and allow them to pick
-                an option to proceed.
 		start()
 			Iterates through the game state generating missions based on
                 available nodes in the state.
-        save()
-        	writes the modified state to a json save file
-
-	SimulaeNode
-		Structure
-			id - unique string identifier
-			nodetype 
-				FAC - FACtion
-				POI - Person Of Interest (VIP, HVT, etc.)
-				PTY - ParTY
-				OBJ - OBJect / OBJective
-				LOC - LOCation
-			references 	- str : string relations. Includes identifiers
-			attributes 	- str : integer/float relations. Includes stats
-			relations  	- str : SimulaeObject relations. 
-			checks 	   	- str : Boolean. 
-			abilities 	- special meta details
-		check_membership()
-			check_membership(..., node) checks for specific relations between self and given node
-		update_relationship()
-			recalculates the political differential between self and given node
-		has_relationship()
-			check function, reports whether or not self and node are aware of each others policies
-		policy_diff()
-			returns a report describing the differential between self politics and the given node's
-		get_policy_index()
-			 simply returns integer value of given policy in its discrete spectrum
-
+		generate_event()
+			Selects a node as event basis, then generates an event based on 
+                the node's type. Events are similar to missions, but are
+                essentially the mission outcomes of other entities
 
 ## Faction Generator
 	faction_generator.py

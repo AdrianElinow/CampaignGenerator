@@ -45,7 +45,6 @@ class SimulaeNode:
         self.checks = checks
         self.abilities = abilities
 
-
     def summary(self):
         return "{0}".format(self.references['name'])
 
@@ -79,8 +78,7 @@ class SimulaeNode:
 
 
     def update_relationship( self, node, interaction=None, reciprocate=False, new_relationship=True ):
-        ''' recalculates the political differential between self and given node '''
-
+        
         if not node:
             raise TypeError
         if node.nodetype not in ['FAC','POI','PTY']:
@@ -101,7 +99,6 @@ class SimulaeNode:
 
 
     def has_relationship( self, node ):
-        ''' check function, reports whether or not self and node are aware of each others policies '''
         
         if self.relations[node.ntype][node.id]:
             return True
@@ -109,8 +106,6 @@ class SimulaeNode:
 
 
     def policy_diff( self, compare_policy ):
-
-        ''' returns a report describing the differential between self politics and the given node's '''
 
         summary = {}
         diff = 0
@@ -126,7 +121,6 @@ class SimulaeNode:
 
 
     def get_policy_index(self, factor, policy):
-        ''' simply returns integer value of given policy in its discrete spectrum '''
 
         policies = {
             "Economy":      
