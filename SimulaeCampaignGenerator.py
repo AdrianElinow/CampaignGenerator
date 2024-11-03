@@ -196,7 +196,7 @@ class NGIN:
                 available nodes in the state.
         '''
 
-        input('starting>')
+        input('<Press "ENTER" to START>')
 
         while True:
 
@@ -268,13 +268,24 @@ class NGIN:
             if cmd in ['q','quit']:
                 sys.exit(0)
 
+def try_json_load(filename):
+
+    try:
+        return json.load(open(filename))
+    except Exception as e:
+        print("Failed to load from JSON : ", filename)
+        print("Error msg:",e)
+        return {}
+
+
 def main():
     
     ''' required import(s) '''
-    mission_struct = json.load( open( sys.argv[1] ) )
-    save_file = json.load( open(sys.argv[2]) )
 
-    print(save_file)
+    mission_struct = try_json_load( sys.argv[1] )
+    print("Loaded mission_struct")
+    save_file = try_json_load( sys.argv[2] )
+    print("Loaded save_file [",sys.argv[2],"]")
 
     madlibs = [
         "Alpha",
@@ -373,7 +384,7 @@ def main():
 
 
     print('### ### ###\nCOMPLETE THE REFACTOR OF SimulaeNode.policies !!!!!\n### ### ###')
-    sys.exit(1);
+    #sys.exit(1);
 
     ngin.start()
 

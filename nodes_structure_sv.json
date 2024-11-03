@@ -8,7 +8,7 @@
             "sigma": {
                 "id": "sigma",
                 "references": {
-                    "name": "FAC Sigma",
+                    "name": "FAC Sigma"
                 },
                 "nodetype": "FAC",
                 "attributes": {},
@@ -124,7 +124,7 @@
                 "id": "gamma",
                 "references": {
                     "name": "POI Gamma",
-                    "location": "hideout",
+                    "location": "hideout"
                 },
                 "nodetype": "POI",
                 "attributes": {
