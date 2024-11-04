@@ -5,30 +5,46 @@ Faction/POI interractions:
     Positive Rep
         Missions
             POI/PTY
-                Recruit
-                Protect
-                Liberate
-                Escort
-                Eliminate
-                Capture
-                Surveil
-                Investigate
-                Infiltrate (Faction / PTY)
+                Recruit     - Add to available units
+                Protect     - Counters Eliminate/Capture/Surveil 
+                Liberate    - Returns captured unit to available units (pending 'recovery')
+                Escort      - Counters Eliminate/Capture/Surveil when moving between LOC
+                Eliminate   - Attempt to remove from game
+                Capture     - Attempt to make captive
+                                Captivity options: Interrogate, Recruit, Imprison, Eliminate
+                Surveil     - Gain intel on neutral/hostile target (low intel yield / difficult)
+                Investigate - Gain intel on friendly/neutral target(high intel yield/ easy)
+                Infiltrate (Faction / PTY) 
+                    Sabotage (poison, decieve)
+                    Gain intel
+                    Higher eliminate/capture/surveil chance/effectiveness
             LOC/OBJ 
-                Protect
-                Fortify
-                Capture
+                Protect - Counter Capture/Destroy/Infiltrate
+                Fortify - Improve Defenses
+                    Construct buildings/improvements
+                Capture - Attempt to claim ownership
                 Destroy
-                Infiltrate
-                Investigate
-                Surveil
-        Trade
-        Join 
+                    LOC - remove all stats/bonuses/buildings
+                    OBJ - broken status
+                Infiltrate (LOC) 
+                    Sabotage (lower defenses, ...)
+                    Gain intel
+                    Higher capture/destroy/surveil chance/effectiveness
+                Investigate - Gain intel on friendly/neutral target  (high intel yield/ easy)
+                Surveil (LOC) - Gain intel on neutral/hostile target (low intel yield / difficult)
+
+        Negotiate - trade 
+        Join    - become available unit for entity
+    
     Negative Rep
         Missions
 
-        Sabotage / Theft / Murder / etc
-        Abandon or Betray
+        Fail (get caught) Covert:
+            POI/PTY Eliminate/Capture/Surveil/Infiltrate
+            LOC     Capture/Destroy/Infiltrate/Surveil   
+
+
+
 
 
 "Economy":      
@@ -53,8 +69,6 @@ Faction/POI interractions:
     ["Democratic", "Republican", "Neutral", "Oligarchic", "Monarchist"]
 
 
-    
-
 
 
 
@@ -65,35 +79,66 @@ PMC Questline
 
         Transportation
             + Additional Deployment options
+        
         Agriculture
+            ...
+        
         Manufacturing
             + Decreased equipment upgrade costs
+        
         Chemical
             + Access to improved explosives
+        
         Financial
             + Able to invest funds
+        
         Construction
             + Decreased costs of building upgrades / construction
+        
         Education
+            + More qualified recruits for organization/building management positions
+
         Food Service
+            ...
+        
         Pharmacueticals
             + Decreased costs for medical items
-            + Allows access to 
+            + Allows access to unit buffs
+        
         Medical
+            ...
+
         Tourism 
+            ...
+
         Mining
+            ...
+        
         Engineering
-            +
+            + Equipment research buffs, improvements, etc
+
         Electronics
-            + Grants access to advanced systems (Drones, Scanners, etc.)
+            + Grants access and counters to advanced systems (Drones, Scanners, etc.)
+
         Software
+            + Building efficiency buffs
+            + Hacking abilities and counters
+
         Media / Entertainment
+            + Marketting -> access to more/better contracts
+
         Telecommunications
             + Access to improved radio / mapping equipment
-        Textiles
+
+        Textiles + Material Sciences
+            + Improved armors and equipment
+
         Utilities (Water, Energy)
+            ...
+
         Security
             + Subcontract out some missions
+            + Base defense bonuses
 
 
 Uprising / Insurgency 
@@ -101,11 +146,13 @@ Uprising / Insurgency
     Militia group fighting to eliminate foreign influence and promote freedom 
         in their country. With the country plunged into civil conflict,
         small township-level groups formed to attempt to return order. 
+
     Former military, police, and prepared civilians have stepped up
         to fill the power vacuum. Coming into direct conflict with anarchists,
         organized crime, and foreign intelligence elements, and security
         contractors.
-    While civilian firearm ownership was relatively common due to the culture,
+
+    While civilian firearm ownership was relatively common due to the culture, ...
         
 
 
