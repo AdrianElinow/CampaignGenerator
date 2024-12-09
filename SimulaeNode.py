@@ -202,7 +202,7 @@ def jsonify( state ):
     return d
 
 
-def generate_simulae_node(node_name, node_type=None):
+def generate_simulae_node(node_name, node_type=None, faction=None):
 
     name = node_name
 
@@ -216,6 +216,11 @@ def generate_simulae_node(node_name, node_type=None):
         "policy":{}
     }
 
+    # Set Faction association
+    if not faction:
+        references['FAC'] = faction.id
+
+    # Random Policy values
     for policy in _policies:
         references['policy'][policy] = random.choice(POLICIES[policy])
 
@@ -229,11 +234,20 @@ def generate_simulae_node(node_name, node_type=None):
 
 def SimulaeNode_test():
 
+    state = SimulaeNode("state","",{},{},{
+                            "FAC":{},
+                            "PTY":{},
+                            "POI":{},
+                            "OBJ":{},
+                            "LOC":{}
+                        },{},{})
+
     fac_red = generate_simulae_node('RED', 'FAC')
     fac_blu = generate_simulae_node('BLU', 'FAC')
 
-    poi_node_a = generate_simulae_node('A', 'POI')
-    poi_node_b = generate_simulae_node('B', 'POI')
+    poi_node_a = generate_simulae_node('A', 'POI', fac_red)
+    poi_node_b = generate_simulae_node('B', 'POI', fac_blu)
+    poi_node_c = generate_simulae_node('C', 'POI',)
 
     ##
 
@@ -245,13 +259,22 @@ def SimulaeNode_test():
     fac_blu.update_relationship(poi_node_b, reciprocate=True)
 
     ##
+
+    state.add_node(fac_red)
+    state.add_node(fac_blu)
+    state.add_node(poi_node_a)
+    state.add_node(poi_node_b)
+    state.add_node(poi_node_c)
     
     pprint(fac_red.toJSON())
     pprint(fac_blu.toJSON())
     pprint(poi_node_a.toJSON())
     pprint(poi_node_b.toJSON())
+    pprint(poi_node_c.toJSON())
 
     print('Done')
+
+    return state
 
     '''
     with open('nodes_structure_sv.json','w') as sv:

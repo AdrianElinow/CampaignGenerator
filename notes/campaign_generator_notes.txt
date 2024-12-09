@@ -1,6 +1,33 @@
 
 
 
+Gameloop
+
+
+    resolve world tick
+
+    show state 
+    
+    user action
+        select node and action
+    resolve user action
+        success/failure and reward
+
+
+Actor AI
+    
+
+
+
+
+
+
+
+
+
+
+
+
 Faction/POI interractions:
     Positive Rep
         Missions

@@ -86,7 +86,7 @@ class NGIN(NGIN_console):
                 has_entities = True
 
         if not has_entities:
-            self.add_node(self.generate_element())
+            self.add_node(SimulaeNode.generate_simulae_node())
 
     def display_state(self):
         print('\nGamestate:')

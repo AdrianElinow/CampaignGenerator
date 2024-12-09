@@ -33,8 +33,8 @@ class NGIN_console():
     def display_state(self):
         print('display_state(..)')
 
-    def handle_mission(self, mission, subject):
-        print('handle_mission(..)')
+    def resolve_mission(self, mission, subject):
+        print('resolve_mission( mission: [{0}], subject: [{1}] )'.format( mission, subject ) )
 
     def choose_mission(self):
         print('choose_mission(..)')
@@ -56,7 +56,7 @@ class NGIN_console():
 
             subject, mission, self.state = self.choose_mission()
 
-            self.handle_mission(mission, subject)
+            self.resolve_mission(mission, subject)
 
             cmd = input('continue [enter] / [q]uit ?> ')
             if cmd in ['q','quit']:
