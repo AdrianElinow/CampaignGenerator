@@ -1,13 +1,45 @@
 from NGIN_console import *
+from ngin_utils import *
 
 class NGIN(NGIN_console):
 
-    def __init__(self, mission_struct, madlibs, save_file=None):
-        super().__init__(mission_struct, madlibs, save_file)
+    def __init__(self, mission_struct, settings, madlibs, save_file=None):
+        super().__init__(mission_struct, settings, madlibs, save_file)
 
         if not save_file:
-            for node in self.generate_state(4): # generate start state with 4 initial nodes
-                self.add_node(node)
+            self.generate_new_world() 
+
+    def generate_new_world(self):
+
+        # generate networked map of locations
+
+        # small, medium, or large?
+
+
+
+        for node in self.generate_state(4): # generate start state with 4 initial nodes
+            self.add_node(node)
+
+    def generate_location(self):
+
+        # single-feature-location or multi-location (2-6)
+
+        pass
+
+    def generate_population(self):
+
+        # individual or group?
+
+        pass
+
+    def generate_group(self):
+
+        # small medium or large? -> generate more individuals
+
+        # generate new faction
+
+        pass
+
 
     def add_node(self, node):
         self.state.relations[node.nodetype][node.id] = node
@@ -161,105 +193,21 @@ def main():
     
     ''' required import(s) '''
 
-    mission_struct = try_json_load( sys.argv[1] )
-    print("Loaded mission_struct")
-    save_file = try_json_load( sys.argv[2] )
-    print("Loaded save_file [",sys.argv[2],"]")
+    if not sys.argv:
+        print("Must specify application data files to start\n"
+            +"[mission_struct] [ngin_settings] [save_file:optional]")
 
-    madlibs = [
-        "Alpha",
-        "Beta",
-        "Delta",
-        "Zeta",
-        "Omicron",
-        "Omega",
-        "Lambda",
-        "Tau",
-        "Gamma",
-        "Sigma",
-        "Eagle",
-        "Wolf",
-        "Spider",
-        "Siege",
-        "Sanguine",
-        "Bear",
-        "Hound",
-        "Phoenix",
-        "Dragon",
-        "Lion",
-        "Gorilla",
-        "Rhino",
-        "Storm",
-        "Shadow",
-        "Nocturn",
-        "Prime",
-        "Zeus",
-        "Essence",
-        "Banshee",
-        "Specter",
-        "Typhoon",
-        "Pinnacle",
-        "Odin",
-        "Silver",
-        "Platinum",
-        "Titan",
-        "Heart",
-        "Karma",
-        "Angel",
-        "Demon",
-        "Arcane",
-        "Mystic",
-        "Jupiter",
-        "Mars",
-        "Meridian",
-        "Atlas",
-        "Raptor",
-        "Void",
-        "Hurricane",
-        "Harbor",
-        "Cold",
-        "Jet",
-        "Global",
-        "Green",
-        "Red",
-        "Blue",
-        "Tap",
-        "Soul",
-        "Slick",
-        "Omen",
-        "Arm",
-        "Revelation",
-        "November",
-        "Reach",
-        "Winter",
-        "Twilight",
-        "Quad",
-        "Tri",
-        "Saturn",
-        "Ward",
-        "Violet",
-        "Steel",
-        "Granite",
-        "Stone",
-        "Slate",
-        "First",
-        "Federal",
-        "Statement",
-        "Macguffin",
-        "United",
-        "King",
-        "Queen",
-        "Sultan",
-        "Atom",
-        "Cellular",
-        "Spruce",
-        "Black",
-        "Executive",
-        "Admin",
-        "Diesel"
-    ]
+    mission_struct = ngin_utils.load_json_from_file( sys.argv[1] )
 
-    ngin = NGIN( mission_struct, madlibs, save_file )
+    ngin_settings = ngin_utils.load_json_from_file( sys.argv[2])
+
+    madlibs = ngin_utils.load_json_from_file(sys.argv[3])
+
+    save_file = None
+    if len(sys.argv) >= 4:
+        save_file = ngin_utils.load_json_from_file( sys.argv[4] )
+
+    ngin = NGIN( mission_struct, ngin_settings, madlibs, save_file )
 
 
     print('### ### ###\nCOMPLETE THE REFACTOR OF SimulaeNode.policies !!!!!\n### ### ###')

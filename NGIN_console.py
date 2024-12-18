@@ -5,12 +5,13 @@ from SimulaeNode import *
 
 class NGIN_console():
 
-    def __init__(self, mission_struct, madlibs, save_file=None ):
+    def __init__(self, mission_struct, settings, madlibs, save_file=None ):
         self.mission_struct = mission_struct
         self.madlibs = madlibs
+        self.settings = settings
         self.state = SimulaeNode(
-                        "state",
-                        "",
+                        "state",        # id
+                        "",             # nodetype
                         {},
                         {},
                         {
@@ -25,19 +26,43 @@ class NGIN_console():
                     )
 
         if save_file:
-            self.load_from_save_file(save_file)
+            self.load_save_data(save_file)
 
     def validate_state(self):
         print('validate_state(..)')
 
-    def display_state(self):
+    def display_state(self, perceiver):
         print('display_state(..)')
+
+        ''' Display state available to 'perceiver'
+        '''
 
     def resolve_mission(self, mission, subject):
         print('resolve_mission( mission: [{0}], subject: [{1}] )'.format( mission, subject ) )
 
+        ''' perform immediate node state changes 
+                ex: kill enemy -> remove enemy node, gain xp/money/reward, etc
+                 recruit neutral -> add to faction, gain rewards, etc
+        '''
+
+        ''' calculate ripple effect 
+                gain intel from node?
+                    learn about new enemy nodes? 
+
+
+        ''' 
+
     def choose_mission(self):
         print('choose_mission(..)')
+
+        # compile list of available interactable nodes
+
+        # pick from list
+
+        return subject, mission
+
+
+
 
     def start(self):
         ''' Iterates through the game state generating missions based on
@@ -54,7 +79,7 @@ class NGIN_console():
 
             self.display_state()
 
-            subject, mission, self.state = self.choose_mission()
+            subject, mission = self.choose_mission()
 
             self.resolve_mission(mission, subject)
 
@@ -133,8 +158,8 @@ class NGIN_console():
 
         return choice
 
-    def load_from_save_file(self, save_file):
-        for nodetype, nodes in save_file['relations'].items():
+    def load_save_data(self, save_data):
+        for nodetype, nodes in save_data['relations'].items():
                 for nid, node in nodes.items():
                     # id, ntype, refs, attrs, reltn, checks, abilities
                     print('creating node ',nid, nodetype)

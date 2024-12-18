@@ -10,12 +10,72 @@ Gameloop
     
     user action
         select node and action
+
+            prompt user with available entities
+                Show all entities or only 'visible' entities (hide unknown entities)
+
+
+
     resolve user action
         success/failure and reward
 
 
+
+World Generation:
+
+    Generate Factions
+        heirarchies
+
+            originator node - could be highest, lowest, or middle node
+                heirarchy can be generated based on this originator, by expanding up and/or down based on size of organization (can't go up/down far in a small heirarchy)
+
+            by size
+                startup/crew/small-family           1-6 (1 leader, 1/2 manager, 3/4 workers)
+                small-company/gang/large-family     5-12 (1 leader, 2-3 manager, )
+
+
+
+
+                family (each pair of parents generates 1-4 children)
+                company 
+
+
+        groups have chance to be:
+            business / company
+
+
+
+
+    Generate Locations
+        networked map
+
+            root location node
+                .33% for 2-6 sub-locations
+            generate 1-6 adjacent locations
+
+        individual location can generate
+            individual
+            small group / family
+
+        group-locations can generate
+            1-6 individuals + 1-6 small groups + 1-6 medium groups
+
+
 Actor AI
-    
+    strategic
+        'plays' as if it were trying to 'win' a chess match or chase a win-condition
+
+        min-max AI with variable planning 'depth' (use heuristic)
+            only sees X many moves ahead
+
+            heuristic based on win-condition
+                eliminate all other factions
+                acquire most resources (money, etc)
+                diplomatic win, etc
+
+
+    random events
+    reactionary
 
 
 
@@ -168,6 +228,21 @@ PMC Questline
             + Base defense bonuses
 
 
+
+
+Scenarios:
+    
+    Insurgency
+    Organized Crime
+    Spy thriller
+
+    D&D Campaign
+
+
+
+
+
+
 Uprising / Insurgency 
 
     Militia group fighting to eliminate foreign influence and promote freedom 
@@ -185,7 +260,7 @@ Uprising / Insurgency
 
 Criminal Organization
 
-    Set up rackets in 
+    Set up rackets in new locations, expand business, deal with rivals, evade police, bribe officials, etc
 
 
 

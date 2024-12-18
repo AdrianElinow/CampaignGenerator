@@ -48,7 +48,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 				# add moves to stack
 				next_moves = get_actions( state, self.SimulaeNode )
 				next_turn = (turn_index + 1) % turn_count
-				
+
 				for move in next_moves:
 					next_move, next_state = move
 					action_stack.push( (depth+1, next_turn, next_state, moves + [next_move] ) )

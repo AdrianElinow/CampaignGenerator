@@ -1,0 +1,14 @@
+{
+	"world_sizes":{
+		"small":[6,12],
+		"medium":[12,24],
+		"large":[24,36],
+		"huge":[36,48],
+	},
+	"groups":{
+		"small":[],
+		"medium":[],
+		"large":[],
+		"huge":[]
+	}
+}
