@@ -3,6 +3,10 @@ from typing import *
 
 DEBUG = False
 
+MAX_ADJACENT_LOCATIONS = 6
+WORLD_GEN_STICKINESS = 0.4
+WORLD_GEN_SUBLOCATION_CHANCE = 0.3
+WORLD_GEN_POPULATION_GROUP_CHANCE = 0.25
 
 
 def save_json_to_file( filename: str, data, filepath : str =None, pretty: bool =False):

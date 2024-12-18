@@ -6,15 +6,25 @@ from SimulaeNode import *
 class NGIN_console():
 
     def __init__(self, mission_struct, settings, madlibs, save_file=None ):
+       
+        if not mission_struct or mission_struct == None:
+            raise ValueError("Missing required data: mission_struct")
+
+        if not settings or settings == None:
+            raise ValueError("Missing required data: settings")
+
+        if not madlibs or madlibs == None:
+            raise ValueError("Missing required data: madlibs")
+        
         self.mission_struct = mission_struct
         self.madlibs = madlibs
         self.settings = settings
         self.state = SimulaeNode(
                         "state",        # id
                         "",             # nodetype
+                        {},             # references
                         {},
-                        {},
-                        {
+                        {               # relations
                             "FAC":{},
                             "PTY":{},
                             "POI":{},

@@ -1,9 +1,11 @@
 
 
 import json, sys, random, os
+from math import e
 from enum import Enum
 
 #from json import JSONEncoder
+from ngin_utils import *
 from pprint import pprint
 
 POLICIES = {
@@ -29,12 +31,18 @@ POLICIES = {
         ["Democratic", "Republican", "Indifferent", "Oligarchic", "Monarchist"]
 }
 
-ALL_NODE_TYPES = ['FAC','POI','PTY','LOC','OBJ']
-NODETYPES = ['POI','PTY','LOC','OBJ'] # person, people, place, thing
-SOCIAL_NODE_TYPES = ['FAC','POI','PTY']
-GROUP_NODE_TYPES = ['FAC','PTY']
-PEOPLE_NODE_TYPES = ['POI','PTY']
-INANIMATE_NODE_TYPES = ['LOC','OBJ']
+FAC = 'FAC'
+POI = 'POI'
+PTY = 'PTY'
+LOC = 'LOC'
+OBJ = 'OBJ'
+
+ALL_NODE_TYPES = [FAC,POI,PTY,LOC,OBJ]
+NODETYPES = [POI,PTY,LOC,OBJ] # person, people, place, thing
+SOCIAL_NODE_TYPES = [FAC,POI,PTY]
+GROUP_NODE_TYPES = [FAC,PTY]
+PEOPLE_NODE_TYPES = [POI,PTY]
+INANIMATE_NODE_TYPES = [LOC,OBJ]
 
 
 class SimulaeNode:
@@ -45,7 +53,7 @@ class SimulaeNode:
         pass
 
     def __init__(self,  given_id=None, 
-                        nodetype="OBJ",
+                        nodetype=OBJ,
                         references={
                             "name":None,
                             "FAC":None,
@@ -84,6 +92,7 @@ class SimulaeNode:
     def __str__(self):
         return self.summary()
 
+
     def check_membership(self, node):
         ''' check_membership(..., node) checks for relations between self and given node
                 if node is of types OBJ or LOC, checks of self has ownership of node
@@ -99,10 +108,10 @@ class SimulaeNode:
             if node.nodetype in INANIMATE_NODE_TYPES and node.id in self.relations['PPT'][node.nodetype]:
                 return True
             # check self's membership as apart of node
-            elif node.nodetype in ['FAC','PTY'] and node.relations[self.nodetype][self.id]['Disposition'] == 'Member':
+            elif node.nodetype in GROUP_NODE_TYPES and node.relations[self.nodetype][self.id]['Disposition'] == 'Member':
                 return True
 
-        elif self.nodetype == 'FAC':
+        elif self.nodetype == FAC:
 
             if node.nodetype in INANIMATE_NODE_TYPES and node.id in self.relations['PPT'][node.nodetype]:
                 return True
@@ -111,6 +120,67 @@ class SimulaeNode:
 
         return False
 
+    def get_adjacent_locations(self):
+        
+        if 'adjacent' in self.references:
+
+            adjacents = self.references['adjacent']
+
+            if type(adjacents) == type(""):
+                return [adjacents]
+
+            return adjacents
+        else:
+            return []
+
+    def add_adjacent_location(self, loc, reciprocate=True):
+        
+        self.add_reference('adjacent', loc.id)
+        loc.add_reference('adjacent', self.id, reciprocate=False)
+
+    def get_reference(self, key: str):
+        
+        if key in self.references:
+            return self.references[key]
+
+        return None
+
+    def add_reference(self, key: str, value: str):
+        
+        if key in self.references:
+            
+            reference = self.references[key]
+
+            if type(reference) == type(""):
+                if reference is not value:
+                    self.references[key] = [reference, value]
+                    
+            elif type(reference) == type([]):
+                if value not in reference:
+                    self.references[key].append(value)
+
+        else:
+            self.references[key] = value
+
+    def get_attribute(self, key: str):
+        
+        if key in self.attributes:
+            return self.attributes[key]
+
+        return None
+
+    def add_relation(self, node):
+        
+        if not node:
+            raise ValueError
+        
+        if node.nodetype in self.relations:
+            self.relations[node.nodetype] = {}
+
+        if node.id not in self.relations[node.nodetype]:
+            self.relations[node.nodetype][node.id] = "adjacent"
+
+        self.relations[node.nodetype]
 
     def update_relationship( self, node, interaction=None, reciprocate=False, new_relationship=True ):
         
@@ -136,7 +206,7 @@ class SimulaeNode:
 
     def has_relationship( self, node ):
         
-        if self.relations[node.ntype][node.id]:
+        if self.relations[node.nodetype][node.id]:
             return True
         return False
 
@@ -212,22 +282,28 @@ def generate_simulae_node(node_name, node_type=None, faction=None):
 
     references={
         "name":name,
-        "FAC":None,
+        FAC:None,
         "policy":{}
     }
-
-    # Set Faction association
-    if not faction:
-        references['FAC'] = faction.id
-
-    # Random Policy values
-    for policy in _policies:
-        references['policy'][policy] = random.choice(POLICIES[policy])
-
+    
     attributes = {}
     relations  = { nt:{} for nt in ALL_NODE_TYPES }
     checks     = {}
     abilities  = {}
+
+    # Set Faction association
+    if faction:
+        references[FAC] = faction.id
+
+    if nodetype in SOCIAL_NODE_TYPES:
+        # Random Policy values
+        for policy in _policies:
+            references['policy'][policy] = random.choice(POLICIES[policy])
+
+    if nodetype in INANIMATE_NODE_TYPES:
+        
+        if nodetype == LOC:
+           attributes['max_adjacent_locations'] = random.randrange(1,MAX_ADJACENT_LOCATIONS)
 
     # id, nodetype, refs, attrs, reltn, checks, abilities
     return SimulaeNode( name, nodetype, references, attributes, relations, checks, abilities )
@@ -235,19 +311,19 @@ def generate_simulae_node(node_name, node_type=None, faction=None):
 def SimulaeNode_test():
 
     state = SimulaeNode("state","",{},{},{
-                            "FAC":{},
-                            "PTY":{},
-                            "POI":{},
-                            "OBJ":{},
-                            "LOC":{}
+                            FAC:{},
+                            PTY:{},
+                            POI:{},
+                            OBJ:{},
+                            LOC:{}
                         },{},{})
 
-    fac_red = generate_simulae_node('RED', 'FAC')
-    fac_blu = generate_simulae_node('BLU', 'FAC')
+    fac_red = generate_simulae_node('RED', FAC)
+    fac_blu = generate_simulae_node('BLU', FAC)
 
-    poi_node_a = generate_simulae_node('A', 'POI', fac_red)
-    poi_node_b = generate_simulae_node('B', 'POI', fac_blu)
-    poi_node_c = generate_simulae_node('C', 'POI',)
+    poi_node_a = generate_simulae_node('A', POI, fac_red)
+    poi_node_b = generate_simulae_node('B', POI, fac_blu)
+    poi_node_c = generate_simulae_node('C', POI,)
 
     ##
 
