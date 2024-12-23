@@ -2,11 +2,18 @@
 - Adaptive and Modular Mission Generator for RPG campaign. As a DM resource to dynamically generate new missions given the current game-state
 
 ## TODO
-1. Implement scenarios, presets, etc. (save/load system)
-2. Option to choose from presented mission options
-	* Rather than have one presented automatically. 
-	* Incorporate mission outcomes in a dynamic manner (mission success vs. failure lead to different outcomes, affecting 
-3. Webpage UI/UX (P5.js, PHP?)
+1. Implement existing faction generator into main NGIN world-gen
+	* also add better POI and LOC generation
+2. Implement mission outcomes
+	* Incorporate mission outcomes in a dynamic manner (mission success vs. failure lead to different outcomes, affecting actor node, gamestate, etc)
+3. Add simple AI to non-actor node.
+	* Lvl 1: Actor nodes perform random available action
+	* Lvl 2: Actor nodes perform action based on minmax algo with limited plan-depth (intelligence attribute), according to randomized goal
+	* Lvl 3: Actor nodes perform action based on minmax algo with lengthy plan-depth (intelligence attribute) based on randomized goal
+	* Lvl 4: Actor node performs action based on minmax algo with unlimited plan depth based on task-breakdown goal
+4. Better non-Actor Simulae AI 
+	* goal-oriented task-breakdown Sims AI
+6. Webpage UI/UX -> Implement NGIN into Website Project (Django+React)
 
 ## Mission Generator
 	mission_generator.py
