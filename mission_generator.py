@@ -142,7 +142,7 @@ class NGIN:
 
             #subject, mission, self.state = self.generate_mission()
 
-            subject, mission, self.state = self.choose_mission( )
+            subject, mission, self.state = self.choose_mission( num_ops=5 )
 
             print(  '\n(',mission[1],') [',
                     mission[0],subject.name,'] {',
@@ -242,7 +242,7 @@ class NGIN:
                 self.state
 
 
-    def user_choice( self, user_options, literal=False, random_opt=False ):
+    def user_choice(user_options, literal=False, random_opt=False ):
         ''' Present user with available options, and allow them to pick
                 an option to proceed. 
 

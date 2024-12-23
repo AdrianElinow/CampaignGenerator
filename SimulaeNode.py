@@ -4,6 +4,8 @@ import json, sys, random, os
 from math import e
 from enum import Enum
 
+import uuid
+
 #from json import JSONEncoder
 from ngin_utils import *
 from pprint import pprint
@@ -37,6 +39,7 @@ PTY = 'PTY'
 LOC = 'LOC'
 OBJ = 'OBJ'
 
+NAME = "name"
 POLICY = "policy"
 ADJACENT = "adjacent"
 
@@ -55,7 +58,7 @@ class SimulaeNode:
     def __init__(self,  given_id=None, 
                         nodetype=OBJ,
                         references={
-                            "name":None,
+                            NAME:None,
                             FAC:None,
                             POLICY:{
                                 "Economy":          ["Indifferent", 0.5],
@@ -77,7 +80,7 @@ class SimulaeNode:
                         checks={}, 
                         abilities={}):
 
-        self.id = given_id
+        self.id = given_id if given_id else uuid.uuid1()
         self.status = Status.ALIVE
         self.references = references
         self.nodetype = nodetype
@@ -87,7 +90,7 @@ class SimulaeNode:
         self.abilities = abilities
 
     def summary(self):
-        return "{0}".format(self.references['name'])
+        return "{{{0}:{1}}}".format(self.nodetype, self.references['name'])
 
     def __str__(self):
         return self.summary()
@@ -137,6 +140,19 @@ class SimulaeNode:
         
         self.add_reference(ADJACENT, loc.id)
         loc.add_reference(ADJACENT, self.id, reciprocate=False)
+
+
+    def knows_about(self, node):
+
+        if node.nodetype in SOCIAL_NODE_TYPES:
+            if self.has_relationship(node):
+                return True
+
+        if node.nodetype in INANIMATE_NODE_TYPES:
+            return False
+
+        return False
+
 
     def get_reference(self, key: str):
         
@@ -235,6 +251,14 @@ class SimulaeNode:
 
         if policy_diff_value < 0:
             raise ValueError
+
+        elif policy_diff_value <= 10:
+            return "Friendly"
+        elif policy_diff_value < 20:
+            return "Neutral"
+        elif policy_diff_value >= 20:
+            return "Hostile"
+        '''    
         elif policy_diff_value == 0:
             return "Perfectly Aligned"
         elif policy_diff_value < 5:
@@ -247,6 +271,7 @@ class SimulaeNode:
             return "Strongly Opposed"
         elif policy_diff_value > 20:
             return "Diametrically Opposed"
+        '''
 
     def policy_diff( self, compare_policy ):
 
@@ -293,7 +318,7 @@ def jsonify( state ):
     return d
 
 
-def generate_simulae_node(node_name, node_type, faction=None):
+def generate_simulae_node(node_type, node_name=None, faction=None):
 
     name = node_name
 
@@ -302,7 +327,7 @@ def generate_simulae_node(node_name, node_type, faction=None):
     _policies = ["Economy","Liberty","Culture","Diplomacy","Militancy","Diversity","Secularity","Justice","Natural-Balance","Government"]
 
     references={
-        "name":name,
+        NAME:name,
         FAC:None,
         POLICY:{}
     }

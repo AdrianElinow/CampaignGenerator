@@ -2,41 +2,12 @@ import json, sys, os, random
 from pprint import pprint
 
 from SimulaeNode import *
+from SimulaeCampaignGenerator import NGIN
 
-class NGIN_console():
+class NGIN_console(NGIN):
 
     def __init__(self, mission_struct, settings, madlibs, save_file=None ):
-       
-        if not mission_struct or mission_struct == None:
-            raise ValueError("Missing required data: mission_struct")
-
-        if not settings or settings == None:
-            raise ValueError("Missing required data: settings")
-
-        if not madlibs or madlibs == None:
-            raise ValueError("Missing required data: madlibs")
-        
-        self.mission_struct = mission_struct
-        self.madlibs = madlibs
-        self.settings = settings
-        self.state = SimulaeNode(
-                        "state",        # id
-                        "",             # nodetype
-                        {},             # references
-                        {},
-                        {               # relations
-                            FAC:{},
-                            PTY:{},
-                            POI:{},
-                            OBJ:{},
-                            LOC:{}
-                        },
-                        {},
-                        {}
-                    )
-
-        if save_file:
-            self.load_save_data(save_file)
+        super().__init__(mission_struct, settings, madlibs, save_file, is_console=True)
 
     def validate_state(self):
         print('validate_state(..)')
@@ -72,12 +43,12 @@ class NGIN_console():
         return subject, mission
 
 
-
-
     def start(self):
         ''' Iterates through the game state generating missions based on
                 available nodes in the state.
         '''
+
+        actor = self.get_simulae_node_by_id(self.select_actor())
 
         input('<Press "ENTER" to START>')
 
@@ -89,13 +60,14 @@ class NGIN_console():
 
             self.display_state()
 
-            subject, mission = self.choose_mission()
+            subject, mission = self.choose_mission(actor_node=actor, num_opts=5)
 
             self.resolve_mission(mission, subject)
 
             cmd = input('continue [enter] / [q]uit ?> ')
             if cmd in ['q','quit']:
                 sys.exit(0) 
+                
 
     def user_choice( self, user_options, literal=False, random_opt=False ):
         ''' Present user with available options, and allow them to pick
