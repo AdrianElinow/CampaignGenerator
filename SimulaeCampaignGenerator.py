@@ -1,12 +1,15 @@
 from NGIN_console import *
 from ngin_utils import *
 
+from SimulaeNode import *
+
 class NGIN(NGIN_console):
 
     def __init__(self, mission_struct, settings, madlibs, save_file=None):
         super().__init__(mission_struct, settings, madlibs, save_file)
 
         self.world_root = None
+        self.taken_names = []
 
         if not save_file:
             self.generate_new_world() 
@@ -43,11 +46,11 @@ class NGIN(NGIN_console):
 
         for loc_id, loc in locations.items():
             
-            print(loc)
+            debug(loc)
             loc_map[loc_id] = loc.get_adjacent_locations()
 
             for adj_id in loc_map[loc_id]:
-                print(f"\t{locations[adj_id]}")
+                debug(f"\t{locations[adj_id]}")
 
         return loc_map
 
@@ -99,7 +102,19 @@ class NGIN(NGIN_console):
 
         loc_id = f"loc_{self.state.attributes['LOC_num']}"
 
-        return generate_simulae_node(loc_id, LOC)
+        location = generate_simulae_node(loc_id, LOC)
+
+        # generate feature(s)?
+
+
+        # generate population
+        population = self.generate_population(location)
+
+        for entity in population:
+            debug('update_relation -> population')
+            location.update_relation(entity)
+
+        return location
 
 
     def generate_population(self, location):
@@ -110,44 +125,56 @@ class NGIN(NGIN_console):
         
         if random.random() < WORLD_GEN_POPULATION_GROUP_CHANCE:
             
-            population = self.generate_group(location.id)
+            population = self.generate_group(location)
             
         else:
-            population = [self.generate_individual(location.id)]
+            population = [self.generate_individual(location)]
 
         return population
 
         pass
 
-    def generate_group(self):
-
-        faction = self.generate_faction()
-
-
-        # small medium or large? -> generate more individuals
-
-        group_size = random.choice( self.settings['groups'] )
-        
-        num_individuals = random.randrange(group_size[0], group_size[1])
-    
-        
-
-
+    def generate_group(self, location):
 
         # generate new faction
 
-        pass
+        faction = self.generate_faction()
 
-    def generate_individual(self, location_id):
+        # small medium or large? -> generate more individuals
+
+        group_size = random.choice( list(self.settings['groups'].keys()) )
         
-        individual = self.generate_element()
+        lo, hi = int(self.settings['groups'][group_size][0]), int(self.settings['groups'][group_size][1])
+
+        num_individuals = random.randrange(lo, hi)
+    
+        for i in range(num_individuals):
+
+            individual = self.generate_individual(location)
+
+            debug('update_relation -> faction')
+            individual.update_relation(faction)
+
+        return group
+
+
+
+    def generate_individual(self, location):
+        
+        individual = generate_simulae_node(self.get_new_name(), POI)
 
         individual.nodetype = POI
+
+        debug('update_relation -> location')
+        individual.update_relation(location)
         
         return individual
 
     def add_node(self, node):
         self.state.relations[node.nodetype][node.id] = node
+
+        if 'name' in node.references:
+            self.taken_names = node.references['name']
 
         if 'LOC_num' not in self.state.attributes:
             self.state.attributes['LOC_num'] = 0
@@ -157,17 +184,28 @@ class NGIN(NGIN_console):
 
     def generate_faction(self):
         
-        faction = self.generate_element()
+        f_id = f"FAC_{len(self.state.relations[FAC])}"
+
+        # fix this
+        faction = generate_simulae_node(self.get_new_name(), FAC)
 
 
+    def get_new_name(self):
 
-    def generate_element( self ):
+        taken_names = []
+        name = ""
+
+        while name not in taken_names and name != "":
+            name = random.choice( self.madlibs )
+
+        return name 
+
+
+    def generate_element( self, nodetype ):
         ''' creates a new node with random attributes ''' 
 
-        name = random.choice( [ m for m in self.madlibs \
-            if m not in [ subj.name for subj in ( self.state ) ]] )
-
-        nodetype = random.choice( NODETYPES )
+        name = self.get_new_name()
+        nodetype = random.choice( NODETYPES ) if not nodetype else nodetype
         references = {}
         attributes = {}
         relations  = {}
@@ -310,9 +348,10 @@ def main():
     
     ''' required import(s) '''
 
-    if not sys.argv or len(sys.argv) < 3:
+    if not sys.argv or len(sys.argv) <= 3:
         print("Must specify application data files to start\n"
             +"[mission_struct] [ngin_settings] [save_file:optional]")
+
         sys.argv = ['script.py','story_struct.json','ngin_settings.json','madlibs.json']
 
     mission_struct = load_json_from_file( sys.argv[1] )
@@ -325,12 +364,10 @@ def main():
     if len(sys.argv) >= 5:
         save_file = load_json_from_file( sys.argv[4] )
 
+    # Setup 
     ngin = NGIN( mission_struct, ngin_settings, madlibs, save_file )
 
-
-    print('### ### ###\nCOMPLETE THE REFACTOR OF SimulaeNode.policies !!!!!\n### ### ###')
-    #sys.exit(1);
-
+    # Start
     ngin.start()
 
 

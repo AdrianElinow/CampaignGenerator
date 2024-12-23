@@ -25,11 +25,11 @@ class NGIN_console():
                         {},             # references
                         {},
                         {               # relations
-                            "FAC":{},
-                            "PTY":{},
-                            "POI":{},
-                            "OBJ":{},
-                            "LOC":{}
+                            FAC:{},
+                            PTY:{},
+                            POI:{},
+                            OBJ:{},
+                            LOC:{}
                         },
                         {},
                         {}

@@ -1,1 +1,1 @@
-python3 SimulaeCampaignGenerator.py story_struct.json nodes_structure_sv.json
+python3 SimulaeCampaignGenerator.py story_struct.json ngin_settings.json madlibs.json

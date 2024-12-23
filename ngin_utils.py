@@ -9,6 +9,12 @@ WORLD_GEN_SUBLOCATION_CHANCE = 0.3
 WORLD_GEN_POPULATION_GROUP_CHANCE = 0.25
 
 
+
+def debug(*args):
+    for msg in args:
+        print(f"[DEBUG] {msg}")
+
+
 def save_json_to_file( filename: str, data, filepath : str =None, pretty: bool =False):
     if not filename:
         raise ValueError("filename cannot be null/empty")

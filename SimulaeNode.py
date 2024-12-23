@@ -37,6 +37,9 @@ PTY = 'PTY'
 LOC = 'LOC'
 OBJ = 'OBJ'
 
+POLICY = "policy"
+ADJACENT = "adjacent"
+
 ALL_NODE_TYPES = [FAC,POI,PTY,LOC,OBJ]
 NODETYPES = [POI,PTY,LOC,OBJ] # person, people, place, thing
 SOCIAL_NODE_TYPES = [FAC,POI,PTY]
@@ -49,15 +52,12 @@ class SimulaeNode:
 
     # id, ntype, refs, attrs, reltn, checks, abilities
 
-    def __init(self):
-        pass
-
     def __init__(self,  given_id=None, 
                         nodetype=OBJ,
                         references={
                             "name":None,
-                            "FAC":None,
-                            "policy":{
+                            FAC:None,
+                            POLICY:{
                                 "Economy":          ["Indifferent", 0.5],
                                 "Liberty":          ["Indifferent", 0.5],
                                 "Culture":          ["Indifferent", 0.5],
@@ -122,9 +122,9 @@ class SimulaeNode:
 
     def get_adjacent_locations(self):
         
-        if 'adjacent' in self.references:
+        if ADJACENT in self.references:
 
-            adjacents = self.references['adjacent']
+            adjacents = self.references[ADJACENT]
 
             if type(adjacents) == type(""):
                 return [adjacents]
@@ -135,8 +135,8 @@ class SimulaeNode:
 
     def add_adjacent_location(self, loc, reciprocate=True):
         
-        self.add_reference('adjacent', loc.id)
-        loc.add_reference('adjacent', self.id, reciprocate=False)
+        self.add_reference(ADJACENT, loc.id)
+        loc.add_reference(ADJACENT, self.id, reciprocate=False)
 
     def get_reference(self, key: str):
         
@@ -169,7 +169,8 @@ class SimulaeNode:
 
         return None
 
-    def add_relation(self, node):
+
+    def update_relation(self, node, interaction=None):
         
         if not node:
             raise ValueError
@@ -178,30 +179,50 @@ class SimulaeNode:
             self.relations[node.nodetype] = {}
 
         if node.id not in self.relations[node.nodetype]:
-            self.relations[node.nodetype][node.id] = "adjacent"
 
-        self.relations[node.nodetype]
+            if node.nodetype in SOCIAL_NODE_TYPES:
 
-    def update_relationship( self, node, interaction=None, reciprocate=False, new_relationship=True ):
+                # social relationship
+                if self.nodetype in SOCIAL_NODE_TYPES:
+                    policy_diff = self.policy_diff( node.references['policy'] )
+
+                    self.relations[node.nodetype][ node.id ] = {
+                        "nodetype":node.nodetype,
+                        "status":"new",
+                        POLICY:policy_diff,
+                        "Reputation":[0,0],
+                        "Interractions":1,
+                        "Disposition":self.get_policy_disposition(policy_diff[0])
+                    }
+
+                elif self.nodetype in INANIMATE_NODE_TYPES:
+                    self.relations[node.nodetype][node.id] = "occupant"
+
+            elif node.nodetype in INANIMATE_NODE_TYPES:
+                self.relations[node.nodetype][node.id] = ADJACENT
         
-        if not node:
-            raise TypeError
-        if node.nodetype not in SOCIAL_NODE_TYPES:
-            print(node.nodetype," not in ", SOCIAL_NODE_TYPES)
-            raise ValueError
+            else:
+                debug('Unhandled nodetype: ',node.nodetype)
 
-        policy_diff = self.policy_diff( node.references['policy'] )
+        elif node.nodetype in SOCIAL_NODE_TYPES and self.nodetype in SOCIAL_NODE_TYPES:
 
-        self.relations[node.nodetype][ node.id ] = {
-            "nodetype":node.nodetype,
-            "policy":policy_diff,
-            "Reputation":[0,0],
-            "Interractions":1,
-            "Disposition":self.get_policy_disposition(policy_diff[0])
-        }
+            existing_relation = self.relations[node.id]
+            
+            policy_diff = self.policy_diff( node.references[POLICY] )
+            
+            existing_relation[POLICY] = node.policy
+            existing_relation["Disposition"] = self.get_policy_disposition(policy_diff[0])
+            
+            if interaction != None:
+                existing_relation['Reputation'][interaction[0]] += interaction[1]
 
-        if reciprocate:
-            node.update_relationship( self, reciprocate=False )
+            existing_relation["Interactions"] += 1
+
+            # update w changes
+            self.relations[node.id] = existing_relation
+            
+        else:
+            debug("Unhandled relation")
 
 
     def has_relationship( self, node ):
@@ -232,7 +253,7 @@ class SimulaeNode:
         summary = {}
         diff = 0
 
-        for factor, policy in self.references['policy'].items():
+        for factor, policy in self.references[POLICY].items():
             
             delta = abs( self.get_policy_index(factor, policy) - self.get_policy_index( factor, compare_policy[factor] ) )
 
@@ -272,7 +293,7 @@ def jsonify( state ):
     return d
 
 
-def generate_simulae_node(node_name, node_type=None, faction=None):
+def generate_simulae_node(node_name, node_type, faction=None):
 
     name = node_name
 
@@ -283,7 +304,7 @@ def generate_simulae_node(node_name, node_type=None, faction=None):
     references={
         "name":name,
         FAC:None,
-        "policy":{}
+        POLICY:{}
     }
     
     attributes = {}
@@ -298,7 +319,7 @@ def generate_simulae_node(node_name, node_type=None, faction=None):
     if nodetype in SOCIAL_NODE_TYPES:
         # Random Policy values
         for policy in _policies:
-            references['policy'][policy] = random.choice(POLICIES[policy])
+            references[POLICY][policy] = random.choice(POLICIES[policy])
 
     if nodetype in INANIMATE_NODE_TYPES:
         
