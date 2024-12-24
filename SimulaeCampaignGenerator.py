@@ -1,5 +1,6 @@
 from NGIN_console import *
 from ngin_utils import *
+from ngin_missions import *
 from FactionGenerator.faction_generator import *
 from SimulaeNode import *
 
@@ -38,7 +39,7 @@ class NGIN():
         if not save_file:
             self.generate_new_world() 
             
-        self.get_location_map()
+        #self.get_location_map()
 
 
     def start(self):
@@ -52,7 +53,7 @@ class NGIN():
                 available nodes in the state.
         '''
 
-        actor = self.get_simulae_node_by_id(self.select_actor(), POI)
+        actor = self.get_simulae_node_by_id(self.select_actor(randomized=True), POI)
 
         input('<Press "ENTER" to START>')
 
@@ -64,22 +65,29 @@ class NGIN():
 
             self.display_state()
 
-            subject, mission = self.choose_mission(actor_node=actor, num_opts=5)
+            options = self.get_actions(actor=actor)
 
-            self.resolve_mission(mission, subject)
+            mission = self.select_mission(options)
+            print(mission)
+            #mission = self.choose_mission(actor_node=actor, num_opts=random.randrange(3,10))
+
+            self.resolve_mission(actor, mission)
 
             cmd = input('continue [enter] / [q]uit ?> ')
             if cmd in ['q','quit']:
                 sys.exit(0) 
 
 
-    def select_actor(self):
+    def select_actor(self, randomized=False):
 
         print("Select actor node: (Choose your character)")
 
         options = { node.summary():nid for nid, node in self.state.relations[POI].items()}
 
-        selected_node = user_choice( user_options=list(options.keys()), random_opt=True )
+        if not randomized:
+            selected_node = user_choice( user_options=list(options.keys()), random_opt=True )
+        else:
+            selected_node = random.choice(list(options.keys()))
 
         print("selected -> ",selected_node,f'[{options[selected_node]}]')
         # return the actor node id
@@ -138,6 +146,19 @@ class NGIN():
         else:
             return self.state.relations[nodetype][nid]
 
+    def get_simulae_nodes_by_reference(self, reference_key: str, reference_value: str =None ,nodetype: str=None):
+
+        if nodetype:
+            # return all nodes with reference to reference_key (and if provided a reference_value, must also have that value associated with the key)
+            return { sn.id:sn for sn in self.state.references[nodetype] if (reference_value and sn.get_reference(reference_key) == reference_value) or sn.get_reference(reference_key) != None }
+
+        else:
+            nodes_with_reference = {}
+
+            for nodetype, nodes in self.state.references.items():
+                nodes_with_reference = nodes_with_reference | get_simulae_nodes_by_reference(reference_key, reference_value, nodetype)
+
+            return nodes_with_reference
 
     def attach_loc(self, new_loc):
         
@@ -180,13 +201,17 @@ class NGIN():
 
 
         # generate population
-        population = self.generate_population(location)
+        population, faction = self.generate_population(location)
 
         for entity in population:
 
             self.add_node(entity)
 
-            location.update_relation(entity)
+            # set entity's location
+            entity.add_reference(LOC, location.id)
+
+            if faction: # set faction ownership of location
+                location.references[FAC] = faction.id
 
         return location
 
@@ -196,14 +221,15 @@ class NGIN():
         # individual or group?
 
         population = []
-        
+        faction = None
+
         if random.random() < WORLD_GEN_POPULATION_GROUP_CHANCE:
-            population = self.generate_group(location)
+            population, faction = self.generate_group(location)
             
         else:
             population = [self.generate_individual(location)]
 
-        return population
+        return population, faction
 
 
     def generate_group(self, location):
@@ -223,11 +249,15 @@ class NGIN():
         group = []
         for i in range(num_individuals):
             individual = self.generate_individual(location)
-            individual.update_relation(faction)
+
+            individual.references[FAC] = faction.id
+
+            #individual.add_reference(FAC, faction.id)
+            #individual.update_relation(faction)
 
             group.append(individual)
 
-        return group
+        return group, faction
 
 
     def generate_individual(self, location):
@@ -319,6 +349,79 @@ class NGIN():
         return SimulaeNode( name, nodetype, references, attributes, relations, checks, abilities )
             
 
+    def nodes_are_adjacent(self, node1, node2):
+
+        loc1 = node1.get_reference(LOC)
+        loc2 = node2.get_reference(LOC)
+
+        if loc1 == loc2:
+            return True
+
+        return False
+
+
+    def get_actions(self, actor):
+
+        # handle inanimates
+        if actor.nodetype not in SOCIAL_NODE_TYPES:
+            return []
+
+        options = []
+
+        # evaluate immediate options:
+
+        # current location / adjacent entities
+        actor_loc = actor.get_reference(LOC)
+
+        loc = self.get_simulae_node_by_id(actor_loc)
+        options.append(self.get_actions_for_node(actor, loc, "location"))
+
+        # same location?
+        adjacents = self.get_simulae_nodes_by_reference(LOC, reference_value=actor_loc)
+
+        for adj in adjacents:
+            options.append(self.get_actions_for_node(actor, adj, "adjacent"))
+        
+        # evaluate movement/travel options
+
+
+        return options
+
+
+    def get_actions_for_node(self, actor, target, note=None):
+        
+        # handle inanimates
+        if actor.nodetype not in SOCIAL_NODE_TYPES:
+            return []
+
+        disposition = "Neutral"
+
+        if target.nodetype in SOCIAL_NODE_TYPES:
+            relationship = actor.determine_relation(target)
+            disposition = relationship["Disposition"]
+
+        return target, NGIN_MISSIONS[disposition][target.nodetype], note
+
+
+    def select_mission(self, missions):
+        
+        mission_index = []
+        count = 0
+
+        for target, options, note in missions:
+
+            print('#',target.summary(),"->",note)
+
+            for opt in options:
+                mission_index.append((target, opt))
+                print('\t',count,opt)
+                count+=1
+
+        selection = robust_int_entry("Select Action >", low=0, high=count)
+
+        return mission_index[selection]
+
+
     def choose_mission(self, actor_node=None, num_opts=3 ):
         debug(f"choose_mission( actor: {actor_node.summary()}, num_opts={num_opts})")
 
@@ -336,12 +439,12 @@ class NGIN():
             ntype = random.choice([ nt for nt in NODETYPES if len(self.state.relations[nt]) >= 1 ])            
             subj = random.choice( list(self.state.relations[ ntype ].values()) )
 
+            ## Determine friend/enemy disposition if given actor-node 
             if subj.nodetype in PEOPLE_NODE_TYPES:
 
-                ## Determine friend/enemy disposition if given actor-node 
                 if actor_node is not None:
-                    actor_node.update_relation( subj )
-                    disposition = actor_node.relations[subj.nodetype][subj.id]["Disposition"]
+                    relationship = actor_node.get_relation( subj )
+                    disposition = relationship["Disposition"]
                     debug(f"actor:{actor_node.id} <-{disposition}-> subject:{subj}")
                 else:
                     disposition = "Neutral"
@@ -352,31 +455,55 @@ class NGIN():
             opt = ( subj, random.choice( self.mission_struct[disposition][subj.nodetype] ) )
             options.append(opt)
 
+        choice = prompt_mission( options )
 
-        choice = user_choice( options, random_opt=True )
-
-        return subj, choice[1]
+        return choice
 
 
-    def generate_event( self ):
-        ''' Selects a node as event basis, then generates an event based on 
-                the node's type. Events are similar to missions, but are
-                essentially the mission outcomes of other entities
-        '''
-        pass
+    def resolve_mission(self, actor, mission):
+        
+        action, visibility = mission[1]
+        subject = mission[0]
+
+        debug(f"{actor.summary()} -> ({visibility}) {action} {subject.summary()}")
+        print(f"{actor.summary()} -> ({visibility}) {action} {subject.summary()}")
+
+        if subject.nodetype in SOCIAL_NODE_TYPES:
+            print('social')
+
+            relationship = actor.get_relation(subject)
+            pprint(relationship)
+            
+            disposition = relationship['Disposition']
+
+            print('disposition:',disposition)
+
+            pprint(NGIN_MISSIONS[disposition][subject.nodetype])
+
+
+        elif subject.nodetype in INANIMATE_NODE_TYPES:
+            print('inanimate')
+
+            if subject.has_relation(actor.id, FAC):
+
+                relationship = actor.get_relation( subject.get_relation(FAC) )
+
+
 
     def remove_node(self, node):
         pass
 
+
     def destroy_node(self, node):
         node.status = Status.DEAD
-        #del self.state.relations[subject.nodetype][subject.id]
+
 
     def validate_state(self):
         has_entities = False
         for nt in NODETYPES:
             if len(self.state.relations[nt]) >= 1:
                 has_entities = True
+
 
     def display_state(self, actor_node=None):
         print('\nGamestate:')
@@ -388,10 +515,11 @@ class NGIN():
                 if node.status is not Status.DEAD:
 
                     if actor_node: # from perspective of...
-                        if not actor_node.knows_about(node):
+                        if not self.nodes_are_adjacent(actor_node, node) and not actor_node.knows_about(node):
                             continue
 
-                    print(node.summary())
+                    print(node)
+
 
     def handle_mission(self, mission, subject):
         print(  '\n(',mission[1],') [',

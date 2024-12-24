@@ -152,3 +152,155 @@ def user_choice(user_options, literal=False, random_opt=False ):
 
         return choice
 
+
+def prompt_mission( options ):
+
+    entry = ""
+
+    while not entry:
+
+        print('Options: ')
+        for idx, opt in enumerate(options):
+            simnode, act = opt
+            action, vis = act
+
+            print('{0} | ({1}) {2} {3}'.format(idx, vis, action, simnode.summary()))
+
+        try:
+            entry = input("Select Mission:").strip()
+            if options:
+                if ',' in entry:
+                    entries = entry.split(',')
+                    selected = []
+
+                    for e in entries:
+                        if e not in options:
+                            try:
+                                e = options[int(e)]
+                                selected.append(e)
+                            except ValueError as ve:
+                                debug(ve)
+                        else:
+                            selected.append(e)
+                    
+                    if selected:
+                        return selected
+                    else:
+                        entry = None
+                        selected = None
+                        print("Invalid")
+
+                if entry not in options:
+                    debug(options)
+                    debug(entry, int(entry))
+
+                    entry = options[int(entry)] # try to interpret as numeric choice
+
+                    if entry not in options: # still not valid
+                        entry = None
+                        print('Invalid')
+        
+        except ValueError as ve: # handle numeric choice conversion error
+            debug(ve)
+            entry = None
+            print('Invalid')
+        except KeyboardInterrupt as ki:
+            debug(ki)
+            sys.exit(0)
+
+    return entry
+
+
+
+
+def robust_int_entry(prompt=None, low=None, high=None):
+
+    if not prompt:
+        prompt = ">"
+
+    entry = ""
+
+    while not entry:
+
+        try:
+            entry = input(prompt).strip()
+
+            value = int(entry)
+
+            if value < low or value > high:
+                entry=None
+                print("Out-of-bounds value")
+                continue
+
+            return value
+
+        except ValueError as ve:
+            entry=None
+            print("Invalid")
+        except KeyboardInterrupt as ki:
+            sys.exit(0)
+
+
+
+
+
+def robust_str_entry(prompt, options=[]):
+    '''  '''
+
+    if type(options) == type({}):
+        debug("Converting dict keys to list of options")
+        options = list(options.keys())
+
+    entry = ""
+
+    while not entry:
+
+        if options:
+            print('Options: ')
+            for idx, opt in enumerate(options):
+                print('{0} | {1}'.format(idx, opt))
+
+        try:
+            entry = input(prompt).strip()
+            if options:
+                if ',' in entry:
+                    entries = entry.split(',')
+                    selected = []
+
+                    for e in entries:
+                        if e not in options:
+                            try:
+                                e = options[int(e)]
+                                selected.append(e)
+                            except ValueError as ve:
+                                debug(ve)
+                        else:
+                            selected.append(e)
+                    
+                    if selected:
+                        return selected
+                    else:
+                        entry = None
+                        selected = None
+                        print("Invalid")
+
+                if entry not in options:
+                    debug(options)
+                    debug(entry, int(entry))
+
+                    entry = options[int(entry)] # try to interpret as numeric choice
+
+                    if entry not in options: # still not valid
+                        entry = None
+                        print('Invalid')
+        
+        except ValueError as ve: # handle numeric choice conversion error
+            debug(ve)
+            entry = None
+            print('Invalid')
+        except KeyboardInterrupt as ki:
+            debug(ki)
+            sys.exit(0)
+
+    return entry
+
