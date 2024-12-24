@@ -147,16 +147,30 @@ class NGIN():
             return self.state.relations[nodetype][nid]
 
     def get_simulae_nodes_by_reference(self, reference_key: str, reference_value: str =None ,nodetype: str=None):
+        debug(f"get_simulae_nodes_by_reference( reference_key: {reference_key}, reference_value: {reference_value}, nodetype: {nodetype} )")
 
         if nodetype:
             # return all nodes with reference to reference_key (and if provided a reference_value, must also have that value associated with the key)
-            return { sn.id:sn for sn in self.state.references[nodetype] if (reference_value and sn.get_reference(reference_key) == reference_value) or sn.get_reference(reference_key) != None }
+            
+            selected = {}
+
+            for snid, sn in self.state.relations[nodetype].items():
+
+                if reference_value:
+                    if reference_value == sn.get_reference(reference_key):
+                        selected[snid] = sn
+
+                #if sn.get_reference(reference_key):
+                    #selected[snid] = sn
+
+            return selected
+
 
         else:
             nodes_with_reference = {}
 
-            for nodetype, nodes in self.state.references.items():
-                nodes_with_reference = nodes_with_reference | get_simulae_nodes_by_reference(reference_key, reference_value, nodetype)
+            for nodetype, nodes in self.state.relations.items():
+                nodes_with_reference = nodes_with_reference | self.get_simulae_nodes_by_reference(reference_key, reference_value, nodetype)
 
             return nodes_with_reference
 
@@ -374,13 +388,17 @@ class NGIN():
         actor_loc = actor.get_reference(LOC)
 
         loc = self.get_simulae_node_by_id(actor_loc)
-        options.append(self.get_actions_for_node(actor, loc, "location"))
+        print('location ->',loc)
+        options.append(self.get_actions_for_node(actor, loc, note="location"))
 
         # same location?
         adjacents = self.get_simulae_nodes_by_reference(LOC, reference_value=actor_loc)
 
-        for adj in adjacents:
-            options.append(self.get_actions_for_node(actor, adj, "adjacent"))
+        if not adjacents:
+            print("No adjacents found")
+
+        for adj_id, adj in adjacents.items():
+            options.append(self.get_actions_for_node(actor, adj, note="adjacent"))
         
         # evaluate movement/travel options
 
@@ -390,6 +408,9 @@ class NGIN():
 
     def get_actions_for_node(self, actor, target, note=None):
         
+        if type(target) == type(""):
+            print(target)
+
         # handle inanimates
         if actor.nodetype not in SOCIAL_NODE_TYPES:
             return []
