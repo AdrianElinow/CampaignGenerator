@@ -1,7 +1,12 @@
-import json, os, platform, sys, pprint, random
+import json, os, platform, sys, random
+import json, sys, random, os
+from math import e
+from enum import Enum
+import uuid
+from pprint import pprint
 from typing import *
 
-DEBUG = True
+DEBUG = False
 
 MAX_ADJACENT_LOCATIONS = 6
 WORLD_GEN_STICKINESS = 0.4

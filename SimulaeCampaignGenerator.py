@@ -1,12 +1,11 @@
 from NGIN_console import *
 from ngin_utils import *
 from FactionGenerator.faction_generator import *
-
 from SimulaeNode import *
 
 class NGIN():
 
-    def __init__(self, mission_struct, settings, madlibs, save_file=None, is_console=True):
+    def __init__(self, mission_struct, settings, save_file=None, is_console=True):
         
         if not mission_struct or mission_struct == None:
             raise ValueError("Missing required data: mission_struct")
@@ -14,11 +13,7 @@ class NGIN():
         if not settings or settings == None:
             raise ValueError("Missing required data: settings")
 
-        if not madlibs or madlibs == None:
-            raise ValueError("Missing required data: madlibs")
-        
         self.mission_struct = mission_struct
-        self.madlibs = madlibs
         self.settings = settings
         self.state = SimulaeNode(
                         "state",        # id
@@ -264,11 +259,11 @@ class NGIN():
         
 
         # choose organization subtype
-        orgtype = random.choice(self.madlibs['Entities'])
+        orgtype = random.choice(FACTION_TYPES)
         
         # madlibs name generation
-        name = random.choice(self.madlibs['Nouns']) + ('-'+random.choice(self.madlibs['Nouns']) if random.random() >= 0.6 else '' )
-        suffix = random.choice(self.madlibs['Suffixes'][orgtype]) if random.random() >= 0.1 else ''
+        name = random.choice(MADLIBS_NOUNS) + ('-'+random.choice(MADLIBS_NOUNS) if random.random() >= 0.6 else '' )
+        suffix = random.choice(MADLIBS_SUFFIXES[orgtype]) if random.random() >= 0.1 else ''
         name += ' '+suffix
         # acronym for quick/short reference (display purposes)
         acronym = ''.join( [ l for l in name if l.isupper() ] )
@@ -285,10 +280,10 @@ class NGIN():
 
     def generate_policy(self, orgtype=None):
 
-        policies = self.madlibs['Policies']
+        policies = POLICY_SCALE
 
         if orgtype:
-            policies = self.madlibs['Preset-Policies'][orgtype]
+            policies = PRESET_POLICIES[orgtype]
 
         policy = {}
 
@@ -301,10 +296,10 @@ class NGIN():
 
     def get_new_name(self):
 
-        name = random.choice(self.madlibs['Nouns'])
+        name = random.choice( MADLIBS_NOUNS )
 
         while name in self.taken_names and name != "":
-            name = random.choice( self.madlibs['Nouns'] )
+            name = random.choice( MADLIBS_NOUNS )
 
         return name 
 
@@ -468,20 +463,20 @@ def main():
         print("Must specify application data files to start\n"
             +"[mission_struct] [ngin_settings] [save_file:optional]")
 
-        sys.argv = ['script.py','story_struct.json','ngin_settings.json','madlibs.json']
+        sys.argv = ['script.py','story_struct.json','ngin_settings.json']
 
     mission_struct = load_json_from_file( sys.argv[1] )
 
     ngin_settings = load_json_from_file( sys.argv[2])
 
-    madlibs = load_json_from_file(sys.argv[3])
+    #madlibs = load_json_from_file(sys.argv[3])
 
     save_file = None
     if len(sys.argv) >= 5:
         save_file = load_json_from_file( sys.argv[4] )
 
     # Setup 
-    ngin = NGIN( mission_struct, ngin_settings, madlibs, save_file )
+    ngin = NGIN( mission_struct, ngin_settings, save_file )
 
     # Start
     ngin.start()

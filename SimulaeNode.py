@@ -1,37 +1,8 @@
 
-
-import json, sys, random, os
-from math import e
-from enum import Enum
-
-import uuid
-
 #from json import JSONEncoder
 from ngin_utils import *
-from pprint import pprint
 
-POLICIES = {
-    "Economy":      
-        ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
-    "Liberty":      
-        ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
-    "Culture":      
-        ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
-    "Diplomacy":    
-        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
-    "Militancy":    
-        ["Militarist", "Strategic", "Indifferent", "Diplomatic", "Pacifist"],
-    "Diversity":  
-        ["Homogenous", "Preservationist", "Indifferent", "Heterogeneous", "Multiculturalist"],
-    "Secularity":   
-        ["Apostate", "Secularist", "Indifferent", "Religious", "Devout"],
-    "Justice":      
-        ["Retributionist", "Punitive", "Indifferent", "Correctivist", "Rehabilitative"],
-    "Natural-Balance":  
-        ["Ecologist", "Naturalist", "Indifferent", "Productivist", "Industrialist"],
-    "Government":   
-        ["Democratic", "Republican", "Indifferent", "Oligarchic", "Monarchist"]
-}
+from madlibs import *
 
 FAC = 'FAC'
 POI = 'POI'
@@ -76,7 +47,7 @@ class SimulaeNode:
                         attributes={
                             "interactions":0
                         }, 
-                        relations={}, 
+                        relations={ nt:{} for nt in ALL_NODE_TYPES }, 
                         checks={}, 
                         abilities={}):
 
@@ -250,9 +221,7 @@ class SimulaeNode:
 
     def generate_policy(self):
 
-        policies = self.madlibs['Policies']
-        
-        for k,v in policies.items():
+        for k,v in POLICY_SCALE.items():
             #               position            weight
             policy[k] = [ random.choice(v), random.random() ]
 
@@ -291,7 +260,11 @@ class SimulaeNode:
 
         for factor, policy in self.references[POLICY].items():
             
-            delta = abs( self.get_policy_index(factor, policy) - self.get_policy_index( factor, compare_policy[factor] ) )
+            cmp_factor = compare_policy[factor]
+            if type(cmp_factor) == type([]):    # for factor values [ policy, degree ]
+                cmp_factor = cmp_factor[0]
+
+            delta = abs( self.get_policy_index(factor, policy) - self.get_policy_index( factor, cmp_factor ) )
 
             summary[factor] = [ "Agreement", "Civil", "Contentious",  "Opposition", "Diametrically Opposed" ][delta]
             diff += delta
@@ -299,7 +272,8 @@ class SimulaeNode:
         return diff, summary
 
     def get_policy_index(self, factor, policy):
-        return POLICIES[factor].index(policy)
+
+        return POLICY_SCALE[factor].index(policy)
 
 
     def toJSON(self):
@@ -335,7 +309,7 @@ def generate_simulae_node(node_type, node_name=None, faction=None):
 
     nodetype = random.choice( NODETYPES ) if node_type == None else node_type
     
-    _policies = ["Economy","Liberty","Culture","Diplomacy","Militancy","Diversity","Secularity","Justice","Natural-Balance","Government"]
+    _policies = list(POLICY_SCALE.keys())
 
     references={
         NAME:name,
@@ -355,7 +329,7 @@ def generate_simulae_node(node_type, node_name=None, faction=None):
     if nodetype in SOCIAL_NODE_TYPES:
         # Random Policy values
         for policy in _policies:
-            references[POLICY][policy] = random.choice(POLICIES[policy])
+            references[POLICY][policy] = random.choice(POLICY_SCALE[policy])
 
     if nodetype in INANIMATE_NODE_TYPES:
         
@@ -364,59 +338,5 @@ def generate_simulae_node(node_type, node_name=None, faction=None):
 
     # id, nodetype, refs, attrs, reltn, checks, abilities
     return SimulaeNode( name, nodetype, references, attributes, relations, checks, abilities )
-
-def SimulaeNode_test():
-
-    state = SimulaeNode("state","",{},{},{
-                            FAC:{},
-                            PTY:{},
-                            POI:{},
-                            OBJ:{},
-                            LOC:{}
-                        },{},{})
-
-    fac_red = generate_simulae_node('RED', FAC)
-    fac_blu = generate_simulae_node('BLU', FAC)
-
-    poi_node_a = generate_simulae_node('A', POI, fac_red)
-    poi_node_b = generate_simulae_node('B', POI, fac_blu)
-    poi_node_c = generate_simulae_node('C', POI,)
-
-    ##
-
-    fac_red.update_relationship( fac_blu, reciprocate=True)
-    poi_node_a.update_relationship( poi_node_b, reciprocate=True)
-    fac_red.update_relationship(poi_node_a, reciprocate=True)
-    fac_blu.update_relationship(poi_node_a, reciprocate=True)
-    fac_red.update_relationship(poi_node_b, reciprocate=True)
-    fac_blu.update_relationship(poi_node_b, reciprocate=True)
-
-    ##
-
-    state.add_node(fac_red)
-    state.add_node(fac_blu)
-    state.add_node(poi_node_a)
-    state.add_node(poi_node_b)
-    state.add_node(poi_node_c)
-    
-    pprint(fac_red.toJSON())
-    pprint(fac_blu.toJSON())
-    pprint(poi_node_a.toJSON())
-    pprint(poi_node_b.toJSON())
-    pprint(poi_node_c.toJSON())
-
-    print('Done')
-
-    return state
-
-    '''
-    with open('nodes_structure_sv.json','w') as sv:
-        sv.write( json.dumps( state.toJSON() , indent=4) )
-        print('written')
-    '''
-
-
-if __name__ == '__main__':
-    SimulaeNode_test()
 
 
