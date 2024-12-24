@@ -83,7 +83,7 @@
             "Government":       ["Democratic", "Republican", "Indifferent", "Oligarchic", "Autocratic"]
         },
         "Mercenaries":{
-            "Economy":          ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
+            "Economy":          ["Indifferent", "Capitalist", "Free-Capitalist"],
             "Liberty":          ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
             "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
             "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],

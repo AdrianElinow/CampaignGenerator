@@ -56,10 +56,28 @@ def politic_diff( alpha, beta ):
         summary[f] = str(int((dist/4)*100))+'%' # (quick and dirty) round to 3 decimal places
         score += dist
 
-        #print(alpha.policy[f], '~', beta.policy[f], '->',dist)
-
     # show the difference score (rounded to 3 digits) and more detailed summary
     return str(int((score/40)*100))+'%', summary 
+
+
+
+def generate_faction():
+
+    # choose organization subtype
+    orgtype = random.choice(madlibs['Entities'])
+    
+    # madlibs name generation
+    name = random.choice(madlibs['Nouns']) + ('-'+random.choice(madlibs['Nouns']) if random.random() >= 0.6 else '' )
+    suffix = random.choice(madlibs['Suffixes'][orgtype]) if random.random() >= 0.1 else ''
+    name += ' '+suffix
+    # acronym for quick/short reference (display purposes)
+    acronym = ''.join( [ l for l in name if l.isupper() ] )
+
+    # randomize policy
+    policy = generate_policy()
+
+    return orgtype, acronym, name, policy
+
 
 
 def main():
@@ -74,17 +92,7 @@ def main():
         # attribute generation
 
         # choose organization subtype
-        orgtype = random.choice(madlibs['Entities'])
-        
-        # madlibs name generation
-        name = random.choice(madlibs['Nouns']) + ('-'+random.choice(madlibs['Nouns']) if random.random() >= 0.6 else '' )
-        suffix = random.choice(madlibs['Suffixes'][orgtype]) if random.random() >= 0.1 else ''
-        name += ' '+suffix
-        # acronym for quick/short reference (display purposes)
-        acronym = ''.join( [ l for l in name if l.isupper() ] )
-
-        # randomize policy
-        policy = generate_policy()
+        orgtype, acronym, name, policy = generate_faction()
 
         # display to user
         print( '[',orgtype,'](',acronym,')',name, end='\n')

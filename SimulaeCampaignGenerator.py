@@ -1,5 +1,6 @@
 from NGIN_console import *
 from ngin_utils import *
+from FactionGenerator.faction_generator import *
 
 from SimulaeNode import *
 
@@ -261,23 +262,50 @@ class NGIN():
     def generate_faction(self):
         debug("generate_faction()")
         
-        f_id = f"FAC_{len(self.state.relations[FAC])}"
+
+        # choose organization subtype
+        orgtype = random.choice(self.madlibs['Entities'])
+        
+        # madlibs name generation
+        name = random.choice(self.madlibs['Nouns']) + ('-'+random.choice(self.madlibs['Nouns']) if random.random() >= 0.6 else '' )
+        suffix = random.choice(self.madlibs['Suffixes'][orgtype]) if random.random() >= 0.1 else ''
+        name += ' '+suffix
+        # acronym for quick/short reference (display purposes)
+        acronym = ''.join( [ l for l in name if l.isupper() ] )
+
+        # randomize policy
+        policy = self.generate_policy(orgtype)
 
         # fix this
-        faction = generate_simulae_node(FAC, self.get_new_name())
+        faction = generate_simulae_node(FAC, name)
+        faction.references[POLICY] = policy
 
-        debug(f"-> {faction.summary()}")
         return faction
 
-    def get_new_name(self):
-        debug("get_new_name()")
 
-        name = random.choice(self.madlibs)
+    def generate_policy(self, orgtype=None):
+
+        policies = self.madlibs['Policies']
+
+        if orgtype:
+            policies = self.madlibs['Preset-Policies'][orgtype]
+
+        policy = {}
+
+        for k,v in policies.items():
+            #               position            weight
+            policy[k] = [ random.choice(v), random.random() ]
+
+        return policy
+
+
+    def get_new_name(self):
+
+        name = random.choice(self.madlibs['Nouns'])
 
         while name in self.taken_names and name != "":
-            name = random.choice( self.madlibs )
+            name = random.choice( self.madlibs['Nouns'] )
 
-        debug(f"-> {name}")
         return name 
 
 

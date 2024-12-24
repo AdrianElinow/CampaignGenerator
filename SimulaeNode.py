@@ -247,6 +247,17 @@ class SimulaeNode:
             return True
         return False
 
+
+    def generate_policy(self):
+
+        policies = self.madlibs['Policies']
+        
+        for k,v in policies.items():
+            #               position            weight
+            policy[k] = [ random.choice(v), random.random() ]
+
+        return policy
+
     def get_policy_disposition(self, policy_diff_value):
 
         if policy_diff_value < 0:
