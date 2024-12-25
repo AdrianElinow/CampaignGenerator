@@ -302,8 +302,12 @@ class SimulaeNode:
             for nodetype, nodes in self.relations.items():
                 v = {}
 
-                for node_id, node in nodes.items():
-                    v[node_id] = node.toJSON()
+                if type(nodes) == type(""):
+                    print(f'why is this {nodetype}"nodes" a str?', nodes)
+                else:
+
+                    for node_id, node in nodes.items():
+                        v[node_id] = node.toJSON()
 
                 d['relations'][nodetype] = v
 
