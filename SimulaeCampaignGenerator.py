@@ -38,14 +38,25 @@ class NGIN():
 
         if not save_file:
             self.generate_new_world() 
+        else:
+            self.import_world(save_file)
             
-        #self.get_location_map()
+        self.get_location_map()
 
 
     def start(self):
 
         if self.is_console:
             self.start_console()
+
+
+    def import_world(self, save_file):
+        pass
+
+
+    def save_to_file(self, filename: str):
+
+        save_json_to_file(filename, self.state.toJSON())
 
 
     def start_console(self):
@@ -63,13 +74,11 @@ class NGIN():
 
             self.validate_state()
 
-            self.display_state()
+            #self.display_state()
 
             options = self.get_actions(actor=actor)
 
             mission = self.select_mission(options)
-            print(mission)
-            #mission = self.choose_mission(actor_node=actor, num_opts=random.randrange(3,10))
 
             self.resolve_mission(actor, mission)
 
@@ -80,11 +89,10 @@ class NGIN():
 
     def select_actor(self, randomized=False):
 
-        print("Select actor node: (Choose your character)")
-
         options = { node.summary():nid for nid, node in self.state.relations[POI].items()}
 
         if not randomized:
+            print("Select actor node: (Choose your character)")
             selected_node = user_choice( user_options=list(options.keys()), random_opt=True )
         else:
             selected_node = random.choice(list(options.keys()))
@@ -124,11 +132,11 @@ class NGIN():
 
         for loc_id, loc in locations.items():
             
-            debug(f"{loc.nodetype} {loc_id}")
+            print(f"{loc.nodetype} {loc_id}")
             loc_map[loc_id] = loc.get_adjacent_locations()
 
             for adj_id in loc_map[loc_id]:
-                debug(f"\tLOC {locations[adj_id]}")
+                print(f"\tLOC {locations[adj_id]}")
 
         return loc_map
 
@@ -182,22 +190,27 @@ class NGIN():
         # add to world
         self.add_node(new_loc)
 
+        visited = [] 
         nodes = [self.world_root.id]
         
         while nodes:
             node_id = nodes.pop()
+            visited.append(node_id)
             node = self.get_simulae_node_by_id(node_id, LOC)
-
-            adjs = node.get_adjacent_locations()
+            
+            # filter visited nodes to prevent infinite loop due to circular references
+            adjs = [ adj for adj in node.get_adjacent_locations() if adj not in visited ]
 
             if not adjs or len(adjs) < node.get_attribute('max_adjacent_locations'):
                 
                 if random.random() < stickiness:
                     node.add_reference('adjacent',new_loc.id) # attach to current location
+                    new_loc.add_reference('adjacent',node.id)
                     return
                 
                 if not adjs and not nodes:
                     node.add_reference('adjacent', new_loc.id)  # force-attach to last available node
+                    new_loc.add_reference('adjacent',node.id)
                     return
             
 
@@ -387,26 +400,35 @@ class NGIN():
         # current location / adjacent entities
         actor_loc = actor.get_reference(LOC)
 
-        loc = self.get_simulae_node_by_id(actor_loc)
-        print('location ->',loc)
-        options.append(self.get_actions_for_node(actor, loc, note="location"))
+        loc = self.get_simulae_node_by_id(actor_loc, LOC)
+        print('Current Location:',loc.id)
+        options.append(self.get_actions_for_node(actor, loc, note="current location"))
+
 
         # same location?
         adjacents = self.get_simulae_nodes_by_reference(LOC, reference_value=actor_loc)
 
         if not adjacents:
-            print("No adjacents found")
+            print("No adjacent entities found")
 
         for adj_id, adj in adjacents.items():
-            options.append(self.get_actions_for_node(actor, adj, note="adjacent"))
+            options.append(self.get_actions_for_node(actor, adj, note="adjacent entity"))
+
         
         # evaluate movement/travel options
+        adjacent_locations = loc.get_adjacent_locations()
 
+        if not adjacent_locations:
+            print("No adjacent locations found")
+
+        for adj_id in adjacent_locations:
+            adj_loc = self.get_simulae_node_by_id(adj_id, LOC)
+            options.append(self.get_actions_for_node(actor, adj_loc, note="Travel to", is_adjacent=True))
 
         return options
 
 
-    def get_actions_for_node(self, actor, target, note=None):
+    def get_actions_for_node(self, actor, target, note=None, is_adjacent=False):
         
         if type(target) == type(""):
             print(target)
@@ -421,7 +443,12 @@ class NGIN():
             relationship = actor.determine_relation(target)
             disposition = relationship["Disposition"]
 
-        return target, NGIN_MISSIONS[disposition][target.nodetype], note
+        if not is_adjacent:
+            actions = NGIN_MISSIONS[disposition][target.nodetype]
+        else:
+            actions = [['Travel','Overt']]
+
+        return target, actions, note
 
 
     def select_mission(self, missions):
@@ -429,86 +456,78 @@ class NGIN():
         mission_index = []
         count = 0
 
-        for target, options, note in missions:
+        selection_idx = 0
+        selected_mission = None
+        selected_target = None
 
-            print('#',target.summary(),"->",note)
+        while not selected_mission:
 
-            for opt in options:
-                mission_index.append((target, opt))
-                print('\t',count,opt)
-                count+=1
+            while not selected_target:
+                for idx, mission in enumerate(missions):
+                    target, options, note = mission
+                    print(f"{idx:3} | [{note:^16}] |{target.summary()} ")
 
-        selection = robust_int_entry("Select Action >", low=0, high=count)
+                selection_idx = robust_int_entry("Select Target > ", 0, len(missions))
+                selected_target = missions[selection_idx]
 
-        return mission_index[selection]
+            t, options, note = selected_target
 
+            if len(options) > 1:
 
-    def choose_mission(self, actor_node=None, num_opts=3 ):
-        debug(f"choose_mission( actor: {actor_node.summary()}, num_opts={num_opts})")
+                for idx, opt in enumerate(options):
+                    print(f"{idx:3} | ({opt[1]:^9}) {opt[0]}")
 
-        ''' To add more interractivity and user-control
-                this function will give several available options to allow
-                the player to 'control' their actions and interract
-                with other nodes in a manner of their choice.
-        '''
-        options = []
+                selection_idx = robust_int_entry("Select Action (or '-1' to revert to target selection) > ",-1,len(options))
 
-        while len(options) < num_opts:
-
-            ## Generate randomized node and action ##
-
-            ntype = random.choice([ nt for nt in NODETYPES if len(self.state.relations[nt]) >= 1 ])            
-            subj = random.choice( list(self.state.relations[ ntype ].values()) )
-
-            ## Determine friend/enemy disposition if given actor-node 
-            if subj.nodetype in PEOPLE_NODE_TYPES:
-
-                if actor_node is not None:
-                    relationship = actor_node.get_relation( subj )
-                    disposition = relationship["Disposition"]
-                    debug(f"actor:{actor_node.id} <-{disposition}-> subject:{subj}")
-                else:
-                    disposition = "Neutral"
-
+                if selection_idx == -1:
+                    selected_target = None
+                    continue
             else:
-                disposition = "Neutral"
+                selection_idx = 0
 
-            opt = ( subj, random.choice( self.mission_struct[disposition][subj.nodetype] ) )
-            options.append(opt)
+            selected_mission = options[selection_idx]
+            selected_target = t
 
-        choice = prompt_mission( options )
-
-        return choice
+        return selected_target, selected_mission
 
 
     def resolve_mission(self, actor, mission):
         
-        action, visibility = mission[1]
-        subject = mission[0]
+        target, m = mission
+        action, visibility = m
 
-        debug(f"{actor.summary()} -> ({visibility}) {action} {subject.summary()}")
-        print(f"{actor.summary()} -> ({visibility}) {action} {subject.summary()}")
+        debug(f"{actor.summary()} -> ({visibility}) {action} {target.summary()}")
 
-        if subject.nodetype in SOCIAL_NODE_TYPES:
+        if target.nodetype in SOCIAL_NODE_TYPES:
             print('social')
 
-            relationship = actor.get_relation(subject)
+            relationship = actor.get_relation(target)
             pprint(relationship)
             
             disposition = relationship['Disposition']
 
             print('disposition:',disposition)
 
-            pprint(NGIN_MISSIONS[disposition][subject.nodetype])
+            pprint(NGIN_MISSIONS[disposition][target.nodetype])
 
 
-        elif subject.nodetype in INANIMATE_NODE_TYPES:
+        elif target.nodetype in INANIMATE_NODE_TYPES:
             print('inanimate')
 
-            if subject.has_relation(actor.id, FAC):
+            if target.has_relation(actor.id, FAC):
 
-                relationship = actor.get_relation( subject.get_relation(FAC) )
+                relationship = actor.get_relation( target.get_relation(FAC) )
 
+            if action == 'Travel':
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} traveling to {target}')
+
+                    actor.set_reference(LOC, target.id)         # set actor loc to target
+                    target.add_reference('occupant', actor.id) # add actor as occupant to target
+
+    def can_perform_action(self, target, action):
+        return True
 
 
     def remove_node(self, node):
@@ -628,8 +647,16 @@ def main():
     ngin = NGIN( mission_struct, ngin_settings, save_file )
 
     # Start
-    ngin.start()
 
+    try:
+
+        ngin.start()
+
+    except Exception as e:
+        debug(e)
+    finally:
+        print('saving...')
+        ngin.save_to_file("save_file.txt")
 
 
 if __name__ == '__main__':

@@ -61,7 +61,7 @@ class SimulaeNode:
         self.abilities = abilities
 
     def summary(self):
-        return "{{{0}:{1}}} {2} {3}".format(self.nodetype, self.references[NAME], self.references[FAC] if FAC in self.references else "", f"@ {self.references[LOC]}" if LOC in self.references else "")
+        return "{{{0}:{1}}} {2} {3}".format(self.nodetype, self.references[NAME], f"affiliated with {self.references[FAC]}" if FAC in self.references and self.references[FAC] else "", f"located at {self.references[LOC]}" if LOC in self.references else "")
 
     def __str__(self):
         return self.summary()
@@ -133,6 +133,9 @@ class SimulaeNode:
             return self.references[key]
 
         return None
+
+    def set_reference(self, key: str, value: str):
+        self.references[key] = value
 
     def add_reference(self, key: str, value: str):
         
@@ -294,9 +297,17 @@ class SimulaeNode:
     def toJSON(self):
         d = self.__dict__
 
+        pprint(d)
+
         for k,v in self.relations.items():
-            v =  v = { nid:node for nid, node in v.items() }
+            v = { nid:node for nid, node in v.items() }
             d['relations'][k] = v
+
+        for k,v in self.references.items():
+            v = { ref_key:ref_val for ref_key,ref_val in v.items() }
+            d['references'][k] = v
+
+        d['status'] = self.status.toJSON()
 
         return d
 
@@ -305,6 +316,11 @@ class Status(Enum):
     ALIVE = 0
     DEAD = 1
 
+    def toJSON(self):
+        if self == 0:
+            return "ALIVE"
+        elif self == 1:
+            return "DEAD"
 
 def jsonify( state ):
 

@@ -15,7 +15,7 @@ NGIN_MISSIONS = {
         ],
         "LOC":[
             ["Protect","Overt"],
-            ["Fortify","Overt"]
+            ["Fortify","Overt"],
         ],
         "OBJ":[
             ["Recapture","Overt"],
@@ -42,7 +42,6 @@ NGIN_MISSIONS = {
         "LOC":[
             ["Capture","Overt"],
             ["Destroy","Overt"],
-
             ["Infiltrate","Covert"],
             ["Surveil","Covert"]
         ],
