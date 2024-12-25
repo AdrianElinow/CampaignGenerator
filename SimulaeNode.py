@@ -295,21 +295,35 @@ class SimulaeNode:
 
 
     def toJSON(self):
-        d = self.__dict__
+        try:
 
-        pprint(d)
+            d = self.__dict__
 
-        for k,v in self.relations.items():
-            v = { nid:node for nid, node in v.items() }
-            d['relations'][k] = v
+            for nodetype, nodes in self.relations.items():
+                v = {}
 
-        for k,v in self.references.items():
-            v = { ref_key:ref_val for ref_key,ref_val in v.items() }
-            d['references'][k] = v
+                for node_id, node in nodes.items():
+                    v[node_id] = node.toJSON()
 
-        d['status'] = self.status.toJSON()
+                d['relations'][nodetype] = v
 
-        return d
+            for k,v in self.references.items():
+                d['references'][k] = v
+
+            d['status'] = self.status.toJSON()
+
+            return d
+
+        except Exception as e:
+            print(e)
+            return {}
+
+def _json_get_value(obj):
+
+    if type(obj) == type(""):
+        return obj
+    elif type(obj) == SimulaeNode:
+        return obj.toJSON()
 
 class Status(Enum):
     ''' Simulae Node status '''

@@ -23,7 +23,7 @@ def debug(*args):
         print(f"[DEBUG] {msg}")
 
 
-def save_json_to_file( filename: str, data, filepath : str =None, pretty: bool =False):
+def save_json_to_file( filename: str, data:str, filepath : str =None, pretty: bool =False):
     if not filename:
         raise ValueError("filename cannot be null/empty")
 

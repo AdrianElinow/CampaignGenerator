@@ -56,7 +56,11 @@ class NGIN():
 
     def save_to_file(self, filename: str):
 
-        save_json_to_file(filename, self.state.toJSON())
+        data = self.state.toJSON()
+
+        data = str(data)
+
+        save_json_to_file(filename, data, pretty=True)
 
 
     def start_console(self):
