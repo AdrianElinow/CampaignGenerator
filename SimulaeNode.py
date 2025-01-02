@@ -185,7 +185,7 @@ class SimulaeNode:
                     return "occupant"
 
             elif node.nodetype in INANIMATE_NODE_TYPES:
-                return ADJACENT
+                return {}
         
             else:
                 debug('Unhandled nodetype: ',node.nodetype)
@@ -321,6 +321,47 @@ class SimulaeNode:
         except Exception as e:
             print(e)
             return {}
+
+
+    def from_json(data):
+        try:
+
+            print('from_json')
+
+            if type(data) != type({}):
+                raise ValueError(f"from_json | invalid data type: {type(data)}")
+
+            keys = list(data.keys())
+
+            n_id = data['id'] if 'id' in keys else None
+            n_type = data['nodetype'] if 'nodetype' in keys else None
+            n_refs = data['references'] if 'references' in keys else {}
+            n_attr = data['attributes'] if 'attributes' in keys else {}
+            n_rels = data['relations'] if 'relations' in keys else {}
+            n_checks = data['checks'] if 'checks' in keys else {}
+            n_abilities = data['abilities'] if 'abilities' in keys else {}
+
+            if not n_id or not n_type:
+                raise ValueError(f"Cannot determine ID or nodetype of entity |\n {data}")
+
+            relations = { nt:{} for nt in ALL_NODE_TYPES }
+            for ntype, nodes in n_rels.items():
+                print(ntype)
+                for nid, ndata in nodes.items():
+                    node = SimulaeNode.from_json(ndata)
+                    print('->',node.id)
+                    relations[ntype][node.id] = node
+
+            n = SimulaeNode(n_id, 
+                n_type, n_refs, n_attr, relations, n_checks, n_abilities)
+        
+            return n   
+
+        except Exception as e:
+            print(e)     
+
+        return None
+
 
 def _json_get_value(obj):
 

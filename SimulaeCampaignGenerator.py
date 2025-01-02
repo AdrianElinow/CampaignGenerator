@@ -18,7 +18,7 @@ class NGIN():
         self.settings = settings
         self.state = SimulaeNode(
                         "state",        # id
-                        "",             # nodetype
+                        "state",             # nodetype
                         {},             # references
                         {},
                         {               # relations
@@ -36,12 +36,18 @@ class NGIN():
         self.taken_names = []
         self.is_console = is_console
 
-        if not save_file:
-            self.generate_new_world() 
-        else:
-            self.import_world(save_file)
-            
-        self.get_location_map()
+        try:
+            if save_file:
+                self.import_world(save_file)
+        except Exception as e:
+            print(f'Unable to import world data from save file | {e}')
+
+        if not self.state.relations or not self.state.references:
+            print('No world data... generating...')
+            self.generate_new_world()
+
+
+        self.print_location_map()
 
 
     def start(self):
@@ -51,14 +57,14 @@ class NGIN():
 
 
     def import_world(self, save_file):
-        pass
+        print('importing world data...')
+
+        self.state = SimulaeNode.from_json(save_file)
 
 
     def save_to_file(self, filename: str):
 
         data = self.state.toJSON()
-
-        data = str(data)
 
         save_json_to_file(filename, data, pretty=True)
 
@@ -95,6 +101,9 @@ class NGIN():
 
         options = { node.summary():nid for nid, node in self.state.relations[POI].items()}
 
+        if not options:
+            raise Exception("No POI nodes to select from...")
+
         if not randomized:
             print("Select actor node: (Choose your character)")
             selected_node = user_choice( user_options=list(options.keys()), random_opt=True )
@@ -128,7 +137,7 @@ class NGIN():
             self.attach_loc(loc)
             
 
-    def get_location_map(self):
+    def print_location_map(self):
         
         locations = self.state.relations[LOC]
 
@@ -657,10 +666,10 @@ def main():
         ngin.start()
 
     except Exception as e:
-        debug(e)
+        print(e)
     finally:
         print('saving...')
-        ngin.save_to_file("save_file.txt")
+        ngin.save_to_file("save_file.json")
 
 
 if __name__ == '__main__':

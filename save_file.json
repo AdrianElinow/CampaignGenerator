@@ -1,0 +1,3826 @@
+{
+    "id": "state",
+    "status": null,
+    "references": {},
+    "nodetype": "state",
+    "attributes": {
+        "LOC_num": 33
+    },
+    "relations": {
+        "FAC": {
+            "Omega-Omega Group": {
+                "id": "Omega-Omega Group",
+                "status": null,
+                "references": {
+                    "name": "Omega-Omega Group",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": [
+                            "Free-Capitalist",
+                            0.6931698972678636
+                        ],
+                        "Liberty": [
+                            "Anarchist",
+                            0.7816282694091368
+                        ],
+                        "Culture": [
+                            "Accelerationist",
+                            0.8210280549863467
+                        ],
+                        "Diplomacy": [
+                            "Diplomatic",
+                            0.9817096919544496
+                        ],
+                        "Militancy": [
+                            "Diplomatic",
+                            0.23584310276475862
+                        ],
+                        "Diversity": [
+                            "Heterogeneous",
+                            0.46844696969181776
+                        ],
+                        "Secularity": [
+                            "Apostate",
+                            0.7023290849430067
+                        ],
+                        "Justice": [
+                            "Retributionist",
+                            0.8279265162385029
+                        ],
+                        "Natural-Balance": [
+                            "Indifferent",
+                            0.16272688529076906
+                        ],
+                        "Government": [
+                            "Oligarchic",
+                            0.5196909908525374
+                        ]
+                    }
+                },
+                "nodetype": "FAC",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Hurricane-Arm States": {
+                "id": "Hurricane-Arm States",
+                "status": null,
+                "references": {
+                    "name": "Hurricane-Arm States",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": [
+                            "Communist",
+                            0.7686404142891022
+                        ],
+                        "Liberty": [
+                            "Authoritarian",
+                            0.3934139779025154
+                        ],
+                        "Culture": [
+                            "Progressive",
+                            0.7681468140023692
+                        ],
+                        "Diplomacy": [
+                            "Indifferent",
+                            0.5918932013037722
+                        ],
+                        "Militancy": [
+                            "Diplomatic",
+                            0.5389120992669918
+                        ],
+                        "Diversity": [
+                            "Indifferent",
+                            0.9358978852497717
+                        ],
+                        "Secularity": [
+                            "Apostate",
+                            0.7437584234144022
+                        ],
+                        "Justice": [
+                            "Correctivist",
+                            0.6911529109329572
+                        ],
+                        "Natural-Balance": [
+                            "Naturalist",
+                            0.14907760841117235
+                        ],
+                        "Government": [
+                            "Indifferent",
+                            0.03665985628654567
+                        ]
+                    }
+                },
+                "nodetype": "FAC",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Alpha-Spruce Inc.": {
+                "id": "Alpha-Spruce Inc.",
+                "status": null,
+                "references": {
+                    "name": "Alpha-Spruce Inc.",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": [
+                            "Free-Capitalist",
+                            0.4961560569195478
+                        ],
+                        "Liberty": [
+                            "Anarchist",
+                            0.5902242551389404
+                        ],
+                        "Culture": [
+                            "Accelerationist",
+                            0.6236032186881985
+                        ],
+                        "Diplomacy": [
+                            "Patriotic",
+                            0.5932469491444716
+                        ],
+                        "Militancy": [
+                            "Diplomatic",
+                            0.48001369938021965
+                        ],
+                        "Diversity": [
+                            "Preservationist",
+                            0.2224380568119123
+                        ],
+                        "Secularity": [
+                            "Devout",
+                            0.269047463044502
+                        ],
+                        "Justice": [
+                            "Correctivist",
+                            0.8923721371621683
+                        ],
+                        "Natural-Balance": [
+                            "Industrialist",
+                            0.4059537998614673
+                        ],
+                        "Government": [
+                            "Republican",
+                            0.3487191958663469
+                        ]
+                    }
+                },
+                "nodetype": "FAC",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Quad-Stone ": {
+                "id": "Quad-Stone ",
+                "status": null,
+                "references": {
+                    "name": "Quad-Stone ",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": [
+                            "Capitalist",
+                            0.20694754992874675
+                        ],
+                        "Liberty": [
+                            "Anarchist",
+                            0.641372513664908
+                        ],
+                        "Culture": [
+                            "Indifferent",
+                            0.628089164944841
+                        ],
+                        "Diplomacy": [
+                            "Patriotic",
+                            0.06146094842165206
+                        ],
+                        "Militancy": [
+                            "Militarist",
+                            0.8979189303630002
+                        ],
+                        "Diversity": [
+                            "Heterogeneous",
+                            0.6211880629773413
+                        ],
+                        "Secularity": [
+                            "Indifferent",
+                            0.5590745225608111
+                        ],
+                        "Justice": [
+                            "Correctivist",
+                            0.5201075939932507
+                        ],
+                        "Natural-Balance": [
+                            "Naturalist",
+                            0.13254586153224968
+                        ],
+                        "Government": [
+                            "Oligarchic",
+                            0.7847152327099682
+                        ]
+                    }
+                },
+                "nodetype": "FAC",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Violet-Statement Center": {
+                "id": "Violet-Statement Center",
+                "status": null,
+                "references": {
+                    "name": "Violet-Statement Center",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": [
+                            "Free-Capitalist",
+                            0.6426094694018277
+                        ],
+                        "Liberty": [
+                            "Statist",
+                            0.4119126769630732
+                        ],
+                        "Culture": [
+                            "Accelerationist",
+                            0.8177254077995778
+                        ],
+                        "Diplomacy": [
+                            "Diplomatic",
+                            0.2694262417812415
+                        ],
+                        "Militancy": [
+                            "Diplomatic",
+                            0.9389148436449066
+                        ],
+                        "Diversity": [
+                            "Multiculturalist",
+                            0.8628304839733942
+                        ],
+                        "Secularity": [
+                            "Apostate",
+                            0.17340440788122002
+                        ],
+                        "Justice": [
+                            "Retributionist",
+                            0.3836149007257388
+                        ],
+                        "Natural-Balance": [
+                            "Naturalist",
+                            0.03630659248275547
+                        ],
+                        "Government": [
+                            "Autocratic",
+                            0.4223397274112727
+                        ]
+                    }
+                },
+                "nodetype": "FAC",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Soul PAC": {
+                "id": "Soul PAC",
+                "status": null,
+                "references": {
+                    "name": "Soul PAC",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": [
+                            "Free-Capitalist",
+                            0.7555115720538826
+                        ],
+                        "Liberty": [
+                            "Indifferent",
+                            0.9654141510851612
+                        ],
+                        "Culture": [
+                            "Traditionalist",
+                            0.14486221548833356
+                        ],
+                        "Diplomacy": [
+                            "Globalist",
+                            0.32882215177463914
+                        ],
+                        "Militancy": [
+                            "Diplomatic",
+                            0.07220587026791991
+                        ],
+                        "Diversity": [
+                            "Indifferent",
+                            0.2001894018023812
+                        ],
+                        "Secularity": [
+                            "Apostate",
+                            0.9304085504047893
+                        ],
+                        "Justice": [
+                            "Retributionist",
+                            0.3328895728144481
+                        ],
+                        "Natural-Balance": [
+                            "Ecologist",
+                            0.9580177224675858
+                        ],
+                        "Government": [
+                            "Republican",
+                            0.4452340594955774
+                        ]
+                    }
+                },
+                "nodetype": "FAC",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Zeus-Jupiter Group": {
+                "id": "Zeus-Jupiter Group",
+                "status": null,
+                "references": {
+                    "name": "Zeus-Jupiter Group",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": [
+                            "Capitalist",
+                            0.4647753224169291
+                        ],
+                        "Liberty": [
+                            "Statist",
+                            0.7900570497704676
+                        ],
+                        "Culture": [
+                            "Traditionalist",
+                            0.1412992359375813
+                        ],
+                        "Diplomacy": [
+                            "Nationalist",
+                            0.48879383418805733
+                        ],
+                        "Militancy": [
+                            "Militarist",
+                            0.9686539045244
+                        ],
+                        "Diversity": [
+                            "Heterogeneous",
+                            0.21846462623387208
+                        ],
+                        "Secularity": [
+                            "Secularist",
+                            0.046223260876132155
+                        ],
+                        "Justice": [
+                            "Rehabilitative",
+                            0.722325967208478
+                        ],
+                        "Natural-Balance": [
+                            "Industrialist",
+                            0.24155465412567423
+                        ],
+                        "Government": [
+                            "Indifferent",
+                            0.18809743523712075
+                        ]
+                    }
+                },
+                "nodetype": "FAC",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Zeus-Omega Cult": {
+                "id": "Zeus-Omega Cult",
+                "status": null,
+                "references": {
+                    "name": "Zeus-Omega Cult",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": [
+                            "Socialist",
+                            0.7584915019649165
+                        ],
+                        "Liberty": [
+                            "Anarchist",
+                            0.7835728522819576
+                        ],
+                        "Culture": [
+                            "Progressive",
+                            0.7856878066514212
+                        ],
+                        "Diplomacy": [
+                            "Globalist",
+                            0.26678565429739454
+                        ],
+                        "Militancy": [
+                            "Strategic",
+                            0.4821016466729199
+                        ],
+                        "Diversity": [
+                            "Heterogeneous",
+                            0.925361515372776
+                        ],
+                        "Secularity": [
+                            "Devout",
+                            0.47062891938389595
+                        ],
+                        "Justice": [
+                            "Rehabilitative",
+                            0.19383678269640658
+                        ],
+                        "Natural-Balance": [
+                            "Indifferent",
+                            0.5796978686690979
+                        ],
+                        "Government": [
+                            "Oligarchic",
+                            0.10117751726266011
+                        ]
+                    }
+                },
+                "nodetype": "FAC",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Arm Co.": {
+                "id": "Arm Co.",
+                "status": null,
+                "references": {
+                    "name": "Arm Co.",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": [
+                            "Socialist",
+                            0.38204869853890067
+                        ],
+                        "Liberty": [
+                            "Anarchist",
+                            0.7927350480159422
+                        ],
+                        "Culture": [
+                            "Progressive",
+                            0.9828798088850514
+                        ],
+                        "Diplomacy": [
+                            "Globalist",
+                            0.25317097475397743
+                        ],
+                        "Militancy": [
+                            "Indifferent",
+                            0.057414885039084984
+                        ],
+                        "Diversity": [
+                            "Homogenous",
+                            0.5469414615000647
+                        ],
+                        "Secularity": [
+                            "Secularist",
+                            0.7659290770621826
+                        ],
+                        "Justice": [
+                            "Correctivist",
+                            0.6292275501663209
+                        ],
+                        "Natural-Balance": [
+                            "Productivist",
+                            0.8521684709600896
+                        ],
+                        "Government": [
+                            "Indifferent",
+                            0.986680143504369
+                        ]
+                    }
+                },
+                "nodetype": "FAC",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            }
+        },
+        "POI": {
+            "Bear": {
+                "id": "Bear",
+                "status": null,
+                "references": {
+                    "name": "Bear",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Strategic",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Sultan"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Sultan": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Wolf": {
+                "id": "Wolf",
+                "status": null,
+                "references": {
+                    "name": "Wolf",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Apostate",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Silver": {
+                "id": "Silver",
+                "status": null,
+                "references": {
+                    "name": "Silver",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Religious",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Demon": {
+                "id": "Demon",
+                "status": null,
+                "references": {
+                    "name": "Demon",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Strategic",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Religious",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Slick": {
+                "id": "Slick",
+                "status": null,
+                "references": {
+                    "name": "Slick",
+                    "FAC": "Soul PAC",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Indifferent",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Phoenix"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Phoenix": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Granite": {
+                "id": "Granite",
+                "status": null,
+                "references": {
+                    "name": "Granite",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Militarist",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Apostate",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Twilight"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Twilight": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Nocturn": {
+                "id": "Nocturn",
+                "status": null,
+                "references": {
+                    "name": "Nocturn",
+                    "FAC": "Omega-Omega Group",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Secularist",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Shadow"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Typhoon": {
+                "id": "Typhoon",
+                "status": null,
+                "references": {
+                    "name": "Typhoon",
+                    "FAC": "Hurricane-Arm States",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Statist",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Apostate",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Mystic"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Shadow": {
+                "id": "Shadow",
+                "status": null,
+                "references": {
+                    "name": "Shadow",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Religious",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Spruce": {
+                "id": "Spruce",
+                "status": null,
+                "references": {
+                    "name": "Spruce",
+                    "FAC": "Soul PAC",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Devout",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Phoenix"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Phoenix": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Delta": {
+                "id": "Delta",
+                "status": null,
+                "references": {
+                    "name": "Delta",
+                    "FAC": "Quad-Stone ",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Strategic",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Indifferent",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Omega"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Eagle": {
+                "id": "Eagle",
+                "status": null,
+                "references": {
+                    "name": "Eagle",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Statist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Strategic",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Secularist",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Zeta": {
+                "id": "Zeta",
+                "status": null,
+                "references": {
+                    "name": "Zeta",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "First": {
+                "id": "First",
+                "status": null,
+                "references": {
+                    "name": "First",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Militarist",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Devout",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Sanguine": {
+                "id": "Sanguine",
+                "status": null,
+                "references": {
+                    "name": "Sanguine",
+                    "FAC": "Soul PAC",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Militarist",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Indifferent",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Phoenix"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Phoenix": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Phoenix": {
+                "id": "Phoenix",
+                "status": null,
+                "references": {
+                    "name": "Phoenix",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Strategic",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Atom"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Atom": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Banshee": {
+                "id": "Banshee",
+                "status": null,
+                "references": {
+                    "name": "Banshee",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Strategic",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Essence": {
+                "id": "Essence",
+                "status": null,
+                "references": {
+                    "name": "Essence",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Statist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Devout",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Queen"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Mars": {
+                "id": "Mars",
+                "status": null,
+                "references": {
+                    "name": "Mars",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Militarist",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Devout",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Federal": {
+                "id": "Federal",
+                "status": null,
+                "references": {
+                    "name": "Federal",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Lion"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Lion": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Omen": {
+                "id": "Omen",
+                "status": null,
+                "references": {
+                    "name": "Omen",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Apostate",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Executive": {
+                "id": "Executive",
+                "status": null,
+                "references": {
+                    "name": "Executive",
+                    "FAC": "Quad-Stone ",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Omega"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Atom": {
+                "id": "Atom",
+                "status": null,
+                "references": {
+                    "name": "Atom",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Anarchist",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Jet": {
+                "id": "Jet",
+                "status": null,
+                "references": {
+                    "name": "Jet",
+                    "FAC": "Hurricane-Arm States",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Statist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Indifferent",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Mystic"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Admin": {
+                "id": "Admin",
+                "status": null,
+                "references": {
+                    "name": "Admin",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Indifferent",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Militarist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Indifferent",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Ward": {
+                "id": "Ward",
+                "status": null,
+                "references": {
+                    "name": "Ward",
+                    "FAC": "Hurricane-Arm States",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Libertarian",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Indifferent",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Mystic"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Lambda": {
+                "id": "Lambda",
+                "status": null,
+                "references": {
+                    "name": "Lambda",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Militarist",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Apostate",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Siege": {
+                "id": "Siege",
+                "status": null,
+                "references": {
+                    "name": "Siege",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Religious",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Quad": {
+                "id": "Quad",
+                "status": null,
+                "references": {
+                    "name": "Quad",
+                    "FAC": "Soul PAC",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Militarist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Phoenix"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Phoenix": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Titan": {
+                "id": "Titan",
+                "status": null,
+                "references": {
+                    "name": "Titan",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Militarist",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Religious",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Karma": {
+                "id": "Karma",
+                "status": null,
+                "references": {
+                    "name": "Karma",
+                    "FAC": "Quad-Stone ",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Secularist",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Omega"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Gorilla": {
+                "id": "Gorilla",
+                "status": null,
+                "references": {
+                    "name": "Gorilla",
+                    "FAC": "Soul PAC",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Apostate",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Phoenix"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Phoenix": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Tau": {
+                "id": "Tau",
+                "status": null,
+                "references": {
+                    "name": "Tau",
+                    "FAC": "Alpha-Spruce Inc.",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Strategic",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Devout",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Gorilla"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Meridian": {
+                "id": "Meridian",
+                "status": null,
+                "references": {
+                    "name": "Meridian",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Indifferent",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Omega": {
+                "id": "Omega",
+                "status": null,
+                "references": {
+                    "name": "Omega",
+                    "FAC": "Alpha-Spruce Inc.",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Secularist",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Gorilla"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Hurricane": {
+                "id": "Hurricane",
+                "status": null,
+                "references": {
+                    "name": "Hurricane",
+                    "FAC": "Quad-Stone ",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Indifferent",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Religious",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Omega"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Tap": {
+                "id": "Tap",
+                "status": null,
+                "references": {
+                    "name": "Tap",
+                    "FAC": "Quad-Stone ",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Statist",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Devout",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Omega"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Harbor": {
+                "id": "Harbor",
+                "status": null,
+                "references": {
+                    "name": "Harbor",
+                    "FAC": "Violet-Statement Center",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Indifferent",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Harbor": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Alpha": {
+                "id": "Alpha",
+                "status": null,
+                "references": {
+                    "name": "Alpha",
+                    "FAC": "Quad-Stone ",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Omega"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Arm": {
+                "id": "Arm",
+                "status": null,
+                "references": {
+                    "name": "Arm",
+                    "FAC": "Quad-Stone ",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Statist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Devout",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Omega"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Minutemen": {
+                "id": "Minutemen",
+                "status": null,
+                "references": {
+                    "name": "Minutemen",
+                    "FAC": "Quad-Stone ",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Apostate",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Omega"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Tri": {
+                "id": "Tri",
+                "status": null,
+                "references": {
+                    "name": "Tri",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Libertarian",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Militarist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Secularist",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Platinum": {
+                "id": "Platinum",
+                "status": null,
+                "references": {
+                    "name": "Platinum",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Militarist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Stone": {
+                "id": "Stone",
+                "status": null,
+                "references": {
+                    "name": "Stone",
+                    "FAC": "Soul PAC",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Statist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Phoenix"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Phoenix": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Odin": {
+                "id": "Odin",
+                "status": null,
+                "references": {
+                    "name": "Odin",
+                    "FAC": "Soul PAC",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Indifferent",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Indifferent",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Phoenix"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Phoenix": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Dragon": {
+                "id": "Dragon",
+                "status": null,
+                "references": {
+                    "name": "Dragon",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Gamma": {
+                "id": "Gamma",
+                "status": null,
+                "references": {
+                    "name": "Gamma",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Secularist",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Hound": {
+                "id": "Hound",
+                "status": null,
+                "references": {
+                    "name": "Hound",
+                    "FAC": "Violet-Statement Center",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Religious",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Harbor": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Specter": {
+                "id": "Specter",
+                "status": null,
+                "references": {
+                    "name": "Specter",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Militarist",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Indifferent",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Atlas": {
+                "id": "Atlas",
+                "status": null,
+                "references": {
+                    "name": "Atlas",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Religious",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Arcane": {
+                "id": "Arcane",
+                "status": null,
+                "references": {
+                    "name": "Arcane",
+                    "FAC": "Soul PAC",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Strategic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Phoenix"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Phoenix": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Omicron": {
+                "id": "Omicron",
+                "status": null,
+                "references": {
+                    "name": "Omicron",
+                    "FAC": "Soul PAC",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Statist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Strategic",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Indifferent",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Phoenix"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Phoenix": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Rhino": {
+                "id": "Rhino",
+                "status": null,
+                "references": {
+                    "name": "Rhino",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Militarist",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Queen": {
+                "id": "Queen",
+                "status": null,
+                "references": {
+                    "name": "Queen",
+                    "FAC": "Soul PAC",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Indifferent",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Phoenix"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Phoenix": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Green": {
+                "id": "Green",
+                "status": null,
+                "references": {
+                    "name": "Green",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Anarchist",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Apostate",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Violet": {
+                "id": "Violet",
+                "status": null,
+                "references": {
+                    "name": "Violet",
+                    "FAC": "Zeus-Omega Cult",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Devout",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Cellular"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Cellular": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "United": {
+                "id": "United",
+                "status": null,
+                "references": {
+                    "name": "United",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Indifferent",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Beta": {
+                "id": "Beta",
+                "status": null,
+                "references": {
+                    "name": "Beta",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Statist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Militarist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Indifferent",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Jet"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Jet": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Red": {
+                "id": "Red",
+                "status": null,
+                "references": {
+                    "name": "Red",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Strategic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Religious",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Soul": {
+                "id": "Soul",
+                "status": null,
+                "references": {
+                    "name": "Soul",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Indifferent",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Slate": {
+                "id": "Slate",
+                "status": null,
+                "references": {
+                    "name": "Slate",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Militarist",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Devout",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Lion": {
+                "id": "Lion",
+                "status": null,
+                "references": {
+                    "name": "Lion",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Indifferent",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Militarist",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Mystic": {
+                "id": "Mystic",
+                "status": null,
+                "references": {
+                    "name": "Mystic",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Devout",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Global": {
+                "id": "Global",
+                "status": null,
+                "references": {
+                    "name": "Global",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Libertarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Strategic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Religious",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Steel": {
+                "id": "Steel",
+                "status": null,
+                "references": {
+                    "name": "Steel",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Devout",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "King": {
+                "id": "King",
+                "status": null,
+                "references": {
+                    "name": "King",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Indifferent",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Revelation"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Revelation": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Angel": {
+                "id": "Angel",
+                "status": null,
+                "references": {
+                    "name": "Angel",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Indifferent",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Devout",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Blue": {
+                "id": "Blue",
+                "status": null,
+                "references": {
+                    "name": "Blue",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Libertarian",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Slick"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Slick": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Heart": {
+                "id": "Heart",
+                "status": null,
+                "references": {
+                    "name": "Heart",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Strategic",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Secularist",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Sigma": {
+                "id": "Sigma",
+                "status": null,
+                "references": {
+                    "name": "Sigma",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Statist",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Apostate",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Cold": {
+                "id": "Cold",
+                "status": null,
+                "references": {
+                    "name": "Cold",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Statist",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Strategic",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Indifferent",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Void": {
+                "id": "Void",
+                "status": null,
+                "references": {
+                    "name": "Void",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Militarist",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Secularist",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Indifferent"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Pinnacle": {
+                "id": "Pinnacle",
+                "status": null,
+                "references": {
+                    "name": "Pinnacle",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Strategic",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Secularist",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Oligarchic"
+                    },
+                    "LOC": "Lambda"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Lambda": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Storm": {
+                "id": "Storm",
+                "status": null,
+                "references": {
+                    "name": "Storm",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Strategic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Spider": {
+                "id": "Spider",
+                "status": null,
+                "references": {
+                    "name": "Spider",
+                    "FAC": "Arm Co.",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Apostate",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Republican"
+                    },
+                    "LOC": "Executive"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Executive": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Sultan": {
+                "id": "Sultan",
+                "status": null,
+                "references": {
+                    "name": "Sultan",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Autocratic"
+                    },
+                    "LOC": "Essence"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Essence": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Macguffin": {
+                "id": "Macguffin",
+                "status": null,
+                "references": {
+                    "name": "Macguffin",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Statist",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Militarist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Apostate",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Democratic"
+                    },
+                    "LOC": "Hurricane"
+                },
+                "nodetype": "POI",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {},
+                    "Hurricane": {}
+                },
+                "checks": {},
+                "abilities": {}
+            }
+        },
+        "PTY": {},
+        "LOC": {
+            "Red": {
+                "id": "Red",
+                "status": null,
+                "references": {
+                    "name": "Red",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Hound",
+                        "Executive",
+                        "Queen"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Hound": {
+                "id": "Hound",
+                "status": null,
+                "references": {
+                    "name": "Hound",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Red",
+                        "Arcane"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 1
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Arcane": {
+                "id": "Arcane",
+                "status": null,
+                "references": {
+                    "name": "Arcane",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Hound",
+                        "Shadow"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 1
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Shadow": {
+                "id": "Shadow",
+                "status": null,
+                "references": {
+                    "name": "Shadow",
+                    "FAC": "Omega-Omega Group",
+                    "policy": {},
+                    "adjacent": [
+                        "Arcane",
+                        "Tau"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 1
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Tau": {
+                "id": "Tau",
+                "status": null,
+                "references": {
+                    "name": "Tau",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Shadow",
+                        "Essence"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Essence": {
+                "id": "Essence",
+                "status": null,
+                "references": {
+                    "name": "Essence",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": "Lion"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 5
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Executive": {
+                "id": "Executive",
+                "status": null,
+                "references": {
+                    "name": "Executive",
+                    "FAC": "Arm Co.",
+                    "policy": {},
+                    "adjacent": [
+                        "Revelation",
+                        "Sultan"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Queen": {
+                "id": "Queen",
+                "status": null,
+                "references": {
+                    "name": "Queen",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Red",
+                        "Black",
+                        "King",
+                        "Mystic",
+                        "Gorilla"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Black": {
+                "id": "Black",
+                "status": null,
+                "references": {
+                    "name": "Black",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": "Queen"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 5
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "King": {
+                "id": "King",
+                "status": null,
+                "references": {
+                    "name": "King",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": "Queen"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 5
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Mystic": {
+                "id": "Mystic",
+                "status": null,
+                "references": {
+                    "name": "Mystic",
+                    "FAC": "Hurricane-Arm States",
+                    "policy": {},
+                    "adjacent": "Queen"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 5
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Gorilla": {
+                "id": "Gorilla",
+                "status": null,
+                "references": {
+                    "name": "Gorilla",
+                    "FAC": "Alpha-Spruce Inc.",
+                    "policy": {},
+                    "adjacent": [
+                        "Queen",
+                        "Omega"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 5
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Omega": {
+                "id": "Omega",
+                "status": null,
+                "references": {
+                    "name": "Omega",
+                    "FAC": "Quad-Stone ",
+                    "policy": {},
+                    "adjacent": "Gorilla"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Global": {
+                "id": "Global",
+                "status": null,
+                "references": {
+                    "name": "Global",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Harbor",
+                        "Atom",
+                        "Jupiter"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 3
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Harbor": {
+                "id": "Harbor",
+                "status": null,
+                "references": {
+                    "name": "Harbor",
+                    "FAC": "Violet-Statement Center",
+                    "policy": {},
+                    "adjacent": [
+                        "Global",
+                        "Phoenix"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 1
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Phoenix": {
+                "id": "Phoenix",
+                "status": null,
+                "references": {
+                    "name": "Phoenix",
+                    "FAC": "Soul PAC",
+                    "policy": {},
+                    "adjacent": [
+                        "Harbor",
+                        "Twilight"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 1
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Twilight": {
+                "id": "Twilight",
+                "status": null,
+                "references": {
+                    "name": "Twilight",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Phoenix",
+                        "Heart"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 3
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Heart": {
+                "id": "Heart",
+                "status": null,
+                "references": {
+                    "name": "Heart",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Twilight",
+                        "Soul"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Soul": {
+                "id": "Soul",
+                "status": null,
+                "references": {
+                    "name": "Soul",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Heart",
+                        "Revelation",
+                        "Atom"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Atom": {
+                "id": "Atom",
+                "status": null,
+                "references": {
+                    "name": "Atom",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": "Soul"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 2
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Revelation": {
+                "id": "Revelation",
+                "status": null,
+                "references": {
+                    "name": "Revelation",
+                    "FAC": "Zeus-Jupiter Group",
+                    "policy": {},
+                    "adjacent": [
+                        "Soul",
+                        "Executive"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 3
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Jupiter": {
+                "id": "Jupiter",
+                "status": null,
+                "references": {
+                    "name": "Jupiter",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Global",
+                        "Cellular",
+                        "Hurricane",
+                        "Jet"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 5
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Cellular": {
+                "id": "Cellular",
+                "status": null,
+                "references": {
+                    "name": "Cellular",
+                    "FAC": "Zeus-Omega Cult",
+                    "policy": {},
+                    "adjacent": [
+                        "Jupiter",
+                        "Slick",
+                        "Lambda"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Slick": {
+                "id": "Slick",
+                "status": null,
+                "references": {
+                    "name": "Slick",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": "Cellular"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 3
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Hurricane": {
+                "id": "Hurricane",
+                "status": null,
+                "references": {
+                    "name": "Hurricane",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": "Jupiter"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 1
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Sultan": {
+                "id": "Sultan",
+                "status": null,
+                "references": {
+                    "name": "Sultan",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": "Executive"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Lion": {
+                "id": "Lion",
+                "status": null,
+                "references": {
+                    "name": "Lion",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Hurricane",
+                        "Essence"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 1
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Jet": {
+                "id": "Jet",
+                "status": null,
+                "references": {
+                    "name": "Jet",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": "Jupiter"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Lambda": {
+                "id": "Lambda",
+                "status": null,
+                "references": {
+                    "name": "Lambda",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": "Cellular"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            }
+        },
+        "OBJ": {}
+    },
+    "checks": {},
+    "abilities": {}
+}

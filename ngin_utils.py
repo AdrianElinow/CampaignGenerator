@@ -23,7 +23,7 @@ def debug(*args):
         print(f"[DEBUG] {msg}")
 
 
-def save_json_to_file( filename: str, data:str, filepath : str =None, pretty: bool =False):
+def save_json_to_file( filename: str, data:dict, filepath : str =None, pretty: bool =False):
     if not filename:
         raise ValueError("filename cannot be null/empty")
 
@@ -34,11 +34,9 @@ def save_json_to_file( filename: str, data:str, filepath : str =None, pretty: bo
 
     try:
 
-        json_serialized = json.dumps( data, indent=( 4 if pretty else None ) )
-
         with open(absolute_path,'w') as open_file:
 
-            open_file.write( data )
+            json.dump( data, open_file, indent=( 4 if pretty else None ) )
 
     except TypeError as te:
         print(f"Error while writing to file | Unable to serialize data\n{te}")
