@@ -57,6 +57,10 @@ class SimulaeNode:
         self.nodetype = nodetype
         self.attributes = attributes
         self.relations = relations
+
+        if self.nodetype == POI:
+            self.relations['inventory'] = []
+
         self.checks = checks
         self.abilities = abilities
 
@@ -93,6 +97,10 @@ class SimulaeNode:
                 return True
 
         return False
+
+    def get_location(self):
+
+        return self.get_reference(LOC)
 
     def get_adjacent_locations(self):
         
@@ -155,12 +163,15 @@ class SimulaeNode:
             self.references[key] = value
 
     def get_attribute(self, key: str):
-        
+        debug("get_attribute(",key,")")
+
         if key in self.attributes:
             return self.attributes[key]
 
         return None
 
+    def set_attribute(self, key: str, value: int):
+        self.attributes[key] = value
 
     def determine_relation(self, node):
 
