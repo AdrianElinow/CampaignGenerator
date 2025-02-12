@@ -1,7 +1,6 @@
 import unittest
 
-from SimulaeNode import *
-
+from .SimulaeNode import *
 
 class Test_SimulaeNode(unittest.TestCase):
 
@@ -98,7 +97,3 @@ class Test_generate_simulae_node(unittest.TestCase):
         generated = generate_simulae_node(POI, node_name=nodename, faction=faction)
 
         self.assertEqual(generated.references[FAC], faction.id)
-
-
-if __name__ == '__main__':
-    unittest.main()

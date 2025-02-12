@@ -1,8 +1,7 @@
 
 #from json import JSONEncoder
-from ngin_utils import *
-
-from madlibs import *
+from .NGIN_utils.ngin_utils import *
+from .NGIN_config.madlibs import *
 
 FAC = 'FAC'
 POI = 'POI'

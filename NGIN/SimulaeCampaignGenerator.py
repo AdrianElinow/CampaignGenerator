@@ -1,6 +1,6 @@
 from NGIN_console import *
-from ngin_utils import *
-from ngin_missions import *
+from NGIN_utils.ngin_utils import *
+from NGIN_config.ngin_missions import *
 from FactionGenerator.faction_generator import *
 from SimulaeNode import *
 
@@ -638,23 +638,15 @@ def try_json_load(filename):
 
 def main():
     
-    ''' required import(s) '''
+    #story_struct.json ngin_settings.json madlibs.json save_file.json
 
-    if not sys.argv or len(sys.argv) <= 3:
-        print("Must specify application data files to start\n"
-            +"[mission_struct] [ngin_settings] [save_file:optional]")
+    mission_struct = load_json_from_file( "NGIN/NGIN_config/story_struct.json" )
 
-        sys.argv = ['script.py','story_struct.json','ngin_settings.json']
-
-    mission_struct = load_json_from_file( sys.argv[1] )
-
-    ngin_settings = load_json_from_file( sys.argv[2])
-
-    #madlibs = load_json_from_file(sys.argv[3])
+    ngin_settings = load_json_from_file( "NGIN/NGIN_config/ngin_settings.json" )
 
     save_file = None
     if len(sys.argv) >= 5:
-        save_file = load_json_from_file( sys.argv[4] )
+        save_file = load_json_from_file( sys.argv[1] )
 
     # Setup 
     ngin = NGIN( mission_struct, ngin_settings, save_file )
