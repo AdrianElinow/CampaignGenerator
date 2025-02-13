@@ -36,6 +36,9 @@ class Task():
         self.action = action
         self.heuristic = get_heuristic(action, pre_actions, post_actions)
 
+    def summary(self):
+        return str(self)
+
     def __str__(self):
         return f"Task : [heuristic {self.heuristic}] for [{len(self.actions)} actions]"
 
@@ -113,22 +116,31 @@ class NGIN_Simulae_Actor(SimulaeNode):
     def plan_threat_reaction(self):
         return None
 
-    def act_next(self):
+    def act_next(self, prioritized=False):
 
         if not self.priorities:
-            raise ValueError("No priorities to act on")
+            if prioritized:
+                print("no priorities??")
+                return []
+
+            self.prioritize()
+            return self.act_next(prioritized=True)
 
         task = self.priorities[0]
 
         if not task:
-            raise ValueError("No task to act on")
+            return []
+        
+        priority, goal = task
 
-        if task not in self.plans:
-            self.plans[task] = self.plan_task(task)
+        if goal not in self.plans:
+            print('planning',goal,f'{priority}')
+            self.plans[goal] = self.plan_task(goal)
 
-        plan = self.plans[task]
+        plan = self.plans[goal]
 
-        print(f"Acting on task: {task}")
+        print(f"Acting on task: {goal}")
+        print(plan)
         print(plan.summary())
 
 
@@ -232,6 +244,8 @@ class NGIN_Simulae_Actor(SimulaeNode):
         actions = []
         heuristics = {}
 
+        return Task(target, [])
+
         if self.has_vague_target(target):
             return [] # base case -> already have it
         
@@ -245,7 +259,6 @@ class NGIN_Simulae_Actor(SimulaeNode):
             actions = [(Action.TAKE,target)]
             heuristics['nearby'] = get_heuristic(actions), actions
 
-        
         
 
     def acquire(self, target):
@@ -332,8 +345,11 @@ def get_heuristic(actor, action, pre_actions=None, post_actions=None):
     value = 0
 
     actions = [action]
-    actions.extend(pre_actions)
-    actions.extend(post_actions)
+    
+    if pre_actions:
+        actions.extend(pre_actions)
+    if post_actions:
+        actions.extend(post_actions)
 
     for action in actions:
         act, target = action
