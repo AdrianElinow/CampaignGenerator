@@ -220,7 +220,6 @@ class NGIN_Simulae_Actor(SimulaeNode):
         # todo AE : implement
         return (None, None)
 
-
     def acquire(self, target):
   
         #if type(target) == type(""):
@@ -238,13 +237,12 @@ class NGIN_Simulae_Actor(SimulaeNode):
         #   if not, same as below, but add 'requires-permission'
         if self.SimulaeNode.has_relation(target, OBJ):
             actions = self.pathfind_to(target)
-            heuristics['owned'] = heuristic(actions)
+            heuristics['owned'] = get_heuristic(actions), actions
 
         # is there one nearby?
         if nodes_are_adjacent(self, target):
             actions = [('take',target)]
-            heuristics['nearby'] = heuristic(actions)
-
+            heuristics['nearby'] = get_heuristic(actions), actions
         
         if self.SimulaeNode.has_relation(target, OBJ):
 
@@ -255,17 +253,24 @@ class NGIN_Simulae_Actor(SimulaeNode):
             if target_location is None:
                 # do we know where any might be? -> search
                 actions = [('search',target)]
-                heuristics['location'] = heuristic(actions)
+                heuristics['location'] = get_heuristic(actions), actions
             else: # do we know where any are? -> goto exact location
                 actions = self.pathfind_to(target_location)
                 actions.append(('acquire',target))
-                heuristics['location'] = heuristic(actions)
+                heuristics['location'] = get_heuristic(actions), actions
+
+        for route, (heuristic, actions) in heuristics.items():
+
+            optimal_route = min(heuristics, key=heuristic)
+
+            return heuristics[optimal_route][1] # actions
+
 
 
         # do we know how to make it?
         if self.can_make(target):
 
-            crafting_loc, required_components = get_recipe(target)
+            crafting_loc, required_components = self.get_recipe(target)
             actions = []
 
             if crafting_loc and required_components:
@@ -277,13 +282,15 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
                 actions.append(('make',target))
 
-            else:
-                print("Cannot make",target)
+            else: # cannot make 'target'
+                return actions
 
         # we are SOL
         return []
 
-
+    def get_recipe(self, target):
+        # todo AE : implement
+        return (None, None)
 
 
     def Turn_RecursiveMinMax(self, ngin_state):
@@ -401,6 +408,10 @@ class NGIN_Simulae_Actor(SimulaeNode):
             'LOC' : 500,
             'OBJ' : 5
         }[node_type]
+    
+def get_heuristic(actions):
+        # todo AE : implement
+        return 0
 
 def nodes_are_adjacent(node1, node2):
 
