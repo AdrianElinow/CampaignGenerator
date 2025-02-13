@@ -247,6 +247,14 @@ class SimulaeNode:
         if key in self.relations[nodetype]:
             return True
         return False
+    
+    def set_check(self, key: str, value: bool):
+        self.checks[key] = value
+
+    def get_check(self, key:str):
+        if key in self.checks:
+            return self.checks[key]
+        return None
 
 
     def generate_policy(self):

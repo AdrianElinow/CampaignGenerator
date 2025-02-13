@@ -64,9 +64,9 @@ class NGIN_Simulae_Actor(SimulaeNode):
             print('getting actions for vague goal :',goal)
 
             if goal == "hunger":
-                return self.consume('food')
+                return self.consume('edible')
             elif goal == 'drink':
-                return self.consume('drink')
+                return self.consume('drinkable')
             elif goal == 'sleep':
                 return self.perform_action(goal)
             elif goal == 'socialize':
@@ -189,21 +189,23 @@ class NGIN_Simulae_Actor(SimulaeNode):
         # todo AE : impelement
         return []
 
-    def pathfind_to(self, target):
+    def pathfind_to(self, target) -> List:
         # todo AE : impelement
         return [ ("goto",target) ]
 
 
-    def perform_action(self, target):
+    def perform_action(self, target) -> List:
 
         return [('use',target)]
 
-    def consume(self, consumable):
+    def consume(self, consumable) -> List:
 
         if type(consumable) == type(""):
 
-            if self.has(consumable):
-                return ('use',consumable)
+            item = self.has(consumable)
+
+            if item:
+                return [('use',item)]
             else:
                 return self.acquire(consumable)
                     
@@ -212,7 +214,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
             # todo AE : impelement
 
             if self.has(consumable):
-                return ('use',consumable)
+                return [('use',consumable)]
             else:
                 return self.acquire(consumable)
 
@@ -221,14 +223,18 @@ class NGIN_Simulae_Actor(SimulaeNode):
         # todo ae : implement SimulaeNode inventory
 
         if type(target) == type(""):
-            if target in self.inventory:
-                return True
 
+            for nid, n in self.inventory[OBJ].items():
+
+                is_target = n.get_check(target)
+                if is_target: # target is either True OR False/None (both return eval as False)
+                    return n
+                
         else:
-            if target.id in self.inventory:
-                return True
+            if target.id in self.inventory[target.nodetype]:
+                return target
 
-        return False
+        return None
 
     def can_make(self, target):
         # todo AE : impelement
@@ -454,6 +460,24 @@ def generate_individual(location=None):
             individual.update_relation(location)
         
         return individual
+
+def generate_food_item():
+    food = generate_simulae_node(OBJ, "FOOD")
+
+    food.set_check('edible', True)
+    food.set_check('consumable', True)
+    food.set_attribute('nutrition', 10)
+
+    return food
+
+def generate_drink_item():
+    drink = generate_simulae_node(OBJ, "DRINK")
+
+    drink.set_check('drinkable', True)
+    drink.set_check('consumable', True)
+    drink.set_attribute('hydration', 10)
+
+    return drink
 
 
 def NGIN_AI_test():
