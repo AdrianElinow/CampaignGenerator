@@ -29,12 +29,9 @@ class NGIN_Simulae_Actor(SimulaeNode):
             try:
                 priorities = self.priorities.get(timeout=1)
             except EmptyQueueError:
-                print('No priorities?')
                 return []
 
             if priorities:
-                print(priorities)
-
                 goal = priorities[1]
 
                 actions = self.get_actions_for_goal(goal)
@@ -44,12 +41,9 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
     def get_actions_for_goal(self, goal, action=None):
 
-        print('getting actions for goal: ',goal)
-
         goal_type = type(goal)
 
         if goal_type == type(SimulaeNode):
-            print('getting actions for SN goal ',goal.node_type)
 
             if goal.node_type == LOC:
                 return self.pathfind_to(goal)
@@ -61,7 +55,6 @@ class NGIN_Simulae_Actor(SimulaeNode):
                 return []
 
         elif goal_type == type(""):
-            print('getting actions for vague goal :',goal)
 
             if goal == "hunger":
                 return self.consume('edible')
@@ -77,56 +70,35 @@ class NGIN_Simulae_Actor(SimulaeNode):
     def prioritize(self):
         priorities = PriorityQueue()
 
-        print('Proritizing')
-
         # Safety & Security needs
 
-        print('Safety needs..')
-
         if self.is_threatened():
-            print('threatened')
             priorities.put((0, self.get_prioritized_threats()))
 
         # Physiological needs
-
-        print('Physiological needs..')
-
         if self.is_hungry():
-            print('hungry')
             priorities.put((1, 'hunger'))
 
         if self.is_thirsty():
-            print('thirsty')
             priorities.put((2,'drink'))
 
         if self.is_sleepy():
-            print('sleepy')
             priorities.put((3, 'sleep'))
 
         # Social needs
-
-        print('Social needs..')
-
         if self.needs_socialization():
-            print('lonely')
             priorities.put((4,'socialize'))
 
         # short-term goals
 
-        print('short-term goals..')
-
         goals = self.get_prioritized_short_term_goals()
         for goal in goals:
-            print('short-term goal',goal)
             priorities.put(goal)
 
         # long-term goals
 
-        print('long-term goals..')
-
         goals = self.get_prioritized_long_term_goals()
         for goal in goals:
-            print('long-term goal',goal)
             priorities.put(goal)
 
         self.priorities = priorities
@@ -145,7 +117,6 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         socialization = self.SimulaeNode.get_attribute('social')
         if socialization is not None and socialization <= 50:
-            print('needs socialization')
             return True
 
         return False
@@ -155,7 +126,6 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         exhaustion = self.SimulaeNode.get_attribute('exhaustion')
         if exhaustion is not None and exhaustion >= 60:
-            print('needs rest')
             return True
 
         return False
@@ -164,7 +134,6 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         thirst = self.SimulaeNode.get_attribute('thirst')
         if thirst is not None and thirst <= 40:
-            print('needs to hydrate')
             return True
 
         return False
@@ -174,9 +143,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         hunger = self.SimulaeNode.get_attribute('hunger')
         if hunger is not None:
-            print('hunger',hunger)
             if hunger <= 20:
-                print('needs to eat')
                 return True
 
         return False
@@ -255,8 +222,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
 
     def acquire(self, target):
-        print('planning to acquire',target)
-
+  
         #if type(target) == type(""):
         #    print("cant plan to acquire vague",target)
         #    return []
@@ -271,13 +237,11 @@ class NGIN_Simulae_Actor(SimulaeNode):
         # do we own any? 
         #   if not, same as below, but add 'requires-permission'
         if self.SimulaeNode.has_relation(target, OBJ):
-            print('We know where',target,'is')
             actions = self.pathfind_to(target)
             heuristics['owned'] = heuristic(actions)
 
         # is there one nearby?
         if nodes_are_adjacent(self, target):
-            print("We are adjacent to",target)
             actions = [('take',target)]
             heuristics['nearby'] = heuristic(actions)
 
@@ -290,11 +254,9 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
             if target_location is None:
                 # do we know where any might be? -> search
-                print('We dont know where',target,'is')
                 actions = [('search',target)]
                 heuristics['location'] = heuristic(actions)
             else: # do we know where any are? -> goto exact location
-                print('We know where',target,'is')
                 actions = self.pathfind_to(target_location)
                 actions.append(('acquire',target))
                 heuristics['location'] = heuristic(actions)
@@ -319,7 +281,6 @@ class NGIN_Simulae_Actor(SimulaeNode):
                 print("Cannot make",target)
 
         # we are SOL
-        print("Cant acquire",target)
         return []
 
 
