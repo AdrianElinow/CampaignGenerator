@@ -1,1 +1,1 @@
-from NGIN_utils import *
+from .NGIN_utils import *
