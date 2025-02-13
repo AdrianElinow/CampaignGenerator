@@ -1,6 +1,6 @@
 import unittest
 
-from SimulaeNode import *
+from NGIN.SimulaeNode import *
 
 class Test_SimulaeNode(unittest.TestCase):
 
