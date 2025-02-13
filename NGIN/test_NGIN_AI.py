@@ -1,5 +1,5 @@
 import unittest
-from NGIN_AI import NGIN_Simulae_Actor, generate_individual, generate_food_item, generate_drink_item
+from .NGIN_AI import NGIN_Simulae_Actor, generate_individual, generate_food_item, generate_drink_item
 
 class Test_NGINAI(unittest.TestCase):
 

@@ -1,6 +1,6 @@
 
 
-from SimulaeNode import *
+from NGIN.SimulaeNode import *
 
 from queue import PriorityQueue
 from queue import Empty as EmptyQueueError

@@ -1,8 +1,8 @@
-from NGIN_console import *
-from NGIN_utils.ngin_utils import *
-from NGIN_config.ngin_missions import *
-from FactionGenerator.faction_generator import *
-from SimulaeNode import *
+from NGIN.NGIN_console import *
+from NGIN.NGIN_utils.ngin_utils import *
+from NGIN.NGIN_config.ngin_missions import *
+from NGIN.FactionGenerator.faction_generator import *
+from NGIN.SimulaeNode import *
 
 class NGIN():
 

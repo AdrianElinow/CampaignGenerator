@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from mission_generator import NGIN, SimulaeNode
+from NGIN.mission_generator import NGIN, SimulaeNode
 
 class Test_NGIN(unittest.TestCase):
 

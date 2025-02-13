@@ -3,7 +3,7 @@
 import json, sys, random, os
 from pprint import pprint
 
-from SimulaeNode import SimulaeNode
+from NGIN.SimulaeNode import SimulaeNode
 
 ''' 
 
