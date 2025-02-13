@@ -1,7 +1,7 @@
 
 #from json import JSONEncoder
-from .NGIN_utils.ngin_utils import *
-from .NGIN_config.madlibs import *
+from NGIN_utils.ngin_utils import *
+from NGIN_config.madlibs import *
 
 FAC = 'FAC'
 POI = 'POI'
@@ -209,6 +209,8 @@ class SimulaeNode:
             relationship[POLICY] = node.policy
             relationship["Disposition"] = self.get_policy_disposition(policy_diff[0])
             
+            interaction = None
+
             if interaction != None:
                 relationship['Reputation'][interaction[0]] += interaction[1]
 
@@ -248,6 +250,8 @@ class SimulaeNode:
 
 
     def generate_policy(self):
+
+        policy = {}
 
         for k,v in POLICY_SCALE.items():
             #               position            weight

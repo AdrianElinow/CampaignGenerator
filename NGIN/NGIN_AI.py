@@ -5,8 +5,6 @@ from SimulaeNode import *
 from queue import PriorityQueue
 from queue import Empty as EmptyQueueError
 
-
-
 class NGIN_Simulae_Actor(SimulaeNode):
 
     def __init__(self, simulae_node):
