@@ -13,6 +13,11 @@ NAME = "name"
 POLICY = "policy"
 ADJACENT = "adjacent"
 
+CONTENTS = "Contents"
+COMPONENTS = "Components"
+ATTACHMENTS = "Attachments"
+RELATIONS = [CONTENTS, COMPONENTS, ATTACHMENTS]
+
 ALL_NODE_TYPES = [FAC,POI,PTY,LOC,OBJ]
 NODETYPES = [POI,PTY,LOC,OBJ] # person, people, place, thing
 SOCIAL_NODE_TYPES = [FAC,POI,PTY]
@@ -20,6 +25,7 @@ GROUP_NODE_TYPES = [FAC,PTY]
 PEOPLE_NODE_TYPES = [POI,PTY]
 INANIMATE_NODE_TYPES = [LOC,OBJ]
 
+DEFAULT_POLICY_VALUE = 3 # halfway between 1 and 5
 
 class SimulaeNode:
 
@@ -30,23 +36,9 @@ class SimulaeNode:
                         references={
                             NAME:None,
                             FAC:None,
-                            POLICY:{
-                                "Economy":          ["Indifferent", 0.5],
-                                "Liberty":          ["Indifferent", 0.5],
-                                "Culture":          ["Indifferent", 0.5],
-                                "Diplomacy":        ["Indifferent", 0.5],
-                                "Militancy":        ["Indifferent", 0.5],
-                                "Diversity":        ["Indifferent", 0.5],
-                                "Secularity":       ["Indifferent", 0.5],
-                                "Justice":          ["Indifferent", 0.5],
-                                "Natural-Balance":  ["Indifferent", 0.5],
-                                "Government":       ["Indifferent", 0.5]
-                            }
                         }, 
-                        attributes={
-                            "interactions":0
-                        }, 
-                        relations={ nt:{} for nt in ALL_NODE_TYPES }, 
+                        attributes={}, 
+                        relations=None, 
                         checks={}, 
                         abilities={}):
 
@@ -54,11 +46,16 @@ class SimulaeNode:
         self.status = Status.ALIVE
         self.references = references
         self.nodetype = nodetype
-        self.attributes = attributes
-        self.relations = relations
 
-        if self.nodetype == POI:
-            self.relations['inventory'] = []
+        if self.nodetype in SOCIAL_NODE_TYPES:
+            self.references[POLICY] = self.get_default_policy()
+
+        self.attributes = attributes
+
+        if relations == None:
+            relations = { CONTENTS:{ nt:{} for nt in NODETYPES}, COMPONENTS:{ nt:{} for nt in NODETYPES}, ATTACHMENTS:{ nt:{} for nt in NODETYPES} }
+
+        self.relations = relations
 
         self.checks = checks
         self.abilities = abilities
@@ -256,6 +253,14 @@ class SimulaeNode:
             return self.checks[key]
         return None
 
+    def get_default_policy(self):
+        
+        policy = {}
+        
+        for k,v in POLICY_SCALE.items():
+            policy[k] = [self.get_policy_stance(k, DEFAULT_POLICY_VALUE), DEFAULT_POLICY_VALUE]
+
+        return policy
 
     def generate_policy(self):
 
@@ -311,10 +316,13 @@ class SimulaeNode:
 
         return diff, summary
 
-    def get_policy_index(self, factor, policy):
+    def get_policy_index(self, factor:str, policy:str) -> int:
 
         return POLICY_SCALE[factor].index(policy)
 
+    def get_policy_stance(self, factor: str, index: int) -> str:
+
+        return POLICY_SCALE[factor][index]
 
     def toJSON(self):
         try:
@@ -415,8 +423,7 @@ def jsonify( state ):
 
     return d
 
-
-def generate_simulae_node(node_type, node_name=None, faction=None):
+def generate_random_simulae_node(node_type, node_name=None, faction=None):
 
     name = node_name
 

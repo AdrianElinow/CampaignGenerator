@@ -1,77 +1,45 @@
 import unittest
-from NGIN.NGIN_AI import NGIN_Simulae_Actor, generate_individual, generate_food_item, generate_drink_item
+from NGIN.NGIN_AI import *
 
 class Test_NGINAI(unittest.TestCase):
 
     def setUp(self):
         self.actor = NGIN_Simulae_Actor(generate_individual())
-        self.actor.inventory["OBJ"] = {}
 
     def test_initial_attributes(self):
         self.assertIsNotNone(self.actor.SimulaeNode)
-        self.assertIsNotNone(self.actor.inventory)
-        self.assertTrue(self.actor.priorities.empty())
+        self.assertEqual(self.actor.priorities, [])
 
-    def test_problem_solve_no_priorities(self):
-        actions = self.actor.problem_solve()
-        self.assertEqual(actions, [])
+    def test_NGIN_AI_plan_empty(self):
+        self.actor.plan()
+        self.assertEqual(self.actor.priorities, [])
 
-    def test_problem_solve_hunger_with_food_in_inventory(self):
-        self.actor.SimulaeNode.set_attribute('hunger', 10)
+    def test_NGIN_AI_plan_populated(self):
 
-        SN_food = generate_food_item()
-        self.actor.inventory[SN_food.nodetype][SN_food.id] = SN_food
+        self.actor.plan()
 
-        actions = self.actor.problem_solve()
-        self.assertIn(('use', SN_food), actions)
+        iterations = 100
 
-    def test_problem_solve_thirst_with_drink_in_inventory(self):
-        self.actor.SimulaeNode.set_attribute('thirst', 20)
-
-        SN_drink = generate_drink_item()
-
-        self.actor.inventory[SN_drink.nodetype][SN_drink.id] = SN_drink
+        for i in range(iterations) or self.actor.priorities:
+            print(f"\n#### #### #### #### {i} #### #### #### #### \n")
         
-        actions = self.actor.problem_solve()
-        self.assertIn(('use', SN_drink), actions)
+            actor_tick_test(self.actor)
 
-    def test_problem_solve_with_exhaustion(self):
-        self.actor.SimulaeNode.set_attribute('exhaustion', 70)
-        actions = self.actor.problem_solve()
-        self.assertIn(('use', 'sleep'), actions)
+            print(self.actor.status_summary())
 
-    def test_problem_solve_with_socialization(self):
-        self.actor.SimulaeNode.set_attribute('social', 20)
-        actions = self.actor.problem_solve()
-        self.assertIn(('use', 'socialize'), actions)
+            completed_action = self.actor.act_next()
+            if completed_action:
+                print("Completed action:", completed_action)
+                self.actor.plan()
+        
 
-    def test_prioritize(self):
-        self.actor.SimulaeNode.set_attribute('hunger', 10)
-        self.actor.SimulaeNode.set_attribute('thirst', 20)
-        self.actor.SimulaeNode.set_attribute('exhaustion', 70)
-        self.actor.SimulaeNode.set_attribute('social', 20)
-        priorities = self.actor.prioritize()
-        self.assertFalse(priorities.empty())
+def actor_tick_test(actor):
+    # decrement all status attributes    
+    for attr in actor.SimulaeNode.attributes:
+        if attr in STATUS_ATTRIBUTES:
+            actor.SimulaeNode.attributes[attr] -= 1
 
-    def test_has(self):
-        food = generate_food_item()
 
-        self.actor.inventory[food.nodetype][food.id] = food
-        self.assertTrue(self.actor.has_vague('edible', food.nodetype))
-        self.assertFalse(self.actor.has_vague('drinkable', food.nodetype))
-
-    def test_consume(self):
-        drink = generate_drink_item()
-        self.actor.inventory[drink.nodetype][drink.id] = drink
-
-        food = generate_food_item()
-        self.actor.inventory[food.nodetype][food.id] = food
-
-        actions = self.actor.consume('drinkable')
-        self.assertIn(('use', drink), actions)
-
-        actions = self.actor.consume('edible')
-        self.assertIn(('use', food),actions)
 
 if __name__ == '__main__':
     unittest.main()

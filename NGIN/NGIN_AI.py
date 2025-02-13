@@ -1,9 +1,43 @@
-
+from enum import Enum
 
 from NGIN.SimulaeNode import *
 
-from queue import PriorityQueue
-from queue import Empty as EmptyQueueError
+THREAT = "threat"
+HUNGER = "hunger"
+THIRST = "thirst"
+DRINK = "drink"
+SLEEP = "sleep"
+SICK = "sick"
+COLD = "cold"
+HOT = "hot"
+EXHAUSTION = "exhaustion"
+SOCIALIZE = "socialize"
+
+STATUS_ATTRIBUTES = [HUNGER, THIRST, SLEEP, SICK, COLD, HOT, EXHAUSTION, SOCIALIZE]
+
+CRITICAL_PRIORITY = "critical_priority"
+HIGH_PRIORITY = "high_priority"
+MEDIUM_PRIORITY = "medium_priority"
+LOW_PRIORITY = "low_priority"
+
+TASK_PRIORITIES = [CRITICAL_PRIORITY, HIGH_PRIORITY, MEDIUM_PRIORITY, LOW_PRIORITY]
+
+class Action(Enum):
+    GOTO = 1
+    ACQUIRE = 2
+    TAKE = 3
+    USE = 4
+    MAKE = 5
+    SEARCH = 6
+
+class Task():
+    def __init__(self, target, action, pre_actions=None, post_actions=None):
+        self.target = target
+        self.action = action
+        self.heuristic = get_heuristic(action, pre_actions, post_actions)
+
+    def __str__(self):
+        return f"Task : [heuristic {self.heuristic}] for [{len(self.actions)} actions]"
 
 class NGIN_Simulae_Actor(SimulaeNode):
 
@@ -11,221 +45,211 @@ class NGIN_Simulae_Actor(SimulaeNode):
         self.SimulaeNode = simulae_node
 
         self.inventory = {}
-        self.priorities = PriorityQueue()
 
+        self.priorities = []
+        self.plans = {}
 
-    def problem_solve(self):
+        self.tasks = { priority:[] for priority in TASK_PRIORITIES}
+
+        self.status_thresholds = {
+            THREAT: 50,
+            HUNGER: 20,
+            THIRST: 30,
+            SLEEP: 10,
+            SICK: 40,
+            COLD: 50,
+            HOT: 50,
+            SOCIALIZE: 10
+        }
+
+        self.priority_modifiers = {
+            THREAT: 10,
+            THIRST: 9,
+            HUNGER: 8,
+            SLEEP: 6,
+            HOT: 5,
+            COLD: 5,
+            SICK: 7,
+            SOCIALIZE: 4,
+            CRITICAL_PRIORITY: 10,
+            HIGH_PRIORITY: 8,
+            MEDIUM_PRIORITY: 7,
+            LOW_PRIORITY: 6
+        }
+
+    def plan(self):
+        print('planning...')
+
+        if self.priorities:
+            self.prioritize()
         
-        actions = []
+        plans = {}
 
-        self.prioritize()
+        for goal in self.priorities:
+            priority, task = goal
 
-        #while not self.priorities.empty():
-        #    print(self.priorities.get(timeout=1))
+            print(f"{goal} -> [{priority}]{task}")
 
+            plan = self.plan_task(task)
 
-        while not actions:
+            if plan:
+                plans[task] = plan
+        
+        self.plans = plans
+        
+    def plan_task(self, task):
 
-            try:
-                priorities = self.priorities.get(timeout=1)
-            except EmptyQueueError:
-                return []
-
-            if priorities:
-                goal = priorities[1]
-
-                actions = self.get_actions_for_goal(goal)
-
-        return actions
-
-
-    def get_actions_for_goal(self, goal, action=None):
-
-        goal_type = type(goal)
-
-        if goal_type == type(SimulaeNode):
-
-            if goal.node_type == LOC:
-                return self.pathfind_to(goal)
-            elif goal.node_type == OBJ:
-                return self.acquire(goal)
-            elif goal.node_type == POI:
-                return self.pathfind_to(goal)
-            else:
-                return []
-
-        elif goal_type == type(""):
-
-            if goal == "hunger":
-                return self.consume('edible')
-            elif goal == 'drink':
-                return self.consume('drinkable')
-            elif goal == 'sleep':
-                return self.perform_action(goal)
-            elif goal == 'socialize':
-                return self.perform_action(goal)
-            else:
-                print("dont know how to resolve goal: ",goal)
-
-    def prioritize(self):
-        priorities = PriorityQueue()
-
-        # Safety & Security needs
-
-        if self.is_threatened():
-            priorities.put((0, self.get_prioritized_threats()))
-
-        # Physiological needs
-        if self.is_hungry():
-            priorities.put((1, 'hunger'))
-
-        if self.is_thirsty():
-            priorities.put((2,'drink'))
-
-        if self.is_sleepy():
-            priorities.put((3, 'sleep'))
-
-        # Social needs
-        if self.needs_socialization():
-            priorities.put((4,'socialize'))
-
-        # short-term goals
-
-        goals = self.get_prioritized_short_term_goals()
-        for goal in goals:
-            priorities.put(goal)
-
-        # long-term goals
-
-        goals = self.get_prioritized_long_term_goals()
-        for goal in goals:
-            priorities.put(goal)
-
-        self.priorities = priorities
-        return priorities
-
-
-    def get_prioritized_long_term_goals(self):
-        # todo AE : impelement
-        return []
-
-    def get_prioritized_short_term_goals(self):
-        # todo AE : impelement
-        return []
-
-    def needs_socialization(self):
-
-        socialization = self.SimulaeNode.get_attribute('social')
-        if socialization is not None and socialization <= 50:
-            return True
-
-        return False
-
-
-    def is_sleepy(self):
-
-        exhaustion = self.SimulaeNode.get_attribute('exhaustion')
-        if exhaustion is not None and exhaustion >= 60:
-            return True
-
-        return False
-
-    def is_thirsty(self):
-
-        thirst = self.SimulaeNode.get_attribute('thirst')
-        if thirst is not None and thirst <= 40:
-            return True
-
-        return False
-
-
-    def is_hungry(self):
-
-        hunger = self.SimulaeNode.get_attribute('hunger')
-        if hunger is not None:
-            if hunger <= 20:
-                return True
-
-        return False
-
-    def is_threatened(self):
-        # todo AE : impelement
-        return False
-
-    def get_prioritized_threats(self):
-        # todo AE : impelement
-        return []
-
-    def pathfind_to(self, target) -> List:
-        # todo AE : impelement
-        return [ ("goto",target) ]
-
-
-    def perform_action(self, target) -> List:
-
-        return [('use',target)]
-
-    def consume(self, consumable) -> List:
-
-        if type(consumable) == type(""):
-
-            item = self.has_vague(consumable, OBJ)
-
-            if item:
-                return [('use',item)]
-            else:
-                return self.acquire(consumable)
-                    
-
-        elif type(consumable) == type(SimulaeNode): # handle SimulaeNode
-            # todo AE : impelement
-
-            if self.has_node(consumable):
-                return [('use',consumable)]
-            else:
-                return self.acquire(consumable)
-
-    def has_vague(self, target:str, nodetype:str) -> SimulaeNode:
-
-        if type(target) != type(""):
-            return None
-
-        if target in self.inventory[nodetype]:
-            return True
+        if task in STATUS_ATTRIBUTES:
+            return self.plan_status_task(task)
+        elif task is THREAT:
+            return self.plan_threat_reaction()
         else:
-            for nid, n in self.inventory[nodetype].items():
-                check = n.get_check(target)
-                if check:
-                    return n
+            return task
 
-        return False
+    def plan_status_task(self, task):
 
-    def has_node(self, target:SimulaeNode) -> SimulaeNode:
+        return self.acquire_vague_target(task)
 
-        if type(target) == type(""):
-            return None
-
-        # todo ae : implement SimulaeNode inventory
-        if target.id in self.inventory[target.nodetype]:
-            return target
-
+    def plan_threat_reaction(self):
         return None
 
-    def can_make(self, target):
-        # todo AE : impelement
+    def act_next(self):
+
+        if not self.priorities:
+            raise ValueError("No priorities to act on")
+
+        task = self.priorities[0]
+
+        if not task:
+            raise ValueError("No task to act on")
+
+        if task not in self.plans:
+            self.plans[task] = self.plan_task(task)
+
+        plan = self.plans[task]
+
+        print(f"Acting on task: {task}")
+        print(plan.summary())
+
+
+    def prioritize(self):
+        ''' Prioritize actions based on current needs '''
+        ''' Follow rough Maslow's hierarchy of needs '''
+
+        # individuals have priority modifiers (based on their personality traits)
+
+        # if we are threatened -> prioritize defense
+
+        if self.is_threatened():
+            self.priorities.append((self.priority_modifiers[THREAT], THREAT))
+
+        # if we are starving, dehydrated, exhausted, deathly ill, etc
+
+        if self.is_starving():
+            self.priorities.append((self.priority_modifiers[HUNGER], HUNGER))
+        if self.is_dehydrated():
+            self.priorities.append((self.priority_modifiers[THIRST], THIRST))
+        if self.is_exhausted():
+            self.priorities.append((self.priority_modifiers[SLEEP], SLEEP))
+        if self.is_overheated():
+            self.priorities.append((self.priority_modifiers[HOT], HOT))
+        if self.is_freezing():
+            self.priorities.append((self.priority_modifiers[COLD], COLD))
+        if self.is_ill():
+            self.priorities.append((self.priority_modifiers[SICK], SICK))
+        if self.is_lonely():
+            self.priorities.append((self.priority_modifiers[SOCIALIZE], SOCIALIZE))
+
+        # Also handle tasks by priority level
+
+        for task_priority, tasks in self.tasks.items():
+            for task in tasks:
+                self.priorities.append((self.priority_modifiers[task_priority], task))
+
+        # sort by priorty, ascending?
+        self.priorities.sort( key=lambda x: x[0], reverse=True)
+
+    def is_threatened(self):
+        return False # todo AE: implement
+    
+    def is_starving(self):
+        hunger = self.get_attribute(HUNGER)
+        if hunger and hunger > self.status_thresholds[HUNGER]:
+            return True
+        return False 
+    
+    def is_dehydrated(self):
+        thirst = self.get_attribute(THIRST)
+        if thirst and thirst > self.status_thresholds[THIRST]:
+            return True
         return False
+    
+    def is_exhausted(self):
+        exhaustion = self.get_attribute(SLEEP)
+        if exhaustion and exhaustion > self.status_thresholds[SLEEP]:
+            return True
+        return False
+    
+    def is_overheated(self):
+        heat = self.get_attribute(HOT)
+        if heat and heat > self.status_thresholds[HOT]:
+            return True
+        return False
+    
+    def is_freezing(self):
+        cold = self.get_attribute(COLD)
+        if cold and cold > self.status_thresholds[COLD]:
+            return True
+        return False
+    
+    def is_ill(self):
+        sick = self.get_attribute(SICK)
+        if sick and sick > self.status_thresholds[SICK]:
+            return True
+        return False
+    
+    def is_lonely(self): 
+        social = self.get_attribute(SOCIALIZE)
+        if social and social > self.status_thresholds[SOCIALIZE]:
+            return True
+        return False
+    
+    def pathfind_to(self, target):
+        return [(Action.GOTO,target)]
+    
+    def can_make(self, target):
+        return False # todo AE: implement
+    
+    def get_recipe(self, target):
+        return 'workstation', ['component1','component2'] # todo AE: implement
+    
+    def get_attribute(self, attr):
+        return self.SimulaeNode.get_attribute(attr)
 
 
-    def get_recipe(target):
-        # todo AE : implement
-        return (None, None)
+    def acquire_vague_target(self, target):
+
+        actions = []
+        heuristics = {}
+
+        if self.has_vague_target(target):
+            return [] # base case -> already have it
+        
+        relations = self.SimulaeNode.get_relations_by_criteria(target)
+
+        if relations: # do we know where any are?
+            heuristics['owned'] = get_best_heuristic(relations, self.pathfind_to) # find optimal relation
+
+        nearby = targets_nearby_node(self, target)
+        if nearby:
+            actions = [(Action.TAKE,target)]
+            heuristics['nearby'] = get_heuristic(actions), actions
+
+        
+        
 
     def acquire(self, target):
   
-        #if type(target) == type(""):
-        #    print("cant plan to acquire vague",target)
-        #    return []
-
         # do we already have one?
         if self.has_node(target) or self.has_vague(target, OBJ):
             return [] # base case -> already have it
@@ -241,27 +265,28 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         # is there one nearby?
         if nodes_are_adjacent(self, target):
-            actions = [('take',target)]
+            actions = [(Action.TAKE,target)]
             heuristics['nearby'] = get_heuristic(actions), actions
         
-        if self.SimulaeNode.has_relation(target, OBJ):
+        if self.SimulaeNode.has_relation(target, OBJ): # do we know where any are?
 
-            relation = self.get_relation(target)
+            relation = self.get_relation(target) 
 
             target_location = relation.get_location()
 
             if target_location is None:
                 # do we know where any might be? -> search
-                actions = [('search',target)]
+                actions = [(Action.SEARCH,target)]
                 heuristics['location'] = get_heuristic(actions), actions
+
             else: # do we know where any are? -> goto exact location
                 actions = self.pathfind_to(target_location)
-                actions.append(('acquire',target))
+                actions.append((Action.ACQUIRE,target))
                 heuristics['location'] = get_heuristic(actions), actions
 
         for route, (heuristic, actions) in heuristics.items():
 
-            optimal_route = min(heuristics, key=heuristic)
+            optimal_route = min(heuristics, key=heuristic) # find optimal route
 
             return heuristics[optimal_route][1] # actions
 
@@ -273,168 +298,88 @@ class NGIN_Simulae_Actor(SimulaeNode):
             crafting_loc, required_components = self.get_recipe(target)
             actions = []
 
-            if crafting_loc and required_components:
+            if crafting_loc and required_components: # can make item with workstation
 
-                for component in required_components:
+                for component in required_components: # acquire components
                     actions.append( self.acquire(component) )
 
-                actions.append(self.pathfind_to(crafting_loc))
+                actions.append(self.pathfind_to(crafting_loc)) # go to workstation
 
-                actions.append(('make',target))
+                actions.append((Action.MAKE,target)) # make item
+
+            elif required_components: # can make item without workstation
+
+                for component in required_components:
+                    actions.append( self.acquire(component) ) # acquire components
+                
+                actions.append((Action.MAKE,target)) # make item
 
             else: # cannot make 'target'
                 return actions
 
         # we are SOL
         return []
-
-    def get_recipe(self, target):
-        # todo AE : implement
-        return (None, None)
-
-
-    def Turn_RecursiveMinMax(self, ngin_state):
-        pass
-
-    def Turn_Random(self, ngin_state, actor):
-        pass
-
-    def Turn_StackMinMax(self, ngin_state):
-
-        #           depth, turn num, state, moves
-        action_stack = [ (0, 0, ngin_state, []) ]
     
-        best_moves = []
-        best_val = 0
-
-        turn_count = get_turn_count(ngin_state)
-
-        while not action_stack:
-            depth, turn_index, state, moves = action_stack.pop()
-
-            print('NGIN MinMax Stack Popped: [{0}, {1}, <state>, <moves> : ..,[{2}] ]'.format(depth, turn_index, moves[-1]))
-
-            if is_terminal_state(state) or depth <= 0:
-                value = heuristic(state)
-
-                print('heuristic:',value)
-
-                if turn_state == 0: # actors turn
-                    if value > best_val:
-                        best_val = value
-                        best_moves = moves
-                
-                else:  # non-actor turn
-                    if value < best_val:
-                        best_val = value
-                        best_moves = moves
-
-            else: # not terminal
-
-                # add moves to stack
-                next_moves = get_actions( state, self.SimulaeNode )
-                next_turn = (turn_index + 1) % turn_count
-
-                for move in next_moves:
-                    next_move, next_state = move
-                    action_stack.push( (depth+1, next_turn, next_state, moves + [next_move] ) )
-
-        print('Best Move: {0} -> <{1}>', best_moves[0], best_val)
-        print('     Moves: [', ','.join(best_moves) ,']')
-
-        return best_moves[0] # best_action
-
-
-    def is_terminal_state(state):
-        ''' End-game state? '''
-        is_terminal_state = True
-
-        actors = len(state.relations['FAC'])
-
-        if len(state.relations['POI']) > 0:
-            poi_per_actor = [ (actor.id, get_affiliated(state, actor, 'POI')) for actor in actors ]
-            
-            if not only_one(poi_per_actor): # POIs from multiple Factions still in-play
-                is_terminal = False
-
-        elif len(state.relations['PTY']) > 0:
-            pty_per_actor = [ (actor.id, get_affiliated(state, actor, 'PTY')) for actor in actors ]
-            
-            if not only_one(poi_per_actor): # POIs from multiple Factions still in-play
-                is_terminal = False
-
-        return is_terminal
-
-    def get_affiliated(state, actor, nodetype):
-        return len([ node for node in state.relations[nodetype] if node.references['FAC'] == actor.id])
-
-    def only_one(nt_per_actor):
-        has_one = False
-        for val in nt_per_actor:
-            if val[1] != 0:
-                if has_one:
-                    return False
-                has_one = True
-
-        return has_one
-
-
-    def get_actions(state, actor):
+    def status_summary(self):
+        summary = f"Actor: {self.SimulaeNode.summary()}\n"
         
-        # TODO : IMPLEMENT
+        for attr in self.SimulaeNode.attributes:
+            summary += f"{attr}: {self.get_attribute(attr)}\n"
 
-        return []
-
-    def get_turn_count(state):
-        ''' return number of game actors '''
-        return len(state.relations['FAC'])
-
-
-    def heuristic(ngin_state):
-        ''' simple end-game state heuristic '''
-
-        points = 0
-        # win-state: only actor faction pawns are left
-        for nt in NODETYPES:
-            points += get_affiliated(state, self.SimulaeNode, nt) * get_nodetype_point_modifier(nt)
-
-        # should return '0' when actor loses in this game-state
-        return points
-
-    def get_nodetype_point_modifier(node_type):
-        return {
-            'POI' : 10,
-            'PTY' : 100,
-            'LOC' : 500,
-            'OBJ' : 5
-        }[node_type]
+        return summary
     
-def get_heuristic(actions):
-        # todo AE : implement
-        return 0
+def get_heuristic(actor, action, pre_actions=None, post_actions=None):
+    value = 0
+
+    actions = [action]
+    actions.extend(pre_actions)
+    actions.extend(post_actions)
+
+    for action in actions:
+        act, target = action
+        if act == Action.GOTO:
+            value += distance_to(actor, target)
+        elif act == Action.TAKE:
+            value += 1
+        elif act == Action.USE:
+            value += 1
+        elif act == Action.MAKE:
+            value += 2
+        else:
+            value += 3
+
+    return value
+
+
+def distance_to(actor, target):
+    if nodes_are_adjacent(actor, target):
+        return 1
+    else:
+        return 2 # todo AE: implement
 
 def nodes_are_adjacent(node1, node2):
 
-    loc1 = node1.SimulaeNode.get_reference(LOC)
+    containing_loc = node1.SimulaeNode.get_reference(LOC)
 
-    if loc1 and loc1.has_relation(node2):
+    if containing_loc and containing_loc.has_relation(node2):
         return True
     return False
 
-    # todo ae : reimplement this
 
-    loc2 = node2.get_reference(LOC)
-
-    if loc1 == loc2:
-        return True
-
-    return False
 
 def generate_individual(location=None):
 
-        individual = generate_simulae_node(POI, "NODE")
+        individual = SimulaeNode(nodetype=POI)
 
-        individual.nodetype = POI
+        individual.set_reference(NAME, "individual")
+
+        individual.set_attribute(HUNGER, 100)
+        individual.set_attribute(THIRST, 100)
+        individual.set_attribute(EXHAUSTION, 100)
+        individual.set_attribute(SICK, 100)
+        individual.set_attribute(COLD, 100)
+        individual.set_attribute(HOT, 100)
+        individual.set_attribute(SOCIALIZE, 100)
 
         if location:
             individual.update_relation(location)
@@ -442,7 +387,9 @@ def generate_individual(location=None):
         return individual
 
 def generate_food_item():
-    food = generate_simulae_node(OBJ, "FOOD")
+    food = SimulaeNode(nodetype=OBJ)
+
+    food.set_reference(NAME, "food")
 
     food.set_check('edible', True)
     food.set_check('consumable', True)
@@ -451,36 +398,12 @@ def generate_food_item():
     return food
 
 def generate_drink_item():
-    drink = generate_simulae_node(OBJ, "DRINK")
+    drink = SimulaeNode(nodetype=OBJ)
+
+    drink.set_reference(NAME, "drink")
 
     drink.set_check('drinkable', True)
     drink.set_check('consumable', True)
     drink.set_attribute('hydration', 10)
 
     return drink
-
-
-def NGIN_AI_test():
-
-    actor = NGIN_Simulae_Actor(generate_individual())
-
-    print('Actor:', actor.SimulaeNode.id)
-
-    actor.SimulaeNode.set_attribute('hunger', 10)
-    actor.SimulaeNode.set_attribute('thirst', 20)
-    actor.SimulaeNode.set_attribute('exhaustion', 70)
-    actor.SimulaeNode.set_attribute('socialize', 20)
-
-    print('problem_solve:')
-
-    actions = actor.problem_solve()
-
-    print("problem_solve yielded: ",actions)
-
-    #print('Action:', actor.Turn_StackMinMax(state) )
-
-
-if __name__ == '__main__':
-    print('NGIN_AI | Running tests')
-
-    NGIN_AI_test()
