@@ -2,64 +2,115 @@ import unittest
 
 from NGIN.SimulaeNode import *
 
+
+
 class Test_SimulaeNode(unittest.TestCase):
 
     def test_init(self):
-        pass
+
+        node = SimulaeNode()
+
+        self.assertIsNotNone(node.id)
+        self.assertEqual(node.nodetype, OBJ)
+
+        self.assertEqual(node.status, Status.ALIVE)
+
+        self.assertIsNotNone(node.references)
+        
+        references_keys = node.references.keys()
+        self.assertIn(NAME, references_keys)
+        self.assertIn(FAC, references_keys)
+        self.assertIn(POLICY, references_keys)
+        self.assertIsNotNone(node.references[POLICY])
+        self.assertIsNotNone(node.attributes)
+
+        self.assertIsNotNone(node.relations)
+        for nt in ALL_NODE_TYPES:
+            self.assertIn(nt, node.relations)
 
     def test_summary(self):
-        pass
+        node = SimulaeNode(given_id="test_node", nodetype=POI, references={NAME: "Test Node", FAC: "Test Faction"})
+        summary = node.summary()
+        self.assertIn("POI", summary)
+        self.assertIn("Test Node", summary)
+        self.assertIn("affiliated with Test Faction", summary)
 
     def test_str_(self):
-        pass
+        node = SimulaeNode(given_id="test_node", nodetype=POI, references={NAME: "Test Node"})
+        self.assertEqual(str(node), node.summary())
 
     def test_add_adjacent_location(self):
-        pass
+        node1 = SimulaeNode(given_id="node1", nodetype=LOC)
+        node2 = SimulaeNode(given_id="node2", nodetype=LOC)
+        node1.add_adjacent_location(node2)
+        self.assertIn("node2", node1.get_adjacent_locations())
+        self.assertIn("node1", node2.get_adjacent_locations())
 
     def test_get_adjacent_locations(self):
-        pass
+        node = SimulaeNode(given_id="node", nodetype=LOC, references={ADJACENT: ["loc1", "loc2"]})
+        adjacents = node.get_adjacent_locations()
+        self.assertIn("loc1", adjacents)
+        self.assertIn("loc2", adjacents)
 
     def test_knows_about(self):
-        pass
+        node1 = SimulaeNode(given_id="node1", nodetype=POI)
+        node2 = SimulaeNode(given_id="node2", nodetype=OBJ)
+        node1.update_relation(node2)
+        self.assertTrue(node1.knows_about(node2))
 
     def test_get_reference(self):
-        pass
+        node = SimulaeNode(given_id="node", references={NAME: "Test Node"})
+        self.assertEqual(node.get_reference(NAME), "Test Node")
 
     def test_add_reference(self):
-        pass
+        node = SimulaeNode(given_id="node")
+        node.add_reference(NAME, "Test Node")
+        self.assertEqual(node.get_reference(NAME), "Test Node")
 
     def test_get_attribute(self):
-        pass
+        node = SimulaeNode(given_id="node", attributes={"interactions": 5})
+        self.assertEqual(node.get_attribute("interactions"), 5)
 
     def test_update_relation(self):
-        pass
+        node1 = SimulaeNode(given_id="node1", nodetype=POI)
+        node2 = SimulaeNode(given_id="node2", nodetype=OBJ)
+        node1.update_relation(node2)
+        self.assertIsNotNone(node1.get_relation("node2", OBJ))
 
     def test_has_relation(self):
-        pass
+        node1 = SimulaeNode(given_id="node1", nodetype=POI)
+        node2 = SimulaeNode(given_id="node2", nodetype=OBJ)
+        node1.relations[OBJ]["node2"] = {}
+        self.assertTrue(node1.has_relation("node2", OBJ))
 
     def test_generate_policy(self):
-        # verify each factor is included with a value
-        pass
+        node = SimulaeNode(given_id="node", nodetype=POI)
+        policy = node.generate_policy()
+        self.assertIsInstance(policy, dict)
+        self.assertGreater(len(policy), 0)
 
     def test_get_policy_disposition(self):
-        pass
+        node = SimulaeNode(given_id="node", nodetype=POI)
+        disposition = node.get_policy_disposition(5)
+        self.assertEqual(disposition, "Friendly")
 
     def test_policy_diff(self):
-        pass
+        node1 = SimulaeNode(given_id="node1", nodetype=POI, references={POLICY: {"Economy": ["Indifferent", 0.5], "Health": ["Supportive", 0.7]}})
+        node2 = SimulaeNode(given_id="node2", nodetype=POI, references={POLICY: {"Economy": ["Opposed", 0.5], "Health": ["Neutral", 0.3]}})
+        diff, summary = node1.policy_diff(node2.references[POLICY])
+        self.assertGreater(diff, 0)
+        self.assertIn("Economy", summary)
 
     def test_get_policy_index(self):
-        pass
+        node = SimulaeNode(given_id="node", nodetype=POI)
+        index = node.get_policy_index("Economy", "Indifferent")
+        self.assertEqual(index, 2)
 
     def test_to_JSON(self):
-        pass
-
-
-
-
-
-
-
-
+        node = SimulaeNode(given_id="node", nodetype=POI)
+        json_data = node.toJSON()
+        self.assertIsInstance(json_data, dict)
+        self.assertIn("id", json_data)
 
 
 class Test_generate_simulae_node(unittest.TestCase):

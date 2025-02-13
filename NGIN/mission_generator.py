@@ -3,7 +3,7 @@
 import json, sys, random, os
 from pprint import pprint
 
-#from SimulaeNode import SimulaeNode
+from SimulaeNode import SimulaeNode
 
 ''' 
 
@@ -19,27 +19,6 @@ SimulaeNode
     # id, ntype, refs, attrs, reltn, checks, abilities
 
 '''
-
-
-class Node:
-
-    def __init__(self, name, disposition, ntype, interactions=0, location=None, faction=None ):
-        self.name = name
-        self.ntype = ntype
-        self.faction = None
-        self.location = None
-        self.disposition = disposition
-        self.reputations = {}
-        self.interactions = interactions
-
-
-    def unpack(self):
-        return self.name, self.disposition, self.ntype, self.interactions
-
-
-    def __str__(self):
-        return ( self.name + ' : ' + self.disposition + ' ' + self.ntype + ' (' + str(self.interactions) + ')')
-
 
 class NGIN:
 
@@ -61,14 +40,16 @@ class NGIN:
                         {},
                         {}
                     )
-        self.state = self.generate_state(4) # generate start state with 4 initial nodes
+        
+        nodes = self.generate_state(4) # generate start state with 4 initial nodes
 
+        for n in nodes:
+            self.state.relations[n.nodetype][n.id] = n
 
     def generate_element( self ):
         ''' creates a new node with random attributes ''' 
 
-        name = random.choice( [ m for m in self.madlibs \
-            if m not in [ subj.name for subj in ( self.state ) ]] )
+        name = random.choice( [ m for m in self.madlibs ] )
 
         ntype = random.choice( ['POI','PTY','OBJ','LOC'] )
         references = {}
@@ -99,11 +80,11 @@ class NGIN:
 
         options = []
 
-        while len(opts) < 3:
+        while len(options) < 3:
 
             subj = random.choice(self.state.relations[ random.choice(["POI","PTY","OBJ","LOC"]) ])
 
-            if subj.ntype in ["POI","PTY"]:
+            if subj.nodetype in ["POI","PTY"]:
                 actor_node.update_relationship( subj, reciprocate=True )
                 disposition = actor_node.relations[subj.ntype][subj.id]["Disposition"]
             else:
@@ -114,7 +95,7 @@ class NGIN:
             options.append(opt)
 
 
-        choice = self.user_choice( opts, random_opt=True )
+        choice = self.user_choice( options, random_opt=True )
         print('Chose', choice)
         return subj, choice[1], self.state
 
@@ -257,6 +238,7 @@ class NGIN:
         chosen = None
 
         if literal:
+            print(user_options)
             print( ' / '.join(user_options) )
 
             while not choice:
