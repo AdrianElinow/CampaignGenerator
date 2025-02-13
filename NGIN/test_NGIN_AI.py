@@ -9,7 +9,7 @@ class Test_NGINAI(unittest.TestCase):
 
     def test_initial_attributes(self):
         self.assertIsNotNone(self.actor.SimulaeNode)
-        self.assertEqual(self.actor.inventory, {})
+        self.assertIsNotNone(self.actor.inventory)
         self.assertTrue(self.actor.priorities.empty())
 
     def test_problem_solve_no_priorities(self):
@@ -54,14 +54,24 @@ class Test_NGINAI(unittest.TestCase):
         self.assertFalse(priorities.empty())
 
     def test_has(self):
-        self.actor.inventory = {'food': 1}
-        self.assertTrue(self.actor.has('food'))
-        self.assertFalse(self.actor.has('drink'))
+        food = generate_food_item()
+
+        self.actor.inventory[food.nodetype][food.id] = food
+        self.assertTrue(self.actor.has_vague('edible', food.nodetype))
+        self.assertFalse(self.actor.has_vague('drinkable', food.nodetype))
 
     def test_consume(self):
-        self.actor.inventory = {'food': 1}
-        actions = self.actor.consume('food')
-        self.assertEqual(actions, ('use', 'food'))
+        drink = generate_drink_item()
+        self.actor.inventory[drink.nodetype][drink.id] = drink
+
+        food = generate_food_item()
+        self.actor.inventory[food.nodetype][food.id] = food
+
+        actions = self.actor.consume('drinkable')
+        self.assertIn(('use', drink), actions)
+
+        actions = self.actor.consume('edible')
+        self.assertIn(('use', food),actions)
 
 if __name__ == '__main__':
     unittest.main()

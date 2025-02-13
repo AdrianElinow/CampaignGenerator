@@ -202,7 +202,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         if type(consumable) == type(""):
 
-            item = self.has(consumable)
+            item = self.has_vague(consumable, OBJ)
 
             if item:
                 return [('use',item)]
@@ -210,29 +210,37 @@ class NGIN_Simulae_Actor(SimulaeNode):
                 return self.acquire(consumable)
                     
 
-        else: # handle SimulaeNode
+        elif type(consumable) == type(SimulaeNode): # handle SimulaeNode
             # todo AE : impelement
 
-            if self.has(consumable):
+            if self.has_node(consumable):
                 return [('use',consumable)]
             else:
                 return self.acquire(consumable)
 
-    def has(self, target):
+    def has_vague(self, target:str, nodetype:str) -> SimulaeNode:
 
-        # todo ae : implement SimulaeNode inventory
+        if type(target) != type(""):
+            return None
+
+        if target in self.inventory[nodetype]:
+            return True
+        else:
+            for nid, n in self.inventory[nodetype].items():
+                check = n.get_check(target)
+                if check:
+                    return n
+
+        return False
+
+    def has_node(self, target:SimulaeNode) -> SimulaeNode:
 
         if type(target) == type(""):
+            return None
 
-            for nid, n in self.inventory[OBJ].items():
-
-                is_target = n.get_check(target)
-                if is_target: # target is either True OR False/None (both return eval as False)
-                    return n
-                
-        else:
-            if target.id in self.inventory[target.nodetype]:
-                return target
+        # todo ae : implement SimulaeNode inventory
+        if target.id in self.inventory[target.nodetype]:
+            return target
 
         return None
 
@@ -254,9 +262,9 @@ class NGIN_Simulae_Actor(SimulaeNode):
         #    return []
 
         # do we already have one?
-        if self.has(target):
+        if self.has_node(target) or self.has_vague(target, OBJ):
             return [] # base case -> already have it
-
+        
         actions = []
         heuristics = {}
 
