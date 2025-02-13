@@ -76,8 +76,6 @@ class NGIN():
 
         actor = self.get_simulae_node_by_id(self.select_actor(randomized=True), POI)
 
-        input('<Press "ENTER" to START>')
-
         while True:
 
             os.system('clear') # clear screen

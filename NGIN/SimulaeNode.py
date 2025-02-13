@@ -318,8 +318,9 @@ class SimulaeNode:
 
                 if type(nodes) == type(""):
                     print(f'why is this {nodetype}"nodes" a str?', nodes)
+                elif type(nodes) == type([]):
+                    pass # todo AE: resolve SimulaeNode OBJ.relations is type list
                 else:
-
                     for node_id, node in nodes.items():
                         v[node_id] = node.toJSON()
 
