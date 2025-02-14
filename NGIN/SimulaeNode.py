@@ -67,7 +67,7 @@ class SimulaeNode:
         return self.summary()
 
 
-    def check_membership(self, node):
+    def check_membership(self, node): # TODO AE: Reimplement 
         ''' check_membership(..., node) checks for relations between self and given node
                 if node is of types OBJ or LOC, checks of self has ownership of node
                 if node is of types FAC or PTY, checks that node has membership with self
@@ -117,7 +117,7 @@ class SimulaeNode:
         loc.add_reference(ADJACENT, self.id, reciprocate=False)
 
 
-    def knows_about(self, node):
+    def knows_about(self, node): # TODO AE: Reimplement 
 
         if node.nodetype in SOCIAL_NODE_TYPES:
             if self.has_relation(node, node.nodetype): # already has relationship
@@ -169,7 +169,7 @@ class SimulaeNode:
     def set_attribute(self, key: str, value: int):
         self.attributes[key] = value
 
-    def determine_relation(self, node):
+    def determine_relation(self, node): # TODO AE: Reimplement 
 
         if node.id not in self.relations[node.nodetype]:
 
@@ -220,7 +220,7 @@ class SimulaeNode:
             debug("Unhandled relation")
 
 
-    def update_relation(self, node, interaction=None):
+    def update_relation(self, node, interaction=None): # TODO AE: Reimplement 
         
         if not node:
             raise ValueError
@@ -231,7 +231,7 @@ class SimulaeNode:
         self.relations[node.id] = self.determine_relation(node)
 
 
-    def get_relation(self, node):
+    def get_relation(self, node): # TODO AE: Reimplement 
 
         if self.has_relation(node.id, node.nodetype):
             return self.relations[node.nodetype][node.id]
@@ -240,9 +240,9 @@ class SimulaeNode:
 
     def get_relations_by_criteria(self, criteria):
         
-        return [] # todo AE : implement
+        return [] # TODO AE: implement 
 
-    def has_relation( self, key: str, nodetype: str ):
+    def has_relation( self, key: str, nodetype: str ): # TODO AE: Reimplement 
         
         if key in self.relations[nodetype]:
             return True
