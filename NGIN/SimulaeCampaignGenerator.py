@@ -1,3 +1,5 @@
+import sys
+import os
 from NGIN.NGIN_console import *
 from NGIN.NGIN_utils.ngin_utils import *
 from NGIN.NGIN_config.ngin_missions import *
@@ -636,10 +638,11 @@ def try_json_load(filename):
 
 def main():
     
-    #story_struct.json ngin_settings.json madlibs.json save_file.json
+    # Import NGIN
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
     mission_struct = load_json_from_file( "NGIN/NGIN_config/story_struct.json" )
-
     ngin_settings = load_json_from_file( "NGIN/NGIN_config/ngin_settings.json" )
 
     save_file = None
