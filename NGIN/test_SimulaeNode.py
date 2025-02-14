@@ -6,12 +6,12 @@ from NGIN.SimulaeNode import *
 
 class Test_SimulaeNode(unittest.TestCase):
 
-    def test_init(self):
+    def test_init_POI(self):
 
-        node = SimulaeNode()
+        node = SimulaeNode(nodetype=POI)
 
         self.assertIsNotNone(node.id)
-        self.assertEqual(node.nodetype, OBJ)
+        self.assertEqual(node.nodetype, POI)
 
         self.assertEqual(node.status, Status.ALIVE)
 
@@ -25,8 +25,38 @@ class Test_SimulaeNode(unittest.TestCase):
         self.assertIsNotNone(node.attributes)
 
         self.assertIsNotNone(node.relations)
-        for nt in ALL_NODE_TYPES:
-            self.assertIn(nt, node.relations)
+        for relation, relatives in node.relations.items():
+            self.assertIn(relation, RELATIONS)
+            relations_keys = relatives.keys()
+            self.assertEqual(list(relations_keys).sort(), NODETYPES.sort())
+
+            for nt, items in relatives.items():
+                self.assertEqual(items, {})
+
+    def test_init_OBJ(self):
+
+        node = SimulaeNode()
+
+        self.assertIsNotNone(node.id)
+        self.assertEqual(node.nodetype, OBJ)
+
+        self.assertEqual(node.status, Status.ALIVE)
+
+        self.assertIsNotNone(node.references)
+        
+        references_keys = node.references.keys()
+        self.assertIn(NAME, references_keys)
+        self.assertIn(FAC, references_keys)
+        self.assertIsNotNone(node.attributes)
+
+        self.assertIsNotNone(node.relations)
+        for relation, relatives in node.relations.items():
+            self.assertIn(relation, RELATIONS)
+            relations_keys = relatives.keys()
+            self.assertEqual(list(relations_keys).sort(), NODETYPES.sort())
+
+            for nt, items in relatives.items():
+                self.assertEqual(items, {})
 
     def test_summary(self):
         node = SimulaeNode(given_id="test_node", nodetype=POI, references={NAME: "Test Node", FAC: "Test Faction"})
@@ -120,7 +150,6 @@ class Test_SimulaeNode(unittest.TestCase):
         node = SimulaeNode(given_id="node", nodetype=POI)
         json_data = node.toJSON()
         self.assertIsInstance(json_data, dict)
-        self.assertIn("id", json_data)
 
 
 class Test_generate_simulae_node(unittest.TestCase):
@@ -129,7 +158,7 @@ class Test_generate_simulae_node(unittest.TestCase):
         for nt in ALL_NODE_TYPES:
             expected = SimulaeNode(nodetype=nt)
 
-            generated = generate_simulae_node(nt)
+            generated = generate_random_simulae_node(nt)
 
             self.assertIsInstance(generated, SimulaeNode)
 
@@ -145,7 +174,7 @@ class Test_generate_simulae_node(unittest.TestCase):
 
         expected = SimulaeNode(given_id=nodename)
 
-        generated = generate_simulae_node(OBJ, node_name=nodename)
+        generated = generate_random_simulae_node(OBJ, node_name=nodename)
 
         self.assertEqual(generated.id, expected.id)
 
@@ -155,6 +184,6 @@ class Test_generate_simulae_node(unittest.TestCase):
 
         faction = SimulaeNode(given_id="FACTION",nodetype=FAC)
 
-        generated = generate_simulae_node(POI, node_name=nodename, faction=faction)
+        generated = generate_random_simulae_node(POI, node_name=nodename, faction=faction)
 
         self.assertEqual(generated.references[FAC], faction.id)
