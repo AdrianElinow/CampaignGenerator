@@ -238,6 +238,9 @@ class SimulaeNode:
         else:
             return self.determine_relation(node)
 
+    def get_relations_by_criteria(self, criteria):
+        
+        return [] # todo AE : implement
 
     def has_relation( self, key: str, nodetype: str ):
         
