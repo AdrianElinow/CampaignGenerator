@@ -1,10 +1,10 @@
 import sys
 import os
-from NGIN.NGIN_console import *
-from NGIN.NGIN_utils.ngin_utils import *
-from NGIN.NGIN_config.ngin_missions import *
-from NGIN.FactionGenerator.faction_generator import *
-from NGIN.SimulaeNode import *
+from NGIN_console import *
+from NGIN_utils.ngin_utils import *
+from NGIN_config.ngin_missions import *
+from FactionGenerator.faction_generator import *
+from SimulaeNode import *
 
 class NGIN():
 
@@ -504,12 +504,22 @@ class NGIN():
         return selected_target, selected_mission
 
 
+    def generate_mission(self, actor, mission):
+
+        target, m = mission
+        action, liminality = m
+
+        debug(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
+
+
+
+
     def resolve_mission(self, actor, mission):
         
         target, m = mission
-        action, visibility = m
+        action, liminality = m
 
-        debug(f"{actor.summary()} -> ({visibility}) {action} {target.summary()}")
+        debug(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
 
         if target.nodetype in SOCIAL_NODE_TYPES:
             print('social')

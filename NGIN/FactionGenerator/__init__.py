@@ -1,2 +1,2 @@
-from NGIN.NGIN_config.madlibs import *
+from NGIN_config.madlibs import *
 
