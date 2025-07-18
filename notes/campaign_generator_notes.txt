@@ -61,6 +61,64 @@ World Generation:
             1-6 individuals + 1-6 small groups + 1-6 medium groups
 
 
+
+    Generate Mission
+
+        Success/Failure Criteria
+            LOC
+                Arrive
+                Scout
+                Secure
+                Defend
+                Fortify
+                Mark
+            POI
+                Neutralize (Kill/Capture)
+                Escort
+                Rescue
+                Recruit
+                Surveil
+                Interact
+            PTY
+                Neutralize (Kill/Capture)
+                Escort
+                Rescue
+                Infiltrate
+                Sabotage
+            OBJ
+                Acquire
+                Deliver
+                Deploy
+                Destroy
+                Create
+                Sabotage
+                Scan
+                Interact
+            FAC
+                Join
+                Destroy
+                Ally
+            INF
+                Discover intel
+                Cover up intel
+                Decieve
+            META
+                Time elapsed (too late)
+                Missed time window
+                Player Defects/Abandons mission
+
+
+
+
+    'Radiant' Events
+        Every quest completion adds additional quests to the random event sets
+
+        Events 
+
+
+
+
+
 Actor AI
     strategic
         'plays' as if it were trying to 'win' a chess match or chase a win-condition

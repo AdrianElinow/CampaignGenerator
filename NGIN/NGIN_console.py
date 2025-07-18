@@ -1,8 +1,8 @@
 import json, sys, os, random
 from pprint import pprint
 
-from NGIN.SimulaeNode import *
-from NGIN.SimulaeCampaignGenerator import NGIN
+from SimulaeNode import *
+from SimulaeCampaignGenerator import NGIN
 
 class NGIN_console(NGIN):
 
