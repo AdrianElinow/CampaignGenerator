@@ -1,10 +1,9 @@
-import sys
-import os
-from NGIN.NGIN_console import *
-from NGIN.NGIN_utils.ngin_utils import *
-from NGIN.NGIN_config.ngin_missions import *
-from NGIN.FactionGenerator.faction_generator import *
-from NGIN.SimulaeNode import *
+import sys, os, random
+from NGIN_console import *
+from NGIN_utils.ngin_utils import *
+from NGIN_config.ngin_missions import *
+from FactionGenerator.faction_generator import *
+from SimulaeNode import *
 
 class NGIN():
 
@@ -110,7 +109,7 @@ class NGIN():
         else:
             selected_node = random.choice(list(options.keys()))
 
-        print("selected -> ",selected_node,f'[{options[selected_node]}]')
+        print("You are ",selected_node,f'[{options[selected_node]}]')
         # return the actor node id
         return options[selected_node]
 
@@ -306,6 +305,9 @@ class NGIN():
 
         individual.nodetype = POI
         individual.update_relation(location)
+
+        individual.add_reference("gender", random.choice(['male','female']))
+        individual.set_attribute("age", random.randint(1,75))
         
         return individual
 
@@ -425,7 +427,8 @@ class NGIN():
             print("No adjacent entities found")
 
         for adj_id, adj in adjacents.items():
-            options.append(self.get_actions_for_node(actor, adj, note="adjacent entity"))
+            actions = self.get_actions_for_node(actor, adj, note="adjacent entity")
+            options.append(actions)
 
         
         # evaluate movement/travel options

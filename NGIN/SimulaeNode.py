@@ -1,7 +1,7 @@
 
 #from json import JSONEncoder
-from NGIN.NGIN_utils.ngin_utils import *
-from NGIN.NGIN_config.madlibs import *
+from NGIN_utils.ngin_utils import *
+from NGIN_config.madlibs import *
 
 FAC = 'FAC'
 POI = 'POI'
@@ -307,12 +307,12 @@ class SimulaeNode:
         diff = 0
 
         for factor, policy in self.references[POLICY].items():
-            
-            cmp_factor = compare_policy[factor]
-            if type(cmp_factor) == type([]):    # for factor values [ policy, degree ]
-                cmp_factor = cmp_factor[0]
+            policy, policy_index = policy
 
-            delta = abs( self.get_policy_index(factor, policy) - self.get_policy_index( factor, cmp_factor ) )
+            cmp_factor_policy, cmp_factor_index = compare_policy[factor]
+            
+            policy_index = self.get_policy_index(factor, policy)
+            delta = abs( policy_index - cmp_factor_index )
 
             summary[factor] = [ "Agreement", "Civil", "Contentious",  "Opposition", "Diametrically Opposed" ][delta]
             diff += delta
@@ -426,7 +426,7 @@ def jsonify( state ):
 
     return d
 
-def generate_random_simulae_node(node_type, node_name=None, faction=None):
+def generate_simulae_node(node_type, node_name=None, faction=None):
 
     name = node_name
 

@@ -1,6 +1,6 @@
 from enum import Enum
 
-from NGIN.SimulaeNode import *
+from SimulaeNode import *
 
 THREAT = "threat"
 HUNGER = "hunger"
