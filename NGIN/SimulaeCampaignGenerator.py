@@ -1,10 +1,10 @@
 import sys
 import os
-from NGIN.NGIN_console import *
-from NGIN.NGIN_utils.ngin_utils import *
-from NGIN.NGIN_config.ngin_missions import *
-from NGIN.FactionGenerator.faction_generator import *
-from NGIN.SimulaeNode import *
+from NGIN_console import *
+from NGIN_utils.ngin_utils import *
+from NGIN_config.ngin_missions import *
+from FactionGenerator.faction_generator import *
+from SimulaeNode import *
 
 class NGIN():
 
@@ -78,6 +78,11 @@ class NGIN():
 
         actor = self.get_simulae_node_by_id(self.select_actor(randomized=True), POI)
 
+
+        print("You are -> ",actor)
+        pprint(actor.relations)
+
+
         while True:
 
             os.system('clear') # clear screen
@@ -110,7 +115,6 @@ class NGIN():
         else:
             selected_node = random.choice(list(options.keys()))
 
-        print("selected -> ",selected_node,f'[{options[selected_node]}]')
         # return the actor node id
         return options[selected_node]
 
@@ -124,6 +128,7 @@ class NGIN():
         # small, medium, or large?
        
         self.world_root = generate_simulae_node(LOC, self.get_new_name())
+
         self.add_node(self.world_root)
 
         world_size = self.settings['world_size']
@@ -442,9 +447,6 @@ class NGIN():
 
 
     def get_actions_for_node(self, actor, target, note=None, is_adjacent=False):
-        
-        if type(target) == type(""):
-            print(target)
 
         # handle inanimates
         if actor.nodetype not in SOCIAL_NODE_TYPES:
@@ -478,12 +480,15 @@ class NGIN():
             while not selected_target:
                 for idx, mission in enumerate(missions):
                     target, options, note = mission
-                    print(f"{idx:3} | [{note:^16}] |{target.summary()} ")
+                    print(f"{idx:3} | [{note:^16}] |{target} ")
 
                 selection_idx = robust_int_entry("Select Target > ", 0, len(missions))
                 selected_target = missions[selection_idx]
 
             t, options, note = selected_target
+
+            # display description of target
+            print(t.get_description())
 
             if len(options) > 1:
 
@@ -504,28 +509,80 @@ class NGIN():
         return selected_target, selected_mission
 
 
+    def generate_mission(self, actor, mission):
+
+        target, m = mission
+        action, liminality = m
+
+        debug(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
+
+
     def resolve_mission(self, actor, mission):
+        debug("resolve_mission(",actor,mission,")")
         
         target, m = mission
-        action, visibility = m
+        action, liminality = m
 
-        debug(f"{actor.summary()} -> ({visibility}) {action} {target.summary()}")
+        debug(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
 
         if target.nodetype in SOCIAL_NODE_TYPES:
-            print('social')
-
+            
             relationship = actor.get_relation(target)
-            pprint(relationship)
             
             disposition = relationship['Disposition']
 
             print('disposition:',disposition)
 
-            pprint(NGIN_MISSIONS[disposition][target.nodetype])
+            if action == "Recruit":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} recruiting {target}')
+
+            elif action == "Protect":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} protecting {target}')
+
+            elif action == "Liberate":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} liberating {target}')
+
+            elif action == "Escort":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} escorting {target}')
+
+            elif action == "Eliminate":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} eliminating {target}')
+
+            elif action == "Capture":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} capturing {target}')
+
+            elif action == "Surveil":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} surveiling {target}')
+
+            elif action == "Investigate":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} investigating {target}')
+            
+            elif action == "Mission":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} recieves a mission from {target}')
+            
+            else:
+                print("Unhandled action: ",action)
 
 
         elif target.nodetype in INANIMATE_NODE_TYPES:
-            print('inanimate')
 
             if target.has_relation(actor.id, FAC):
 
@@ -538,6 +595,50 @@ class NGIN():
 
                     actor.set_reference(LOC, target.id)         # set actor loc to target
                     target.add_reference('occupant', actor.id) # add actor as occupant to target
+
+            elif action == 'Fortify':
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} fortifying {target}')
+
+                    fortification = target.get_attribute("fortification")
+
+                    fortification = fortification + 1
+
+                    target.set_attribute("fortification", fortification)
+
+            elif action == "Protect":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} protecting {target}')
+
+            elif action == "Capture":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} capturing {target}')
+
+            elif action == "Destroy":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} destroying {target}')
+
+            elif action == "Infiltrate":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} infiltrating {target}')
+
+            elif action == "Investigate":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} investigating {target}')
+
+            elif action == "Surveil":
+
+                if self.can_perform_action(target, action):
+                    print(f'{actor} surveiling {target}')
+
+                        
+
 
     def can_perform_action(self, target, action):
         return True
