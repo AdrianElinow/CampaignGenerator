@@ -79,12 +79,11 @@ class NGIN():
 
 
         print("You are -> ",actor)
-        pprint(actor.relations)
-
+        print(actor.get_description())
 
         while True:
 
-            os.system('clear') # clear screen
+            #os.system('clear') # clear screen
 
             self.validate_state()
 
@@ -92,9 +91,9 @@ class NGIN():
 
             options = self.get_actions(actor=actor)
 
-            mission = self.select_mission(options)
+            mission = self.select_action(options, actor)
 
-            self.resolve_mission(actor, mission)
+            self.resolve_action(actor, mission)
 
             cmd = input('continue [enter] / [q]uit ?> ')
             if cmd in ['q','quit']:
@@ -221,13 +220,13 @@ class NGIN():
             if not adjs or len(adjs) < node.get_attribute('max_adjacent_locations'):
                 
                 if random.random() < stickiness:
-                    node.add_reference('adjacent',new_loc.id) # attach to current location
-                    new_loc.add_reference('adjacent',node.id)
+                    node.add_reference('Adjacent',new_loc.id) # attach to current location
+                    new_loc.add_reference('Adjacent',node.id)
                     return
                 
                 if not adjs and not nodes:
-                    node.add_reference('adjacent', new_loc.id)  # force-attach to last available node
-                    new_loc.add_reference('adjacent',node.id)
+                    node.add_reference('Adjacent', new_loc.id)  # force-attach to last available node
+                    new_loc.add_reference('Adjacent',node.id)
                     return
             
 
@@ -292,9 +291,11 @@ class NGIN():
 
         group = []
         for i in range(num_individuals):
-            individual = self.generate_individual(location)
+            individual = self.generate_individual(location, faction)
 
-            individual.references[FAC] = faction.id
+            individual.update_relation(faction, interaction="Join")
+
+            #individual.references[FAC] = faction.id
 
             #individual.add_reference(FAC, faction.id)
             #individual.update_relation(faction)
@@ -304,15 +305,12 @@ class NGIN():
         return group, faction
 
 
-    def generate_individual(self, location):
+    def generate_individual(self, location, faction=None):
 
         individual = generate_simulae_node(POI, self.get_new_name())
 
         individual.nodetype = POI
         individual.update_relation(location)
-
-        individual.add_reference("gender", random.choice(['male','female']))
-        individual.set_attribute("age", random.randint(1,75))
         
         return individual
 
@@ -321,8 +319,8 @@ class NGIN():
 
         self.state.relations[node.nodetype][node.id] = node
 
-        if 'name' in node.references:
-            self.taken_names = node.references['name']
+        if 'Name' in node.references:
+            self.taken_names = node.references['Name']
 
         if node.nodetype == LOC:
             if 'LOC_num' not in self.state.attributes:
@@ -444,12 +442,12 @@ class NGIN():
 
         for adj_id in adjacent_locations:
             adj_loc = self.get_simulae_node_by_id(adj_id, LOC)
-            options.append(self.get_actions_for_node(actor, adj_loc, note="Travel to", is_adjacent=True))
+            options.append(self.get_actions_for_node(actor, adj_loc, note="Travel to", is_adjacent_loc=True))
 
         return options
 
 
-    def get_actions_for_node(self, actor, target, note=None, is_adjacent=False):
+    def get_actions_for_node(self, actor, target, note=None, is_adjacent_loc=False):
 
         # handle inanimates
         if actor.nodetype not in SOCIAL_NODE_TYPES:
@@ -459,9 +457,9 @@ class NGIN():
 
         if target.nodetype in SOCIAL_NODE_TYPES:
             relationship = actor.determine_relation(target)
-            disposition = relationship["Disposition"]
+            disposition = relationship[DISPOSITION]
 
-        if not is_adjacent:
+        if not is_adjacent_loc:
             actions = NGIN_MISSIONS[disposition][target.nodetype]
         else:
             actions = [['Travel','Overt']]
@@ -469,29 +467,26 @@ class NGIN():
         return target, actions, note
 
 
-    def select_mission(self, missions):
+    def select_action(self, actions, actor):
         
-        mission_index = []
-        count = 0
-
         selection_idx = 0
-        selected_mission = None
+        selected_action = None
         selected_target = None
 
-        while not selected_mission:
+        while not selected_action:
 
             while not selected_target:
-                for idx, mission in enumerate(missions):
-                    target, options, note = mission
+                for idx, action in enumerate(actions):
+                    target, options, note = action
                     print(f"{idx:3} | [{note:^16}] |{target} ")
 
-                selection_idx = robust_int_entry("Select Target > ", 0, len(missions))
-                selected_target = missions[selection_idx]
+                selection_idx = robust_int_entry("Select Target > ", 0, len(actions))
+                selected_target = actions[selection_idx]
 
             t, options, note = selected_target
 
             # display description of target
-            print(t.get_description())
+            print(f"you are {actor.get_relation(actor)['Disposition']} towards {t.get_description()}")
 
             if len(options) > 1:
 
@@ -506,10 +501,10 @@ class NGIN():
             else:
                 selection_idx = 0
 
-            selected_mission = options[selection_idx]
+            selected_action = options[selection_idx]
             selected_target = t
 
-        return selected_target, selected_mission
+        return selected_target, selected_action
 
 
     def generate_mission(self, actor, mission):
@@ -520,8 +515,8 @@ class NGIN():
         debug(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
 
 
-    def resolve_mission(self, actor, mission):
-        debug("resolve_mission(",actor,mission,")")
+    def resolve_action(self, actor, mission):
+        debug("resolve_action(",actor,mission,")")
         
         target, m = mission
         action, liminality = m
@@ -539,7 +534,15 @@ class NGIN():
             if action == "Recruit":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} recruiting {target}')
+
+                    relationship = actor.get_relation(target)
+                    if relationship['Disposition'] == 'Hostile':
+                        print(f'{actor} cannot recruit {target} due to hostile disposition')
+                    else:
+                        print(f'{actor} recruiting {target}')
+
+                        # update recruitment
+                        target.update_relation(actor, interaction="accompany")
 
             elif action == "Protect":
 
@@ -596,8 +599,16 @@ class NGIN():
                 if self.can_perform_action(target, action):
                     print(f'{actor} traveling to {target}')
 
+                    # actor & accompanyment travel to target
                     actor.set_reference(LOC, target.id)         # set actor loc to target
                     target.add_reference('occupant', actor.id) # add actor as occupant to target
+
+                    accompanying_actors = actor.get_accompanyment() # get actor's accompanyment
+                    if accompanying_actors: # if any accompanyment
+                        for actor_id in accompanying_actors:
+                            actor = self.get_simulae_node_by_id(actor_id, POI)
+                            actor.set_reference(LOC, target.id) # set each actor's loc to target
+                            target.add_reference('occupant', actor.id) # add actor as occupant to target
 
             elif action == 'Fortify':
 

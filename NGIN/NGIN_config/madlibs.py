@@ -113,6 +113,19 @@ PRESET_POLICIES = {
 }
 
 
+POLICY_SCALE = {
+        "Economy":          ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
+        "Liberty":          ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
+        "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
+        "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
+        "Militancy":        ["Militarist", "Strategic", "Indifferent", "Diplomatic", "Pacifist"],
+        "Diversity":        ["Homogenous", "Preservationist", "Indifferent", "Heterogeneous", "Multiculturalist"],
+        "Secularity":       ["Apostate", "Secularist", "Indifferent", "Religious", "Devout"],
+        "Justice":          ["Retributionist", "Punitive", "Indifferent", "Correctivist", "Rehabilitative"],
+        "Natural-Balance":  ["Ecologist", "Naturalist", "Indifferent", "Productivist", "Industrialist"],
+        "Government":       ["Democratic", "Republican", "Indifferent", "Oligarchic", "Autocratic"]
+    }
+
 FACTION_TYPES = [
     "Government",
     "Military",
@@ -123,6 +136,92 @@ FACTION_TYPES = [
     "Gang",
     "Political"
 ]
+
+POLICY_BELIEF_STRENGTH_DESCRIPTORS = [
+    "barely",
+    "slightly",
+    "somewhat",
+    "moderately",
+    "fairly",
+    "mostly",
+    "very",
+    "strongly",
+    "staunchly",
+    "extremely"
+]
+
+POLICY_DESCRIPTIONS = {
+    "Economy": {
+        "Communist":"believes in a planned economy with no private ownership", 
+        "Socialist":"believes in a market economy with significant government intervention", 
+        "Indifferent":"", 
+        "Capitalist":"believes in a market economy with some government intervention", 
+        "Free-Capitalist":"believes in a free market economy without government intervention",
+    },
+    "Liberty": {
+        "Authoritarian":"believes in an unapposed authority and solidarity of the state above the individual", 
+        "Statist":"believes in a strong state and government control", 
+        "Indifferent":"", 
+        "Libertarian":"believes in the freedom of the individual and minimal government intervention", 
+        "Anarchist":"believes in the abolition of all forms of government and the state", 
+    },
+    "Culture": {
+        "Traditionalist":"believes in preserving their culture, traditions, and long term stability", 
+        "Conservative":"believes in conserving their culture and traditions", 
+        "Indifferent":"", 
+        "Progressive":"believes in pushing the boundaries of culture and society forward", 
+        "Accelerationist":"believes in the rapid advancement of culture and society regardless of the consequences", 
+    },
+    "Diplomacy": {
+        "Globalist":"believes their faction should act as apart of a global community", 
+        "Diplomatic":"believes that sometimes their own faction's interests must be set aside for the greater population", 
+        "Indifferent":"", 
+        "Patriotic":"believes in their faction's greatness", 
+        "Nationalist":"believes in the superiority of their own faction", 
+    },
+    "Militancy":{
+        "Militarist":"believes in military action as the best tool for resolving conflicts", 
+        "Strategic":"believes in military action as a strategic tool for resolving conflicts when diplomacy fails to yield results", 
+        "Indifferent":"", 
+        "Diplomatic":"believes in diplomacy and negotiating resolution of conflicts before military action", 
+        "Pacifist":"believes in peaceful diplomacy and conflict resolution snubbing military action", 
+    },
+    "Diversity": {
+        "Homogenous":"believes in a homogenous ethnic population", 
+        "Preservationist":"believes in the preservation of their own ethnicity", 
+        "Indifferent":"", 
+        "Heterogeneous":"believes in some ethnic diversity", 
+        "Multiculturalist":"believes in ethnic diversity", 
+    },
+    "Secularity": {
+        "Apostate":"believes that religion should not play any role in society", 
+        "Secularist":"believes in a secular society", 
+        "Indifferent":"", 
+        "Religious":"believes that religion should play a significant role in society", 
+        "Devout":"believes that religion is should play a major role in society", 
+    },
+    "Justice": {
+        "Retributionist":"believes in judicial retribution", 
+        "Punitive":"believes in punitive justice", 
+        "Indifferent":"", 
+        "Correctivist":"believes in corrective justice", 
+        "Rehabilitative":"believes in rehabilitative justice", 
+    },
+    "Natural-Balance": {
+        "Ecologist":"believes that the environment should be protected at the expense of industry", 
+        "Naturalist":"believes in the natural balance of the environment", 
+        "Indifferent":"", 
+        "Productivist":"believes in the use of natural resources for production", 
+        "Industrialist":"believes in industrial production at the expense of the environment", 
+    },
+    "Government": {
+        "Democratic":"believes in a government run by the collective will of the people", 
+        "Republican":"believes in a representative government", 
+        "Indifferent":"", 
+        "Oligarchic":"believes in a strong centralized authority", 
+        "Autocratic":"believes in a centralized authority headed by a strong leader", 
+    }
+}
 
 MADLIBS_SUFFIXES = {
     "Government":[

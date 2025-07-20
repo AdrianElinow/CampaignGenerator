@@ -9,9 +9,13 @@ PTY = 'PTY'
 LOC = 'LOC'
 OBJ = 'OBJ'
 
-NAME = "name"
-POLICY = "policy"
-ADJACENT = "adjacent"
+NAME = "Name"
+POLICY = "Policy"
+ADJACENT = "Adjacent"
+STATUS = "Status"
+INTERACTIONS = "Interactions"
+REPUTATION = "Reputation"
+DISPOSITION = "Disposition"
 
 CONTENTS = "Contents"
 COMPONENTS = "Components"
@@ -36,20 +40,20 @@ class SimulaeNode:
                         references={
                             NAME:None,
                             POLICY:{
-                                "Economy":          ["Indifferent", 0.5],
-                                "Liberty":          ["Indifferent", 0.5],
-                                "Culture":          ["Indifferent", 0.5],
-                                "Diplomacy":        ["Indifferent", 0.5],
-                                "Militancy":        ["Indifferent", 0.5],
-                                "Diversity":        ["Indifferent", 0.5],
-                                "Secularity":       ["Indifferent", 0.5],
-                                "Justice":          ["Indifferent", 0.5],
-                                "Natural-Balance":  ["Indifferent", 0.5],
-                                "Government":       ["Indifferent", 0.5]
+                                "Economy":          ["Indifferent", 5],
+                                "Liberty":          ["Indifferent", 5],
+                                "Culture":          ["Indifferent", 5],
+                                "Diplomacy":        ["Indifferent", 5],
+                                "Militancy":        ["Indifferent", 5],
+                                "Diversity":        ["Indifferent", 5],
+                                "Secularity":       ["Indifferent", 5],
+                                "Justice":          ["Indifferent", 5],
+                                "Natural-Balance":  ["Indifferent", 5],
+                                "Government":       ["Indifferent", 5]
                             }
                         }, 
                         attributes={
-                            "interactions":0
+                            "Interactions":0
                         }, 
                         relations=None, 
                         checks={}, 
@@ -59,9 +63,6 @@ class SimulaeNode:
         self.status = Status.ALIVE
         self.references = references
         self.nodetype = nodetype
-
-        if self.nodetype in SOCIAL_NODE_TYPES:
-            self.references[POLICY] = self.get_default_policy()
 
         self.attributes = attributes
 
@@ -83,9 +84,9 @@ class SimulaeNode:
             policies = self.describe_political_beliefs()
 
             description = "{0}, A {1} year old {2} {3}. Located at {4}. {5}. {6}".format(self.get_reference(NAME),
-                self.get_attribute("age"),
-                self.get_reference("race"),
-                self.get_reference("gender"),
+                self.get_attribute("Age"),
+                self.get_reference("Race"),
+                self.get_reference("Gender"),
                 self.get_reference(LOC),
                 associations,
                 policies)
@@ -119,14 +120,14 @@ class SimulaeNode:
             if node.nodetype in INANIMATE_NODE_TYPES and node.id in self.relations['PPT'][node.nodetype]:
                 return True
             # check self's membership as apart of node
-            elif node.nodetype in GROUP_NODE_TYPES and node.relations[self.nodetype][self.id]['Disposition'] == 'Member':
+            elif node.nodetype in GROUP_NODE_TYPES and node.relations[self.nodetype][self.id][STATUS] == 'Member':
                 return True
 
         elif self.nodetype == FAC:
 
             if node.nodetype in INANIMATE_NODE_TYPES and node.id in self.relations['PPT'][node.nodetype]:
                 return True
-            elif node.nodetype in PEOPLE_NODE_TYPES and self.relations[node.nodetype][node.id]['Disposition'] == "Member":
+            elif node.nodetype in PEOPLE_NODE_TYPES and self.relations[node.nodetype][node.id][STATUS] == "Member":
                 return True
 
         return False
@@ -213,52 +214,63 @@ class SimulaeNode:
     def set_attribute(self, key: str, value: int):
         self.attributes[key] = value
 
-    def determine_relation(self, node):
+    def determine_relation(self, node, interaction=None):
         debug("determining",self,"relationship with",node)
 
-        if node.id not in self.relations[node.nodetype]:
+        relationship = {}
 
-            if node.nodetype in SOCIAL_NODE_TYPES:
+        if node.id not in self.relations[node.nodetype]: # new relationship
 
-                # social relationship
-                if self.nodetype in SOCIAL_NODE_TYPES:
-                    policy_diff = self.policy_diff( node.references['policy'] )
+            if node.nodetype in SOCIAL_NODE_TYPES: # other node is a social node
+
+                if self.nodetype in SOCIAL_NODE_TYPES: # we are also a social node
+                    policy_diff = self.policy_diff( node.references[POLICY] )
 
                     relationship = {
-                        "nodetype":node.nodetype,
-                        "status":"new",
+                        "Nodetype":node.nodetype,
+                        STATUS:"new",
                         POLICY:policy_diff,
-                        "Reputation":[0,0],
-                        "Interractions":1,
-                        "Disposition":self.get_policy_disposition(policy_diff[0])
+                        REPUTATION:[0,0],
+                        INTERACTIONS:0,
+                        DISPOSITION:self.get_policy_disposition(policy_diff[0])
                     }
+
+                    if interaction != None:
+                        
+                        if interaction == "Join":
+                            relationship[REPUTATION][0] += 10
+                            relationship[STATUS] = "Member"
 
                     return relationship
 
-                elif self.nodetype in INANIMATE_NODE_TYPES:
-                    return "occupant"
+                elif self.nodetype in INANIMATE_NODE_TYPES: # we are an inanimate node
+                    return "Occupant"
 
-            elif node.nodetype in INANIMATE_NODE_TYPES:
+            elif node.nodetype in INANIMATE_NODE_TYPES: # other node is an inanimate node
                 return {}
         
-            else:
+            else: 
                 debug('Unhandled nodetype: ',node.nodetype)
 
-        elif node.nodetype in SOCIAL_NODE_TYPES and self.nodetype in SOCIAL_NODE_TYPES:
+        elif node.nodetype in SOCIAL_NODE_TYPES and self.nodetype in SOCIAL_NODE_TYPES: # we are both social nodes with an existing relationship
 
             relationship = self.relations[node.id]
             
             policy_diff = self.policy_diff( node.references[POLICY] )
             
             relationship[POLICY] = node.policy
-            relationship["Disposition"] = self.get_policy_disposition(policy_diff[0])
+            relationship[DISPOSITION] = self.get_policy_disposition(policy_diff[0])
             
-            interaction = None
-
             if interaction != None:
-                relationship['Reputation'][interaction[0]] += interaction[1]
+                        
+                if interaction == "join":
+                    relationship[REPUTATION][interaction[0]] += interaction[1]
+                    relationship[STATUS] = "Member"
+                if interaction == "accompany":
+                    relationship[REPUTATION][interaction[0]] += interaction[1]
+                    relationship[STATUS] = "Accompanying"
 
-            relationship["Interactions"] += 1
+            relationship[INTERACTIONS] += 1
 
             # update w changes
             return relationship
@@ -275,7 +287,7 @@ class SimulaeNode:
         if node.nodetype in self.relations:
             self.relations[node.nodetype] = {}
 
-        self.relations[node.nodetype][node.id] = self.determine_relation(node)
+        self.relations[node.nodetype][node.id] = self.determine_relation(node, interaction)
 
 
     def get_relation(self, node): # TODO AE: Reimplement 
@@ -288,6 +300,11 @@ class SimulaeNode:
     def get_relations_by_criteria(self, criteria):
         
         return [] # TODO AE: implement 
+    
+    def get_accompanyment(self):
+        ''' get_accompanyment() returns a list of ids of actors accompanying this actor '''
+        
+        return [nid for nid, relation in self.relations[POI].items() if relation[STATUS] == "Accompanying"]
 
     def has_relation( self, key: str, nodetype: str ): # TODO AE: Reimplement 
         
@@ -354,14 +371,21 @@ class SimulaeNode:
         diff = 0
 
         for factor, policy in self.references[POLICY].items():
-            policy, policy_index = policy
+            policy, policy_belief_strength = policy
 
-            cmp_factor_policy, cmp_factor_index = compare_policy[factor]
-            
+            cmp_factor_policy, cmp_factor_belief_strength = compare_policy[factor]
+                        
             policy_index = self.get_policy_index(factor, policy)
-            delta = abs( policy_index - cmp_factor_index )
+            cmp_factor_index = self.get_policy_index(factor, cmp_factor_policy)
 
-            summary[factor] = [ "Agreement", "Civil", "Contentious",  "Opposition", "Diametrically Opposed" ][delta]
+            delta = abs( policy_index - cmp_factor_index )       
+            strength_delta = int(abs( policy_belief_strength - cmp_factor_belief_strength ) / 2)
+
+            descr = [ "Agreement", "Civil", "Contentious",  "Opposed", "Diametrically-Opposed" ][delta]
+            degree = ["", "Slightly ", "Moderately ", "Strongly ", "Extremely " ][delta]
+
+            summary[factor] = f"{degree}{descr}"
+            
             diff += delta
 
         return diff, summary
@@ -375,20 +399,37 @@ class SimulaeNode:
         return POLICY_SCALE[factor][index]
 
     def describe_political_beliefs(self):
-        summary = "Politics: "
+        summary = """
+> Political Beliefs:
+"""
 
-        for factor, policy in self.references[POLICY].items():
+        if POLICY not in self.references:
+            return ""
 
-            summary += f"{policy}, "
+        politics = self.references[POLICY]
+
+        for policy, (stance, strength) in politics.items():
+            if policy not in POLICY_DESCRIPTIONS:
+                continue
+
+            if stance == "Indifferent":
+                continue
+
+            descr = POLICY_BELIEF_STRENGTH_DESCRIPTORS[strength-1]
+
+            stance_descr = POLICY_DESCRIPTIONS[policy][stance]
+
+            summary += f"""{descr} {stance_descr}.
+"""
 
         return summary
 
     def describe_faction_associations(self):
         summary = "Associations: "
 
-        for sid, relationship in self.relations[FAC]:
+        for sid, relationship in self.relations[FAC].items():
 
-            summary += f"{sid} {relationship}, "
+            summary += f"{sid} {relationship[STATUS]}, "
 
         return summary
 
@@ -494,7 +535,7 @@ def jsonify( state ):
 
     return d
 
-def generate_simulae_node(node_type, node_name=None, faction=None):
+def generate_simulae_node(node_type, node_name=None):
 
     name = node_name
 
@@ -516,14 +557,14 @@ def generate_simulae_node(node_type, node_name=None, faction=None):
     if nodetype in SOCIAL_NODE_TYPES:
         # Random Policy values
         for policy in _policies:
-            references[POLICY][policy] = random.choice(POLICY_SCALE[policy])
+            references[POLICY][policy] = random.choice(POLICY_SCALE[policy]), random.randrange(1,10)
 
         if nodetype == POI:
             # person node
 
-            attributes['age'] = random.randrange(1,75)
-            references['gender'] = random.choice(['male','female'])
-            references['race'] = random.choice(['white','black','hispanic','asian'])
+            attributes['Age'] = random.randrange(1,75)
+            references['Gender'] = random.choice(['male','female'])
+            references['Race'] = random.choice(['white','black','hispanic','asian'])
 
 
     if nodetype in INANIMATE_NODE_TYPES:
@@ -532,11 +573,6 @@ def generate_simulae_node(node_type, node_name=None, faction=None):
            attributes['max_adjacent_locations'] = random.randrange(1,MAX_ADJACENT_LOCATIONS)
 
     simulae_node = SimulaeNode( name, nodetype, references, attributes, relations, checks, abilities )
-
-    if faction:
-        relationship = simulae_node.determine_relationship(faction)
-
-        simulae_node.update_relation(faction)
 
     return simulae_node
 
