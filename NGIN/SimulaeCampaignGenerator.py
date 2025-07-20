@@ -78,6 +78,11 @@ class NGIN():
 
         actor = self.get_simulae_node_by_id(self.select_actor(randomized=True), POI)
 
+
+        print("You are -> ",actor)
+        pprint(actor.relations)
+
+
         while True:
 
             os.system('clear') # clear screen
@@ -110,7 +115,6 @@ class NGIN():
         else:
             selected_node = random.choice(list(options.keys()))
 
-        print("You are -> ",selected_node)
         # return the actor node id
         return options[selected_node]
 
@@ -124,7 +128,7 @@ class NGIN():
         # small, medium, or large?
        
         self.world_root = generate_simulae_node(LOC, self.get_new_name())
-        
+
         self.add_node(self.world_root)
 
         world_size = self.settings['world_size']

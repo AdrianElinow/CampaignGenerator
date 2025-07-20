@@ -71,7 +71,7 @@ class SimulaeNode:
 
             policies = self.describe_political_beliefs()
 
-            description = "{0}, A {1} year old {2} {3}. Located at {4}. Associated with {5}. Believes {6}".format(self.get_reference(NAME),
+            description = "{0}, A {1} year old {2} {3}. Located at {4}. {5}. {6}".format(self.get_reference(NAME),
                 self.get_attribute("age"),
                 self.get_reference("race"),
                 self.get_reference("gender"),
@@ -213,7 +213,7 @@ class SimulaeNode:
                 if self.nodetype in SOCIAL_NODE_TYPES:
                     policy_diff = self.policy_diff( node.references['policy'] )
 
-                    return {
+                    relationship = {
                         "nodetype":node.nodetype,
                         "status":"new",
                         POLICY:policy_diff,
@@ -221,6 +221,8 @@ class SimulaeNode:
                         "Interractions":1,
                         "Disposition":self.get_policy_disposition(policy_diff[0])
                     }
+
+                    return relationship
 
                 elif self.nodetype in INANIMATE_NODE_TYPES:
                     return "occupant"
@@ -348,8 +350,7 @@ class SimulaeNode:
 
 
     def describe_political_beliefs(self):
-        
-        summary = ""
+        summary = "Politics: "
 
         for factor, policy in self.references[POLICY].items():
 
@@ -358,7 +359,13 @@ class SimulaeNode:
         return summary
 
     def describe_faction_associations(self):
-        return ""
+        summary = "Associations: "
+
+        for sid, relationship in self.relations[FAC]:
+
+            summary += f"{sid} {relationship}, "
+
+        return summary
 
     def toJSON(self):
         try:
