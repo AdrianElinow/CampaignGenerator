@@ -13,6 +13,11 @@ NAME = "name"
 POLICY = "policy"
 ADJACENT = "adjacent"
 
+CONTENTS = "Contents"
+COMPONENTS = "Components"
+ATTACHMENTS = "Attachments"
+RELATIONS = [CONTENTS, COMPONENTS, ATTACHMENTS]
+
 ALL_NODE_TYPES = [FAC,POI,PTY,LOC,OBJ]
 NODETYPES = [POI,PTY,LOC,OBJ] # person, people, place, thing
 SOCIAL_NODE_TYPES = [FAC,POI,PTY]
@@ -20,6 +25,7 @@ GROUP_NODE_TYPES = [FAC,PTY]
 PEOPLE_NODE_TYPES = [POI,PTY]
 INANIMATE_NODE_TYPES = [LOC,OBJ]
 
+DEFAULT_POLICY_VALUE = 3 # halfway between 1 and 5
 
 class SimulaeNode:
 
@@ -45,7 +51,8 @@ class SimulaeNode:
                         attributes={
                             "interactions":0
                         }, 
-                        relations={ nt:{} for nt in ALL_NODE_TYPES }, 
+                        attributes={}, 
+                        relations=None, 
                         checks={}, 
                         abilities={}):
 
@@ -53,11 +60,16 @@ class SimulaeNode:
         self.status = Status.ALIVE
         self.references = references
         self.nodetype = nodetype
-        self.attributes = attributes
-        self.relations = relations
 
-        if self.nodetype == POI:
-            self.relations['inventory'] = []
+        if self.nodetype in SOCIAL_NODE_TYPES:
+            self.references[POLICY] = self.get_default_policy()
+
+        self.attributes = attributes
+
+        if relations == None:
+            relations = { CONTENTS:{ nt:{} for nt in NODETYPES}, COMPONENTS:{ nt:{} for nt in NODETYPES}, ATTACHMENTS:{ nt:{} for nt in NODETYPES} }
+
+        self.relations = relations
 
         self.checks = checks
         self.abilities = abilities
@@ -93,7 +105,7 @@ class SimulaeNode:
         return self.get_reference(NAME)
 
 
-    def check_membership(self, node):
+    def check_membership(self, node): # TODO AE: Reimplement 
         ''' check_membership(..., node) checks for relations between self and given node
                 if node is of types OBJ or LOC, checks of self has ownership of node
                 if node is of types FAC or PTY, checks that node has membership with self
@@ -256,7 +268,7 @@ class SimulaeNode:
             debug("Unhandled relation")
 
 
-    def update_relation(self, node, interaction=None):
+    def update_relation(self, node, interaction=None): # TODO AE: Reimplement 
         
         if not node:
             raise ValueError
@@ -267,15 +279,18 @@ class SimulaeNode:
         self.relations[node.nodetype][node.id] = self.determine_relation(node)
 
 
-    def get_relation(self, node):
+    def get_relation(self, node): # TODO AE: Reimplement 
 
         if self.has_relation(node.id, node.nodetype):
             return self.relations[node.nodetype][node.id]
         else:
             return self.determine_relation(node)
 
+    def get_relations_by_criteria(self, criteria):
+        
+        return [] # TODO AE: implement 
 
-    def has_relation( self, key: str, nodetype: str ):
+    def has_relation( self, key: str, nodetype: str ): # TODO AE: Reimplement 
         
         if key in self.relations[nodetype]:
             return True
@@ -289,6 +304,14 @@ class SimulaeNode:
             return self.checks[key]
         return None
 
+    def get_default_policy(self):
+        
+        policy = {}
+        
+        for k,v in POLICY_SCALE.items():
+            policy[k] = [self.get_policy_stance(k, DEFAULT_POLICY_VALUE), DEFAULT_POLICY_VALUE]
+
+        return policy
 
     def generate_policy(self):
 
@@ -344,10 +367,13 @@ class SimulaeNode:
 
         return diff, summary
 
-    def get_policy_index(self, factor, policy):
+    def get_policy_index(self, factor:str, policy:str) -> int:
 
         return POLICY_SCALE[factor].index(policy)
 
+    def get_policy_stance(self, factor: str, index: int) -> str:
+
+        return POLICY_SCALE[factor][index]
 
     def describe_political_beliefs(self):
         summary = "Politics: "
@@ -468,7 +494,6 @@ def jsonify( state ):
         d['relations'][k] = v
 
     return d
-
 
 def generate_simulae_node(node_type, node_name=None, faction=None):
     name = node_name
