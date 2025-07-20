@@ -4,178 +4,117 @@
     "references": {},
     "nodetype": "state",
     "attributes": {
-        "LOC_num": 14
+        "LOC_num": 13
     },
     "relations": {
         "FAC": {
-            "Delta Ring": {
-                "id": "Delta Ring",
+            "Wolf Intelligence Department": {
+                "id": "Wolf Intelligence Department",
                 "status": null,
                 "references": {
-                    "name": "Delta Ring",
+                    "name": "Wolf Intelligence Department",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": [
+                            "Indifferent",
+                            0.7787617409603326
+                        ],
+                        "Liberty": [
+                            "Authoritarian",
+                            0.061010930974413236
+                        ],
+                        "Culture": [
+                            "Conservative",
+                            0.8774221378720257
+                        ],
+                        "Diplomacy": [
+                            "Globalist",
+                            0.8670379833505486
+                        ],
+                        "Militancy": [
+                            "Strategic",
+                            0.8034579736294911
+                        ],
+                        "Diversity": [
+                            "Preservationist",
+                            0.3587493052656414
+                        ],
+                        "Secularity": [
+                            "Indifferent",
+                            0.642324267054263
+                        ],
+                        "Justice": [
+                            "Retributionist",
+                            0.7754324142319027
+                        ],
+                        "Natural-Balance": [
+                            "Ecologist",
+                            0.7293826568463853
+                        ],
+                        "Government": [
+                            "Republican",
+                            0.4042877523625281
+                        ]
+                    }
+                },
+                "nodetype": "FAC",
+                "attributes": {},
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Sigma-Angel Ring": {
+                "id": "Sigma-Angel Ring",
+                "status": null,
+                "references": {
+                    "name": "Sigma-Angel Ring",
                     "FAC": null,
                     "policy": {
                         "Economy": [
                             "Free-Capitalist",
-                            0.970005209063274
+                            0.9347265009042991
                         ],
                         "Liberty": [
-                            "Libertarian",
-                            0.8417164340089169
+                            "Indifferent",
+                            0.9874288645379742
                         ],
                         "Culture": [
                             "Progressive",
-                            0.10867397521160693
+                            0.8208673591704816
                         ],
                         "Diplomacy": [
                             "Patriotic",
-                            0.07404702940493213
-                        ],
-                        "Militancy": [
-                            "Strategic",
-                            0.9713474448871354
-                        ],
-                        "Diversity": [
-                            "Heterogeneous",
-                            0.6147516000613723
-                        ],
-                        "Secularity": [
-                            "Secularist",
-                            0.478065391008235
-                        ],
-                        "Justice": [
-                            "Retributionist",
-                            0.06121700292347787
-                        ],
-                        "Natural-Balance": [
-                            "Indifferent",
-                            0.763976280449548
-                        ],
-                        "Government": [
-                            "Oligarchic",
-                            0.5003696189682221
-                        ]
-                    }
-                },
-                "nodetype": "FAC",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Cold Task-Force": {
-                "id": "Cold Task-Force",
-                "status": null,
-                "references": {
-                    "name": "Cold Task-Force",
-                    "FAC": null,
-                    "policy": {
-                        "Economy": [
-                            "Indifferent",
-                            0.26465351200053955
-                        ],
-                        "Liberty": [
-                            "Authoritarian",
-                            0.7025194514210994
-                        ],
-                        "Culture": [
-                            "Progressive",
-                            0.38899207783540446
-                        ],
-                        "Diplomacy": [
-                            "Nationalist",
-                            0.14541639370385706
+                            0.3444965779153165
                         ],
                         "Militancy": [
                             "Militarist",
-                            0.7650913351881319
+                            0.14080997080199942
                         ],
                         "Diversity": [
-                            "Indifferent",
-                            0.7379006795217923
+                            "Multiculturalist",
+                            0.6412929128644824
                         ],
                         "Secularity": [
-                            "Secularist",
-                            0.9997433694884396
-                        ],
-                        "Justice": [
-                            "Correctivist",
-                            0.24691217914972075
-                        ],
-                        "Natural-Balance": [
-                            "Indifferent",
-                            0.15252719318778307
-                        ],
-                        "Government": [
-                            "Democratic",
-                            0.35749471861258986
-                        ]
-                    }
-                },
-                "nodetype": "FAC",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Jupiter-Macguffin PAC": {
-                "id": "Jupiter-Macguffin PAC",
-                "status": null,
-                "references": {
-                    "name": "Jupiter-Macguffin PAC",
-                    "FAC": null,
-                    "policy": {
-                        "Economy": [
-                            "Communist",
-                            0.21275953528980174
-                        ],
-                        "Liberty": [
-                            "Statist",
-                            0.3855592637066322
-                        ],
-                        "Culture": [
-                            "Conservative",
-                            0.8439024206251118
-                        ],
-                        "Diplomacy": [
-                            "Indifferent",
-                            0.0644342598647305
-                        ],
-                        "Militancy": [
-                            "Strategic",
-                            0.5731736581376503
-                        ],
-                        "Diversity": [
-                            "Heterogeneous",
-                            0.48862284003316003
-                        ],
-                        "Secularity": [
-                            "Indifferent",
-                            0.05365565455957422
+                            "Apostate",
+                            0.6162031286222359
                         ],
                         "Justice": [
                             "Indifferent",
-                            0.8364286458298432
+                            0.6963167320468884
                         ],
                         "Natural-Balance": [
                             "Productivist",
-                            0.4727020252564741
+                            0.40344511148297024
                         ],
                         "Government": [
                             "Autocratic",
-                            0.8898422991338363
+                            0.35447971017548163
                         ]
                     }
                 },
@@ -191,174 +130,52 @@
                 "checks": {},
                 "abilities": {}
             },
-            "Demon-Specter Outcomes": {
-                "id": "Demon-Specter Outcomes",
+            "Minutemen Cult": {
+                "id": "Minutemen Cult",
                 "status": null,
                 "references": {
-                    "name": "Demon-Specter Outcomes",
+                    "name": "Minutemen Cult",
                     "FAC": null,
                     "policy": {
                         "Economy": [
                             "Capitalist",
-                            0.37506551418438494
-                        ],
-                        "Liberty": [
-                            "Indifferent",
-                            0.043262904145565106
-                        ],
-                        "Culture": [
-                            "Traditionalist",
-                            0.13869500648877198
-                        ],
-                        "Diplomacy": [
-                            "Diplomatic",
-                            0.8817186916763955
-                        ],
-                        "Militancy": [
-                            "Strategic",
-                            0.7878652670762171
-                        ],
-                        "Diversity": [
-                            "Homogenous",
-                            0.9325868918753818
-                        ],
-                        "Secularity": [
-                            "Religious",
-                            0.534681932224493
-                        ],
-                        "Justice": [
-                            "Retributionist",
-                            0.625003793698487
-                        ],
-                        "Natural-Balance": [
-                            "Ecologist",
-                            0.6832035332116815
-                        ],
-                        "Government": [
-                            "Oligarchic",
-                            0.273483678042992
-                        ]
-                    }
-                },
-                "nodetype": "FAC",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Slick Co.": {
-                "id": "Slick Co.",
-                "status": null,
-                "references": {
-                    "name": "Slick Co.",
-                    "FAC": null,
-                    "policy": {
-                        "Economy": [
-                            "Socialist",
-                            0.9547609020607698
+                            0.647852723671671
                         ],
                         "Liberty": [
                             "Anarchist",
-                            0.2853728277069063
+                            0.5230668913845363
                         ],
                         "Culture": [
-                            "Accelerationist",
-                            0.053714716171242904
-                        ],
-                        "Diplomacy": [
-                            "Diplomatic",
-                            0.9273525838074311
-                        ],
-                        "Militancy": [
-                            "Pacifist",
-                            0.27617610500860146
-                        ],
-                        "Diversity": [
-                            "Homogenous",
-                            0.7632646401908818
-                        ],
-                        "Secularity": [
-                            "Apostate",
-                            0.04718443231749614
-                        ],
-                        "Justice": [
-                            "Indifferent",
-                            0.2817985740628085
-                        ],
-                        "Natural-Balance": [
-                            "Naturalist",
-                            0.6937216550907397
-                        ],
-                        "Government": [
-                            "Republican",
-                            0.7384711457690821
-                        ]
-                    }
-                },
-                "nodetype": "FAC",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Sigma PAC": {
-                "id": "Sigma PAC",
-                "status": null,
-                "references": {
-                    "name": "Sigma PAC",
-                    "FAC": null,
-                    "policy": {
-                        "Economy": [
-                            "Indifferent",
-                            0.009161068896807567
-                        ],
-                        "Liberty": [
-                            "Statist",
-                            0.6435045710489479
-                        ],
-                        "Culture": [
-                            "Traditionalist",
-                            0.8035193291069788
+                            "Progressive",
+                            0.6488554427992534
                         ],
                         "Diplomacy": [
                             "Patriotic",
-                            0.761830375143873
+                            0.18812770778755994
                         ],
                         "Militancy": [
                             "Pacifist",
-                            0.6677180106014867
+                            0.3583372481942084
                         ],
                         "Diversity": [
-                            "Multiculturalist",
-                            0.04597257294746171
+                            "Preservationist",
+                            0.14276544436075767
                         ],
                         "Secularity": [
-                            "Religious",
-                            0.4245222583268964
+                            "Devout",
+                            0.6634211158039865
                         ],
                         "Justice": [
-                            "Punitive",
-                            0.8086042382203936
+                            "Indifferent",
+                            0.4537420580800786
                         ],
                         "Natural-Balance": [
-                            "Productivist",
-                            0.4422907799479492
+                            "Naturalist",
+                            0.29632482185930875
                         ],
                         "Government": [
                             "Republican",
-                            0.1103374729002573
+                            0.3912076595565245
                         ]
                     }
                 },
@@ -377,818 +194,41 @@
         },
         "PTY": {},
         "POI": {
-            "Twilight": {
-                "id": "Twilight",
+            "Specter": {
+                "id": "Specter",
                 "status": null,
                 "references": {
-                    "name": "Twilight",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Capitalist",
-                        "Liberty": "Statist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Indifferent",
-                        "Militancy": "Pacifist",
-                        "Diversity": "Heterogeneous",
-                        "Secularity": "Apostate",
-                        "Justice": "Correctivist",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Republican"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Sanguine": {
-                "id": "Sanguine",
-                "status": null,
-                "references": {
-                    "name": "Sanguine",
-                    "FAC": "Demon-Specter Outcomes",
+                    "name": "Specter",
+                    "FAC": "Minutemen Cult",
                     "policy": {
                         "Economy": "Socialist",
-                        "Liberty": "Authoritarian",
-                        "Culture": "Traditionalist",
-                        "Diplomacy": "Diplomatic",
+                        "Liberty": "Statist",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Patriotic",
                         "Militancy": "Pacifist",
-                        "Diversity": "Preservationist",
-                        "Secularity": "Devout",
-                        "Justice": "Correctivist",
-                        "Natural-Balance": "Ecologist",
-                        "Government": "Democratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Soul": {
-                "id": "Soul",
-                "status": null,
-                "references": {
-                    "name": "Soul",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Socialist",
-                        "Liberty": "Anarchist",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Diplomatic",
-                        "Militancy": "Militarist",
-                        "Diversity": "Multiculturalist",
-                        "Secularity": "Secularist",
-                        "Justice": "Retributionist",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Spruce": {
-                "id": "Spruce",
-                "status": null,
-                "references": {
-                    "name": "Spruce",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Indifferent",
-                        "Liberty": "Authoritarian",
-                        "Culture": "Conservative",
-                        "Diplomacy": "Nationalist",
-                        "Militancy": "Indifferent",
-                        "Diversity": "Indifferent",
-                        "Secularity": "Secularist",
-                        "Justice": "Rehabilitative",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Oligarchic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Essence": {
-                "id": "Essence",
-                "status": null,
-                "references": {
-                    "name": "Essence",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Capitalist",
-                        "Liberty": "Statist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Indifferent",
-                        "Militancy": "Militarist",
-                        "Diversity": "Heterogeneous",
-                        "Secularity": "Devout",
-                        "Justice": "Punitive",
-                        "Natural-Balance": "Ecologist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Platinum": {
-                "id": "Platinum",
-                "status": null,
-                "references": {
-                    "name": "Platinum",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Indifferent",
-                        "Liberty": "Statist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Nationalist",
-                        "Militancy": "Diplomatic",
-                        "Diversity": "Indifferent",
-                        "Secularity": "Secularist",
-                        "Justice": "Correctivist",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Democratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Storm": {
-                "id": "Storm",
-                "status": null,
-                "references": {
-                    "name": "Storm",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Indifferent",
-                        "Liberty": "Libertarian",
-                        "Culture": "Conservative",
-                        "Diplomacy": "Indifferent",
-                        "Militancy": "Diplomatic",
-                        "Diversity": "Multiculturalist",
-                        "Secularity": "Devout",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Indifferent",
-                        "Government": "Indifferent"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Prime": {
-                "id": "Prime",
-                "status": null,
-                "references": {
-                    "name": "Prime",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Socialist",
-                        "Liberty": "Libertarian",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Pacifist",
-                        "Diversity": "Multiculturalist",
-                        "Secularity": "Secularist",
-                        "Justice": "Punitive",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Democratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Revelation": {
-                "id": "Revelation",
-                "status": null,
-                "references": {
-                    "name": "Revelation",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Statist",
-                        "Culture": "Traditionalist",
-                        "Diplomacy": "Diplomatic",
-                        "Militancy": "Diplomatic",
                         "Diversity": "Homogenous",
-                        "Secularity": "Indifferent",
-                        "Justice": "Indifferent",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
                         "Natural-Balance": "Productivist",
-                        "Government": "Republican"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Gorilla": {
-                "id": "Gorilla",
-                "status": null,
-                "references": {
-                    "name": "Gorilla",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Socialist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Indifferent",
-                        "Diversity": "Preservationist",
-                        "Secularity": "Secularist",
-                        "Justice": "Retributionist",
-                        "Natural-Balance": "Indifferent",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Heart": {
-                "id": "Heart",
-                "status": null,
-                "references": {
-                    "name": "Heart",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Indifferent",
-                        "Liberty": "Anarchist",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Nationalist",
-                        "Militancy": "Militarist",
-                        "Diversity": "Preservationist",
-                        "Secularity": "Indifferent",
-                        "Justice": "Punitive",
-                        "Natural-Balance": "Ecologist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Meridian": {
-                "id": "Meridian",
-                "status": null,
-                "references": {
-                    "name": "Meridian",
-                    "FAC": "Delta Ring",
-                    "policy": {
-                        "Economy": "Capitalist",
-                        "Liberty": "Anarchist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Diplomatic",
-                        "Diversity": "Heterogeneous",
-                        "Secularity": "Religious",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Industrialist",
                         "Government": "Indifferent"
                     },
-                    "LOC": "Granite"
+                    "gender": "female",
+                    "race": "asian",
+                    "LOC": "Harbor"
                 },
                 "nodetype": "POI",
-                "attributes": {},
+                "attributes": {
+                    "age": 64
+                },
                 "relations": {
                     "FAC": {},
                     "POI": {},
                     "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Granite": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Jet": {
-                "id": "Jet",
-                "status": null,
-                "references": {
-                    "name": "Jet",
-                    "FAC": "Delta Ring",
-                    "policy": {
-                        "Economy": "Indifferent",
-                        "Liberty": "Authoritarian",
-                        "Culture": "Traditionalist",
-                        "Diplomacy": "Indifferent",
-                        "Militancy": "Indifferent",
-                        "Diversity": "Heterogeneous",
-                        "Secularity": "Secularist",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Democratic"
+                    "LOC": {
+                        "Harbor": {}
                     },
-                    "LOC": "Granite"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
                     "OBJ": {},
-                    "inventory": {},
-                    "Granite": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Arm": {
-                "id": "Arm",
-                "status": null,
-                "references": {
-                    "name": "Arm",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Libertarian",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Strategic",
-                        "Diversity": "Preservationist",
-                        "Secularity": "Indifferent",
-                        "Justice": "Retributionist",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Delta": {
-                "id": "Delta",
-                "status": null,
-                "references": {
-                    "name": "Delta",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Free-Capitalist",
-                        "Liberty": "Anarchist",
-                        "Culture": "Traditionalist",
-                        "Diplomacy": "Indifferent",
-                        "Militancy": "Pacifist",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Religious",
-                        "Justice": "Correctivist",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Democratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Typhoon": {
-                "id": "Typhoon",
-                "status": null,
-                "references": {
-                    "name": "Typhoon",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Socialist",
-                        "Liberty": "Authoritarian",
-                        "Culture": "Conservative",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Pacifist",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Indifferent",
-                        "Justice": "Punitive",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Oligarchic"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Hurricane": {
-                "id": "Hurricane",
-                "status": null,
-                "references": {
-                    "name": "Hurricane",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Socialist",
-                        "Liberty": "Anarchist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Diplomatic",
-                        "Militancy": "Pacifist",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Devout",
-                        "Justice": "Retributionist",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Oligarchic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Titan": {
-                "id": "Titan",
-                "status": null,
-                "references": {
-                    "name": "Titan",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Indifferent",
-                        "Liberty": "Statist",
-                        "Culture": "Indifferent",
-                        "Diplomacy": "Diplomatic",
-                        "Militancy": "Indifferent",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Indifferent",
-                        "Justice": "Rehabilitative",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Indifferent"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Odin": {
-                "id": "Odin",
-                "status": null,
-                "references": {
-                    "name": "Odin",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Socialist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Indifferent",
-                        "Diplomacy": "Nationalist",
-                        "Militancy": "Strategic",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Indifferent",
-                        "Justice": "Rehabilitative",
-                        "Natural-Balance": "Indifferent",
-                        "Government": "Democratic"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Hound": {
-                "id": "Hound",
-                "status": null,
-                "references": {
-                    "name": "Hound",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Conservative",
-                        "Diplomacy": "Diplomatic",
-                        "Militancy": "Pacifist",
-                        "Diversity": "Preservationist",
-                        "Secularity": "Religious",
-                        "Justice": "Punitive",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Oligarchic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Lion": {
-                "id": "Lion",
-                "status": null,
-                "references": {
-                    "name": "Lion",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Statist",
-                        "Culture": "Indifferent",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Indifferent",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Devout",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Indifferent",
-                        "Government": "Republican"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Lambda": {
-                "id": "Lambda",
-                "status": null,
-                "references": {
-                    "name": "Lambda",
-                    "FAC": "Sigma PAC",
-                    "policy": {
-                        "Economy": "Capitalist",
-                        "Liberty": "Statist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Indifferent",
-                        "Diversity": "Indifferent",
-                        "Secularity": "Devout",
-                        "Justice": "Retributionist",
-                        "Natural-Balance": "Indifferent",
-                        "Government": "Democratic"
-                    },
-                    "LOC": "Hurricane"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Hurricane": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Siege": {
-                "id": "Siege",
-                "status": null,
-                "references": {
-                    "name": "Siege",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Anarchist",
-                        "Culture": "Traditionalist",
-                        "Diplomacy": "Diplomatic",
-                        "Militancy": "Diplomatic",
-                        "Diversity": "Multiculturalist",
-                        "Secularity": "Apostate",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Productivist",
-                        "Government": "Oligarchic"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Mars": {
-                "id": "Mars",
-                "status": null,
-                "references": {
-                    "name": "Mars",
-                    "FAC": "Slick Co.",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Conservative",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Strategic",
-                        "Diversity": "Multiculturalist",
-                        "Secularity": "Devout",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Democratic"
-                    },
-                    "LOC": "Executive"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Executive": {}
+                    "inventory": {}
                 },
                 "checks": {},
                 "abilities": {}
@@ -1198,167 +238,36 @@
                 "status": null,
                 "references": {
                     "name": "Tau",
-                    "FAC": "Cold Task-Force",
+                    "FAC": null,
                     "policy": {
                         "Economy": "Capitalist",
                         "Liberty": "Libertarian",
                         "Culture": "Traditionalist",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Militarist",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Devout",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Zeta": {
-                "id": "Zeta",
-                "status": null,
-                "references": {
-                    "name": "Zeta",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Free-Capitalist",
-                        "Liberty": "Authoritarian",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Militarist",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Diplomatic",
                         "Diversity": "Preservationist",
-                        "Secularity": "Indifferent",
-                        "Justice": "Retributionist",
-                        "Natural-Balance": "Ecologist",
-                        "Government": "Republican"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Harbor": {
-                "id": "Harbor",
-                "status": null,
-                "references": {
-                    "name": "Harbor",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Socialist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Strategic",
-                        "Diversity": "Preservationist",
-                        "Secularity": "Secularist",
-                        "Justice": "Rehabilitative",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Oligarchic"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Blue": {
-                "id": "Blue",
-                "status": null,
-                "references": {
-                    "name": "Blue",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Capitalist",
-                        "Liberty": "Anarchist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Indifferent",
-                        "Militancy": "Strategic",
-                        "Diversity": "Preservationist",
-                        "Secularity": "Religious",
-                        "Justice": "Rehabilitative",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Indifferent"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Sigma": {
-                "id": "Sigma",
-                "status": null,
-                "references": {
-                    "name": "Sigma",
-                    "FAC": "Slick Co.",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Authoritarian",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Nationalist",
-                        "Militancy": "Indifferent",
-                        "Diversity": "Heterogeneous",
                         "Secularity": "Apostate",
                         "Justice": "Rehabilitative",
                         "Natural-Balance": "Indifferent",
-                        "Government": "Republican"
+                        "Government": "Indifferent"
                     },
-                    "LOC": "Executive"
+                    "gender": "male",
+                    "race": "white",
+                    "LOC": "Rhino"
                 },
                 "nodetype": "POI",
-                "attributes": {},
+                "attributes": {
+                    "age": 42
+                },
                 "relations": {
                     "FAC": {},
                     "POI": {},
                     "PTY": {},
-                    "LOC": {},
+                    "LOC": {
+                        "Rhino": {}
+                    },
                     "OBJ": {},
-                    "inventory": {},
-                    "Executive": {}
+                    "inventory": {}
                 },
                 "checks": {},
                 "abilities": {}
@@ -1368,677 +277,36 @@
                 "status": null,
                 "references": {
                     "name": "King",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Anarchist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Militarist",
-                        "Diversity": "Preservationist",
-                        "Secularity": "Apostate",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Indifferent"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Nocturn": {
-                "id": "Nocturn",
-                "status": null,
-                "references": {
-                    "name": "Nocturn",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Capitalist",
-                        "Liberty": "Statist",
-                        "Culture": "Indifferent",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Diplomatic",
-                        "Diversity": "Indifferent",
-                        "Secularity": "Devout",
-                        "Justice": "Rehabilitative",
-                        "Natural-Balance": "Productivist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "First": {
-                "id": "First",
-                "status": null,
-                "references": {
-                    "name": "First",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Capitalist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Nationalist",
-                        "Militancy": "Strategic",
-                        "Diversity": "Multiculturalist",
-                        "Secularity": "Indifferent",
-                        "Justice": "Rehabilitative",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Cellular": {
-                "id": "Cellular",
-                "status": null,
-                "references": {
-                    "name": "Cellular",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Indifferent",
-                        "Liberty": "Indifferent",
-                        "Culture": "Conservative",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Diplomatic",
-                        "Diversity": "Indifferent",
-                        "Secularity": "Religious",
-                        "Justice": "Retributionist",
-                        "Natural-Balance": "Indifferent",
-                        "Government": "Republican"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Sultan": {
-                "id": "Sultan",
-                "status": null,
-                "references": {
-                    "name": "Sultan",
-                    "FAC": "Cold Task-Force",
-                    "policy": {
-                        "Economy": "Indifferent",
-                        "Liberty": "Indifferent",
-                        "Culture": "Conservative",
-                        "Diplomacy": "Nationalist",
-                        "Militancy": "Diplomatic",
-                        "Diversity": "Preservationist",
-                        "Secularity": "Religious",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Oligarchic"
-                    },
-                    "LOC": "Eagle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Eagle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Dragon": {
-                "id": "Dragon",
-                "status": null,
-                "references": {
-                    "name": "Dragon",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Capitalist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Nationalist",
-                        "Militancy": "Diplomatic",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Apostate",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Indifferent",
-                        "Government": "Indifferent"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Admin": {
-                "id": "Admin",
-                "status": null,
-                "references": {
-                    "name": "Admin",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Free-Capitalist",
-                        "Liberty": "Libertarian",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Indifferent",
-                        "Diversity": "Indifferent",
-                        "Secularity": "Indifferent",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Productivist",
-                        "Government": "Republican"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Stone": {
-                "id": "Stone",
-                "status": null,
-                "references": {
-                    "name": "Stone",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Free-Capitalist",
-                        "Liberty": "Anarchist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Strategic",
-                        "Diversity": "Heterogeneous",
-                        "Secularity": "Devout",
-                        "Justice": "Punitive",
-                        "Natural-Balance": "Indifferent",
-                        "Government": "Indifferent"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Gamma": {
-                "id": "Gamma",
-                "status": null,
-                "references": {
-                    "name": "Gamma",
-                    "FAC": "Jupiter-Macguffin PAC",
-                    "policy": {
-                        "Economy": "Free-Capitalist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Indifferent",
-                        "Diplomacy": "Indifferent",
-                        "Militancy": "Militarist",
-                        "Diversity": "Heterogeneous",
-                        "Secularity": "Indifferent",
-                        "Justice": "Retributionist",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Pinnacle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Pinnacle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Cold": {
-                "id": "Cold",
-                "status": null,
-                "references": {
-                    "name": "Cold",
-                    "FAC": "Jupiter-Macguffin PAC",
-                    "policy": {
-                        "Economy": "Capitalist",
-                        "Liberty": "Libertarian",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Diplomatic",
-                        "Militancy": "Pacifist",
-                        "Diversity": "Indifferent",
-                        "Secularity": "Indifferent",
-                        "Justice": "Retributionist",
-                        "Natural-Balance": "Ecologist",
-                        "Government": "Oligarchic"
-                    },
-                    "LOC": "Pinnacle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Pinnacle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Eagle": {
-                "id": "Eagle",
-                "status": null,
-                "references": {
-                    "name": "Eagle",
-                    "FAC": "Jupiter-Macguffin PAC",
-                    "policy": {
-                        "Economy": "Indifferent",
-                        "Liberty": "Anarchist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Diplomatic",
-                        "Diversity": "Indifferent",
-                        "Secularity": "Devout",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Pinnacle"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Pinnacle": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Queen": {
-                "id": "Queen",
-                "status": null,
-                "references": {
-                    "name": "Queen",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Conservative",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Pacifist",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Apostate",
-                        "Justice": "Punitive",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Indifferent"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Tri": {
-                "id": "Tri",
-                "status": null,
-                "references": {
-                    "name": "Tri",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Indifferent",
-                        "Diversity": "Multiculturalist",
-                        "Secularity": "Indifferent",
-                        "Justice": "Correctivist",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Oligarchic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Atom": {
-                "id": "Atom",
-                "status": null,
-                "references": {
-                    "name": "Atom",
-                    "FAC": "Sigma PAC",
-                    "policy": {
-                        "Economy": "Indifferent",
-                        "Liberty": "Statist",
-                        "Culture": "Traditionalist",
-                        "Diplomacy": "Indifferent",
-                        "Militancy": "Pacifist",
-                        "Diversity": "Multiculturalist",
-                        "Secularity": "Devout",
-                        "Justice": "Retributionist",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Indifferent"
-                    },
-                    "LOC": "Hurricane"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Hurricane": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Banshee": {
-                "id": "Banshee",
-                "status": null,
-                "references": {
-                    "name": "Banshee",
                     "FAC": null,
                     "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Indifferent",
-                        "Militancy": "Militarist",
-                        "Diversity": "Preservationist",
-                        "Secularity": "Religious",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Naturalist",
-                        "Government": "Democratic"
-                    },
-                    "LOC": "Executive"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Executive": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Minutemen": {
-                "id": "Minutemen",
-                "status": null,
-                "references": {
-                    "name": "Minutemen",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Free-Capitalist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Indifferent",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Indifferent",
-                        "Diversity": "Heterogeneous",
-                        "Secularity": "Devout",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Spider": {
-                "id": "Spider",
-                "status": null,
-                "references": {
-                    "name": "Spider",
-                    "FAC": "Sigma PAC",
-                    "policy": {
-                        "Economy": "Communist",
+                        "Economy": "Indifferent",
                         "Liberty": "Statist",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Diplomatic",
-                        "Diversity": "Indifferent",
-                        "Secularity": "Religious",
-                        "Justice": "Correctivist",
-                        "Natural-Balance": "Indifferent",
-                        "Government": "Indifferent"
-                    },
-                    "LOC": "Hurricane"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Hurricane": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Macguffin": {
-                "id": "Macguffin",
-                "status": null,
-                "references": {
-                    "name": "Macguffin",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Statist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Strategic",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Indifferent",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Slick": {
-                "id": "Slick",
-                "status": null,
-                "references": {
-                    "name": "Slick",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Free-Capitalist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Indifferent",
-                        "Diplomacy": "Patriotic",
-                        "Militancy": "Militarist",
-                        "Diversity": "Multiculturalist",
-                        "Secularity": "Indifferent",
-                        "Justice": "Rehabilitative",
-                        "Natural-Balance": "Indifferent",
-                        "Government": "Oligarchic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Phoenix": {
-                "id": "Phoenix",
-                "status": null,
-                "references": {
-                    "name": "Phoenix",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Communist",
-                        "Liberty": "Anarchist",
                         "Culture": "Conservative",
-                        "Diplomacy": "Globalist",
-                        "Militancy": "Strategic",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Devout",
-                        "Justice": "Indifferent",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Republican"
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Militarist",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Secularist",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Autocratic"
                     },
-                    "LOC": "Tap"
+                    "gender": "male",
+                    "race": "white",
+                    "LOC": "Void"
                 },
                 "nodetype": "POI",
-                "attributes": {},
+                "attributes": {
+                    "age": 63
+                },
                 "relations": {
                     "FAC": {},
                     "POI": {},
                     "PTY": {},
-                    "LOC": {},
+                    "LOC": {
+                        "Void": {}
+                    },
                     "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
+                    "inventory": {}
                 },
                 "checks": {},
                 "abilities": {}
@@ -2048,133 +316,114 @@
                 "status": null,
                 "references": {
                     "name": "United",
-                    "FAC": "Demon-Specter Outcomes",
+                    "FAC": "Sigma-Angel Ring",
                     "policy": {
                         "Economy": "Free-Capitalist",
-                        "Liberty": "Indifferent",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Diplomatic",
-                        "Militancy": "Pacifist",
-                        "Diversity": "Heterogeneous",
-                        "Secularity": "Devout",
-                        "Justice": "Correctivist",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Democratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Rhino": {
-                "id": "Rhino",
-                "status": null,
-                "references": {
-                    "name": "Rhino",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Socialist",
-                        "Liberty": "Statist",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Nationalist",
-                        "Militancy": "Militarist",
-                        "Diversity": "Multiculturalist",
-                        "Secularity": "Devout",
-                        "Justice": "Correctivist",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Autocratic"
-                    },
-                    "LOC": "Tap"
-                },
-                "nodetype": "POI",
-                "attributes": {},
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Quad": {
-                "id": "Quad",
-                "status": null,
-                "references": {
-                    "name": "Quad",
-                    "FAC": "Demon-Specter Outcomes",
-                    "policy": {
-                        "Economy": "Capitalist",
                         "Liberty": "Libertarian",
-                        "Culture": "Traditionalist",
+                        "Culture": "Conservative",
                         "Diplomacy": "Patriotic",
                         "Militancy": "Indifferent",
-                        "Diversity": "Homogenous",
-                        "Secularity": "Indifferent",
-                        "Justice": "Correctivist",
-                        "Natural-Balance": "Ecologist",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Industrialist",
                         "Government": "Indifferent"
                     },
-                    "LOC": "Tap"
+                    "gender": "male",
+                    "race": "hispanic",
+                    "LOC": "Titan"
                 },
                 "nodetype": "POI",
-                "attributes": {},
+                "attributes": {
+                    "age": 47
+                },
                 "relations": {
                     "FAC": {},
                     "POI": {},
                     "PTY": {},
-                    "LOC": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
                     "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
+                    "inventory": {}
                 },
                 "checks": {},
                 "abilities": {}
             },
-            "Zeus": {
-                "id": "Zeus",
+            "Global": {
+                "id": "Global",
                 "status": null,
                 "references": {
-                    "name": "Zeus",
-                    "FAC": "Demon-Specter Outcomes",
+                    "name": "Global",
+                    "FAC": null,
                     "policy": {
-                        "Economy": "Free-Capitalist",
-                        "Liberty": "Anarchist",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Diplomatic",
-                        "Militancy": "Indifferent",
+                        "Economy": "Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Diplomatic",
                         "Diversity": "Multiculturalist",
-                        "Secularity": "Devout",
+                        "Secularity": "Indifferent",
                         "Justice": "Retributionist",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Oligarchic"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Arm"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 16
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Arm": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Queen": {
+                "id": "Queen",
+                "status": null,
+                "references": {
+                    "name": "Queen",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Devout",
+                        "Justice": "Punitive",
                         "Natural-Balance": "Productivist",
                         "Government": "Autocratic"
                     },
-                    "LOC": "Tap"
+                    "gender": "female",
+                    "race": "hispanic",
+                    "LOC": "Titan"
                 },
                 "nodetype": "POI",
-                "attributes": {},
+                "attributes": {
+                    "age": 30
+                },
                 "relations": {
                     "FAC": {},
                     "POI": {},
                     "PTY": {},
-                    "LOC": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
                     "OBJ": {},
-                    "inventory": {},
-                    "Tap": {}
+                    "inventory": {}
                 },
                 "checks": {},
                 "abilities": {}
@@ -2184,31 +433,192 @@
                 "status": null,
                 "references": {
                     "name": "Ward",
-                    "FAC": "Slick Co.",
+                    "FAC": "Minutemen Cult",
                     "policy": {
-                        "Economy": "Indifferent",
-                        "Liberty": "Anarchist",
-                        "Culture": "Accelerationist",
-                        "Diplomacy": "Nationalist",
-                        "Militancy": "Militarist",
-                        "Diversity": "Heterogeneous",
-                        "Secularity": "Secularist",
-                        "Justice": "Retributionist",
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Indifferent",
+                        "Justice": "Punitive",
                         "Natural-Balance": "Naturalist",
                         "Government": "Democratic"
                     },
-                    "LOC": "Executive"
+                    "gender": "male",
+                    "race": "asian",
+                    "LOC": "Harbor"
                 },
                 "nodetype": "POI",
-                "attributes": {},
+                "attributes": {
+                    "age": 68
+                },
                 "relations": {
                     "FAC": {},
                     "POI": {},
                     "PTY": {},
-                    "LOC": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
                     "OBJ": {},
-                    "inventory": {},
-                    "Executive": {}
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Sigma": {
+                "id": "Sigma",
+                "status": null,
+                "references": {
+                    "name": "Sigma",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Militarist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Indifferent",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Autocratic"
+                    },
+                    "gender": "female",
+                    "race": "white",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 13
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Admin": {
+                "id": "Admin",
+                "status": null,
+                "references": {
+                    "name": "Admin",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Oligarchic"
+                    },
+                    "gender": "male",
+                    "race": "black",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 7
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Steel": {
+                "id": "Steel",
+                "status": null,
+                "references": {
+                    "name": "Steel",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Apostate",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Oligarchic"
+                    },
+                    "gender": "male",
+                    "race": "hispanic",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 8
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Green": {
+                "id": "Green",
+                "status": null,
+                "references": {
+                    "name": "Green",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Religious",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "female",
+                    "race": "white",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 32
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
                 },
                 "checks": {},
                 "abilities": {}
@@ -2218,31 +628,1557 @@
                 "status": null,
                 "references": {
                     "name": "Beta",
-                    "FAC": "Sigma PAC",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Anarchist",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Secularist",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Indifferent"
+                    },
+                    "gender": "male",
+                    "race": "white",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 56
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Jupiter": {
+                "id": "Jupiter",
+                "status": null,
+                "references": {
+                    "name": "Jupiter",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Indifferent",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Oligarchic"
+                    },
+                    "gender": "male",
+                    "race": "white",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 7
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Arm": {
+                "id": "Arm",
+                "status": null,
+                "references": {
+                    "name": "Arm",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Autocratic"
+                    },
+                    "gender": "female",
+                    "race": "white",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 57
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Lion": {
+                "id": "Lion",
+                "status": null,
+                "references": {
+                    "name": "Lion",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Devout",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 23
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Shadow": {
+                "id": "Shadow",
+                "status": null,
+                "references": {
+                    "name": "Shadow",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Secularist",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Autocratic"
+                    },
+                    "gender": "male",
+                    "race": "black",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 36
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Arcane": {
+                "id": "Arcane",
+                "status": null,
+                "references": {
+                    "name": "Arcane",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Secularist",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "male",
+                    "race": "hispanic",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 11
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Stone": {
+                "id": "Stone",
+                "status": null,
+                "references": {
+                    "name": "Stone",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Autocratic"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 2
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Omega": {
+                "id": "Omega",
+                "status": null,
+                "references": {
+                    "name": "Omega",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Strategic",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Apostate",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "male",
+                    "race": "asian",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 12
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Jet": {
+                "id": "Jet",
+                "status": null,
+                "references": {
+                    "name": "Jet",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Militarist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Republican"
+                    },
+                    "gender": "male",
+                    "race": "white",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 13
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Gamma": {
+                "id": "Gamma",
+                "status": null,
+                "references": {
+                    "name": "Gamma",
+                    "FAC": "Minutemen Cult",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Indifferent",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Indifferent",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "female",
+                    "race": "asian",
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 53
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Spruce": {
+                "id": "Spruce",
+                "status": null,
+                "references": {
+                    "name": "Spruce",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Statist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Militarist",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Apostate",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Republican"
+                    },
+                    "gender": "female",
+                    "race": "hispanic",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 67
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Revelation": {
+                "id": "Revelation",
+                "status": null,
+                "references": {
+                    "name": "Revelation",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Apostate",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Republican"
+                    },
+                    "gender": "male",
+                    "race": "white",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 22
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Omicron": {
+                "id": "Omicron",
+                "status": null,
+                "references": {
+                    "name": "Omicron",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Apostate",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Oligarchic"
+                    },
+                    "gender": "male",
+                    "race": "hispanic",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 59
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Banshee": {
+                "id": "Banshee",
+                "status": null,
+                "references": {
+                    "name": "Banshee",
+                    "FAC": "Minutemen Cult",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Strategic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Devout",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Indifferent"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 70
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Gorilla": {
+                "id": "Gorilla",
+                "status": null,
+                "references": {
+                    "name": "Gorilla",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Devout",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Autocratic"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 10
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Atlas": {
+                "id": "Atlas",
+                "status": null,
+                "references": {
+                    "name": "Atlas",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Anarchist",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Religious",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Autocratic"
+                    },
+                    "gender": "female",
+                    "race": "white",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 6
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Black": {
+                "id": "Black",
+                "status": null,
+                "references": {
+                    "name": "Black",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Strategic",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Indifferent",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "male",
+                    "race": "hispanic",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 43
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Typhoon": {
+                "id": "Typhoon",
+                "status": null,
+                "references": {
+                    "name": "Typhoon",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Indifferent",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "female",
+                    "race": "asian",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 8
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Dragon": {
+                "id": "Dragon",
+                "status": null,
+                "references": {
+                    "name": "Dragon",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Libertarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Secularist",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Indifferent"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 24
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Demon": {
+                "id": "Demon",
+                "status": null,
+                "references": {
+                    "name": "Demon",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Statist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Religious",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Republican"
+                    },
+                    "gender": "male",
+                    "race": "white",
+                    "LOC": "Minutemen"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 23
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Minutemen": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Mars": {
+                "id": "Mars",
+                "status": null,
+                "references": {
+                    "name": "Mars",
+                    "FAC": "Wolf Intelligence Department",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Statist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Militarist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Democratic"
+                    },
+                    "gender": "male",
+                    "race": "black",
+                    "LOC": "Delta"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 65
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Delta": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Lambda": {
+                "id": "Lambda",
+                "status": null,
+                "references": {
+                    "name": "Lambda",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Statist",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Indifferent",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 16
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "First": {
+                "id": "First",
+                "status": null,
+                "references": {
+                    "name": "First",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Libertarian",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "female",
+                    "race": "hispanic",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 11
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Sanguine": {
+                "id": "Sanguine",
+                "status": null,
+                "references": {
+                    "name": "Sanguine",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Militarist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Secularist",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Republican"
+                    },
+                    "gender": "male",
+                    "race": "hispanic",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 8
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Macguffin": {
+                "id": "Macguffin",
+                "status": null,
+                "references": {
+                    "name": "Macguffin",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Statist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Devout",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 58
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Zeus": {
+                "id": "Zeus",
+                "status": null,
+                "references": {
+                    "name": "Zeus",
+                    "FAC": "Minutemen Cult",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Statist",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Republican"
+                    },
+                    "gender": "female",
+                    "race": "hispanic",
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 22
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Meridian": {
+                "id": "Meridian",
+                "status": null,
+                "references": {
+                    "name": "Meridian",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Statist",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Devout",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Oligarchic"
+                    },
+                    "gender": "male",
+                    "race": "black",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 58
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Granite": {
+                "id": "Granite",
+                "status": null,
+                "references": {
+                    "name": "Granite",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Militarist",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Apostate",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 44
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Sultan": {
+                "id": "Sultan",
+                "status": null,
+                "references": {
+                    "name": "Sultan",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Indifferent",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Indifferent",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "male",
+                    "race": "asian",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 33
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Quad": {
+                "id": "Quad",
+                "status": null,
+                "references": {
+                    "name": "Quad",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Strategic",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Apostate",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Indifferent"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 66
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Titan": {
+                "id": "Titan",
+                "status": null,
+                "references": {
+                    "name": "Titan",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Secularist",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Democratic"
+                    },
+                    "gender": "female",
+                    "race": "white",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 34
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Nocturn": {
+                "id": "Nocturn",
+                "status": null,
+                "references": {
+                    "name": "Nocturn",
+                    "FAC": "Minutemen Cult",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Indifferent",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Republican"
+                    },
+                    "gender": "male",
+                    "race": "white",
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 67
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Rhino": {
+                "id": "Rhino",
+                "status": null,
+                "references": {
+                    "name": "Rhino",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Indifferent",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Secularist",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Indifferent"
+                    },
+                    "gender": "male",
+                    "race": "hispanic",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 53
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Odin": {
+                "id": "Odin",
+                "status": null,
+                "references": {
+                    "name": "Odin",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Strategic",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Secularist",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Republican"
+                    },
+                    "gender": "male",
+                    "race": "black",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 25
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Saturn": {
+                "id": "Saturn",
+                "status": null,
+                "references": {
+                    "name": "Saturn",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Devout",
+                        "Justice": "Retributionist",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Oligarchic"
+                    },
+                    "gender": "male",
+                    "race": "asian",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 24
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Phoenix": {
+                "id": "Phoenix",
+                "status": null,
+                "references": {
+                    "name": "Phoenix",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Communist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Militarist",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Apostate",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Indifferent",
+                        "Government": "Indifferent"
+                    },
+                    "gender": "male",
+                    "race": "hispanic",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 55
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Atom": {
+                "id": "Atom",
+                "status": null,
+                "references": {
+                    "name": "Atom",
+                    "FAC": "Sigma-Angel Ring",
                     "policy": {
                         "Economy": "Communist",
                         "Liberty": "Statist",
                         "Culture": "Accelerationist",
                         "Diplomacy": "Patriotic",
-                        "Militancy": "Diplomatic",
-                        "Diversity": "Multiculturalist",
-                        "Secularity": "Indifferent",
-                        "Justice": "Correctivist",
-                        "Natural-Balance": "Industrialist",
-                        "Government": "Democratic"
+                        "Militancy": "Indifferent",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Religious",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Autocratic"
                     },
-                    "LOC": "Hurricane"
+                    "gender": "female",
+                    "race": "hispanic",
+                    "LOC": "Titan"
                 },
                 "nodetype": "POI",
-                "attributes": {},
+                "attributes": {
+                    "age": 57
+                },
                 "relations": {
                     "FAC": {},
                     "POI": {},
                     "PTY": {},
-                    "LOC": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
                     "OBJ": {},
-                    "inventory": {},
-                    "Hurricane": {}
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Prime": {
+                "id": "Prime",
+                "status": null,
+                "references": {
+                    "name": "Prime",
+                    "FAC": "Sigma-Angel Ring",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Indifferent",
+                        "Justice": "Punitive",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Titan"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 42
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Titan": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Delta": {
+                "id": "Delta",
+                "status": null,
+                "references": {
+                    "name": "Delta",
+                    "FAC": null,
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Anarchist",
+                        "Culture": "Progressive",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Heterogeneous",
+                        "Secularity": "Secularist",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Ecologist",
+                        "Government": "Indifferent"
+                    },
+                    "gender": "female",
+                    "race": "black",
+                    "LOC": "Tap"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 54
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Tap": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Platinum": {
+                "id": "Platinum",
+                "status": null,
+                "references": {
+                    "name": "Platinum",
+                    "FAC": "Minutemen Cult",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Strategic",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Apostate",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Oligarchic"
+                    },
+                    "gender": "male",
+                    "race": "black",
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 72
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
                 },
                 "checks": {},
                 "abilities": {}
@@ -2252,65 +2188,309 @@
                 "status": null,
                 "references": {
                     "name": "Pinnacle",
-                    "FAC": "Sigma PAC",
+                    "FAC": "Minutemen Cult",
                     "policy": {
-                        "Economy": "Socialist",
-                        "Liberty": "Libertarian",
-                        "Culture": "Progressive",
-                        "Diplomacy": "Nationalist",
-                        "Militancy": "Strategic",
-                        "Diversity": "Preservationist",
-                        "Secularity": "Indifferent",
+                        "Economy": "Communist",
+                        "Liberty": "Statist",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Patriotic",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Apostate",
                         "Justice": "Retributionist",
                         "Natural-Balance": "Indifferent",
-                        "Government": "Democratic"
+                        "Government": "Autocratic"
                     },
-                    "LOC": "Hurricane"
+                    "gender": "female",
+                    "race": "white",
+                    "LOC": "Harbor"
                 },
                 "nodetype": "POI",
-                "attributes": {},
+                "attributes": {
+                    "age": 67
+                },
                 "relations": {
                     "FAC": {},
                     "POI": {},
                     "PTY": {},
-                    "LOC": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
                     "OBJ": {},
-                    "inventory": {},
-                    "Hurricane": {}
+                    "inventory": {}
                 },
                 "checks": {},
                 "abilities": {}
             },
-            "Slate": {
-                "id": "Slate",
+            "Omen": {
+                "id": "Omen",
                 "status": null,
                 "references": {
-                    "name": "Slate",
-                    "FAC": "Sigma PAC",
+                    "name": "Omen",
+                    "FAC": "Minutemen Cult",
                     "policy": {
-                        "Economy": "Free-Capitalist",
-                        "Liberty": "Statist",
-                        "Culture": "Conservative",
-                        "Diplomacy": "Indifferent",
-                        "Militancy": "Strategic",
-                        "Diversity": "Heterogeneous",
-                        "Secularity": "Apostate",
-                        "Justice": "Punitive",
-                        "Natural-Balance": "Productivist",
-                        "Government": "Republican"
+                        "Economy": "Communist",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Indifferent",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Secularist",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Oligarchic"
                     },
-                    "LOC": "Hurricane"
+                    "gender": "female",
+                    "race": "asian",
+                    "LOC": "Harbor"
                 },
                 "nodetype": "POI",
-                "attributes": {},
+                "attributes": {
+                    "age": 27
+                },
                 "relations": {
                     "FAC": {},
                     "POI": {},
                     "PTY": {},
-                    "LOC": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
                     "OBJ": {},
-                    "inventory": {},
-                    "Hurricane": {}
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Harbor": {
+                "id": "Harbor",
+                "status": null,
+                "references": {
+                    "name": "Harbor",
+                    "FAC": "Minutemen Cult",
+                    "policy": {
+                        "Economy": "Socialist",
+                        "Liberty": "Indifferent",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Pacifist",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Devout",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Autocratic"
+                    },
+                    "gender": "male",
+                    "race": "white",
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 38
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Soul": {
+                "id": "Soul",
+                "status": null,
+                "references": {
+                    "name": "Soul",
+                    "FAC": "Minutemen Cult",
+                    "policy": {
+                        "Economy": "Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Nationalist",
+                        "Militancy": "Militarist",
+                        "Diversity": "Preservationist",
+                        "Secularity": "Religious",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Democratic"
+                    },
+                    "gender": "male",
+                    "race": "white",
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 71
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Executive": {
+                "id": "Executive",
+                "status": null,
+                "references": {
+                    "name": "Executive",
+                    "FAC": "Minutemen Cult",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Statist",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Diplomatic",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Indifferent",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Oligarchic"
+                    },
+                    "gender": "female",
+                    "race": "white",
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 52
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Cold": {
+                "id": "Cold",
+                "status": null,
+                "references": {
+                    "name": "Cold",
+                    "FAC": "Minutemen Cult",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Authoritarian",
+                        "Culture": "Traditionalist",
+                        "Diplomacy": "Diplomatic",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Indifferent",
+                        "Secularity": "Devout",
+                        "Justice": "Correctivist",
+                        "Natural-Balance": "Productivist",
+                        "Government": "Oligarchic"
+                    },
+                    "gender": "female",
+                    "race": "white",
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 41
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Raptor": {
+                "id": "Raptor",
+                "status": null,
+                "references": {
+                    "name": "Raptor",
+                    "FAC": "Minutemen Cult",
+                    "policy": {
+                        "Economy": "Free-Capitalist",
+                        "Liberty": "Libertarian",
+                        "Culture": "Accelerationist",
+                        "Diplomacy": "Indifferent",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Multiculturalist",
+                        "Secularity": "Apostate",
+                        "Justice": "Indifferent",
+                        "Natural-Balance": "Naturalist",
+                        "Government": "Republican"
+                    },
+                    "gender": "male",
+                    "race": "black",
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 71
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Heart": {
+                "id": "Heart",
+                "status": null,
+                "references": {
+                    "name": "Heart",
+                    "FAC": "Minutemen Cult",
+                    "policy": {
+                        "Economy": "Indifferent",
+                        "Liberty": "Libertarian",
+                        "Culture": "Conservative",
+                        "Diplomacy": "Globalist",
+                        "Militancy": "Indifferent",
+                        "Diversity": "Homogenous",
+                        "Secularity": "Devout",
+                        "Justice": "Rehabilitative",
+                        "Natural-Balance": "Industrialist",
+                        "Government": "Oligarchic"
+                    },
+                    "gender": "female",
+                    "race": "hispanic",
+                    "LOC": "Harbor"
+                },
+                "nodetype": "POI",
+                "attributes": {
+                    "age": 69
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {
+                        "Harbor": {}
+                    },
+                    "OBJ": {},
+                    "inventory": {}
                 },
                 "checks": {},
                 "abilities": {}
@@ -2318,18 +2498,122 @@
         },
         "OBJ": {},
         "LOC": {
-            "Federal": {
-                "id": "Federal",
+            "Gorilla": {
+                "id": "Gorilla",
                 "status": null,
                 "references": {
-                    "name": "Federal",
+                    "name": "Gorilla",
                     "FAC": null,
                     "policy": {},
                     "adjacent": [
-                        "Hound",
-                        "Pinnacle",
-                        "Dragon"
+                        "Gorilla",
+                        "Atlas",
+                        "Delta",
+                        "Titan",
+                        "Arm",
+                        "Minutemen"
                     ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 5
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Green": {
+                "id": "Green",
+                "status": null,
+                "references": {
+                    "name": "Green",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Gorilla",
+                        "Rhino"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 1
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Rhino": {
+                "id": "Rhino",
+                "status": null,
+                "references": {
+                    "name": "Rhino",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Green",
+                        "Void"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 5
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Void": {
+                "id": "Void",
+                "status": null,
+                "references": {
+                    "name": "Void",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Rhino",
+                        "First"
+                    ]
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 2
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "First": {
+                "id": "First",
+                "status": null,
+                "references": {
+                    "name": "First",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": "Void"
                 },
                 "nodetype": "LOC",
                 "attributes": {
@@ -2345,17 +2629,14 @@
                 "checks": {},
                 "abilities": {}
             },
-            "Hound": {
-                "id": "Hound",
+            "Atlas": {
+                "id": "Atlas",
                 "status": null,
                 "references": {
-                    "name": "Hound",
+                    "name": "Atlas",
                     "FAC": null,
                     "policy": {},
-                    "adjacent": [
-                        "Federal",
-                        "Twilight"
-                    ]
+                    "adjacent": "Gorilla"
                 },
                 "nodetype": "LOC",
                 "attributes": {
@@ -2371,168 +2652,15 @@
                 "checks": {},
                 "abilities": {}
             },
-            "Twilight": {
-                "id": "Twilight",
+            "Delta": {
+                "id": "Delta",
                 "status": null,
                 "references": {
-                    "name": "Twilight",
-                    "FAC": null,
+                    "name": "Delta",
+                    "FAC": "Wolf Intelligence Department",
                     "policy": {},
                     "adjacent": [
-                        "Hound",
-                        "Granite",
-                        "Global",
-                        "Jet"
-                    ]
-                },
-                "nodetype": "LOC",
-                "attributes": {
-                    "max_adjacent_locations": 5
-                },
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Granite": {
-                "id": "Granite",
-                "status": null,
-                "references": {
-                    "name": "Granite",
-                    "FAC": "Delta Ring",
-                    "policy": {},
-                    "adjacent": [
-                        "Twilight",
-                        "Eagle"
-                    ]
-                },
-                "nodetype": "LOC",
-                "attributes": {
-                    "max_adjacent_locations": 2
-                },
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Eagle": {
-                "id": "Eagle",
-                "status": null,
-                "references": {
-                    "name": "Eagle",
-                    "FAC": "Cold Task-Force",
-                    "policy": {},
-                    "adjacent": "Granite"
-                },
-                "nodetype": "LOC",
-                "attributes": {
-                    "max_adjacent_locations": 1
-                },
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Pinnacle": {
-                "id": "Pinnacle",
-                "status": null,
-                "references": {
-                    "name": "Pinnacle",
-                    "FAC": "Jupiter-Macguffin PAC",
-                    "policy": {},
-                    "adjacent": [
-                        "Federal",
-                        "Executive"
-                    ]
-                },
-                "nodetype": "LOC",
-                "attributes": {
-                    "max_adjacent_locations": 5
-                },
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Global": {
-                "id": "Global",
-                "status": null,
-                "references": {
-                    "name": "Global",
-                    "FAC": null,
-                    "policy": {},
-                    "adjacent": "Twilight"
-                },
-                "nodetype": "LOC",
-                "attributes": {
-                    "max_adjacent_locations": 1
-                },
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Dragon": {
-                "id": "Dragon",
-                "status": null,
-                "references": {
-                    "name": "Dragon",
-                    "FAC": null,
-                    "policy": {},
-                    "adjacent": [
-                        "Federal",
-                        "Cellular",
-                        "Executive"
-                    ]
-                },
-                "nodetype": "LOC",
-                "attributes": {
-                    "max_adjacent_locations": 2
-                },
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Jet": {
-                "id": "Jet",
-                "status": null,
-                "references": {
-                    "name": "Jet",
-                    "FAC": null,
-                    "policy": {},
-                    "adjacent": [
-                        "Twilight",
+                        "Gorilla",
                         "Tap"
                     ]
                 },
@@ -2550,44 +2678,18 @@
                 "checks": {},
                 "abilities": {}
             },
-            "Cellular": {
-                "id": "Cellular",
+            "Titan": {
+                "id": "Titan",
                 "status": null,
                 "references": {
-                    "name": "Cellular",
-                    "FAC": null,
+                    "name": "Titan",
+                    "FAC": "Sigma-Angel Ring",
                     "policy": {},
-                    "adjacent": "Dragon"
+                    "adjacent": "Gorilla"
                 },
                 "nodetype": "LOC",
                 "attributes": {
-                    "max_adjacent_locations": 5
-                },
-                "relations": {
-                    "FAC": {},
-                    "POI": {},
-                    "PTY": {},
-                    "LOC": {},
-                    "OBJ": {}
-                },
-                "checks": {},
-                "abilities": {}
-            },
-            "Executive": {
-                "id": "Executive",
-                "status": null,
-                "references": {
-                    "name": "Executive",
-                    "FAC": "Slick Co.",
-                    "policy": {},
-                    "adjacent": [
-                        "Dragon",
-                        "Hurricane"
-                    ]
-                },
-                "nodetype": "LOC",
-                "attributes": {
-                    "max_adjacent_locations": 2
+                    "max_adjacent_locations": 3
                 },
                 "relations": {
                     "FAC": {},
@@ -2604,9 +2706,35 @@
                 "status": null,
                 "references": {
                     "name": "Tap",
-                    "FAC": "Demon-Specter Outcomes",
+                    "FAC": null,
                     "policy": {},
-                    "adjacent": "Jet"
+                    "adjacent": "Delta"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 5
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Arm": {
+                "id": "Arm",
+                "status": null,
+                "references": {
+                    "name": "Arm",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": [
+                        "Gorilla",
+                        "Harbor"
+                    ]
                 },
                 "nodetype": "LOC",
                 "attributes": {
@@ -2622,18 +2750,41 @@
                 "checks": {},
                 "abilities": {}
             },
-            "Hurricane": {
-                "id": "Hurricane",
+            "Harbor": {
+                "id": "Harbor",
                 "status": null,
                 "references": {
-                    "name": "Hurricane",
-                    "FAC": "Sigma PAC",
+                    "name": "Harbor",
+                    "FAC": "Minutemen Cult",
                     "policy": {},
-                    "adjacent": "Executive"
+                    "adjacent": "Arm"
                 },
                 "nodetype": "LOC",
                 "attributes": {
-                    "max_adjacent_locations": 5
+                    "max_adjacent_locations": 2
+                },
+                "relations": {
+                    "FAC": {},
+                    "POI": {},
+                    "PTY": {},
+                    "LOC": {},
+                    "OBJ": {}
+                },
+                "checks": {},
+                "abilities": {}
+            },
+            "Minutemen": {
+                "id": "Minutemen",
+                "status": null,
+                "references": {
+                    "name": "Minutemen",
+                    "FAC": null,
+                    "policy": {},
+                    "adjacent": "Gorilla"
+                },
+                "nodetype": "LOC",
+                "attributes": {
+                    "max_adjacent_locations": 4
                 },
                 "relations": {
                     "FAC": {},

@@ -85,7 +85,7 @@ class NGIN:
             subj = random.choice(self.state.relations[ random.choice(["POI","PTY","OBJ","LOC"]) ])
 
             if subj.nodetype in ["POI","PTY"]:
-                actor_node.update_relationship( subj, reciprocate=True )
+                actor_node.update_relation( subj, reciprocate=True )
                 disposition = actor_node.relations[subj.ntype][subj.id]["Disposition"]
             else:
                 disposition = "Neutral"

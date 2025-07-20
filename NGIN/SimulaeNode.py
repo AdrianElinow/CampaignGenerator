@@ -29,7 +29,6 @@ class SimulaeNode:
                         nodetype=OBJ,
                         references={
                             NAME:None,
-                            FAC:None,
                             POLICY:{
                                 "Economy":          ["Indifferent", 0.5],
                                 "Liberty":          ["Indifferent", 0.5],
@@ -63,11 +62,35 @@ class SimulaeNode:
         self.checks = checks
         self.abilities = abilities
 
+    def get_description(self):
+        description = ""
+
+        if self.nodetype == POI:
+
+            associations = self.describe_faction_associations()
+
+            policies = self.describe_political_beliefs()
+
+            description = "{0}, A {1} year old {2} {3}. Located at {4}. Associated with {5}. Believes {6}".format(self.get_reference(NAME),
+                self.get_attribute("age"),
+                self.get_reference("race"),
+                self.get_reference("gender"),
+                self.get_reference(LOC),
+                associations,
+                policies)
+
+        return description
+
     def summary(self):
-        return "{{{0}:{1}}} {2} {3}".format(self.nodetype, self.references[NAME], f"affiliated with {self.references[FAC]}" if FAC in self.references and self.references[FAC] else "", f"located at {self.references[LOC]}" if LOC in self.references else "")
+        summary = "{{{0}:{1}}} {2}".format(self.nodetype, 
+            self.references[NAME],
+            self.get_description(),
+            f"located at {self.references[LOC]}" if LOC in self.references else "")
+
+        return summary
 
     def __str__(self):
-        return self.summary()
+        return self.get_reference(NAME)
 
 
     def check_membership(self, node):
@@ -121,20 +144,25 @@ class SimulaeNode:
 
 
     def knows_about(self, node):
+        debug("knows_about(",node,")")
+
+        knows_about = False
 
         if node.nodetype in SOCIAL_NODE_TYPES:
             if self.has_relation(node, node.nodetype): # already has relationship
-                return True
+                knows_about = True
 
-        if node.nodetype in INANIMATE_NODE_TYPES:
+        elif node.nodetype in INANIMATE_NODE_TYPES:
             
             if self.has_relation(node, node.nodetype): # already has relationship
-                return True
+                knows_about = True
 
-        return False
+        debug("-> ",knows_about)
+        return knows_about
 
 
     def get_reference(self, key: str):
+        debug("get_reference(",key,")")
         
         if key in self.references:
             return self.references[key]
@@ -142,9 +170,11 @@ class SimulaeNode:
         return None
 
     def set_reference(self, key: str, value: str):
+        debug("set_reference(",key,value,")")
         self.references[key] = value
 
     def add_reference(self, key: str, value: str):
+        debug("add_reference(",key,value,")")
         
         if key in self.references:
             
@@ -173,6 +203,7 @@ class SimulaeNode:
         self.attributes[key] = value
 
     def determine_relation(self, node):
+        debug("determining",self,"relationship with",node)
 
         if node.id not in self.relations[node.nodetype]:
 
@@ -231,7 +262,7 @@ class SimulaeNode:
         if node.nodetype in self.relations:
             self.relations[node.nodetype] = {}
 
-        self.relations[node.id] = self.determine_relation(node)
+        self.relations[node.nodetype][node.id] = self.determine_relation(node)
 
 
     def get_relation(self, node):
@@ -316,6 +347,19 @@ class SimulaeNode:
         return POLICY_SCALE[factor].index(policy)
 
 
+    def describe_political_beliefs(self):
+        
+        summary = ""
+
+        for factor, policy in self.references[POLICY].items():
+
+            summary += f"{policy}, "
+
+        return summary
+
+    def describe_faction_associations(self):
+        return ""
+
     def toJSON(self):
         try:
 
@@ -330,7 +374,10 @@ class SimulaeNode:
                     pass # todo AE: resolve SimulaeNode OBJ.relations is type list
                 else:
                     for node_id, node in nodes.items():
-                        v[node_id] = node.toJSON()
+                        if type(node) == type({}):
+                            v[node_id] = node
+                        else:
+                            v[node_id] = node.toJSON()
 
                 d['relations'][nodetype] = v
 
@@ -417,7 +464,6 @@ def jsonify( state ):
 
 
 def generate_simulae_node(node_type, node_name=None, faction=None):
-
     name = node_name
 
     nodetype = random.choice( NODETYPES ) if node_type == None else node_type
@@ -435,21 +481,31 @@ def generate_simulae_node(node_type, node_name=None, faction=None):
     checks     = {}
     abilities  = {}
 
-    # Set Faction association
-    if faction:
-        references[FAC] = faction.id
-
     if nodetype in SOCIAL_NODE_TYPES:
         # Random Policy values
         for policy in _policies:
             references[POLICY][policy] = random.choice(POLICY_SCALE[policy])
+
+        if nodetype == POI:
+            # person node
+
+            attributes['age'] = random.randrange(1,75)
+            references['gender'] = random.choice(['male','female'])
+            references['race'] = random.choice(['white','black','hispanic','asian'])
+
 
     if nodetype in INANIMATE_NODE_TYPES:
         
         if nodetype == LOC:
            attributes['max_adjacent_locations'] = random.randrange(1,MAX_ADJACENT_LOCATIONS)
 
-    # id, nodetype, refs, attrs, reltn, checks, abilities
-    return SimulaeNode( name, nodetype, references, attributes, relations, checks, abilities )
+    simulae_node = SimulaeNode( name, nodetype, references, attributes, relations, checks, abilities )
+
+    if faction:
+        relationship = simulae_node.determine_relationship(faction)
+
+        simulae_node.update_relation(faction)
+
+    return simulae_node
 
 
