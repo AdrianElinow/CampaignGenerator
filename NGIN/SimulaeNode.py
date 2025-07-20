@@ -51,7 +51,6 @@ class SimulaeNode:
                         attributes={
                             "interactions":0
                         }, 
-                        attributes={}, 
                         relations=None, 
                         checks={}, 
                         abilities={}):
