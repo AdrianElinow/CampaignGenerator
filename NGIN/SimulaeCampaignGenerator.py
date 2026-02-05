@@ -1,6 +1,5 @@
 import sys, os, random
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from .NGIN_console import *
 from .NGIN_utils.ngin_utils import *
 from .NGIN_config.ngin_missions import *
 from .FactionGenerator.faction_generator import *
@@ -780,6 +779,9 @@ def main():
     finally:
         print('saving...')
         ngin.save_to_file("save_file.json")
+
+
+from .NGIN_console import *
 
 
 if __name__ == '__main__':
