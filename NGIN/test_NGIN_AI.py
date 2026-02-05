@@ -5,6 +5,7 @@ class Test_NGINAI(unittest.TestCase):
 
     def setUp(self):
         self.actor = NGIN_Simulae_Actor(generate_individual())
+        self.actor.SimulaeNode.Relations[CONTENTS]['medicine'] = SimulaeNode(given_id='medicine', nodetype=OBJ)
 
     def test_initial_attributes(self):
         self.assertIsNotNone(self.actor.SimulaeNode)

@@ -1,1 +1,1 @@
-python3 NGIN/SimulaeCampaignGenerator.py ./Saves/save_file.json
+python3 -m NGIN.SimulaeCampaignGenerator ./Saves/save_file.json

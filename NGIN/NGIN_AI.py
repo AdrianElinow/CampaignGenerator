@@ -1,6 +1,6 @@
 from enum import Enum
 
-from SimulaeNode import *
+from .SimulaeNode import *
 
 THREAT = "threat"
 HUNGER = "hunger"
@@ -235,15 +235,15 @@ class NGIN_Simulae_Actor(SimulaeNode):
             print(f'went to {plan.target}')
         elif next_action == Action.USE:
             ''' consume item '''
-            if plan.target in self.SimulaeNode.relations[CONTENTS]:
-                del self.SimulaeNode.relations[CONTENTS][plan.target.id]
+            if plan.target in self.SimulaeNode.Relations[CONTENTS]:
+                del self.SimulaeNode.Relations[CONTENTS][plan.target]
                 print(f'consumed {plan.target}')
             else:
                 raise KeyError(f"Cannot use {plan.target} -> not in inventory")
 
         elif next_action == Action.TAKE:
             ''' add item to inv '''
-            self.relations[CONTENTS][plan.target.id] = plan.target
+            self.SimulaeNode.Relations[CONTENTS][plan.target.ID] = plan.target
             print(f'took {plan.target}')
             
 
@@ -395,7 +395,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
     def acquire(self, target : SimulaeNode):
   
         # do we already have one?
-        if self.has_node(target) or self.has_vague(target, OBJ):
+        if self.has_node(target):
             return [] # base case -> already have it
         
         actions = []

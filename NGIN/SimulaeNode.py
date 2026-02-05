@@ -1,7 +1,7 @@
 
 #from json import JSONEncoder
-from NGIN_utils.ngin_utils import *
-from NGIN_config.madlibs import *
+from .NGIN_utils.ngin_utils import *
+from .NGIN_config.madlibs import *
 
 FAC = 'FAC'
 POI = 'POI'
@@ -221,7 +221,7 @@ class SimulaeNode:
 
         relationship = {}
 
-        if node.ID not in self.Relations[node.Nodetype]: # new relationship
+        if node.ID not in self.Relations[CONTENTS][node.Nodetype]: # new relationship
 
             if node.Nodetype in SOCIAL_NODE_TYPES: # other node is a social node
 
@@ -286,10 +286,10 @@ class SimulaeNode:
         if not node:
             raise ValueError
         
-        if node.Nodetype in self.Relations:
-            self.Relations[node.Nodetype] = {}
+        if node.Nodetype not in self.Relations[CONTENTS]:
+            self.Relations[CONTENTS][node.Nodetype] = {}
 
-        self.Relations[node.Nodetype][node.ID] = self.determine_relation(node, interaction)
+        self.Relations[CONTENTS][node.Nodetype][node.ID] = self.determine_relation(node, interaction)
 
 
     def get_relation(self, node): # TODO AE: Reimplement 
@@ -310,7 +310,7 @@ class SimulaeNode:
 
     def has_relation( self, key: str, nodetype: str ): # TODO AE: Reimplement 
         
-        if key in self.Relations[nodetype]:
+        if key in self.Relations.get(nodetype, {}):
             return True
         return False
     
@@ -449,14 +449,17 @@ class SimulaeNode:
                     pass # todo AE: resolve SimulaeNode OBJ.Relations is type list
                 else:
                     for node_id, node in nodes.items():
-                        if type(node) == type({}):
-
-                            for k, v in node.items():
-                                v[node_id][k] = v.toJSON()
-
-                            #v[node_id] = node
-                        else:
+                        if isinstance(node, dict):
+                            v[node_id] = {}
+                            for k, val in node.items():
+                                if hasattr(val, 'toJSON'):
+                                    v[node_id][k] = val.toJSON()
+                                else:
+                                    v[node_id][k] = val
+                        elif hasattr(node, 'toJSON'):
                             v[node_id] = node.toJSON()
+                        else:
+                            v[node_id] = node
 
                 d[RELATIONS][nodetype] = v
 
@@ -468,7 +471,7 @@ class SimulaeNode:
             return d
 
         except Exception as e:
-            print("ERROR WHILE SAVING", type(e), e.message)
+            print("ERROR WHILE SAVING", type(e), str(e))
             return {}
 
 

@@ -1,9 +1,10 @@
 import sys, os, random
-from NGIN_console import *
-from NGIN_utils.ngin_utils import *
-from NGIN_config.ngin_missions import *
-from FactionGenerator.faction_generator import *
-from SimulaeNode import *
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from .NGIN_console import *
+from .NGIN_utils.ngin_utils import *
+from .NGIN_config.ngin_missions import *
+from .FactionGenerator.faction_generator import *
+from .SimulaeNode import *
 
 class NGIN():
 
