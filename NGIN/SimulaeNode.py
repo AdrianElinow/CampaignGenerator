@@ -58,6 +58,9 @@ class SimulaeNode:
         self.References = references
         self.Nodetype = nodetype
 
+        if self.Nodetype in SOCIAL_NODE_TYPES:
+            self.References[POLICY] = {policy: (DEFAULT_POLICY_VALUE, DEFAULT_POLICY_VALUE) for policy in POLICY_SCALE}
+
         self.Attributes = attributes
 
         self.Relations = {
@@ -374,8 +377,8 @@ class SimulaeNode:
 
             cmp_factor_policy, cmp_factor_belief_strength = compare_policy[factor]
                         
-            policy_index = self.get_policy_index(factor, policy)
-            cmp_factor_index = self.get_policy_index(factor, cmp_factor_policy)
+            policy_index = policy
+            cmp_factor_index = cmp_factor_policy
 
             delta = abs( policy_index - cmp_factor_index )       
             strength_delta = int(abs( policy_belief_strength - cmp_factor_belief_strength ) / 2)
@@ -408,15 +411,15 @@ class SimulaeNode:
         politics = self.References[POLICY]
 
         for policy, (stance, strength) in politics.items():
-            if policy not in POLICY_DESCRIPTIONS:
+            if policy not in POLICY_SCALE:
                 continue
 
-            if stance == "Indifferent":
+            if stance == 3:  # Indifferent
                 continue
 
             descr = POLICY_BELIEF_STRENGTH_DESCRIPTORS[strength-1]
 
-            stance_descr = POLICY_DESCRIPTIONS[policy][stance]
+            stance_descr = POLICY_SCALE[policy][stance]
 
             summary += f"""{descr} {stance_descr}.
 """

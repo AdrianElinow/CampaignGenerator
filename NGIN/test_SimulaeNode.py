@@ -1,6 +1,6 @@
 import unittest
 
-from SimulaeNode import *
+from .SimulaeNode import *
 
 class Test_SimulaeNode(unittest.TestCase):
 
@@ -8,22 +8,22 @@ class Test_SimulaeNode(unittest.TestCase):
 
         node = SimulaeNode(nodetype=POI)
 
-        self.assertIsNotNone(node.id)
-        self.assertEqual(node.nodetype, POI)
+        self.assertIsNotNone(node.ID)
+        self.assertEqual(node.Nodetype, POI)
 
-        self.assertEqual(node.status, Status.ALIVE)
+        self.assertEqual(node.Status, Status.ALIVE)
 
-        self.assertIsNotNone(node.references)
+        self.assertIsNotNone(node.References)
         
-        references_keys = node.references.keys()
+        references_keys = node.References.keys()
         self.assertIn(NAME, references_keys)
         self.assertIn(POLICY, references_keys)
-        self.assertIsNotNone(node.references[POLICY])
-        self.assertIsNotNone(node.attributes)
+        self.assertIsNotNone(node.References[POLICY])
+        self.assertIsNotNone(node.Attributes)
 
-        self.assertIsNotNone(node.relations)
-        for relation, relatives in node.relations.items():
-            self.assertIn(relation, RELATIONS)
+        self.assertIsNotNone(node.Relations)
+        for relation, relatives in node.Relations.items():
+            self.assertIn(relation, RELATIVE_TYPES)
             relations_keys = relatives.keys()
             self.assertEqual(list(relations_keys).sort(), NODETYPES.sort())
 
@@ -34,20 +34,20 @@ class Test_SimulaeNode(unittest.TestCase):
 
         node = SimulaeNode()
 
-        self.assertIsNotNone(node.id)
-        self.assertEqual(node.nodetype, OBJ)
+        self.assertIsNotNone(node.ID)
+        self.assertEqual(node.Nodetype, OBJ)
 
-        self.assertEqual(node.status, Status.ALIVE)
+        self.assertEqual(node.Status, Status.ALIVE)
 
-        self.assertIsNotNone(node.references)
+        self.assertIsNotNone(node.References)
         
-        references_keys = node.references.keys()
+        references_keys = node.References.keys()
         self.assertIn(NAME, references_keys)
-        self.assertIsNotNone(node.attributes)
+        self.assertIsNotNone(node.Attributes)
 
-        self.assertIsNotNone(node.relations)
-        for relation, relatives in node.relations.items():
-            self.assertIn(relation, RELATIONS)
+        self.assertIsNotNone(node.Relations)
+        for relation, relatives in node.Relations.items():
+            self.assertIn(relation, RELATIVE_TYPES)
             relations_keys = relatives.keys()
             self.assertEqual(list(relations_keys).sort(), NODETYPES.sort())
 
@@ -106,7 +106,7 @@ class Test_SimulaeNode(unittest.TestCase):
     def test_get_policy_index(self):
         node = SimulaeNode(given_id="node", nodetype=POI)
         index = node.get_policy_index("Economy", "Indifferent")
-        self.assertEqual(index, 2)
+        self.assertEqual(index, 3)
 
     def test_to_JSON(self):
         node = SimulaeNode(given_id="node", nodetype=POI)
@@ -124,11 +124,11 @@ class Test_generate_simulae_node(unittest.TestCase):
 
             self.assertIsInstance(generated, SimulaeNode)
 
-            self.assertIsInstance(generated.id, uuid.UUID)
+            self.assertIsInstance(generated.ID, str)
 
             if nt in SOCIAL_NODE_TYPES:
-                self.assertIn(POLICY, generated.references)
-                self.assertIsNotNone(generated.references[POLICY])
+                self.assertIn(POLICY, generated.References)
+                self.assertIsNotNone(generated.References[POLICY])
 
     def test_generate_simulae_node_with_name(self):
 
@@ -138,5 +138,5 @@ class Test_generate_simulae_node(unittest.TestCase):
 
         generated = generate_simulae_node(OBJ, node_name=nodename)
 
-        self.assertEqual(generated.id, expected.id)
+        self.assertEqual(generated.ID, expected.ID)
 

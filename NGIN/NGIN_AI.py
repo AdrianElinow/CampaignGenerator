@@ -88,6 +88,15 @@ class NGIN_Simulae_Actor(SimulaeNode):
     def __init__(self, simulae_node):
         self.SimulaeNode = simulae_node
 
+        self.ID = simulae_node.ID
+        self.Nodetype = simulae_node.Nodetype
+        self.References = simulae_node.References
+        self.Attributes = simulae_node.Attributes
+        self.Relations = simulae_node.Relations
+        self.Checks = simulae_node.Checks
+        self.Abilities = simulae_node.Abilities
+        self.Status = simulae_node.Status
+
         self.inventory = {}
 
         self.priorities = []
@@ -160,16 +169,16 @@ class NGIN_Simulae_Actor(SimulaeNode):
             # [HUNGER, THIRST, SLEEP, SICK, TEMPERATURE, HOT, COLD, EXHAUSTION, SOCIALIZE]
 
             if task == HUNGER:
-                acquisition = self.acquire('edible')
+                acquisition = self.acquire(SimulaeNode(given_id='food', nodetype=OBJ))
                 return Task('food',Action.USE,acquisition)
             elif task == THIRST:
-                acquisition = self.acquire('edible')
+                acquisition = self.acquire(SimulaeNode(given_id='drink', nodetype=OBJ))
                 return Task('drink',Action.USE,acquisition)
             elif task == SLEEP:
-                acquisition = self.acquire('rest')
+                acquisition = self.acquire(SimulaeNode(given_id='bed', nodetype=OBJ))
                 return Task('bed',Action.USE,acquisition)
             elif task == SICK:
-                acquisition = self.acquire('medicine')
+                acquisition = self.acquire(SimulaeNode(given_id='medicine', nodetype=OBJ))
                 return Task('medicine',Action.USE,acquisition)
             elif task == HOT:
                 return None

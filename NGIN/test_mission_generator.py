@@ -1,32 +1,15 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from NGIN.mission_generator import NGIN, SimulaeNode
+from .SimulaeCampaignGenerator import NGIN
+from .SimulaeNode import SimulaeNode
+from .NGIN_utils.ngin_utils import load_json_from_file
 
 class Test_NGIN(unittest.TestCase):
 
     def setUp(self):
-        self.mission_struct = {
-            "Neutral": {
-                "POI": ["Investigate", "Scout"],
-                "PTY": ["Negotiate", "Recruit"],
-                "OBJ": ["Retrieve", "Secure"],
-                "LOC": ["Explore", "Survey"]
-            },
-            "Friendly": {
-                "POI": ["Assist", "Defend"],
-                "PTY": ["Support", "Join"],
-                "OBJ": ["Protect", "Deliver"],
-                "LOC": ["Guard", "Maintain"]
-            },
-            "Hostile": {
-                "POI": ["Attack", "Sabotage"],
-                "PTY": ["Ambush", "Capture"],
-                "OBJ": ["Destroy", "Steal"],
-                "LOC": ["Raid", "Occupy"]
-            }
-        }
-        self.madlibs = ["Alpha", "Beta", "Gamma", "Delta"]
-        self.ngin = NGIN(self.mission_struct, self.madlibs)
+        self.mission_struct = load_json_from_file("NGIN/NGIN_config/story_struct.json")
+        self.settings = load_json_from_file("NGIN/NGIN_config/ngin_settings.json")
+        self.ngin = NGIN(self.mission_struct, self.settings)
 
     def test_generate_element(self):
         element = self.ngin.generate_element()

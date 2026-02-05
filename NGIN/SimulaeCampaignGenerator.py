@@ -363,7 +363,9 @@ class NGIN():
 
         for k,v in policies.items():
             #               position            weight
-            policy[k] = [ random.choice(v), random.random() ]
+            stance_index = random.randint(0, len(v)-1)
+            strength = random.randint(1,7)
+            policy[k] = (stance_index, strength)
 
         return policy
 
