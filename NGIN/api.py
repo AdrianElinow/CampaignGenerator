@@ -18,6 +18,10 @@ except Exception:
 app = Flask(__name__)
 CORS(app, resources={r"/generate_campaign": {"origins": ["http://127.0.0.1:3000", "http://localhost:3000", "http://localhost:5173"]}})
 
+@app.route('/')
+def index():
+    return jsonify({"message": "NGIN Campaign Generator API is running."})
+
 @app.route('/generate_campaign')
 def generate_campaign():
     mission_struct = load_json_from_file("NGIN/NGIN_config/story_struct.json")

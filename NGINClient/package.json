@@ -1,12 +1,18 @@
 {
   "name": "nginclient",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --max-warnings=0 .",
+    "lintfix": "eslint . --max-warnings=0 --fix",
+    "test": "vitest --watch=false",
+    "coverage": "vitest run --coverage",
+    "buildrun": "tsc -b && vite build && vite",
+    "beforepush": "eslint --max-warnings=0 && tsc -b && vite build && vitest --watch=false"
   },
   "dependencies": {
     "vue": "^3.5.24"
