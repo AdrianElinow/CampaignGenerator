@@ -192,29 +192,6 @@ Faction/POI interractions:
 
 
 
-"Economy":      
-    ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
-"Liberty":      
-    ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
-"Culture":      
-    ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
-"Diplomacy":    
-    ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
-"Militancy":    
-    ["Militarist", "Strategic", "Neutral", "Diplomatic", "Pacifist"],
-"Progression":  
-    ["Homogenous", "Preservationist", "Neutral", "Heterogeneous", "Multiculturalist"],
-"Secularity":   
-    ["Apostate", "Secularist", "Neutral", "Religious", "Devout"],
-"Justice":      
-    ["Retributionist", "Punitive", "Neutral", "Correctivist", "Rehabilitative"],
-"Natural-Balance":  
-    ["Ecologist", "Naturalist", "Neutral", "Productivist", "Industrialist"],
-"Government":   
-    ["Democratic", "Republican", "Neutral", "Oligarchic", "Monarchist"]
-
-
-
 
 
 

@@ -11,16 +11,24 @@ OBJ = 'OBJ'
 
 NAME = "Name"
 POLICY = "Policy"
+PERSONALITY = "Personality"
 ADJACENT = "Adjacent"
 STATUS = "Status"
 INTERACTIONS = "Interactions"
 REPUTATION = "Reputation"
 DISPOSITION = "Disposition"
 
+ID = "ID"
+REFERENCES = "References"
+NODETYPE = "Nodetype"
+ATTRIBUTES = "Attributes"
 CONTENTS = "Contents"
 COMPONENTS = "Components"
 ATTACHMENTS = "Attachments"
-RELATIONS = [CONTENTS, COMPONENTS, ATTACHMENTS]
+RELATIONS = "Relations"
+RELATIVE_TYPES = [CONTENTS, COMPONENTS, ATTACHMENTS]
+CHECKS = "Checks"
+ABILITIES = "Abilities"
 
 ALL_NODE_TYPES = [FAC,POI,PTY,LOC,OBJ]
 NODETYPES = [POI,PTY,LOC,OBJ] # person, people, place, thing
@@ -29,7 +37,7 @@ GROUP_NODE_TYPES = [FAC,PTY]
 PEOPLE_NODE_TYPES = [POI,PTY]
 INANIMATE_NODE_TYPES = [LOC,OBJ]
 
-DEFAULT_POLICY_VALUE = 3 # halfway between 1 and 5
+DEFAULT_POLICY_VALUE = 4 # halfway between 1 and 7
 
 class SimulaeNode:
 
@@ -39,45 +47,36 @@ class SimulaeNode:
                         nodetype=OBJ,
                         references={
                             NAME:None,
-                            POLICY:{
-                                "Economy":          ["Indifferent", 5],
-                                "Liberty":          ["Indifferent", 5],
-                                "Culture":          ["Indifferent", 5],
-                                "Diplomacy":        ["Indifferent", 5],
-                                "Militancy":        ["Indifferent", 5],
-                                "Diversity":        ["Indifferent", 5],
-                                "Secularity":       ["Indifferent", 5],
-                                "Justice":          ["Indifferent", 5],
-                                "Natural-Balance":  ["Indifferent", 5],
-                                "Government":       ["Indifferent", 5]
-                            }
                         }, 
-                        attributes={
-                            "Interactions":0
-                        }, 
+                        attributes={}, 
                         relations=None, 
                         checks={}, 
                         abilities={}):
 
-        self.id = given_id if given_id else uuid.uuid1()
-        self.status = Status.ALIVE
-        self.references = references
-        self.nodetype = nodetype
+        self.ID = given_id if given_id else str(uuid.uuid1())
+        self.Status = Status.ALIVE
+        self.References = references
+        self.Nodetype = nodetype
 
-        self.attributes = attributes
+        self.Attributes = attributes
 
-        if relations == None:
-            relations = { CONTENTS:{ nt:{} for nt in NODETYPES}, COMPONENTS:{ nt:{} for nt in NODETYPES}, ATTACHMENTS:{ nt:{} for nt in NODETYPES} }
+        self.Relations = {
+            CONTENTS:{ nt:{} for nt in NODETYPES},      # organs
+            COMPONENTS:{ nt:{} for nt in NODETYPES},    # limbs
+            ATTACHMENTS:{ nt:{} for nt in NODETYPES}    # accessories, clothing, equipped items
+        }
 
-        self.relations = relations
-
-        self.checks = checks
-        self.abilities = abilities
+        if relations is not None:
+            for k,v in relations.items():
+                self.Relations[k] = v
+        
+        self.Checks = checks
+        self.Abilities = abilities
 
     def get_description(self):
         description = ""
 
-        if self.nodetype == POI:
+        if self.Nodetype == POI:
 
             associations = self.describe_faction_associations()
 
@@ -94,10 +93,10 @@ class SimulaeNode:
         return description
 
     def summary(self):
-        summary = "{{{0}:{1}}} {2}".format(self.nodetype, 
-            self.references[NAME],
+        summary = "{{{0}:{1}}} {2}".format(self.Nodetype, 
+            self.get_reference(NAME),
             self.get_description(),
-            f"located at {self.references[LOC]}" if LOC in self.references else "")
+            f"located at {self.get_reference(LOC)}" if LOC in self.References else "")
 
         return summary
 
@@ -111,23 +110,23 @@ class SimulaeNode:
                 if node is of types FAC or PTY, checks that node has membership with self
         '''
 
-        if not (node and node.nodetype and node.id):
+        if not (node and node.Nodetype and node.ID):
             raise ValueError
 
-        if self.nodetype in PEOPLE_NODE_TYPES:
+        if self.Nodetype in PEOPLE_NODE_TYPES:
 
             # check self's ownership of node
-            if node.nodetype in INANIMATE_NODE_TYPES and node.id in self.relations['PPT'][node.nodetype]:
+            if node.Nodetype in INANIMATE_NODE_TYPES and node.ID in self.Relations['PPT'][node.Nodetype]:
                 return True
             # check self's membership as apart of node
-            elif node.nodetype in GROUP_NODE_TYPES and node.relations[self.nodetype][self.id][STATUS] == 'Member':
+            elif node.Nodetype in GROUP_NODE_TYPES and node.Relations[self.Nodetype][self.ID][STATUS] == 'Member':
                 return True
 
-        elif self.nodetype == FAC:
+        elif self.Nodetype == FAC:
 
-            if node.nodetype in INANIMATE_NODE_TYPES and node.id in self.relations['PPT'][node.nodetype]:
+            if node.Nodetype in INANIMATE_NODE_TYPES and node.ID in self.Relations['PPT'][node.Nodetype]:
                 return True
-            elif node.nodetype in PEOPLE_NODE_TYPES and self.relations[node.nodetype][node.id][STATUS] == "Member":
+            elif node.Nodetype in PEOPLE_NODE_TYPES and self.Relations[node.Nodetype][node.ID][STATUS] == "Member":
                 return True
 
         return False
@@ -138,9 +137,9 @@ class SimulaeNode:
 
     def get_adjacent_locations(self):
         
-        if ADJACENT in self.references:
+        if ADJACENT in self.References:
 
-            adjacents = self.references[ADJACENT]
+            adjacents = self.References[ADJACENT]
 
             if type(adjacents) == type(""):
                 return [adjacents]
@@ -151,8 +150,8 @@ class SimulaeNode:
 
     def add_adjacent_location(self, loc, reciprocate=True):
         
-        self.add_reference(ADJACENT, loc.id)
-        loc.add_reference(ADJACENT, self.id, reciprocate=False)
+        self.add_reference(ADJACENT, loc.ID)
+        loc.add_reference(ADJACENT, self.ID, reciprocate=False)
 
 
     def knows_about(self, node):
@@ -160,13 +159,13 @@ class SimulaeNode:
 
         knows_about = False
 
-        if node.nodetype in SOCIAL_NODE_TYPES:
-            if self.has_relation(node, node.nodetype): # already has relationship
+        if node.Nodetype in SOCIAL_NODE_TYPES:
+            if self.has_relation(node, node.Nodetype): # already has relationship
                 knows_about = True
 
-        elif node.nodetype in INANIMATE_NODE_TYPES:
+        elif node.Nodetype in INANIMATE_NODE_TYPES:
             
-            if self.has_relation(node, node.nodetype): # already has relationship
+            if self.has_relation(node, node.Nodetype): # already has relationship
                 knows_about = True
 
         debug("-> ",knows_about)
@@ -176,58 +175,58 @@ class SimulaeNode:
     def get_reference(self, key: str):
         debug("get_reference(",key,")")
         
-        if key in self.references:
-            return self.references[key]
+        if key in self.References:
+            return self.References[key]
 
         return None
 
     def set_reference(self, key: str, value: str):
         debug("set_reference(",key,value,")")
-        self.references[key] = value
+        self.References[key] = value
 
     def add_reference(self, key: str, value: str):
         debug("add_reference(",key,value,")")
         
-        if key in self.references:
+        if key in self.References:
             
-            reference = self.references[key]
+            reference = self.References[key]
 
             if type(reference) == type(""):
                 if reference is not value:
-                    self.references[key] = [reference, value]
+                    self.References[key] = [reference, value]
                     
             elif type(reference) == type([]):
                 if value not in reference:
-                    self.references[key].append(value)
+                    self.References[key].append(value)
 
         else:
-            self.references[key] = value
+            self.References[key] = value
 
     def get_attribute(self, key: str):
         debug("get_attribute(",key,")")
 
-        if key in self.attributes:
-            return self.attributes[key]
+        if key in self.Attributes:
+            return self.Attributes[key]
 
         return None
 
     def set_attribute(self, key: str, value: int):
-        self.attributes[key] = value
+        self.Attributes[key] = value
 
     def determine_relation(self, node, interaction=None):
         debug("determining",self,"relationship with",node)
 
         relationship = {}
 
-        if node.id not in self.relations[node.nodetype]: # new relationship
+        if node.ID not in self.Relations[node.Nodetype]: # new relationship
 
-            if node.nodetype in SOCIAL_NODE_TYPES: # other node is a social node
+            if node.Nodetype in SOCIAL_NODE_TYPES: # other node is a social node
 
-                if self.nodetype in SOCIAL_NODE_TYPES: # we are also a social node
-                    policy_diff = self.policy_diff( node.references[POLICY] )
+                if self.Nodetype in SOCIAL_NODE_TYPES: # we are also a social node
+                    policy_diff = self.policy_diff( node.References[POLICY] )
 
                     relationship = {
-                        "Nodetype":node.nodetype,
+                        "Nodetype":node.Nodetype,
                         STATUS:"new",
                         POLICY:policy_diff,
                         REPUTATION:[0,0],
@@ -243,22 +242,22 @@ class SimulaeNode:
 
                     return relationship
 
-                elif self.nodetype in INANIMATE_NODE_TYPES: # we are an inanimate node
+                elif self.Nodetype in INANIMATE_NODE_TYPES: # we are an inanimate node
                     return "Occupant"
 
-            elif node.nodetype in INANIMATE_NODE_TYPES: # other node is an inanimate node
+            elif node.Nodetype in INANIMATE_NODE_TYPES: # other node is an inanimate node
                 return {}
         
             else: 
-                debug('Unhandled nodetype: ',node.nodetype)
+                debug('Unhandled nodetype: ',node.Nodetype)
 
-        elif node.nodetype in SOCIAL_NODE_TYPES and self.nodetype in SOCIAL_NODE_TYPES: # we are both social nodes with an existing relationship
+        elif node.Nodetype in SOCIAL_NODE_TYPES and self.Nodetype in SOCIAL_NODE_TYPES: # we are both social nodes with an existing relationship
 
-            relationship = self.relations[node.id]
+            relationship = self.Relations[node.ID]
             
             policy_diff = self.policy_diff( node.references[POLICY] )
             
-            relationship[POLICY] = node.policy
+            relationship[POLICY] = node.Policy
             relationship[DISPOSITION] = self.get_policy_disposition(policy_diff[0])
             
             if interaction != None:
@@ -284,16 +283,16 @@ class SimulaeNode:
         if not node:
             raise ValueError
         
-        if node.nodetype in self.relations:
-            self.relations[node.nodetype] = {}
+        if node.Nodetype in self.Relations:
+            self.Relations[node.Nodetype] = {}
 
-        self.relations[node.nodetype][node.id] = self.determine_relation(node, interaction)
+        self.Relations[node.Nodetype][node.ID] = self.determine_relation(node, interaction)
 
 
     def get_relation(self, node): # TODO AE: Reimplement 
 
-        if self.has_relation(node.id, node.nodetype):
-            return self.relations[node.nodetype][node.id]
+        if self.has_relation(node.ID, node.Nodetype):
+            return self.Relations[node.Nodetype][node.ID]
         else:
             return self.determine_relation(node)
 
@@ -304,11 +303,11 @@ class SimulaeNode:
     def get_accompanyment(self):
         ''' get_accompanyment() returns a list of ids of actors accompanying this actor '''
         
-        return [nid for nid, relation in self.relations[POI].items() if relation[STATUS] == "Accompanying"]
+        return [nid for nid, relation in self.Relations[POI].items() if relation[STATUS] == "Accompanying"]
 
     def has_relation( self, key: str, nodetype: str ): # TODO AE: Reimplement 
         
-        if key in self.relations[nodetype]:
+        if key in self.Relations[nodetype]:
             return True
         return False
     
@@ -370,7 +369,7 @@ class SimulaeNode:
         summary = {}
         diff = 0
 
-        for factor, policy in self.references[POLICY].items():
+        for factor, policy in self.References[POLICY].items():
             policy, policy_belief_strength = policy
 
             cmp_factor_policy, cmp_factor_belief_strength = compare_policy[factor]
@@ -381,8 +380,8 @@ class SimulaeNode:
             delta = abs( policy_index - cmp_factor_index )       
             strength_delta = int(abs( policy_belief_strength - cmp_factor_belief_strength ) / 2)
 
-            descr = [ "Agreement", "Civil", "Contentious",  "Opposed", "Diametrically-Opposed" ][delta]
-            degree = ["", "Slightly ", "Moderately ", "Strongly ", "Extremely " ][delta]
+            descr = [ "Agreement", "Similar", "Civil", "Disagreement", "Contentious",  "Opposed", "Diametrically-Opposed" ][delta]
+            degree = ["", "Leans ", "Slightly ", "Moderately ", "Very ", "Strongly ", "Extremely " ][delta]
 
             summary[factor] = f"{degree}{descr}"
             
@@ -403,10 +402,10 @@ class SimulaeNode:
 > Political Beliefs:
 """
 
-        if POLICY not in self.references:
+        if POLICY not in self.References:
             return ""
 
-        politics = self.references[POLICY]
+        politics = self.References[POLICY]
 
         for policy, (stance, strength) in politics.items():
             if policy not in POLICY_DESCRIPTIONS:
@@ -427,7 +426,7 @@ class SimulaeNode:
     def describe_faction_associations(self):
         summary = "Associations: "
 
-        for sid, relationship in self.relations[FAC].items():
+        for sid, relationship in self.Relations[FAC].items():
 
             summary += f"{sid} {relationship[STATUS]}, "
 
@@ -438,31 +437,35 @@ class SimulaeNode:
 
             d = self.__dict__
 
-            for nodetype, nodes in self.relations.items():
+            for nodetype, nodes in self.Relations.items():
                 v = {}
 
                 if type(nodes) == type(""):
                     print(f'why is this {nodetype}"nodes" a str?', nodes)
                 elif type(nodes) == type([]):
-                    pass # todo AE: resolve SimulaeNode OBJ.relations is type list
+                    pass # todo AE: resolve SimulaeNode OBJ.Relations is type list
                 else:
                     for node_id, node in nodes.items():
                         if type(node) == type({}):
-                            v[node_id] = node
+
+                            for k, v in node.items():
+                                v[node_id][k] = v.toJSON()
+
+                            #v[node_id] = node
                         else:
                             v[node_id] = node.toJSON()
 
-                d['relations'][nodetype] = v
+                d[RELATIONS][nodetype] = v
 
-            for k,v in self.references.items():
-                d['references'][k] = v
+            for k,v in self.References.items():
+                d[REFERENCES][k] = v
 
-            d['status'] = self.status.toJSON()
+            d[STATUS] = self.Status.toJSON()
 
             return d
 
         except Exception as e:
-            print(e)
+            print("ERROR WHILE SAVING", type(e), e.message)
             return {}
 
 
@@ -476,13 +479,13 @@ class SimulaeNode:
 
             keys = list(data.keys())
 
-            n_id = data['id'] if 'id' in keys else None
-            n_type = data['nodetype'] if 'nodetype' in keys else None
-            n_refs = data['references'] if 'references' in keys else {}
-            n_attr = data['attributes'] if 'attributes' in keys else {}
-            n_rels = data['relations'] if 'relations' in keys else {}
-            n_checks = data['checks'] if 'checks' in keys else {}
-            n_abilities = data['abilities'] if 'abilities' in keys else {}
+            n_id = data[ID] if 'id' in keys else None
+            n_type = data[NODETYPE] if 'nodetype' in keys else None
+            n_refs = data[REFERENCES] if 'references' in keys else {}
+            n_attr = data[ATTRIBUTES] if 'attributes' in keys else {}
+            n_rels = data[RELATIONS] if 'relations' in keys else {}
+            n_checks = data[CHECKS] if 'checks' in keys else {}
+            n_abilities = data[ABILITIES] if 'abilities' in keys else {}
 
             if not n_id or not n_type:
                 raise ValueError(f"Cannot determine ID or nodetype of entity |\n {data}")
@@ -492,8 +495,8 @@ class SimulaeNode:
                 print(ntype)
                 for nid, ndata in nodes.items():
                     node = SimulaeNode.from_json(ndata)
-                    print('->',node.id)
-                    relations[ntype][node.id] = node
+                    print('->',node.ID)
+                    relations[ntype][node.ID] = node
 
             n = SimulaeNode(n_id, 
                 n_type, n_refs, n_attr, relations, n_checks, n_abilities)
@@ -528,7 +531,7 @@ def jsonify( state ):
 
     d = state.__dict__
 
-    for k,v in state.relations.items():
+    for k,v in state.Relations.items():
 
         v =  v = { nid:node.__dict__ for nid, node in v.items() }
         d['relations'][k] = v
@@ -545,8 +548,7 @@ def generate_simulae_node(node_type, node_name=None):
 
     references={
         NAME:name,
-        FAC:None,
-        POLICY:{}
+        POLICY: { policy : [POLICY_SCALE[policy][DEFAULT_POLICY_VALUE], DEFAULT_POLICY_VALUE] for policy in POLICY_SCALE.keys() },
     }
     
     attributes = {}
@@ -559,14 +561,6 @@ def generate_simulae_node(node_type, node_name=None):
         for policy in _policies:
             references[POLICY][policy] = random.choice(POLICY_SCALE[policy]), random.randrange(1,10)
 
-        if nodetype == POI:
-            # person node
-
-            attributes['Age'] = random.randrange(1,75)
-            references['Gender'] = random.choice(['male','female'])
-            references['Race'] = random.choice(['white','black','hispanic','asian'])
-
-
     if nodetype in INANIMATE_NODE_TYPES:
         
         if nodetype == LOC:
@@ -576,4 +570,117 @@ def generate_simulae_node(node_type, node_name=None):
 
     return simulae_node
 
+def generate_person_simulae_node(node_name=None):
+    ''' generate_person_simulae_node() generates a SimulaeNode of type POI with random attributes '''
+    
+    person = generate_simulae_node(POI, node_name)
 
+    person.set_attribute("Age", random.randrange(16, 65)) # age
+    person.set_reference("Gender", random.choice(["Male","Female"]))
+    person.set_reference("Race", random.choice(["White", "Black", "Asian", "Hispanic", "Middle-Eastern", "Native American", "South Asian"]))
+
+    # generate height & weight
+    total_height = random_bell_curve_value(0.9, 2.5, 1.75, 0.15) # meters
+    total_weight = random_bell_curve_value(50, 120, 75, 0.15) # kg
+
+    leg_height = total_height * .45
+    torso_height = total_height * .35
+    head_height = total_height * .15
+    feet_height = total_height * .05
+
+    head_weight = total_weight * .08        # 7%
+    leg_weight = total_weight * .175        # 35%
+    torso_weight = total_weight * .5        # 40%
+    arm_weight = total_weight * .075        # 15%
+    hand_weight = total_weight * .005       # 1%
+    foot_weight = total_weight * .01        # 2%  
+
+    # add standard things like limbs and organs
+
+    torso = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Torso" }, attributes={"height": torso_height, "weight": torso_weight} )
+    skull = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Skull" } )
+    left_arm = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Left Arm" }, attributes={"height": arm_weight, "weight": arm_weight} )
+    right_arm = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Right Arm" }, attributes={"height": arm_weight, "weight": arm_weight} )
+    left_leg = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Left Leg" }, attributes={"height": leg_height, "weight": leg_weight} )
+    right_leg = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Right Leg" }, attributes={"height": leg_height, "weight": leg_weight} )
+    left_hand = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Left Hand" }, attributes={"height": hand_weight, "weight": hand_weight} )
+    right_hand = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Right Hand" }, attributes={"height": hand_weight, "weight": hand_weight} )
+    head = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Head" }, attributes={"height": head_height, "weight": head_weight} )
+
+    # add organs
+    heart = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Heart" } )
+    lungs = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Lungs" } )
+    brain = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Brain" } )
+    liver = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Liver" } )
+    kidneys = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Kidneys" } )
+    stomach = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Stomach" } )
+    intestines = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Intestines" } )
+    eyes = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Eyes" } )
+    ears = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Ears" } )
+    nose = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Nose" } )
+    mouth = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Mouth" } )
+    #skin = SimulaeNode( name="Skin", nodetype=OBJ )
+    hair = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Hair" } )
+    teeth = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Teeth" } )
+    #lh_nails = SimulaeNode( name="Nails", nodetype=OBJ )
+    #rh_nails = SimulaeNode( name="Nails", nodetype=OBJ )
+
+    torso.Relations[CONTENTS][OBJ][heart.ID] = heart
+    torso.Relations[CONTENTS][OBJ][lungs.ID] = lungs
+    
+    torso.Relations[CONTENTS][OBJ][liver.ID] = liver
+    torso.Relations[CONTENTS][OBJ][kidneys.ID] = kidneys
+    torso.Relations[CONTENTS][OBJ][stomach.ID] = stomach
+    torso.Relations[CONTENTS][OBJ][intestines.ID] = intestines
+    ### etc...
+
+    head.Relations[COMPONENTS][OBJ][skull.ID] = skull
+    head.Relations[CONTENTS][OBJ][brain.ID] = brain
+    head.Relations[CONTENTS][OBJ][eyes.ID] = eyes
+    head.Relations[CONTENTS][OBJ][ears.ID] = ears
+    head.Relations[CONTENTS][OBJ][nose.ID] = nose
+    head.Relations[CONTENTS][OBJ][mouth.ID] = mouth
+    head.Relations[CONTENTS][OBJ][hair.ID] = hair
+    head.Relations[CONTENTS][OBJ][teeth.ID] = teeth
+
+    left_arm.Relations[COMPONENTS][OBJ][left_hand.ID] = left_hand
+    right_arm.Relations[COMPONENTS][OBJ][right_hand.ID] = right_hand 
+    
+    #left_hand.Relations[CONTENTS][OBJ][lh_nails.ID] = lh_nails
+    #right_hand.Relations[CONTENTS][OBJ][rh_nails.ID] = rh_nails
+
+    #person.Relations[COMPONENTS][OBJ][skin.ID] = skin
+
+    person.Relations[COMPONENTS][OBJ][torso.ID] = torso
+    person.Relations[COMPONENTS][OBJ][left_arm.ID] = left_arm
+    person.Relations[COMPONENTS][OBJ][right_arm.ID] = right_arm
+    person.Relations[COMPONENTS][OBJ][left_leg.ID] = left_leg
+    person.Relations[COMPONENTS][OBJ][right_leg.ID] = right_leg
+    person.Relations[COMPONENTS][OBJ][head.ID] = head
+
+    return person
+
+
+def random_bell_curve_value(min_val: float, max_val: float, average: float, std_deviation_frac: float = 0.15) -> float:
+    """
+    Generate a realistic random value along a bell curve (normal distribution),
+    constrained within min and max, centered on average.
+
+    Parameters:
+    - min_val (float): The minimum allowed value.
+    - max_val (float): The maximum allowed value.
+    - average (float): The central mean value.
+    - std_deviation_frac (float): Fraction of (max - min) to use as standard deviation.
+                             Default is 15% for moderate variance.
+
+    Returns:
+    - float: Random value distributed normally, clipped to [min_val, max_val].
+    """
+
+    std_dev = (max_val - min_val) * std_deviation_frac
+
+    # Generate values until one falls within range (clipping is optional but can bias the curve)
+    while True:
+        value = random.gauss(average, std_dev)
+        if min_val <= value <= max_val:
+            return round(value, 2)

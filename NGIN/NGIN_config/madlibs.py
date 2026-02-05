@@ -1,22 +1,50 @@
 
 POLICY_SCALE = {
-        "Economy":          ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
-        "Liberty":          ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
-        "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
-        "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
-        "Militancy":        ["Militarist", "Strategic", "Indifferent", "Diplomatic", "Pacifist"],
-        "Diversity":        ["Homogenous", "Preservationist", "Indifferent", "Heterogeneous", "Multiculturalist"],
-        "Secularity":       ["Apostate", "Secularist", "Indifferent", "Religious", "Devout"],
-        "Justice":          ["Retributionist", "Punitive", "Indifferent", "Correctivist", "Rehabilitative"],
-        "Natural-Balance":  ["Ecologist", "Naturalist", "Indifferent", "Productivist", "Industrialist"],
-        "Government":       ["Democratic", "Republican", "Indifferent", "Oligarchic", "Autocratic"]
+        "Economy":          ["Communist", "Socialist", "Interventionist", "Indifferent", "Capitalist", "Free-Capitalist","Hyper-Capitalist"],
+        "Liberty":          ["Totalitarian","Authoritarian", "Statist", "Indifferent", "Civil", "Libertarian", "Anarchist"],
+        "Class":            ["Lower-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
+        "Culture":          ["Reactionary", "Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist","Post-Culturalist"],
+        "Diplomacy":        ["Supranationalist", "Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist", "Isolationist"],
+        "Militancy":        ["Warhawk", "Militarist", "Strategic", "Indifferent", "Conflict-Averse", "Diplomatic", "Pacifist"],
+        "Diversity":        ["Ethnocentrist", "Homogenous", "Preservationist", "Indifferent", "Heterogeneous", "Multiculturalist", "Inclusionist"],
+        "Secularity":       ["Atheist", "Apostate", "Secularist", "Indifferent", "Religious", "Devout", "Fundementalist"],
+        "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
+        "Legality":         ["Disregardant", "Arbitrarian", "Pragmatic", "Indifferent", "Regulatory", "Proceduralist", "Legalist"],
+        "Justice":          ["Executionist", "Retributionist", "Punitive", "Indifferent", "Correctivist", "Rehabilitative", "Abolitionist"],
+        "Natural-Balance":  ["Eco-Extremist", "Ecologist", "Naturalist", "Indifferent", "Utilitarian", "Productivist", "Industrialist"],
+        "Government":       ["Democratic", "Republican", "Collectivist", "Indifferent", "Oligarchic", "Autocratic", "Dictatorial"]
     }
 
+PERSONALITY_SCALE = {
+    "Loyalty": ["Rebellious", "Subversive", "Independent", "Indifferent", "Conformist", "Loyal", "Zealous"],
+    "Ambition": ["Self-Sabotaging", "Apathetic", "Unmotivated", "Steady", "Driven", "Ambitious", "Messianic"],
+    "Empathy": ["Sadistic", "Callous", "Apathetic", "Neutral", "Sympathetic", "Empathetic","Altrustic"],
+    "Temperment" : ["Explosive","Aggressive", "Passionate", "Neutral", "Calm", "Stoic", "Cold"],
+    "Risk": ["Risk-Averse", "Guarded", "Cautious", "Balanced", "Adventurous", "Daring", "Reckless"],
+    "Conscience": ["Immoral", "Amoral", "Rational", "Pragmatic", "Ethical", "Idealistic", "Virtuous"],
+    "Curiosity": ["Stubborn", "Indifferent", "Inquisitive", "Curious", "Curious", "Obsessive", "Compulsive"],
+    "Self-Control": ["Impulsive", "Reactive", "Emotional", "Balanced", "Disciplined", "Self-Controlled", "Ascetic"],
+    "Trust": ["Paranoid", "Distrustful", "Skeptical", "Neutral", "Trusting", "Very Trusting", "Gullible"],
+    #"Confidence": ["Insecure", "Self-Doubting", "Hesitant", "Confident", "Self-Assured", "Arrogant", "Hubristic"], # assertiveness + resilience
+    "Resilience": ["Fragile", "Sensitive", "Stressed", "Stable", "Resilient", "Tough", "Unshakeable"],
+    "Optimism": ["Pessimistic", "Cynical", "Realistic", "Neutral", "Hopeful", "Optimistic", "Idealistic"], # resilience + temperment + conscience
+    "Assertiveness": ["Passive", "Submissive", "Reserved", "Neutral", "Assertive", "Commanding", "Overbearing"],
+    #"Sincerity": ["Deceptive", "Two-Faced", "Guarded", "Neutral", "Candid", "Honest", "Blunt"], # trust + conscience
+    #"Attachment": ["Avoidant", "Detached", "Cautious", "Neutral", "Loyal", "Clingy", "Obsessive"], # trust + temperment
+    "Diligence": ["Lazy", "Distracted", "Unreliable", "Steady", "Hardworking", "Driven", "Workaholic"],
+    #"Opportunism": ["Innocent", "Honest", "Principled", "Neutral", "Cunning", "Opportunistic", "Exploitative"], # ambition + conscience (inverted)
+    "Conflict-Style": ["Avoidant", "Passive-Aggressive", "Diplomatic", "Neutral", "Confrontational", "Aggressive", "Violent"],
+    "Humor": ["Dry", "Serious", "Reserved", "Neutral", "Witty", "Joker", "Clownish"],
+
+}
 
 PRESET_POLICIES = {
     "Government":{
         "Economy":          ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
         "Liberty":          ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
+        "Class":            ["Lower-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
+        "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
+        "Legality":         ["Arbitrarian", "Pragmatic", "Indifferent", "Proceduralist", "Legalist"],
         "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
         "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
         "Militancy":        ["Militarist", "Strategic", "Indifferent", "Diplomatic", "Pacifist"],
@@ -29,6 +57,9 @@ PRESET_POLICIES = {
     "Military":{
         "Economy":          ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
         "Liberty":          ["Authoritarian"],
+        "Class":           ["Lower-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
+        "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
+        "Legality":         ["Arbitrarian", "Pragmatic", "Indifferent", "Proceduralist", "Legalist"],
         "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
         "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
         "Militancy":        ["Militarist", "Strategic"],
@@ -41,6 +72,9 @@ PRESET_POLICIES = {
     "Intelligence":{
         "Economy":          ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
         "Liberty":          ["Authoritarian", "Statist"],
+        "Class":            ["Lower-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
+        "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
+        "Legality":         ["Arbitrarian", "Pragmatic", "Indifferent", "Proceduralist", "Legalist"],
         "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
         "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
         "Militancy":        ["Militarist", "Strategic", "Indifferent", "Diplomatic", "Pacifist"],
@@ -53,6 +87,9 @@ PRESET_POLICIES = {
     "Religious":{
         "Economy":          ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
         "Liberty":          ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
+        "Class":            ["Lower-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
+        "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
+        "Legality":         ["Arbitrarian", "Pragmatic", "Indifferent", "Proceduralist", "Legalist"],
         "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
         "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
         "Militancy":        ["Militarist", "Strategic", "Indifferent", "Diplomatic", "Pacifist"],
@@ -65,6 +102,9 @@ PRESET_POLICIES = {
     "Company":{
         "Economy":          ["Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
         "Liberty":          ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
+        "Class":            ["Lower-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
+        "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
+        "Legality":         ["Arbitrarian", "Pragmatic", "Indifferent", "Proceduralist", "Legalist"],
         "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
         "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
         "Militancy":        ["Militarist", "Strategic", "Indifferent", "Diplomatic", "Pacifist"],
@@ -77,6 +117,9 @@ PRESET_POLICIES = {
     "Mercenaries":{
         "Economy":          ["Indifferent", "Capitalist", "Free-Capitalist"],
         "Liberty":          ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
+        "Class":            ["Lower-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
+        "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
+        "Legality":         ["Arbitrarian", "Pragmatic", "Indifferent", "Proceduralist", "Legalist"],
         "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
         "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
         "Militancy":        ["Militarist", "Strategic"],
@@ -89,6 +132,9 @@ PRESET_POLICIES = {
     "Gang":{
         "Economy":          ["Indifferent", "Capitalist", "Free-Capitalist"],
         "Liberty":          ["Indifferent", "Libertarian", "Anarchist"],
+        "Class":            ["Lower-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
+        "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
+        "Legality":         ["Arbitrarian", "Pragmatic", "Indifferent", "Proceduralist", "Legalist"],
         "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
         "Diplomacy":        ["Patriotic", "Nationalist"],
         "Militancy":        ["Militarist", "Strategic"],
@@ -101,6 +147,9 @@ PRESET_POLICIES = {
     "Political":{
         "Economy":          ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
         "Liberty":          ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
+        "Class":            ["Lower-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
+        "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
+        "Legality":         ["Arbitrarian", "Pragmatic", "Indifferent", "Proceduralist", "Legalist"],
         "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
         "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
         "Militancy":        ["Militarist", "Strategic", "Indifferent", "Diplomatic", "Pacifist"],
@@ -111,20 +160,6 @@ PRESET_POLICIES = {
         "Government":       ["Democratic", "Republican", "Indifferent", "Oligarchic", "Autocratic"]
     }
 }
-
-
-POLICY_SCALE = {
-        "Economy":          ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
-        "Liberty":          ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
-        "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
-        "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],
-        "Militancy":        ["Militarist", "Strategic", "Indifferent", "Diplomatic", "Pacifist"],
-        "Diversity":        ["Homogenous", "Preservationist", "Indifferent", "Heterogeneous", "Multiculturalist"],
-        "Secularity":       ["Apostate", "Secularist", "Indifferent", "Religious", "Devout"],
-        "Justice":          ["Retributionist", "Punitive", "Indifferent", "Correctivist", "Rehabilitative"],
-        "Natural-Balance":  ["Ecologist", "Naturalist", "Indifferent", "Productivist", "Industrialist"],
-        "Government":       ["Democratic", "Republican", "Indifferent", "Oligarchic", "Autocratic"]
-    }
 
 FACTION_TYPES = [
     "Government",
@@ -153,73 +188,121 @@ POLICY_BELIEF_STRENGTH_DESCRIPTORS = [
 POLICY_DESCRIPTIONS = {
     "Economy": {
         "Communist":"believes in a planned economy with no private ownership", 
-        "Socialist":"believes in a market economy with significant government intervention", 
+        "Socialist":"believes in a managed market economy with significant government intervention", 
+        "Interventionist":"believes in a market economy with some government intervention",
         "Indifferent":"", 
         "Capitalist":"believes in a market economy with some government intervention", 
         "Free-Capitalist":"believes in a free market economy without government intervention",
+        "Hyper-Capitalist":"believes in a free market economy with minimal government intervention and a focus on profit maximization"
     },
     "Liberty": {
+        "Totalitarian":"believes in a totalitarian state with no individual freedoms",
         "Authoritarian":"believes in an unapposed authority and solidarity of the state above the individual", 
         "Statist":"believes in a strong state and government control", 
         "Indifferent":"", 
+        "Civil":"believes in the protection of individual rights and freedoms",
         "Libertarian":"believes in the freedom of the individual and minimal government intervention", 
         "Anarchist":"believes in the abolition of all forms of government and the state", 
     },
+    "Class": {
+        "Lower-Class":" believes in the rights and interests of the lower class",
+        "Working-Class":" believes in the rights and interests of the working class",
+        "Populist":" believes in the rights and interests of the common people",
+        "Indifferent":"",
+        "Middle-Class":" believes in the rights and interests of the middle class",
+        "Aristocratic":" believes in the rights and interests of the aristocracy",
+        "Plutocratic":" believes in the rights and interests of the wealthy elite",
+    },
+    "Technology": {
+        "Technophobic":" believes that technology is dangerous and should be avoided",
+        "Luddite":" believes that technology is harmful and should be resisted",
+        "Hesitant":" believes that technology should be approached with caution and skepticism",
+        "Indifferent":"",
+        "Modernist":" believes that technology should be embraced and used to improve society",
+        "TechnoOptimist":" believes that technology can solve all of society's problems and should be pursued at all costs",
+        "Transhumanist":" believes in the use of technology to enhance human capabilities and transcend biological limitations",
+    },
+    "Legality": {
+        "Disregardant":" believes that laws are arbitrary and should be disregarded",
+        "Arbitrarian":" believes that laws are subjective and should be interpreted based on the situation",
+        "Pragmatic":" believes that laws should be applied based on practical considerations",
+        "Indifferent":"",
+        "Regulatory":" believes in the regulation of society through laws and regulations",
+        "Proceduralist":" believes in strict adherence to legal procedures and processes",
+        "Legalist":" believes in the strict interpretation and application of laws without exception",
+    },
     "Culture": {
+        "Reactionary":"believes in returning to a previous state of culture and society",
         "Traditionalist":"believes in preserving their culture, traditions, and long term stability", 
         "Conservative":"believes in conserving their culture and traditions", 
         "Indifferent":"", 
         "Progressive":"believes in pushing the boundaries of culture and society forward", 
         "Accelerationist":"believes in the rapid advancement of culture and society regardless of the consequences", 
+        "Post-Culturalist":"believes that culture is a construct and should be deconstructed",
     },
     "Diplomacy": {
+        "Supranationalist":"believes in the integration of their faction into a larger supranational entity",
         "Globalist":"believes their faction should act as apart of a global community", 
         "Diplomatic":"believes that sometimes their own faction's interests must be set aside for the greater population", 
         "Indifferent":"", 
         "Patriotic":"believes in their faction's greatness", 
         "Nationalist":"believes in the superiority of their own faction", 
+        "Isolationist":"believes in the isolation of their faction from the rest of the world",
     },
     "Militancy":{
+        "Warhawk":"believes in the use of military force to achieve their faction's goals",
         "Militarist":"believes in military action as the best tool for resolving conflicts", 
         "Strategic":"believes in military action as a strategic tool for resolving conflicts when diplomacy fails to yield results", 
         "Indifferent":"", 
+        "Conflict-Averse":"believes in avoiding military action and resolving conflicts through diplomacy",
         "Diplomatic":"believes in diplomacy and negotiating resolution of conflicts before military action", 
-        "Pacifist":"believes in peaceful diplomacy and conflict resolution snubbing military action", 
+        "Pacifist":"believes in peaceful diplomacy and conflict resolution snubbing military action",
+
     },
     "Diversity": {
+        "Ethnocentrist":"believes in the superiority of their own ethnicity",
         "Homogenous":"believes in a homogenous ethnic population", 
         "Preservationist":"believes in the preservation of their own ethnicity", 
         "Indifferent":"", 
         "Heterogeneous":"believes in some ethnic diversity", 
         "Multiculturalist":"believes in ethnic diversity", 
+        "Inclusionist":"believes in the inclusion of all"
     },
     "Secularity": {
+        "Atheist":"believes that religion is a delusion and should not play any role in society",
         "Apostate":"believes that religion should not play any role in society", 
         "Secularist":"believes in a secular society", 
         "Indifferent":"", 
         "Religious":"believes that religion should play a significant role in society", 
         "Devout":"believes that religion is should play a major role in society", 
+        "Fundementalist":"believes that religion should play a dominant role in society and that its teachings should be strictly followed",
     },
     "Justice": {
+        "Executionist":"believes in the death penalty for serious crimes",
         "Retributionist":"believes in judicial retribution", 
         "Punitive":"believes in punitive justice", 
         "Indifferent":"", 
         "Correctivist":"believes in corrective justice", 
         "Rehabilitative":"believes in rehabilitative justice", 
+        "Abolitionist":"believes in the abolition of the justice system and its replacement with restorative justice practices",
     },
     "Natural-Balance": {
+        "Eco-Extremist":"believes that the environment should be protected at all costs, even if it means sacrificing human interests",
         "Ecologist":"believes that the environment should be protected at the expense of industry", 
         "Naturalist":"believes in the natural balance of the environment", 
         "Indifferent":"", 
+        "Utilitarian":"believes in the use of natural resources for the benefit of society",
         "Productivist":"believes in the use of natural resources for production", 
         "Industrialist":"believes in industrial production at the expense of the environment", 
     },
     "Government": {
         "Democratic":"believes in a government run by the collective will of the people", 
         "Republican":"believes in a representative government", 
+        "Collectivist":"believes in a government run focus on the common good",
         "Indifferent":"", 
         "Oligarchic":"believes in a strong centralized authority", 
         "Autocratic":"believes in a centralized authority headed by a strong leader", 
+        "Dictatorial":"believes in a government run by a single dictator with absolute power"
     }
 }
 
@@ -415,3 +498,16 @@ MADLIBS_NOUNS = [
     "Executive",
     "Admin"
 ]
+
+HUMAN_BODY_METRICS = {
+    "male":{
+        "height": [170,190],
+        "weight": [60,90],
+        # todo ae: limbs
+    },
+    "female":{
+        "height": [155,175],
+        "weight": [50,75],
+        # todo ae: limbs
+    }
+}

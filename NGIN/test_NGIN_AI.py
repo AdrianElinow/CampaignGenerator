@@ -1,5 +1,5 @@
 import unittest
-from NGIN.NGIN_AI import *
+from NGIN_AI import *
 
 class Test_NGINAI(unittest.TestCase):
 
