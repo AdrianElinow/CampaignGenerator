@@ -10,16 +10,18 @@ class Test_NGINAI(unittest.TestCase):
     def test_initial_attributes(self):
         self.assertIsNotNone(self.actor.SimulaeNode)
         self.assertEqual(self.actor.priorities, [])
+        print("test_initial_attributes:", "PASS")
 
     def test_NGIN_AI_plan_empty(self):
         self.actor.plan()
         self.assertEqual(self.actor.priorities, [])
+        print("test_NGIN_AI_plan_empty:", "PASS")
 
     def test_NGIN_AI_plan_populated(self):
 
         self.actor.prioritize()
 
-        print("Priorities: ",self.actor.priorities)
+        #print("Priorities: ",self.actor.priorities)
 
         self.actor.plan()
 
@@ -27,8 +29,6 @@ class Test_NGINAI(unittest.TestCase):
 
         for i in range(iterations) or self.actor.priorities:
 
-            print(f"\n#### #### #### #### {i} #### #### #### #### \n")
-        
             actor_tick_test(self.actor)
 
             self.actor.prioritize()
@@ -36,8 +36,10 @@ class Test_NGINAI(unittest.TestCase):
             if self.actor.priorities:
                 completed_action = self.actor.act_next()
                 if completed_action:
-                    print("Completed action:", completed_action)
+                    #print("Completed action:", completed_action)
                     self.actor.plan()
+
+        print("test_NGIN_AI_plan_populated:", "PASS")
         
 
 def actor_tick_test(actor):

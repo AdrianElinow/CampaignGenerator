@@ -39,6 +39,7 @@ PEOPLE_NODE_TYPES = [POI,PTY]
 INANIMATE_NODE_TYPES = [LOC,OBJ]
 
 DEFAULT_POLICY_VALUE = 4 # halfway between 1 and 7
+DEFAULT_PERSONALITY_VALUE = 3 # halfway between 0 and 6
 
 class SimulaeNode:
 
@@ -61,6 +62,7 @@ class SimulaeNode:
 
         if self.Nodetype in SOCIAL_NODE_TYPES:
             self.References[POLICY] = {policy: (DEFAULT_POLICY_VALUE, DEFAULT_POLICY_VALUE) for policy in POLICY_SCALE}
+            self.References[PERSONALITY] = {trait: (DEFAULT_PERSONALITY_VALUE, DEFAULT_PERSONALITY_VALUE) for trait in PERSONALITY_SCALE}
 
         self.Attributes = attributes
 
@@ -335,14 +337,21 @@ class SimulaeNode:
         return policy
 
     def generate_policy(self):
+        return self.generate_values_for_scales(POLICY_SCALE)
+    
+    def generate_personality(self):
+        return self.generate_values_for_scales(PERSONALITY_SCALE)
+    
+    def generate_values_for_scales(self, scales: dict) -> dict:
+        values = {}
 
-        policy = {}
+        # Random values along bell curve adjusted for given scale
+        for key in scales.keys():
+            selection_index = get_bellcurve_value_for_scale(scales[key])
+            trait_value = scales[key][selection_index]
+            values[key] = trait_value, random.randrange(1,10)
 
-        for k,v in POLICY_SCALE.items():
-            #               position            weight
-            policy[k] = [ random.choice(v), random.random() ]
-
-        return policy
+        return values
 
     def get_policy_disposition(self, policy_diff_value):
 
@@ -587,10 +596,12 @@ def generate_simulae_node(node_type, node_name=None):
     nodetype = random.choice( NODETYPES ) if node_type == None else node_type
     
     _policies = list(POLICY_SCALE.keys())
+    _personality_traits = list(PERSONALITY_SCALE.keys())
 
     references={
         NAME:name,
-        POLICY: { policy : [POLICY_SCALE[policy][DEFAULT_POLICY_VALUE], DEFAULT_POLICY_VALUE] for policy in POLICY_SCALE.keys() },
+        POLICY: { policy : [POLICY_SCALE[policy][DEFAULT_POLICY_VALUE], DEFAULT_POLICY_VALUE] for policy in _policies },
+        PERSONALITY: { trait : [PERSONALITY_SCALE[trait][DEFAULT_PERSONALITY_VALUE], DEFAULT_PERSONALITY_VALUE] for trait in _personality_traits }
     }
     
     attributes = {}
@@ -601,7 +612,15 @@ def generate_simulae_node(node_type, node_name=None):
     if nodetype in SOCIAL_NODE_TYPES:
         # Random Policy values
         for policy in _policies:
-            references[POLICY][policy] = random.choice(POLICY_SCALE[policy]), random.randrange(1,10)
+            selection_index = get_bellcurve_value_for_scale(POLICY_SCALE[policy])
+            policy_selection = POLICY_SCALE[policy][selection_index]
+            references[POLICY][policy] = policy_selection, random.randrange(1,10)
+
+        # Random Personality values
+        for trait in _personality_traits:
+            selection_index = get_bellcurve_value_for_scale(PERSONALITY_SCALE[trait])
+            trait_value = PERSONALITY_SCALE[trait][selection_index]
+            references[PERSONALITY][trait] = trait_value, random.randrange(1,10)
 
     if nodetype in INANIMATE_NODE_TYPES:
         
@@ -661,11 +680,8 @@ def generate_person_simulae_node(node_name=None):
     ears = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Ears" } )
     nose = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Nose" } )
     mouth = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Mouth" } )
-    #skin = SimulaeNode( name="Skin", nodetype=OBJ )
     hair = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Hair" } )
     teeth = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Teeth" } )
-    #lh_nails = SimulaeNode( name="Nails", nodetype=OBJ )
-    #rh_nails = SimulaeNode( name="Nails", nodetype=OBJ )
 
     torso.Relations[CONTENTS][OBJ][heart.ID] = heart
     torso.Relations[CONTENTS][OBJ][lungs.ID] = lungs
@@ -688,11 +704,6 @@ def generate_person_simulae_node(node_name=None):
     left_arm.Relations[COMPONENTS][OBJ][left_hand.ID] = left_hand
     right_arm.Relations[COMPONENTS][OBJ][right_hand.ID] = right_hand 
     
-    #left_hand.Relations[CONTENTS][OBJ][lh_nails.ID] = lh_nails
-    #right_hand.Relations[CONTENTS][OBJ][rh_nails.ID] = rh_nails
-
-    #person.Relations[COMPONENTS][OBJ][skin.ID] = skin
-
     person.Relations[COMPONENTS][OBJ][torso.ID] = torso
     person.Relations[COMPONENTS][OBJ][left_arm.ID] = left_arm
     person.Relations[COMPONENTS][OBJ][right_arm.ID] = right_arm
@@ -703,7 +714,29 @@ def generate_person_simulae_node(node_name=None):
     return person
 
 
-def random_bell_curve_value(min_val: float, max_val: float, average: float, std_deviation_frac: float = 0.15) -> float:
+def get_bellcurve_value_for_scale(scale_list: list) -> int:
+    ''' get_bellcurve_value_for_scale(scale_list) returns an index into the given scale_list
+        using a bell curve distribution centered on the middle of the scale_list
+    '''
+
+    if (not scale_list) or (len(scale_list) == 0):
+        raise ValueError("Scale list is empty")
+    elif len(scale_list) == 1:
+        return 0
+    elif len(scale_list) % 2 == 0:
+        raise ValueError("Scale list must have an odd number of elements to have a central average")
+
+    min_index = 0
+    max_index = len(scale_list) - 1
+    average_index = (min_index + max_index) / 2
+    std_deviation_frac = 0.3  # 30% of range for moderate variance
+
+    index = int(random_bell_curve_value(min_index, max_index, average_index, std_deviation_frac))
+
+    return index
+
+
+def random_bell_curve_value(min_val: float, max_val: float, average: float, std_deviation_frac: float) -> float:
     """
     Generate a realistic random value along a bell curve (normal distribution),
     constrained within min and max, centered on average.

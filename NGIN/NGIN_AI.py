@@ -131,7 +131,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         }
 
     def plan(self):
-        print('planning...')
+        #print('planning...')
 
         if not self.priorities:
             self.prioritize()
@@ -145,10 +145,10 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
             if plan:
                 plans[task] = plan
-                print('Plan ->',plan)
+                #print('Plan ->',plan)
                 continue
             
-            print('no plan for',task)
+            #print('no plan for',task)
         
         self.plans = plans
         
@@ -159,7 +159,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         elif task is THREAT:
             return self.plan_threat_reaction()
         else:
-            print('no planning for',task)
+            #print('no planning for',task)
             return task
 
     def plan_status_task(self, task):
@@ -196,17 +196,17 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         if not self.priorities:
             if prioritized:
-                print("no priorities??")
+                #print("no priorities??")
                 return None
 
-            print('re-prioritizing')
+            #print('re-prioritizing')
             self.prioritize()
             return self.act_next(prioritized=True)
 
         task = self.priorities[0]
 
         if not task:
-            print('no task?')
+            #print('no task?')
             return None
         
         priority, goal = task
@@ -216,13 +216,14 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         plan = self.plans[goal]
 
-        print(f"Need to solve: {goal} (priority: {priority})")
+        #print(f"Need to solve: {goal} (priority: {priority})")
 
         if not plan:
-            print(f'no plan for {goal}')
+            #print(f'no plan for {goal}')
+            pass
 
         else:
-            print(plan.summary())
+            #print(plan.summary())
 
             self.act(plan)
 
