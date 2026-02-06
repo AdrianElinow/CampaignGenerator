@@ -15,8 +15,9 @@ PERSONALITY = "Personality"
 ADJACENT = "Adjacent"
 STATUS = "Status"
 INTERACTIONS = "Interactions"
+POLICY_DISPOSITION = "PolicyDisposition"
 REPUTATION = "Reputation"
-DISPOSITION = "Disposition"
+SOCIAL_DISPOSITION = "SocialDisposition"
 
 ID = "ID"
 REFERENCES = "References"
@@ -234,7 +235,7 @@ class SimulaeNode:
                         POLICY:policy_diff,
                         REPUTATION:[0,0],
                         INTERACTIONS:0,
-                        DISPOSITION:self.get_policy_disposition(policy_diff[0])
+                        POLICY_DISPOSITION:self.get_policy_disposition(policy_diff[0])
                     }
 
                     if interaction != None:
@@ -259,9 +260,11 @@ class SimulaeNode:
             relationship = self.Relations[node.ID]
             
             policy_diff = self.policy_diff( node.references[POLICY] )
+            social_disposition = self.social_diff( node.references[PERSONALITY])
             
             relationship[POLICY] = node.Policy
-            relationship[DISPOSITION] = self.get_policy_disposition(policy_diff[0])
+            relationship[POLICY_DISPOSITION] = self.get_policy_disposition(policy_diff[0])
+            relationship[SOCIAL_DISPOSITION] = self.get_social_disposition(social_disposition)
             
             if interaction != None:
                         
@@ -367,6 +370,17 @@ class SimulaeNode:
             return "Diametrically Opposed"
         '''
 
+    def get_social_disposition(self, social_diff_value):
+        if social_diff_value < 0:
+            raise ValueError
+
+        elif social_diff_value <= 10:
+            return "Friendly"
+        elif social_diff_value < 20:
+            return "Neutral"
+        elif social_diff_value >= 20:
+            return "Hostile"
+
     def policy_diff( self, compare_policy ):
 
         summary = {}
@@ -390,6 +404,27 @@ class SimulaeNode:
             
             diff += delta
 
+        return diff, summary
+    
+    def social_diff( self, compare_personality ):
+
+        summary = {}
+        diff = 0
+
+        for key, value in self.References[PERSONALITY].items():
+            personality_value = value
+
+            cmp_personality_value = compare_personality[key]
+                        
+            delta = abs( personality_value - cmp_personality_value )       
+
+            descr = [ "Similar", "Somewhat Similar", "Neutral", "Somewhat Different", "Different",  "Very Different", "Opposed" ][delta]
+            degree = ["", "Leans ", "Slightly ", "Moderately ", "Very ", "Strongly ", "Extremely " ][delta]
+
+            summary[key] = f"{degree}{descr}"
+            
+            diff += delta
+        
         return diff, summary
 
     def get_policy_index(self, factor:str, policy:str) -> int:
@@ -446,6 +481,7 @@ class SimulaeNode:
                 if type(nodes) == type(""):
                     print(f'why is this {nodetype}"nodes" a str?', nodes)
                 elif type(nodes) == type([]):
+                    print(f'why is this {nodetype}"nodes" a list?', nodes)
                     pass # todo AE: resolve SimulaeNode OBJ.Relations is type list
                 else:
                     for node_id, node in nodes.items():

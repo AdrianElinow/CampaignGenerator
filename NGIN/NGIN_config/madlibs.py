@@ -1,41 +1,49 @@
 
 POLICY_SCALE = {
-        "Economy":          ["Communist", "Socialist", "Interventionist", "Indifferent", "Capitalist", "Free-Capitalist","Hyper-Capitalist"],
-        "Liberty":          ["Totalitarian","Authoritarian", "Statist", "Indifferent", "Civil", "Libertarian", "Anarchist"],
-        "Class":            ["Lower-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
-        "Culture":          ["Reactionary", "Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist","Post-Culturalist"],
-        "Diplomacy":        ["Supranationalist", "Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist", "Isolationist"],
-        "Militancy":        ["Warhawk", "Militarist", "Strategic", "Indifferent", "Conflict-Averse", "Diplomatic", "Pacifist"],
-        "Diversity":        ["Ethnocentrist", "Homogenous", "Preservationist", "Indifferent", "Heterogeneous", "Multiculturalist", "Inclusionist"],
-        "Secularity":       ["Atheist", "Apostate", "Secularist", "Indifferent", "Religious", "Devout", "Fundementalist"],
-        "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
-        "Legality":         ["Disregardant", "Arbitrarian", "Pragmatic", "Indifferent", "Regulatory", "Proceduralist", "Legalist"],
-        "Justice":          ["Executionist", "Retributionist", "Punitive", "Indifferent", "Correctivist", "Rehabilitative", "Abolitionist"],
-        "Natural-Balance":  ["Eco-Extremist", "Ecologist", "Naturalist", "Indifferent", "Utilitarian", "Productivist", "Industrialist"],
-        "Government":       ["Democratic", "Republican", "Collectivist", "Indifferent", "Oligarchic", "Autocratic", "Dictatorial"]
-    }
+    "Economy":          ["Communist", "Socialist", "Interventionist", "Indifferent", "Capitalist", "Free-Capitalist","Hyper-Capitalist"],
+    "Liberty":          ["Totalitarian","Authoritarian","Centralized","Indifferent","Liberal","Libertarian","Anarchist"],
+    "Class":            ["Under-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
+    "Culture":          ["Reactionary", "Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist","Post-Culturalist"],
+    "Diplomacy":        ["Supranationalist", "Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist", "Isolationist"],
+    "Militancy":        ["Warhawk","Militarist","Forceful","Indifferent","Conflict-Averse","Nonviolent","Pacifist"],
+    "Diversity":        ["Ethnocentrist","Homogenist","Preservationist","Indifferent","Pluralist","Multiculturalist","Inclusionist"],
+    "Secularity":       ["Atheist", "Apostate", "Secularist", "Indifferent", "Religious", "Devout", "Fundamentalist"],
+    "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
+    "Legality":         ["Lawless","Arbitrary","Pragmatic","Indifferent","Regulatory","Proceduralist","Legalist"],
+    "Justice":          ["Vengeful","Retributive","Punitive","Indifferent","Corrective","Rehabilitative","Abolitionist"],
+    "Natural-Balance":  ["Eco-Absolutist","Ecologist","Conservationist","Indifferent","Utilitarian","Productivist","Industrialist"],
+    "Government":       ["Popular-Democratic", "Democratic", "Repulican", "Indifferent", "Oligarchic", "Autocratic", "Dictatorial"],
+}
 
 PERSONALITY_SCALE = {
     "Loyalty": ["Rebellious", "Subversive", "Independent", "Indifferent", "Conformist", "Loyal", "Zealous"],
     "Ambition": ["Self-Sabotaging", "Apathetic", "Unmotivated", "Steady", "Driven", "Ambitious", "Messianic"],
     "Empathy": ["Sadistic", "Callous", "Apathetic", "Neutral", "Sympathetic", "Empathetic","Altrustic"],
-    "Temperment" : ["Explosive","Aggressive", "Passionate", "Neutral", "Calm", "Stoic", "Cold"],
+    "Emotionality": ["Volatile","Reactive","Intense","Neutral","Calm","Flat","Cold"],
     "Risk": ["Risk-Averse", "Guarded", "Cautious", "Balanced", "Adventurous", "Daring", "Reckless"],
     "Conscience": ["Immoral", "Amoral", "Rational", "Pragmatic", "Ethical", "Idealistic", "Virtuous"],
-    "Curiosity": ["Stubborn", "Indifferent", "Inquisitive", "Curious", "Curious", "Obsessive", "Compulsive"],
-    "Self-Control": ["Impulsive", "Reactive", "Emotional", "Balanced", "Disciplined", "Self-Controlled", "Ascetic"],
+    "Conscientiousness": ["Negligent", "Careless", "Irresponsible", "Neutral", "Reliable", "Conscientious", "Perfectionist"],
+    "Curiosity": ["Closed-Minded", "Indifferent", "Interested", "Curious", "Inquisitive", "Investigative", "Obsessive"],
     "Trust": ["Paranoid", "Distrustful", "Skeptical", "Neutral", "Trusting", "Very Trusting", "Gullible"],
-    #"Confidence": ["Insecure", "Self-Doubting", "Hesitant", "Confident", "Self-Assured", "Arrogant", "Hubristic"], # assertiveness + resilience
     "Resilience": ["Fragile", "Sensitive", "Stressed", "Stable", "Resilient", "Tough", "Unshakeable"],
-    "Optimism": ["Pessimistic", "Cynical", "Realistic", "Neutral", "Hopeful", "Optimistic", "Idealistic"], # resilience + temperment + conscience
     "Assertiveness": ["Passive", "Submissive", "Reserved", "Neutral", "Assertive", "Commanding", "Overbearing"],
-    #"Sincerity": ["Deceptive", "Two-Faced", "Guarded", "Neutral", "Candid", "Honest", "Blunt"], # trust + conscience
-    #"Attachment": ["Avoidant", "Detached", "Cautious", "Neutral", "Loyal", "Clingy", "Obsessive"], # trust + temperment
-    "Diligence": ["Lazy", "Distracted", "Unreliable", "Steady", "Hardworking", "Driven", "Workaholic"],
-    #"Opportunism": ["Innocent", "Honest", "Principled", "Neutral", "Cunning", "Opportunistic", "Exploitative"], # ambition + conscience (inverted)
     "Conflict-Style": ["Avoidant", "Passive-Aggressive", "Diplomatic", "Neutral", "Confrontational", "Aggressive", "Violent"],
     "Humor": ["Dry", "Serious", "Reserved", "Neutral", "Witty", "Joker", "Clownish"],
+    "Adaptability": ["Rigid", "Inflexible", "Cautious", "Neutral", "Flexible", "Adaptive", "Fluid"],
+    "Attachment": ["Avoidant", "Detached", "Reserved", "Neutral", "Affectionate", "Dependent", "Obsessive"],
+    "Cognitive-Style": ["Concrete", "Practical", "Analytical", "Balanced", "Abstract", "Systems-Oriented", "Visionary"],
+    "Cooperativeness": ["Contrarian","Competitive","Hard-Nosed","Neutral","Agreeable","Collaborative","Self-Effacing"],
+    "Social-Energy": ["Reclusive","Withdrawn","Quiet","Neutral","Sociable","Gregarious","Attention-Seeking"],
+}
 
+DERIVATIVES_SCALE = {
+    "Corruptibility": ["+Ambition", "-Loyalty", "+Risk", "-Conscientiousness","-Class"],
+    "Ideological-Rigidity": ["+Loyalty", "+Culture", "+Secularity", "-Curiosity", "-Adaptability","-Cognitive-Style"],
+    "Leadership": ["+Assertiveness", "+Resilience", "-Emotionality", "+Cooperativeness", "+Social-Energy"],
+    "Manipulativeness": ["-Attachment", "-Empathy", "+Ambition"],
+    "Confidence": ["+Assertiveness", "+Resilience", "-Emotionality", "+Risk", "+Adaptability"],
+    "Mercifulness": ["+Empathy", "+Justice", "-Ambition", "-Risk", "+Conscience"],
+    "Cruelty": ["-Empathy", "-Justice", "+Ambition", "+Risk", "-Conscience"]
 }
 
 PRESET_POLICIES = {
@@ -43,7 +51,7 @@ PRESET_POLICIES = {
         "Economy":          ["Communist", "Socialist", "Indifferent", "Capitalist", "Free-Capitalist"],
         "Liberty":          ["Authoritarian", "Statist", "Indifferent", "Libertarian", "Anarchist"],
         "Class":            ["Lower-Class", "Working-Class", "Populist", "Indifferent", "Middle-Class", "Aristocratic", "Plutocratic"],
-        "Technology":       ["Technophobic", "Luddite", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
+        "Technology":       ["Technophobic", "Ludditeive", "Hesitant", "Indifferent", "Modernist", "TechnoOptimist","Transhumanist"],
         "Legality":         ["Arbitrarian", "Pragmatic", "Indifferent", "Proceduralist", "Legalist"],
         "Culture":          ["Traditionalist", "Conservative", "Indifferent", "Progressive", "Accelerationist"],
         "Diplomacy":        ["Globalist", "Diplomatic", "Indifferent", "Patriotic", "Nationalist"],

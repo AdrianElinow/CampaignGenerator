@@ -1,6 +1,16 @@
 # CampaignGenerator
 - Adaptive and Modular Mission Generator for RPG campaign. As a DM resource to dynamically generate new missions given the current game-state
 
+# To start API-server & Client
+
+1. Start the `run_api` script
+2. Start the `start_nginclient` script
+3. Open a browser to the local server page
+
+# To start the terminal client
+
+1. Start the `generate_campaign` script
+
 ## TODO
 1. Implement existing faction generator into main NGIN world-gen
 	* also add better POI and LOC generation
