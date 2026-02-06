@@ -156,7 +156,7 @@ class NGIN():
 
         return loc_map
 
-    def get_simulae_node_by_id(self, nid: str, nodetype: str=None):
+    def get_simulae_node_by_id(self, nid: str, nodetype: str=None) -> SimulaeNode:
 
         if not nid:
             raise ValueError("'nid' cannot be null/empty")
@@ -331,7 +331,6 @@ class NGIN():
     def generate_faction(self):
         debug("generate_faction()")
         
-
         # choose organization subtype
         orgtype = random.choice(FACTION_TYPES)
         
@@ -454,14 +453,14 @@ class NGIN():
         if actor.Nodetype not in SOCIAL_NODE_TYPES:
             return []
 
-        disposition = "Neutral"
+        policy_disposition = "Neutral"
 
         if target.Nodetype in SOCIAL_NODE_TYPES:
             relationship = actor.determine_relation(target)
-            disposition = relationship[DISPOSITION]
+            policy_disposition = relationship[POLICY_DISPOSITION]
 
         if not is_adjacent_loc:
-            actions = NGIN_MISSIONS[disposition][target.Nodetype]
+            actions = NGIN_MISSIONS[policy_disposition][target.Nodetype]
         else:
             actions = [['Travel','Overt']]
 

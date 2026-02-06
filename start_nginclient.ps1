@@ -1,1 +1,2 @@
-python3 .\NGINClient\app.py
+cd NGINClient
+npm run dev

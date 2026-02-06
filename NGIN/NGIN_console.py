@@ -33,14 +33,14 @@ class NGIN_console(NGIN):
 
         ''' 
 
-    def choose_mission(self):
+    def choose_mission(self, actor_node: SimulaeNode, num_opts: int) -> tuple:
         print('choose_mission(..)')
 
         # compile list of available interactable nodes
 
         # pick from list
 
-        return subject, mission
+        return (None, None) # subject, mission
 
 
     def start(self):
