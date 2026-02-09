@@ -2,6 +2,7 @@ from enum import Enum
 
 from .SimulaeNode import *
 
+STATUS_THRESHOLDS = "status_thresholds"
 THREAT = "threat"
 HUNGER = "hunger"
 THIRST = "thirst"
@@ -12,10 +13,16 @@ TEMPERATURE = "temperature"
 COLD = "cold"
 HOT = "hot"
 EXHAUSTION = "exhaustion"
-SOCIALIZE = "socialize"
+LONELINESS = "loneliness"
+LOW = "low"
+HIGH = "high"
+MINIMUM = "min"
+MAXIMUM = "max"
+VALUE = "value"
 
-STATUS_ATTRIBUTES = [HUNGER, THIRST, SLEEP, SICK, TEMPERATURE, HOT, COLD, EXHAUSTION, SOCIALIZE]
+STATUS_ATTRIBUTES = [HUNGER, THIRST, HOT, COLD, EXHAUSTION, LONELINESS, SICK]
 
+PRIORITY_MODIFIERS = "priority_modifiers"
 CRITICAL_PRIORITY = "critical_priority"
 HIGH_PRIORITY = "high_priority"
 MEDIUM_PRIORITY = "medium_priority"
@@ -32,7 +39,7 @@ class Action(Enum):
     SEARCH = 6
     INTERACT = 7
 
-class Task():
+class TaskPlan():
     def __init__(self, target, action, pre_actions=None, post_actions=None):
         self.target = target
         self.action = action
@@ -86,44 +93,77 @@ class Task():
 class NGIN_Simulae_Actor(SimulaeNode):
 
     def __init__(self, simulae_node):
-        self.SimulaeNode = simulae_node
-
-        self.ID = simulae_node.ID
-        self.Nodetype = simulae_node.Nodetype
-        self.References = simulae_node.References
-        self.Attributes = simulae_node.Attributes
-        self.Relations = simulae_node.Relations
-        self.Checks = simulae_node.Checks
-        self.Abilities = simulae_node.Abilities
-        self.Status = simulae_node.Status
+        super().__init__(simulae_node)
+        self.SimulaeNode: SimulaeNode = simulae_node
 
         self.inventory = {}
 
-        self.priorities = []
+        self.priorities: list = []
         self.plans = {}
 
         self.tasks = { priority:[] for priority in TASK_PRIORITIES}
 
-        self.status_thresholds = {
-            THREAT: 50,
-            HUNGER: 80,
-            THIRST: 70,
-            EXHAUSTION: 90,
-            SICK: 60,
-            COLD: 40,
-            HOT: 80,
-            SOCIALIZE: 20
+        self.Attributes[STATUS_THRESHOLDS] = {
+            THREAT: {
+                MINIMUM: 10,
+                LOW: 20,
+                VALUE: 0,
+                HIGH: 80,
+                MAXIMUM: 90
+            },
+            HUNGER: {
+                MINIMUM: 10,
+                LOW: 20,
+                VALUE: 0,
+                HIGH: 80,
+                MAXIMUM: 90
+            },
+            THIRST: {
+                MINIMUM: 10,
+                LOW: 20,
+                VALUE: 0,
+                HIGH: 80,
+                MAXIMUM: 90
+            },
+            EXHAUSTION: {
+                MINIMUM: 10,
+                LOW: 20,
+                VALUE: 0,
+                HIGH: 80,
+                MAXIMUM: 90
+            },
+            SICK: {
+                MINIMUM: 10,
+                LOW: 20,
+                VALUE: 0,
+                HIGH: 80,
+                MAXIMUM: 90
+            },
+            TEMPERATURE: {
+                MINIMUM: 10,
+                LOW: 20,
+                VALUE: 50,
+                HIGH: 80,
+                MAXIMUM: 90
+            },
+            LONELINESS: {
+                MINIMUM: 10,
+                LOW: 20,
+                VALUE: 0,
+                HIGH: 80,
+                MAXIMUM: 90
+            }
         }
 
         self.priority_modifiers = {
             THREAT: 10,
             THIRST: 9,
             HUNGER: 8,
+            SICK: 7,
             EXHAUSTION: 6,
             HOT: 5,
             COLD: 5,
-            SICK: 7,
-            SOCIALIZE: 4,
+            LONELINESS: 4,
             CRITICAL_PRIORITY: 10,
             HIGH_PRIORITY: 8,
             MEDIUM_PRIORITY: 7,
@@ -131,7 +171,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         }
 
     def plan(self):
-        #print('planning...')
+        logDebug('plan()')
 
         if not self.priorities:
             self.prioritize()
@@ -139,20 +179,22 @@ class NGIN_Simulae_Actor(SimulaeNode):
         plans = {}
 
         for goal in self.priorities:
+            logDebug('Planning for goal:', goal)
+
             priority, task = goal
 
             plan = self.plan_task(task)
 
             if plan:
                 plans[task] = plan
-                #print('Plan ->',plan)
                 continue
             
-            #print('no plan for',task)
+            logDebug('no plan for',task)
         
         self.plans = plans
         
-    def plan_task(self, task) -> Task:
+    def plan_task(self, task: str) -> TaskPlan:
+        logDebug('plan_task(',task,')')
 
         if task in STATUS_ATTRIBUTES:
             return self.plan_status_task(task)
@@ -163,6 +205,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
             return task
 
     def plan_status_task(self, task):
+        logDebug('plan_status_task(',task,')')
 
         if task in STATUS_ATTRIBUTES:
             
@@ -170,29 +213,28 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
             if task == HUNGER:
                 acquisition = self.acquire(SimulaeNode(given_id='food', nodetype=OBJ))
-                return Task('food',Action.USE,acquisition)
+                return TaskPlan('food',Action.USE,acquisition)
             elif task == THIRST:
                 acquisition = self.acquire(SimulaeNode(given_id='drink', nodetype=OBJ))
-                return Task('drink',Action.USE,acquisition)
+                return TaskPlan('drink',Action.USE,acquisition)
             elif task == SLEEP:
                 acquisition = self.acquire(SimulaeNode(given_id='bed', nodetype=OBJ))
-                return Task('bed',Action.USE,acquisition)
+                return TaskPlan('bed',Action.USE,acquisition)
             elif task == SICK:
                 acquisition = self.acquire(SimulaeNode(given_id='medicine', nodetype=OBJ))
-                return Task('medicine',Action.USE,acquisition)
-            elif task == HOT:
-                return None
-            elif task == COLD:
-                return None
-            elif task == SOCIALIZE:
-                return Task('friend',Action.INTERACT,[Action.SEARCH])
+                return TaskPlan('medicine',Action.USE,acquisition)
+            elif task == LONELINESS:
+                return TaskPlan('friend',Action.INTERACT,[Action.SEARCH])
 
         return self.acquire_vague_target(task)
 
     def plan_threat_reaction(self):
+        logDebug('plan_threat_reaction()')
+
         return None
 
     def act_next(self, prioritized=False):
+        logDebug('act_next(',prioritized,')')
 
         if not self.priorities:
             if prioritized:
@@ -227,7 +269,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
             self.act(plan)
 
-    def act(self, plan: Task):
+    def act(self, plan: TaskPlan):
         ''' TODO AE : flesh this out '''
 
         next_action = plan.next_action()
@@ -251,7 +293,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
 
     def prioritize(self):
-        
+        logDebug('prioritize()')
         ''' Prioritize actions based on current needs '''
         ''' Follow rough Maslow's hierarchy of needs '''
 
@@ -271,7 +313,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         if self.is_dehydrated():
             self.priorities.append((self.priority_modifiers[THIRST], THIRST))
         if self.is_exhausted():
-            self.priorities.append((self.priority_modifiers[SLEEP], SLEEP))
+            self.priorities.append((self.priority_modifiers[EXHAUSTION], EXHAUSTION))
         if self.is_overheated():
             self.priorities.append((self.priority_modifiers[HOT], HOT))
         if self.is_freezing():
@@ -279,7 +321,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         if self.is_ill():
             self.priorities.append((self.priority_modifiers[SICK], SICK))
         if self.is_lonely():
-            self.priorities.append((self.priority_modifiers[SOCIALIZE], SOCIALIZE))
+            self.priorities.append((self.priority_modifiers[LONELINESS], LONELINESS))
 
         # Also handle tasks by priority level
 
@@ -295,43 +337,64 @@ class NGIN_Simulae_Actor(SimulaeNode):
     
     def is_starving(self):
         hunger = self.get_attribute(HUNGER)
-        if hunger and hunger >= self.status_thresholds[HUNGER]:
+        hunger_threshold = self.get_status_threshold(HUNGER, HIGH)
+        if hunger and hunger_threshold and hunger >= hunger_threshold:
             return True
         return False 
     
     def is_dehydrated(self):
         thirst = self.get_attribute(THIRST)
-        if thirst and thirst >= self.status_thresholds[THIRST]:
+        thirst_threshold = self.get_status_threshold(THIRST, HIGH)
+        if thirst and thirst_threshold and thirst >= thirst_threshold:
             return True
         return False
     
     def is_exhausted(self):
         exhaustion = self.get_attribute(EXHAUSTION)
-        if exhaustion and exhaustion >= self.status_thresholds[EXHAUSTION]:
+        exhaustion_threshold = self.get_status_threshold(EXHAUSTION, HIGH)
+        if exhaustion and exhaustion_threshold and exhaustion >= exhaustion_threshold:
+            return True
+        return False
+    
+    def is_hot(self):
+        temp = self.get_attribute(TEMPERATURE)
+        temp_threshold = self.get_status_threshold(TEMPERATURE, HIGH)
+        if temp and temp_threshold and temp >= temp_threshold:
             return True
         return False
     
     def is_overheated(self):
         temp = self.get_attribute(TEMPERATURE)
-        if temp and temp >= self.status_thresholds[HOT]:
+        temp_threshold = self.get_status_threshold(TEMPERATURE, MAXIMUM)
+        if temp and temp_threshold and temp >= temp_threshold:
             return True
         return False
     
+    def is_cold(self):
+        temp = self.get_attribute(TEMPERATURE)
+        temp_threshold = self.get_status_threshold(TEMPERATURE, LOW)
+        if temp and temp_threshold and temp <= temp_threshold:
+            return True
+        return False
+
     def is_freezing(self):
         temp = self.get_attribute(TEMPERATURE)
-        if temp and temp <= self.status_thresholds[COLD]:
+        temp_threshold = self.get_status_threshold(TEMPERATURE, MINIMUM)
+        if temp and temp_threshold and temp <= temp_threshold:
             return True
         return False
     
     def is_ill(self):
         sick = self.get_attribute(SICK)
-        if sick and sick > self.status_thresholds[SICK]:
+        sick_threshold = self.get_status_threshold(SICK, LOW)
+        if sick and sick_threshold and sick >= sick_threshold:
             return True
         return False
     
     def is_lonely(self): 
-        social = self.get_attribute(SOCIALIZE)
-        if social and social < self.status_thresholds[SOCIALIZE]:
+        loneliness = self.get_attribute(LONELINESS)
+        loneliness_threshold = self.get_status_threshold(LONELINESS, LOW)
+        if loneliness and loneliness_threshold and loneliness >= loneliness_threshold:
             return True
         return False
     
@@ -344,9 +407,18 @@ class NGIN_Simulae_Actor(SimulaeNode):
     def get_recipe(self, target):
         return 'workstation', ['component1','component2'] # todo AE: implement
     
-    def get_attribute(self, attr):
-        return self.SimulaeNode.get_attribute(attr)
+    def get_status_threshold(self, threshold: str, subkey: str = None) -> int | float | None:
+        logDebug("get_status_threshold(",threshold,", ",subkey,")")
 
+        thresholds = self.get_attribute(STATUS_THRESHOLDS)
+
+        if thresholds and threshold in thresholds:
+            if subkey and subkey in thresholds[threshold]:
+                return thresholds[threshold][subkey]
+            elif not subkey:
+                return thresholds[threshold]
+
+        return None
 
     def has_vague(self, target):
         return False
@@ -381,7 +453,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         if optimum_option:
             actions = heuristics[optimum_option][1]
 
-            return Task(target, actions)
+            return TaskPlan(target, actions)
 
         return None
     
@@ -553,7 +625,7 @@ def generate_individual(location=None):
         individual.set_attribute(EXHAUSTION, 0)
         individual.set_attribute(SICK, 0)
         individual.set_attribute(TEMPERATURE, 0)
-        individual.set_attribute(SOCIALIZE, 0)
+        individual.set_attribute(LONELINESS, 0)
         individual.set_attribute(EXHAUSTION, 0)
 
         if location:

@@ -6,21 +6,44 @@ import uuid
 from pprint import pprint
 from typing import *
 
+class DEBUG_LEVEL(Enum):
+    ''' DEBUG level '''
+    ERROR = 0
+    WARNING = 1
+    DEBUG = 2
+    INFO = 3
+    # ...
+    ALL = 4
+    
 DEBUG = False
+DEBUG_LEVEL = DEBUG_LEVEL.WARNING
 
 MAX_ADJACENT_LOCATIONS = 6
 WORLD_GEN_STICKINESS = 0.4
 WORLD_GEN_SUBLOCATION_CHANCE = 0.3
 WORLD_GEN_POPULATION_GROUP_CHANCE = 0.25
 
+def logInfo(*args):
+    log(*args, newline=True, level=DEBUG_LEVEL.ALL)
 
+def logDebug(*args):
+    log(*args, newline=True, level=DEBUG_LEVEL.DEBUG)
 
-def debug(*args):
+def logError(*args):
+    log(*args, newline=True, level=DEBUG_LEVEL.ERROR)
+
+def logWarning(*args):
+    log(*args, newline=True, level=DEBUG_LEVEL.WARNING)
+
+def log(*args, newline=True, level: DEBUG_LEVEL = DEBUG_LEVEL.ALL):
     if not DEBUG:
+        return
+    
+    if level.value > DEBUG_LEVEL.value:
         return
 
     for msg in args:
-        print(f"[DEBUG] {msg}")
+        print(f"[DEBUG] {msg}", end='\n' if newline else '')
 
 
 def save_json_to_file( filename: str, data:dict, filepath : str =None, pretty: bool =False):
@@ -177,7 +200,7 @@ def prompt_mission( options ):
                                 e = options[int(e)]
                                 selected.append(e)
                             except ValueError as ve:
-                                debug(ve)
+                                log(ve)
                         else:
                             selected.append(e)
                     
@@ -189,8 +212,8 @@ def prompt_mission( options ):
                         print("Invalid")
 
                 if entry not in options:
-                    debug(options)
-                    debug(entry, int(entry))
+                    log(options)
+                    log(entry, int(entry))
 
                     entry = options[int(entry)] # try to interpret as numeric choice
 
@@ -199,11 +222,11 @@ def prompt_mission( options ):
                         print('Invalid')
         
         except ValueError as ve: # handle numeric choice conversion error
-            debug(ve)
+            log(ve)
             entry = None
             print('Invalid')
         except KeyboardInterrupt as ki:
-            debug(ki)
+            log(ki)
             sys.exit(0)
 
     return entry
@@ -246,7 +269,7 @@ def robust_str_entry(prompt, options=[]):
     '''  '''
 
     if type(options) == type({}):
-        debug("Converting dict keys to list of options")
+        log("Converting dict keys to list of options")
         options = list(options.keys())
 
     entry = ""
@@ -271,7 +294,7 @@ def robust_str_entry(prompt, options=[]):
                                 e = options[int(e)]
                                 selected.append(e)
                             except ValueError as ve:
-                                debug(ve)
+                                log(ve)
                         else:
                             selected.append(e)
                     
@@ -283,8 +306,8 @@ def robust_str_entry(prompt, options=[]):
                         print("Invalid")
 
                 if entry not in options:
-                    debug(options)
-                    debug(entry, int(entry))
+                    log(options)
+                    log(entry, int(entry))
 
                     entry = options[int(entry)] # try to interpret as numeric choice
 
@@ -293,11 +316,11 @@ def robust_str_entry(prompt, options=[]):
                         print('Invalid')
         
         except ValueError as ve: # handle numeric choice conversion error
-            debug(ve)
+            log(ve)
             entry = None
             print('Invalid')
         except KeyboardInterrupt as ki:
-            debug(ki)
+            log(ki)
             sys.exit(0)
 
     return entry

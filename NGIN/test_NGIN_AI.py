@@ -21,7 +21,7 @@ class Test_NGINAI(unittest.TestCase):
 
         self.actor.prioritize()
 
-        #print("Priorities: ",self.actor.priorities)
+        print("Priorities: ",self.actor.priorities)
 
         self.actor.plan()
 
@@ -36,7 +36,7 @@ class Test_NGINAI(unittest.TestCase):
             if self.actor.priorities:
                 completed_action = self.actor.act_next()
                 if completed_action:
-                    #print("Completed action:", completed_action)
+                    print("Completed action:", completed_action)
                     self.actor.plan()
 
         print("test_NGIN_AI_plan_populated:", "PASS")
@@ -47,8 +47,6 @@ def actor_tick_test(actor):
     for attr in actor.SimulaeNode.Attributes:
         if attr in STATUS_ATTRIBUTES:
             actor.SimulaeNode.Attributes[attr] += 1
-
-
 
 if __name__ == '__main__':
     unittest.main()

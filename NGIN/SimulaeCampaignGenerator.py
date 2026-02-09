@@ -171,7 +171,7 @@ class NGIN():
             return self.state.Relations[nodetype][nid]
 
     def get_simulae_nodes_by_reference(self, reference_key: str, reference_value: str =None ,nodetype: str=None):
-        debug(f"get_simulae_nodes_by_reference( reference_key: {reference_key}, reference_value: {reference_value}, nodetype: {nodetype} )")
+        logDebug(f"get_simulae_nodes_by_reference( reference_key: {reference_key}, reference_value: {reference_value}, nodetype: {nodetype} )")
 
         if nodetype:
             # return all nodes with reference to reference_key (and if provided a reference_value, must also have that value associated with the key)
@@ -287,7 +287,7 @@ class NGIN():
         lo, hi = int(self.settings['groups'][group_size][0]), int(self.settings['groups'][group_size][1])
         num_individuals = random.randrange(lo, hi)
 
-        debug(f"Generating group of size {num_individuals}")
+        logDebug(f"Generating group of size {num_individuals}")
 
         group = []
         for i in range(num_individuals):
@@ -314,7 +314,7 @@ class NGIN():
         return individual
 
     def add_node(self, node):
-        debug(f"add_node({node.summary()})")
+        logDebug(f"add_node({node.summary()})")
 
         self.state.Relations[node.Nodetype][node.ID] = node
 
@@ -329,7 +329,7 @@ class NGIN():
 
 
     def generate_faction(self):
-        debug("generate_faction()")
+        logDebug("generate_faction()")
         
         # choose organization subtype
         orgtype = random.choice(FACTION_TYPES)
@@ -512,16 +512,16 @@ class NGIN():
         target, m = mission
         action, liminality = m
 
-        debug(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
+        logDebug(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
 
 
     def resolve_action(self, actor, mission):
-        debug("resolve_action(",actor,mission,")")
+        logDebug("resolve_action(",actor,mission,")")
         
         target, m = mission
         action, liminality = m
 
-        debug(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
+        logDebug(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
 
         if target.Nodetype in SOCIAL_NODE_TYPES:
             
