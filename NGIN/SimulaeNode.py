@@ -94,11 +94,10 @@ class SimulaeNode:
 
             personality = self.describe_personality()
 
-            description = "{0}, A {1} year old {2}. Located at {3}\n--- ASSOCIATIONS ---\n{4}\n--- PERSONALITY ---\n{5}\n--- POLITICAL BELIEFS ---\n{6}".format(
+            description = "{0}, A {1} year old {2}\n--- ASSOCIATIONS ---\n{3}\n--- PERSONALITY ---\n{4}\n--- POLITICAL BELIEFS ---\n{5}".format(
                 self.get_reference(NAME),
                 self.get_attribute("Age"),
                 self.get_reference("Gender"),
-                self.get_reference(LOC),
                 associations,
                 personality,
                 policies)

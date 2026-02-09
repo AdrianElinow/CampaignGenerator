@@ -47,7 +47,6 @@ class NGIN():
             logWarning('No world data... generating...')
             self.generate_new_world()
 
-
         self.print_location_map()
 
     def start(self):
@@ -75,9 +74,8 @@ class NGIN():
 
         actor = self.get_simulae_node_by_id(self.select_actor(randomized=True), POI)
 
-
-        logInfo("You are -> ",actor)
-        logInfo(actor.get_description())
+        print("You are -> ",actor)
+        print(actor.get_description())
 
         while True:
 
@@ -106,7 +104,7 @@ class NGIN():
             raise Exception("No POI nodes to select from...")
 
         if not randomized:
-            logInfo("Select actor node: (Choose your character)")
+            print("Select actor node: (Choose your character)")
             selected_node = user_choice( user_options=list(options.keys()), random_opt=True )
         else:
             selected_node = random.choice(list(options.keys()))
@@ -146,11 +144,11 @@ class NGIN():
 
         for loc_id, loc_node in locations.items():
             
-            logInfo(f"{loc_node.Nodetype} {loc_node.References[NAME]}")
+            print(f"{loc_node.Nodetype} {loc_node.References[NAME]}")
             loc_map[loc_id] = loc_node.get_adjacent_locations()
 
             for adj_id in loc_map[loc_id]:
-                logInfo(f"\tLOC {locations[adj_id]}")
+                print(f"\tLOC {locations[adj_id]}")
 
         return loc_map
 
@@ -476,7 +474,7 @@ class NGIN():
             while not selected_target:
                 for idx, action in enumerate(actions):
                     target, options, note = action
-                    logInfo(f"{idx:3} | [{note:^16}] |{target} ")
+                    print(f"{idx:3} | [{note:^16}] |{target} ")
 
                 selection_idx = robust_int_entry("Select Target > ", 0, len(actions))
                 selected_target = actions[selection_idx]
@@ -484,12 +482,12 @@ class NGIN():
             t, options, note = selected_target
 
             # display description of target
-            logInfo(f"you are {actor.get_relation(actor)['Disposition']} towards {t.get_description()}")
+            print(f"you are {actor.get_relation(actor)['Disposition']} towards {t.get_description()}")
 
             if len(options) > 1:
 
                 for idx, opt in enumerate(options):
-                    logInfo(f"{idx:3} | ({opt[1]:^9}) {opt[0]}")
+                    print(f"{idx:3} | ({opt[1]:^9}) {opt[0]}")
 
                 selection_idx = robust_int_entry("Select Action (or '-1' to revert to target selection) > ",-1,len(options))
 
@@ -776,9 +774,6 @@ def main():
     finally:
         logInfo('saving...')
         ngin.save_to_file("save_file.json")
-
-
-from .NGIN_console import *
 
 
 if __name__ == '__main__':
