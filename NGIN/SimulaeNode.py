@@ -93,12 +93,15 @@ class SimulaeNode:
 
             policies = self.describe_political_beliefs()
 
-            description = "{0}, A {1} year old {2} {3}. Located at {4}. {5}. {6}".format(self.get_reference(NAME),
+            personality = self.describe_personality()
+
+            description = "{0}, A {1} year old {2}. Located at {3}\n--- ASSOCIATIONS ---\n{4}\n--- PERSONALITY ---\n{5}\n--- POLITICAL BELIEFS ---\n{6}".format(
+                self.get_reference(NAME),
                 self.get_attribute("Age"),
-                self.get_reference("Race"),
                 self.get_reference("Gender"),
                 self.get_reference(LOC),
                 associations,
+                personality,
                 policies)
 
         return description
@@ -158,7 +161,7 @@ class SimulaeNode:
         return knows_about
 
 
-    def get_reference(self, key: str):
+    def get_reference(self, key: str) -> str | None:
         logDebug("get_reference(",key,")")
         
         if key in self.References:
@@ -224,19 +227,26 @@ class SimulaeNode:
                     policy_diff = self.policy_diff( node.References[POLICY] )
 
                     relationship = {
-                        NODETYPE:node.Nodetype,
-                        STATUS:"new",
-                        POLICY:policy_diff,
-                        REPUTATION:[0,0],
-                        INTERACTIONS:0,
-                        POLICY_DISPOSITION:self.get_policy_disposition(policy_diff[0])
+                        NODETYPE : node.Nodetype,
+                        STATUS : "new",
+                        POLICY : policy_diff,
+                        REPUTATION : [0,0],
+                        INTERACTIONS : 0,
+                        POLICY_DISPOSITION : self.get_policy_disposition(policy_diff[0]),
                     }
+
+                    if node.Nodetype is POI:
+                        social_diff = self.social_diff( node.References[PERSONALITY] )
+                        relationship[SOCIAL_DISPOSITION] = self.get_social_disposition( social_diff[0] )
 
                     if interaction != None:
                         
                         if interaction == "Join":
                             relationship[REPUTATION][0] += 10
                             relationship[STATUS] = "Member"
+                        
+                        else:
+                            logWarning("Unhandled interaction type: ",interaction)
 
                     return relationship
 
@@ -437,11 +447,11 @@ class SimulaeNode:
         diff = 0
 
         for key, value in self.References[PERSONALITY].items():
-            personality_value = value
+            personality_value_index, personality_value_strength = value
 
-            cmp_personality_value = compare_personality[key]
-                        
-            delta = abs( personality_value - cmp_personality_value )       
+            cmp_personality_value_index, cmp_personality_value_strength = compare_personality[key]
+    
+            delta = abs( personality_value_index - cmp_personality_value_index )       
 
             # TODO AE: Move descriptions to config
             descr = [ "Similar", "Somewhat Similar", "Neutral", "Somewhat Different", "Different",  "Very Different", "Opposed" ][delta]
@@ -466,9 +476,7 @@ class SimulaeNode:
     def describe_political_beliefs(self):
         logDebug("describe_political_beliefs()")
 
-        summary = """
-> Political Beliefs:
-"""
+        summary = ""
 
         if POLICY not in self.References:
             return ""
@@ -486,15 +494,35 @@ class SimulaeNode:
 
             stance_descr = POLICY_SCALE[policy][stance_index]
 
-            summary += f"""{descr} {stance_descr}.
-"""
+            summary += f"{policy:<18} | {descr} {stance_descr}\n"
 
+        return summary
+    
+    def describe_personality(self):
+        logDebug("describe_personality()")
+
+        if PERSONALITY not in self.References:
+            return ""
+        
+        summary = ""
+
+        personality = self.References[PERSONALITY]
+
+        for trait, (trait_index, strength) in personality.items():
+            if trait not in PERSONALITY_SCALE:
+                continue
+
+            descr = PERSONALITY_TRAIT_STRENGTH_DESCRIPTORS[strength-1]
+
+            trait_descr = PERSONALITY_SCALE[trait][trait_index]
+
+            summary += f"""{trait:<18} | {descr} {trait_descr}\n"""
         return summary
 
     def describe_faction_associations(self):
         logDebug("describe_faction_associations()")
 
-        summary = "Associations: "
+        summary = ""
 
         for sid, relationship in self.Relations[FAC].items():
 
@@ -637,52 +665,90 @@ def generate_person_simulae_node(node_name=None):
     
     person = generate_simulae_node(POI, node_name)
 
-    person.set_attribute("Age", random_bell_curve_value(6, 80, 30, 0.15)) # age
-    person.set_reference("Gender", random.choice(["Male","Female"]))
-    person.set_reference("Race", random.choice(["White", "Black", "Asian", "Hispanic", "Middle-Eastern", "Native American", "South Asian"]))
+    person.set_attribute("Age", int(random_bell_curve_value(
+        min_val=6, 
+        max_val=80, 
+        average=30, 
+        std_dev=15))) # age
+
+    gender = random.choice(["Male","Female"])
+    person.set_reference("Gender", gender)
+    #person.set_reference("Race", random.choice(["White", "Black", "Asian", "Hispanic", "Middle-Eastern", "Native American", "South Asian"]))
 
     # generate height & weight
-    total_height = random_bell_curve_value(0.9, 2.5, 1.75, 0.15) # meters
-    total_weight = random_bell_curve_value(50, 120, 75, 0.15) # kg
+    total_height = random_bell_curve_value(
+        min_val = HUMAN_BODY_METRICS[(gender.lower())]["height"]["min"], 
+        max_val = HUMAN_BODY_METRICS[(gender.lower())]["height"]["max"],
+        average = HUMAN_BODY_METRICS[(gender.lower())]["height"]["avg"],
+        std_dev = HUMAN_BODY_METRICS[(gender.lower())]["height"]["stddev"]) # meters
 
-    leg_height = total_height * .45
-    torso_height = total_height * .35
-    head_height = total_height * .15
-    feet_height = total_height * .05
+    total_weight = random_bell_curve_value(
+        min_val = HUMAN_BODY_METRICS[(gender.lower())]["weight"]["min"], 
+        max_val = HUMAN_BODY_METRICS[(gender.lower())]["weight"]["max"],
+        average = HUMAN_BODY_METRICS[(gender.lower())]["weight"]["avg"],
+        std_dev = HUMAN_BODY_METRICS[(gender.lower())]["weight"]["stddev"]) # meters
 
-    head_weight = total_weight * .08        # 7%
-    leg_weight = total_weight * .175        # 35%
-    torso_weight = total_weight * .5        # 40%
-    arm_weight = total_weight * .075        # 15%
-    hand_weight = total_weight * .005       # 1%
-    foot_weight = total_weight * .01        # 2%  
+    person.set_attribute("Height", round(total_height, 2))
+    person.set_attribute("Weight", round(total_weight, 2))
+
+    head, torso, left_arm, right_arm, left_leg, right_leg = generate_person_body(
+        gender=gender,
+        age=person.get_attribute("Age"),
+        height=total_height,
+        weight=total_weight,
+        complete=True)
+    
+    person.Relations[COMPONENTS][OBJ][torso.ID] = torso
+    person.Relations[COMPONENTS][OBJ][left_arm.ID] = left_arm
+    person.Relations[COMPONENTS][OBJ][right_arm.ID] = right_arm
+    person.Relations[COMPONENTS][OBJ][left_leg.ID] = left_leg
+    person.Relations[COMPONENTS][OBJ][right_leg.ID] = right_leg
+    person.Relations[COMPONENTS][OBJ][head.ID] = head
+
+    return person
+
+def generate_person_body(gender: str, age: int, height: float, weight: float, complete: bool = True):
+    logDebug("generate_person_body()")
+
+    leg_height = height * HUMAN_BODY_METRICS["limbs"]["leg_height"]
+    torso_height = height * HUMAN_BODY_METRICS["limbs"]["torso_height"]
+    head_height = height * HUMAN_BODY_METRICS["limbs"]["head_height"]
+    #feet_height = total_height * HUMAN_BODY_METRICS["limbs"]["foot_height"]
+    arm_height = height * HUMAN_BODY_METRICS["limbs"]["arm_height"]
+
+    head_weight = weight * HUMAN_BODY_METRICS["limbs"]["head_height"]        # 7%
+    leg_weight = weight * HUMAN_BODY_METRICS["limbs"]["leg_height"]        # 35%
+    torso_weight = weight * HUMAN_BODY_METRICS["limbs"]["torso_height"]        # 40%
+    arm_weight = weight * HUMAN_BODY_METRICS["limbs"]["arm_height"]        # 15%
+    hand_weight = weight * HUMAN_BODY_METRICS["limbs"]["hand_weight"]       # 1%
+    foot_weight = weight * HUMAN_BODY_METRICS["limbs"]["foot_height"]        # 2%  
 
     # add standard things like limbs and organs
 
-    torso = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Torso" }, attributes={"height": torso_height, "weight": torso_weight} )
-    skull = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Skull" } )
-    left_arm = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Left Arm" }, attributes={"height": arm_weight, "weight": arm_weight} )
-    right_arm = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Right Arm" }, attributes={"height": arm_weight, "weight": arm_weight} )
-    left_leg = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Left Leg" }, attributes={"height": leg_height, "weight": leg_weight} )
-    right_leg = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Right Leg" }, attributes={"height": leg_height, "weight": leg_weight} )
-    left_hand = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Left Hand" }, attributes={"height": hand_weight, "weight": hand_weight} )
-    right_hand = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Right Hand" }, attributes={"height": hand_weight, "weight": hand_weight} )
-    head = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Head" }, attributes={"height": head_height, "weight": head_weight} )
+    torso = SimulaeNode( nodetype=OBJ, references={ NAME:"Torso" }, attributes={"height": torso_height, "weight": torso_weight} )
+    skull = SimulaeNode( nodetype=OBJ, references={ NAME:"Skull" } )
+    left_arm = SimulaeNode( nodetype=OBJ, references={ NAME:"Left Arm" }, attributes={"height": arm_height, "weight": arm_weight} )
+    right_arm = SimulaeNode( nodetype=OBJ, references={ NAME:"Right Arm" }, attributes={"height": arm_height, "weight": arm_weight} )
+    left_leg = SimulaeNode( nodetype=OBJ, references={ NAME:"Left Leg" }, attributes={"height": leg_height, "weight": leg_weight} )
+    right_leg = SimulaeNode( nodetype=OBJ, references={ NAME:"Right Leg" }, attributes={"height": leg_height, "weight": leg_weight} )
+    left_hand = SimulaeNode( nodetype=OBJ, references={ NAME:"Left Hand" }, attributes={"weight": hand_weight} )
+    right_hand = SimulaeNode( nodetype=OBJ, references={ NAME:"Right Hand" }, attributes={"weight": hand_weight} )
+    head = SimulaeNode( nodetype=OBJ, references={ NAME:"Head" }, attributes={"height": head_height, "weight": head_weight} )
 
     # add organs
-    heart = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Heart" } )
-    lungs = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Lungs" } )
-    brain = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Brain" } )
-    liver = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Liver" } )
-    kidneys = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Kidneys" } )
-    stomach = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Stomach" } )
-    intestines = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Intestines" } )
-    eyes = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Eyes" } )
-    ears = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Ears" } )
-    nose = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Nose" } )
-    mouth = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Mouth" } )
-    hair = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Hair" } )
-    teeth = SimulaeNode( nodetype=OBJ, references={ "owner":person.ID, NAME:"Teeth" } )
+    heart = SimulaeNode( nodetype=OBJ, references={ NAME:"Heart" } )
+    lungs = SimulaeNode( nodetype=OBJ, references={ NAME:"Lungs" } )
+    brain = SimulaeNode( nodetype=OBJ, references={ NAME:"Brain" } )
+    liver = SimulaeNode( nodetype=OBJ, references={ NAME:"Liver" } )
+    kidneys = SimulaeNode( nodetype=OBJ, references={ NAME:"Kidneys" } )
+    stomach = SimulaeNode( nodetype=OBJ, references={ NAME:"Stomach" } )
+    intestines = SimulaeNode( nodetype=OBJ, references={ NAME:"Intestines" } )
+    eyes = SimulaeNode( nodetype=OBJ, references={ NAME:"Eyes" } )
+    ears = SimulaeNode( nodetype=OBJ, references={ NAME:"Ears" } )
+    nose = SimulaeNode( nodetype=OBJ, references={ NAME:"Nose" } )
+    mouth = SimulaeNode( nodetype=OBJ, references={ NAME:"Mouth" } )
+    hair = SimulaeNode( nodetype=OBJ, references={ NAME:"Hair" } )
+    teeth = SimulaeNode( nodetype=OBJ, references={ NAME:"Teeth" } )
 
     torso.Relations[CONTENTS][OBJ][heart.ID] = heart
     torso.Relations[CONTENTS][OBJ][lungs.ID] = lungs
@@ -703,19 +769,12 @@ def generate_person_simulae_node(node_name=None):
     head.Relations[CONTENTS][OBJ][teeth.ID] = teeth
 
     left_arm.Relations[COMPONENTS][OBJ][left_hand.ID] = left_hand
-    right_arm.Relations[COMPONENTS][OBJ][right_hand.ID] = right_hand 
-    
-    person.Relations[COMPONENTS][OBJ][torso.ID] = torso
-    person.Relations[COMPONENTS][OBJ][left_arm.ID] = left_arm
-    person.Relations[COMPONENTS][OBJ][right_arm.ID] = right_arm
-    person.Relations[COMPONENTS][OBJ][left_leg.ID] = left_leg
-    person.Relations[COMPONENTS][OBJ][right_leg.ID] = right_leg
-    person.Relations[COMPONENTS][OBJ][head.ID] = head
+    right_arm.Relations[COMPONENTS][OBJ][right_hand.ID] = right_hand
 
-    return person
+    return head, torso, left_arm, right_arm, left_leg, right_leg
 
 
-def get_bellcurve_value_for_scale(scale_list: list, std_deviation_frac: float = 0.3) -> int:
+def get_bellcurve_value_for_scale(scale_list: list, std_dev: float, std_deviation_frac: float = 0.3) -> int:
     logDebug("get_bellcurve_value_for_scale(",scale_list,")")
     ''' get_bellcurve_value_for_scale(scale_list) returns an index into the given scale_list
         using a bell curve distribution centered on the middle of the scale_list
@@ -732,12 +791,12 @@ def get_bellcurve_value_for_scale(scale_list: list, std_deviation_frac: float = 
     max_index = len(scale_list) - 1
     average_index = (min_index + max_index) / 2
 
-    index = int(random_bell_curve_value(min_index, max_index, average_index, std_deviation_frac))
+    index = int(random_bell_curve_value(min_index, max_index, average_index, std_dev, std_deviation_frac))
 
     return index
 
 
-def random_bell_curve_value(min_val: float, max_val: float, average: float, std_deviation_frac: float) -> float:
+def random_bell_curve_value(min_val: float, max_val: float, average: float, std_dev: float, std_deviation_frac: float = None) -> float:
     logDebug("random_bell_curve_value(",min_val,", ",max_val,", ",average,", ",std_deviation_frac,")")
     """
     Generate a realistic random value along a bell curve (normal distribution),
@@ -754,7 +813,8 @@ def random_bell_curve_value(min_val: float, max_val: float, average: float, std_
     - float: Random value distributed normally, clipped to [min_val, max_val].
     """
 
-    std_dev = (max_val - min_val) * std_deviation_frac
+    if std_dev is None and std_deviation_frac is not None:
+        std_dev = (max_val - min_val) * std_deviation_frac
 
     # Generate values until one falls within range (clipping is optional but can bias the curve)
     while True:

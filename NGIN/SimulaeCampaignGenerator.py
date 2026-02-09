@@ -7,7 +7,7 @@ from .SimulaeNode import *
 
 class NGIN():
 
-    def __init__(self, mission_struct, settings, save_file=None, is_console=True):
+    def __init__(self, mission_struct, settings, save_file=None, is_console=True, generate=True):
         
         if not mission_struct or mission_struct == None:
             raise ValueError("Missing required data: mission_struct")
@@ -43,7 +43,7 @@ class NGIN():
         except Exception as e:
             print(f'Unable to import world data from save file | {e}')
 
-        if not self.state.Relations or not self.state.References:
+        if not self.state.Relations or not self.state.References and generate:
             print('No world data... generating...')
             self.generate_new_world()
 
@@ -419,7 +419,7 @@ class NGIN():
         actor_loc = actor.get_reference(LOC)
 
         loc = self.get_simulae_node_by_id(actor_loc, LOC)
-        print('Current Location:',loc.ID)
+        logDebug('Current Location:',loc.ID)
         options.append(self.get_actions_for_node(actor, loc, note="current location"))
 
 
@@ -427,7 +427,7 @@ class NGIN():
         adjacents = self.get_simulae_nodes_by_reference(LOC, reference_value=actor_loc)
 
         if not adjacents:
-            print("No adjacent entities found")
+            logWarning("No adjacent entities found")
 
         for adj_id, adj in adjacents.items():
             actions = self.get_actions_for_node(actor, adj, note="adjacent entity")
@@ -438,7 +438,7 @@ class NGIN():
         adjacent_locations = loc.get_adjacent_locations()
 
         if not adjacent_locations:
-            print("No adjacent locations found")
+            logWarning("No adjacent locations found")
 
         for adj_id in adjacent_locations:
             adj_loc = self.get_simulae_node_by_id(adj_id, LOC)
@@ -478,7 +478,7 @@ class NGIN():
             while not selected_target:
                 for idx, action in enumerate(actions):
                     target, options, note = action
-                    print(f"{idx:3} | [{note:^16}] |{target} ")
+                    logInfo(f"{idx:3} | [{note:^16}] |{target} ")
 
                 selection_idx = robust_int_entry("Select Target > ", 0, len(actions))
                 selected_target = actions[selection_idx]
@@ -486,12 +486,12 @@ class NGIN():
             t, options, note = selected_target
 
             # display description of target
-            print(f"you are {actor.get_relation(actor)['Disposition']} towards {t.get_description()}")
+            logInfo(f"you are {actor.get_relation(actor)['Disposition']} towards {t.get_description()}")
 
             if len(options) > 1:
 
                 for idx, opt in enumerate(options):
-                    print(f"{idx:3} | ({opt[1]:^9}) {opt[0]}")
+                    logInfo(f"{idx:3} | ({opt[1]:^9}) {opt[0]}")
 
                 selection_idx = robust_int_entry("Select Action (or '-1' to revert to target selection) > ",-1,len(options))
 
@@ -529,7 +529,7 @@ class NGIN():
             
             disposition = relationship['Disposition']
 
-            print('disposition:',disposition)
+            logInfo('disposition:',disposition)
 
             if action == "Recruit":
 
@@ -537,9 +537,9 @@ class NGIN():
 
                     relationship = actor.get_relation(target)
                     if relationship['Disposition'] == 'Hostile':
-                        print(f'{actor} cannot recruit {target} due to hostile disposition')
+                        logInfo(f'{actor} cannot recruit {target} due to hostile disposition')
                     else:
-                        print(f'{actor} recruiting {target}')
+                        logInfo(f'{actor} recruiting {target}')
 
                         # update recruitment
                         target.update_relation(actor, interaction="accompany")
@@ -547,12 +547,12 @@ class NGIN():
             elif action == "Protect":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} protecting {target}')
+                    logInfo(f'{actor} protecting {target}')
 
             elif action == "Liberate":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} liberating {target}')
+                    logInfo(f'{actor} liberating {target}')
 
             elif action == "Escort":
 
@@ -562,17 +562,17 @@ class NGIN():
             elif action == "Eliminate":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} eliminating {target}')
+                    logInfo(f'{actor} eliminating {target}')
 
             elif action == "Capture":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} capturing {target}')
+                    logInfo(f'{actor} capturing {target}')
 
             elif action == "Surveil":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} surveiling {target}')
+                    logInfo(f'{actor} surveiling {target}')
 
             elif action == "Investigate":
 
@@ -582,10 +582,10 @@ class NGIN():
             elif action == "Mission":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} recieves a mission from {target}')
+                    logInfo(f'{actor} recieves a mission from {target}')
             
             else:
-                print("Unhandled action: ",action)
+                logInfo("Unhandled action: ",action)
 
 
         elif target.Nodetype in INANIMATE_NODE_TYPES:
@@ -597,7 +597,7 @@ class NGIN():
             if action == 'Travel':
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} traveling to {target}')
+                    logInfo(f'{actor} traveling to {target}')
 
                     # actor & accompanyment travel to target
                     actor.set_reference(LOC, target.ID)         # set actor loc to target
@@ -613,7 +613,7 @@ class NGIN():
             elif action == 'Fortify':
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} fortifying {target}')
+                    logInfo(f'{actor} fortifying {target}')
 
                     fortification = target.get_attribute("Fortification")
 
@@ -624,12 +624,12 @@ class NGIN():
             elif action == "Protect":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} protecting {target}')
+                    logInfo(f'{actor} protecting {target}')
 
             elif action == "Capture":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} capturing {target}')
+                    logInfo(f'{actor} capturing {target}')
 
             elif action == "Destroy":
 
@@ -639,17 +639,17 @@ class NGIN():
             elif action == "Infiltrate":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} infiltrating {target}')
+                    logInfo(f'{actor} infiltrating {target}')
 
             elif action == "Investigate":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} investigating {target}')
+                    logInfo(f'{actor} investigating {target}')
 
             elif action == "Surveil":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} surveiling {target}')
+                    logInfo(f'{actor} surveiling {target}')
 
                         
 
@@ -674,10 +674,10 @@ class NGIN():
 
 
     def display_state(self, actor_node=None):
-        print('\nGamestate:')
+        logInfo('\nGamestate:')
 
         for nodetype, nodes in self.state.Relations.items():
-            print(f"### {nodetype} ###")
+            logInfo(f"### {nodetype} ###")
 
             for node_id, node in nodes.items():
                 if node.status is not Status.DEAD:
@@ -686,11 +686,11 @@ class NGIN():
                         if not self.nodes_are_adjacent(actor_node, node) and not actor_node.knows_about(node):
                             continue
 
-                    print(node)
+                    logInfo(node)
 
 
     def handle_mission(self, mission, subject):
-        print(  '\n(',mission[1],') [',
+        logInfo(  '\n(',mission[1],') [',
                 mission[0],subject.summary(),']')
 
         # Handle success
@@ -746,8 +746,8 @@ def try_json_load(filename):
     try:
         return json.load(open(filename))
     except Exception as e:
-        print("Failed to load from JSON : ", filename)
-        print("Error msg:",e)
+        logError("Failed to load from JSON : ", filename)
+        logError("Error msg:",e)
         return {}
 
 
@@ -774,9 +774,9 @@ def main():
         ngin.start()
 
     except Exception as e:
-        print(e)
+        logError(e)
     finally:
-        print('saving...')
+        logInfo('saving...')
         ngin.save_to_file("save_file.json")
 
 

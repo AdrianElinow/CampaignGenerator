@@ -92,9 +92,16 @@ class TaskPlan():
 
 class NGIN_Simulae_Actor(SimulaeNode):
 
-    def __init__(self, simulae_node):
-        super().__init__(simulae_node)
-        self.SimulaeNode: SimulaeNode = simulae_node
+    def __init__(self, simulae_node: SimulaeNode):
+        super().__init__(
+            given_id=simulae_node.ID,
+            nodetype=simulae_node.Nodetype,
+            references=simulae_node.References,
+            attributes=simulae_node.Attributes,
+            relations=simulae_node.Relations,
+            checks=simulae_node.Checks,
+            abilities=simulae_node.Abilities,
+        )
 
         self.inventory = {}
 
@@ -201,7 +208,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         elif task is THREAT:
             return self.plan_threat_reaction()
         else:
-            #print('no planning for',task)
+            logDebug('no planning for',task)
             return task
 
     def plan_status_task(self, task):
@@ -238,17 +245,17 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         if not self.priorities:
             if prioritized:
-                #print("no priorities??")
+                logDebug("no priorities??")
                 return None
 
-            #print('re-prioritizing')
+            logDebug('re-prioritizing')
             self.prioritize()
             return self.act_next(prioritized=True)
 
         task = self.priorities[0]
 
         if not task:
-            #print('no task?')
+            logDebug('no task?')
             return None
         
         priority, goal = task
@@ -258,14 +265,14 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         plan = self.plans[goal]
 
-        #print(f"Need to solve: {goal} (priority: {priority})")
+        logDebug(f"Need to solve: {goal} (priority: {priority})")
 
         if not plan:
-            #print(f'no plan for {goal}')
+            logDebug(f'no plan for {goal}')
             pass
 
         else:
-            #print(plan.summary())
+            logDebug(plan.summary())
 
             self.act(plan)
 
@@ -275,22 +282,20 @@ class NGIN_Simulae_Actor(SimulaeNode):
         next_action = plan.next_action()
 
         if next_action == Action.GOTO:
-            print(f'went to {plan.target}')
+            logDebug(f'went to {plan.target}')
         elif next_action == Action.USE:
             ''' consume item '''
             if plan.target in self.SimulaeNode.Relations[CONTENTS]:
                 del self.SimulaeNode.Relations[CONTENTS][plan.target]
-                print(f'consumed {plan.target}')
+                logDebug(f'consumed {plan.target}')
             else:
                 raise KeyError(f"Cannot use {plan.target} -> not in inventory")
 
         elif next_action == Action.TAKE:
             ''' add item to inv '''
             self.SimulaeNode.Relations[CONTENTS][plan.target.ID] = plan.target
-            print(f'took {plan.target}')
+            logDebug(f'took {plan.target}')
             
-
-
 
     def prioritize(self):
         logDebug('prioritize()')
@@ -507,8 +512,6 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
             return heuristics[optimal_route][1] # actions
 
-
-
         # do we know how to make it?
         if self.can_make(target):
 
@@ -583,7 +586,7 @@ def get_heuristic(actor, target, actions):
         
         act = action
         if act == Action.GOTO:
-            print('getting distance from ',actor,'to',target)
+            logDebug('getting distance from ',actor,'to',target)
             #value += distance_between(actor, target)
             value += 1
         elif act == Action.TAKE:
@@ -614,7 +617,7 @@ def nodes_are_adjacent(node1, node2):
 
 
 
-def generate_individual(location=None):
+def generate_person(location=None):
 
         individual = SimulaeNode(nodetype=POI)
 
@@ -624,7 +627,7 @@ def generate_individual(location=None):
         individual.set_attribute(THIRST, 0)
         individual.set_attribute(EXHAUSTION, 0)
         individual.set_attribute(SICK, 0)
-        individual.set_attribute(TEMPERATURE, 0)
+        individual.set_attribute(TEMPERATURE, 50)
         individual.set_attribute(LONELINESS, 0)
         individual.set_attribute(EXHAUSTION, 0)
 

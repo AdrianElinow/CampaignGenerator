@@ -180,6 +180,19 @@ FACTION_TYPES = [
     "Political"
 ]
 
+PERSONALITY_TRAIT_STRENGTH_DESCRIPTORS = [
+    "barely",
+    "slightly",
+    "somewhat",
+    "moderately",
+    "fairly",
+    "mostly",
+    "very",
+    "strongly",
+    "staunchly",
+    "extremely"
+]
+
 POLICY_BELIEF_STRENGTH_DESCRIPTORS = [
     "barely",
     "slightly",
@@ -707,13 +720,46 @@ MADLIBS_NOUNS = [
 
 HUMAN_BODY_METRICS = {
     "male":{
-        "height": [170,190],
-        "weight": [60,90],
+        "height": {
+            'min': 1.55,
+            'avg': 1.74,
+            'max': 1.95,
+            'stddev': 0.1
+        },
+        "weight": {
+            "min": 60,
+            "avg": 75,
+            "max": 90,
+            "stddev": 9
+        },
         # todo ae: limbs
     },
     "female":{
-        "height": [155,175],
-        "weight": [50,75],
+        "height": {
+            "min": 1.45,
+            "avg": 1.61,
+            "max": 1.8,
+            "stddev": 0.1
+        },
+        "weight": {
+            "min": 50,
+            "avg": 65,
+            "max": 75,
+            "stddev": 10
+        },
         # todo ae: limbs
+    },
+    "limbs": {
+        'leg_height': 0.45,
+        'torso_height': 0.35,
+        'head_height': 0.15,
+        'foot_height': 0.05,
+        'arm_height': 0.45,
+        'head_weight': 0.08,
+        'leg_weight': 0.175,
+        'torso_weight': 0.5,
+        'arm_weight': 0.075,
+        'hand_weight': 0.005,
+        'foot_weight': 0.01,
     }
 }
