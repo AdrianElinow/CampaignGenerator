@@ -58,7 +58,6 @@ class NGIN():
 
     def import_world(self, save_file):
         logInfo('importing world data...')
-
         self.state = SimulaeNode.from_json(save_file)
 
 
@@ -784,9 +783,4 @@ from .NGIN_console import *
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
 

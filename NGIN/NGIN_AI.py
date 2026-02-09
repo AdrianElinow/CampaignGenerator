@@ -1,5 +1,4 @@
 from enum import Enum
-
 from .SimulaeNode import *
 
 STATUS_THRESHOLDS = "status_thresholds"
