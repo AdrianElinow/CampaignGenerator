@@ -253,7 +253,7 @@ class Test_generate_simulae_node(unittest.TestCase):
 
         generated = generate_simulae_node(OBJ, node_name=nodename)
 
-        self.assertEqual(generated.ID, expected.ID)
+        self.assertEqual(nodename, generated.References[NAME])
 
         print("Test_generate_simulae_node","test_generate_simulae_node_with_name:", "PASS")
 

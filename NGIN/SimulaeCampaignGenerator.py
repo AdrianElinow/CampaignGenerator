@@ -41,15 +41,14 @@ class NGIN():
             if save_file:
                 self.import_world(save_file)
         except Exception as e:
-            print(f'Unable to import world data from save file | {e}')
+            logError(f'Unable to import world data from save file | {e}')
 
         if not self.state.Relations or not self.state.References and generate:
-            print('No world data... generating...')
+            logWarning('No world data... generating...')
             self.generate_new_world()
 
 
         self.print_location_map()
-
 
     def start(self):
 
@@ -58,7 +57,7 @@ class NGIN():
 
 
     def import_world(self, save_file):
-        print('importing world data...')
+        logInfo('importing world data...')
 
         self.state = SimulaeNode.from_json(save_file)
 
@@ -78,8 +77,8 @@ class NGIN():
         actor = self.get_simulae_node_by_id(self.select_actor(randomized=True), POI)
 
 
-        print("You are -> ",actor)
-        print(actor.get_description())
+        logInfo("You are -> ",actor)
+        logInfo(actor.get_description())
 
         while True:
 
@@ -108,7 +107,7 @@ class NGIN():
             raise Exception("No POI nodes to select from...")
 
         if not randomized:
-            print("Select actor node: (Choose your character)")
+            logInfo("Select actor node: (Choose your character)")
             selected_node = user_choice( user_options=list(options.keys()), random_opt=True )
         else:
             selected_node = random.choice(list(options.keys()))
@@ -119,7 +118,7 @@ class NGIN():
 
     def generate_new_world(self):
 
-        print('generating new world')
+        logInfo('generating new world')
 
         # generate networked map of locations
 
@@ -146,13 +145,13 @@ class NGIN():
 
         loc_map = {}
 
-        for loc_id, loc in locations.items():
+        for loc_id, loc_node in locations.items():
             
-            print(f"{loc.Nodetype} {loc_id}")
-            loc_map[loc_id] = loc.get_adjacent_locations()
+            logInfo(f"{loc_node.Nodetype} {loc_node.References[NAME]}")
+            loc_map[loc_id] = loc_node.get_adjacent_locations()
 
             for adj_id in loc_map[loc_id]:
-                print(f"\tLOC {locations[adj_id]}")
+                logInfo(f"\tLOC {locations[adj_id]}")
 
         return loc_map
 
@@ -557,7 +556,7 @@ class NGIN():
             elif action == "Escort":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} escorting {target}')
+                    logInfo(f'{actor} escorting {target}')
 
             elif action == "Eliminate":
 
@@ -577,7 +576,7 @@ class NGIN():
             elif action == "Investigate":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} investigating {target}')
+                    logInfo(f'{actor} investigating {target}')
             
             elif action == "Mission":
 
@@ -634,7 +633,7 @@ class NGIN():
             elif action == "Destroy":
 
                 if self.can_perform_action(target, action):
-                    print(f'{actor} destroying {target}')
+                    logInfo(f'{actor} destroying {target}')
 
             elif action == "Infiltrate":
 
@@ -722,9 +721,9 @@ class NGIN():
         '''
         if random.random() <= 0.5:
             # generate new element to keep sim going
-            print('\nNew Intel')
+            logInfo(('\nNew Intel')
             intel = self.generate_element()
-            pprint(('discovered '+intel.__str__()))
+            plogInfo((('discovered '+intel.__str__()))
             self.state.append(intel)
 
         if random.random() <= 0.4:
@@ -732,7 +731,7 @@ class NGIN():
             subject, mission, self.state = self.generate_event()
 
             if mission:
-                print(  '\n(',mission[1],') [',
+                logInfo((  '\n(',mission[1],') [',
                         mission[0],subject.name,'] {',
                         subject.disposition,subject.Nodetype,'}')
 

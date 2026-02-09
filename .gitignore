@@ -6,7 +6,6 @@
 /__pycache__
 *.pyc
 save_file.json
-*.pyc
 node_modules/.package-lock.json
 node_modules/.bin/acorn
 node_modules/.bin/acorn.cmd
@@ -1423,3 +1422,5 @@ node_modules/yocto-queue/package.json
 node_modules/yocto-queue/readme.md
 package-lock.json
 save_file.json
+NGIN/NGIN_utils/__pycache__/ngin_utils.cpython-312.pyc
+NGIN/FactionGenerator/__pycache__/__init__.cpython-312.pyc

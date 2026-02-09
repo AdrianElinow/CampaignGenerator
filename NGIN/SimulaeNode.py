@@ -655,7 +655,7 @@ def generate_simulae_node(node_type, node_name=None):
         if nodetype == LOC:
            attributes['max_adjacent_locations'] = random.randrange(1,MAX_ADJACENT_LOCATIONS)
 
-    simulae_node = SimulaeNode( name, nodetype, references, attributes, relations, checks, abilities )
+    simulae_node = SimulaeNode( None, nodetype, references, attributes, relations, checks, abilities )
 
     return simulae_node
 
