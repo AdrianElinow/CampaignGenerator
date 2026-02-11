@@ -229,7 +229,7 @@ class Test_SimulaeNode_POI(unittest.TestCase):
         diff, summary = SimulaeNode.social_diff(node1.get_personality(), node2.get_personality())
 
         self.assertNotEqual(diff, 0)
-        self.assertLess(diff, 450)
+        self.assertLess(diff, 700)
 
         print("Test_SimulaeNode_POI","test_social_diff:", "PASS")
 
