@@ -284,15 +284,15 @@ class NGIN_Simulae_Actor(SimulaeNode):
             logDebug(f'went to {plan.target}')
         elif next_action == Action.USE:
             ''' consume item '''
-            if plan.target in self.SimulaeNode.Relations[CONTENTS]:
-                del self.SimulaeNode.Relations[CONTENTS][plan.target]
+            if plan.target in self.Relations[CONTENTS]:
+                del self.Relations[CONTENTS][plan.target]
                 logDebug(f'consumed {plan.target}')
             else:
                 raise KeyError(f"Cannot use {plan.target} -> not in inventory")
 
         elif next_action == Action.TAKE:
             ''' add item to inv '''
-            self.SimulaeNode.Relations[CONTENTS][plan.target.ID] = plan.target
+            self.Relations[CONTENTS][plan.target.ID] = plan.target
             logDebug(f'took {plan.target}')
             
 
@@ -435,7 +435,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         if self.has_vague(target):
             return [] # base case -> already have it
         
-        relations = self.SimulaeNode.get_relations_by_criteria(target)
+        relations = self.get_relations_by_criteria(target)
 
         if relations: # do we know where any are?
             heuristics['owned'] = get_best_heuristic(relations, lambda x: self.pathfind_to(x)) # find optimal relation
@@ -480,7 +480,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         # do we own any? 
         #   if not, same as below, but add 'requires-permission'
-        if self.SimulaeNode.has_relation(target, OBJ):
+        if self.has_relation(target, OBJ):
             actions = self.pathfind_to(target)
             heuristics['owned'] = get_heuristic(actions), actions
 
@@ -489,7 +489,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
             actions = [(Action.TAKE,target)]
             heuristics['nearby'] = get_heuristic(actions), actions
         
-        if self.SimulaeNode.has_relation(target, OBJ): # do we know where any are?
+        if self.has_relation(target, OBJ): # do we know where any are?
 
             relation = self.get_relation(target) 
 
@@ -540,9 +540,9 @@ class NGIN_Simulae_Actor(SimulaeNode):
         return []
     
     def status_summary(self):
-        summary = f"Actor: {self.SimulaeNode.summary()}\n"
+        summary = f"Actor: {self.summary()}\n"
         
-        for attr in self.SimulaeNode.attributes:
+        for attr in self.attributes:
             summary += f"{attr}: {self.get_attribute(attr)}\n"
 
         return summary
@@ -550,7 +550,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
 def get_targets_nearby_node(node, target_criteria):
     
-    loc = node.SimulaeNode.get_location()
+    loc = node.get_location()
     if loc:
         return loc.get_relations_by_criteria(target_criteria)
     return []

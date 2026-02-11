@@ -40,23 +40,63 @@ INANIMATE_NODE_TYPES = [LOC,OBJ]
 DEFAULT_POLICY_VALUE = 4 # halfway between 1 and 7
 DEFAULT_PERSONALITY_VALUE = 3 # halfway between 0 and 6
 
+POLICY_STRENGTH_RANGE = [0, 10] # should match len of SCALE_DEGREE_DESCRIPTORS
+PERSONALITY_STRENGTH_RANGE = [0, 10] # should match len of SCALE_DEGREE_DESCRIPTORS
+
+POLICY_DIFFERENTIAL_DESCRIPTORS = [
+    "Aligned",             # 0
+    "Similar",             # 1
+    "Somewhat Similar",    # 2
+    "Different",           # 3
+    "Very Different",      # 4
+    "Near-Opposed",        # 5
+    "Opposed",             # 6
+]
+
+SOCIAL_DIFFERENTIAL_DESCRIPTORS = [
+    "Identical",      # delta 0–4
+    "Similar",        # delta 5–14
+    "Comparable",     # delta 15–24
+    "Distinct",       # delta 25–34
+    "Different",      # delta 35–49
+    "Contrasting",    # delta 50–64
+    "Opposed",        # delta 65–79
+]
+
+SCALE_DEGREE_DESCRIPTORS = [
+    "",                    # 0 — effectively aligned / indistinguishable
+    "Rather ",             # 1
+    "Slightly ",           # 2
+    "Mildly ",             # 3
+    "Moderately ",         # 4
+    "Noticeably ",         # 5
+    "Significantly ",      # 6
+    "Strongly ",           # 7
+    "Extremely ",          # 8
+    "Diametrically ",      # 9 — categorical divergence
+]
+
 class SimulaeNode:
 
     # id, ntype, refs, attrs, reltn, checks, abilities
 
     def __init__(self,  given_id=None, 
                         nodetype=OBJ,
-                        references: dict ={
-                            NAME:None,
-                        }, 
-                        attributes={}, 
+                        references: dict = None,
+                        attributes: dict = None,
                         relations=None, 
-                        checks={}, 
-                        abilities={}):
+                        checks: dict = None, 
+                        abilities: dict = None):
 
         self.ID = given_id if given_id else str(uuid.uuid1())
         self.Status = Status.ALIVE
-        self.References = references
+        
+        # avoid mutable default arguments being shared between instances
+        if references is None:
+            self.References = { NAME: None }
+        else:
+            self.References = dict(references)
+
         self.Nodetype = nodetype
 
         if self.Nodetype in SOCIAL_NODE_TYPES:
@@ -65,7 +105,7 @@ class SimulaeNode:
             if self.Nodetype is POI:
                 self.References[PERSONALITY] = self.generate_personality()
 
-        self.Attributes = attributes
+        self.Attributes = {} if attributes is None else dict(attributes)
 
         self.Relations = {
             CONTENTS:{ nt:{} for nt in NODETYPES},      # organs for POI, items contained for LOC/OBJ
@@ -77,8 +117,8 @@ class SimulaeNode:
             for k,v in relations.items():
                 self.Relations[k] = v
         
-        self.Checks = checks
-        self.Abilities = abilities
+        self.Checks = {} if checks is None else dict(checks)
+        self.Abilities = {} if abilities is None else dict(abilities)
         
     def keyname(self, *args) -> str:
         return '|'.join(args)
@@ -213,7 +253,7 @@ class SimulaeNode:
         self.Attributes[key] = value
 
     def determine_relation(self, node, interaction=None):
-        logDebug("determining",self,"relationship with",node)
+        logDebug("determining",self,"(physical) relation to",node)
 
         relationship = {}
 
@@ -222,31 +262,7 @@ class SimulaeNode:
             if node.Nodetype in SOCIAL_NODE_TYPES: # other node is a social node
 
                 if self.Nodetype in SOCIAL_NODE_TYPES: # we are also a social node
-                    policy_diff = self.policy_diff( node.References[POLICY] )
-
-                    relationship = {
-                        NODETYPE : node.Nodetype,
-                        STATUS : "new",
-                        POLICY : policy_diff,
-                        REPUTATION : [0,0],
-                        INTERACTIONS : 0,
-                        POLICY_DISPOSITION : self.get_policy_disposition(policy_diff[0]),
-                    }
-
-                    if node.Nodetype is POI:
-                        social_diff = self.social_diff( node.References[PERSONALITY] )
-                        relationship[SOCIAL_DISPOSITION] = self.get_social_disposition( social_diff[0] )
-
-                    if interaction != None:
-                        
-                        if interaction == "Join":
-                            relationship[REPUTATION][0] += 10
-                            relationship[STATUS] = "Member"
-                        
-                        else:
-                            logWarning("Unhandled interaction type: ",interaction)
-
-                    return relationship
+                    return "Associated"
 
                 elif self.Nodetype in INANIMATE_NODE_TYPES: # we are an inanimate node
                     return "Occupant"
@@ -285,6 +301,43 @@ class SimulaeNode:
         else:
             logWarning("Unhandled relation")
 
+    def determine_relationship(self, node, interaction=None):
+        logDebug("determining",self,"relationship with",node)
+
+        relationship = {
+            NODETYPE : node.Nodetype,
+            STATUS : "new",
+            REPUTATION : [0,0],
+            INTERACTIONS : []
+        }
+
+        if self.has_relation(node.ID, node.Nodetype): # existing relationship
+            relationship = self.Relations[node.ID]
+
+            # update existing relationship ?
+
+            return relationship
+
+        else: # new relationship
+            if node.Nodetype in SOCIAL_NODE_TYPES: # other node is a social node
+
+                if self.Nodetype in SOCIAL_NODE_TYPES: # self -> social nodetype
+                    policy_diff = SimulaeNode.policy_diff( self.get_policies(), node.get_policies() )
+                    social_diff = SimulaeNode.social_diff( self.get_personality(), node.get_personality() )
+                    
+                    relationship[POLICY] = policy_diff
+                    relationship[POLICY_DISPOSITION] = self.get_policy_disposition( policy_diff[0] )
+                    relationship[SOCIAL_DISPOSITION] = self.get_social_disposition( social_diff[0] )
+
+                    return relationship
+
+                # self -> inanimate nodetype
+
+                return relationship
+
+            elif node.Nodetype in INANIMATE_NODE_TYPES: # other node is an inanimate node
+                return relationship
+        
 
     def update_relation(self, node, interaction=None): # TODO AE: Reimplement 
         logDebug("update_relation(",node,")")
@@ -320,9 +373,7 @@ class SimulaeNode:
     def has_relation( self, key: str, nodetype: str ): # TODO AE: Reimplement 
         logDebug("has_relation(",key,", ",nodetype,")")
 
-        if key in self.Relations.get(nodetype, {}):
-            return True
-        return False
+        return key in self.Relations.get(nodetype, {})
     
     def set_check(self, key: str, value: bool):
         logDebug("set_check(",key,", ",value,")")
@@ -346,26 +397,40 @@ class SimulaeNode:
 
         return policy
 
-    def generate_policy(self):
+    def generate_policy(self, use_rng: bool = True):
         logDebug("generate_policy()")
 
-        return self.generate_values_for_scales(POLICY_SCALE)
+        return self.generate_values_for_scales(POLICY_SCALE, scale_strength_range=POLICY_STRENGTH_RANGE, use_rng=use_rng)
     
-    def generate_personality(self):
+    def get_policies(self):
+        if self.Nodetype == POI:
+            return self.References[PERSONALITY]
+
+        return None
+    
+    def generate_personality(self, use_rng: bool = True):
         logDebug("generate_personality()")
 
-        return self.generate_values_for_scales(PERSONALITY_SCALE)
+        return self.generate_values_for_scales(PERSONALITY_SCALE, scale_strength_range=PERSONALITY_STRENGTH_RANGE, use_rng=use_rng)
     
-    def generate_values_for_scales(self, scales: dict, std_dev_variance: float = 0.3) -> dict:
+    def get_personality(self):
+        if self.Nodetype == POI:
+            return self.References[PERSONALITY]
+
+        return None
+
+    def generate_values_for_scales(self, scales: dict, std_dev: float = None, std_dev_variance: float = 1, scale_strength_range: list[int] = [0, 10], use_rng: bool = False) -> dict:
         logDebug("generate_values_for_scales(",scales,")")
 
         values = {}
 
+        rng = random.Random(random.getrandbits(64)) if use_rng else None
+
         # Random values along bell curve adjusted for given scale
         for key in scales.keys():
-            selection_index = get_bellcurve_value_for_scale(scales[key], std_dev_variance)
-            #trait_value = scales[key][selection_index]
-            values[key] = selection_index, random.randrange(1, 10) # belief strength
+            selection_index = get_bellcurve_value_for_scale(scales[key], std_dev, std_dev_variance, rng)
+            strength = random.randrange(scale_strength_range[0], scale_strength_range[1]) if not rng else rng.randrange(scale_strength_range[0], scale_strength_range[1])
+            values[key] = selection_index, strength # belief & belief strength
 
         return values
 
@@ -410,63 +475,96 @@ class SimulaeNode:
             return "Neutral"
         elif social_diff_value >= 20:
             return "Hostile"
-
-    def policy_diff( self, compare_policy ):
-        logDebug("policy_diff(",compare_policy,")")
+        
+    def policy_factor_diff( policy_factor: tuple, compare_policy_factor: tuple ):
+        logDebug("policy_factor_diff(",policy_factor, compare_policy_factor,")")
 
         summary = {}
         diff = 0
 
-        for factor, policy in self.References[POLICY].items():
-            policy, policy_belief_strength = policy
+        policy_index, policy_strength = policy_factor
+        cmp_policy_index, cmp_policy_strength = compare_policy_factor
 
-            cmp_factor_policy, cmp_factor_belief_strength = compare_policy[factor]
-                        
-            policy_index = policy
-            cmp_factor_index = cmp_factor_policy
+        policy_factor_value     = (policy_index      * 10) + policy_strength
+        cmp_factor_value        = (cmp_policy_index  * 10) + cmp_policy_strength
+        delta = abs(policy_factor_value - cmp_factor_value)  # 0..79
 
-            delta = abs( policy_index - cmp_factor_index )       
-            strength_delta = int(abs( policy_belief_strength - cmp_factor_belief_strength ) / 2)
+        index = bucket_delta(delta, [5, 15, 25, 35, 50, 65]) # specific buckets for policy
 
-            # TODO AE: Move descriptions to config
-            descr = [ "Agreement", "Similar", "Civil", "Disagreement", "Contentious",  "Opposed", "Diametrically-Opposed" ][delta]
-            degree = ["", "Leans ", "Slightly ", "Moderately ", "Very ", "Strongly ", "Extremely " ][delta]
+        return delta, POLICY_DIFFERENTIAL_DESCRIPTORS[index]
+    
+    def personality_factor_diff( personality_trait: tuple, compare_personality_trait: tuple ):
+        logDebug("personality_factor_diff(",personality_trait, compare_personality_trait,")")
 
-            summary[factor] = f"{degree}{descr}"
-            
+        summary = {}
+        diff = 0
+
+        personality_trait_index, personality_trait_strength = personality_trait
+        cmp_personality_trait_index, cmp_personality_trait_strength = compare_personality_trait
+
+        policy_factor_value     = (personality_trait_index      * 10) + personality_trait_strength
+        cmp_factor_value        = (cmp_personality_trait_index  * 10) + cmp_personality_trait_strength
+        delta = abs(policy_factor_value - cmp_factor_value)  # 0..79
+
+        index = bucket_delta(delta, [5, 15, 25, 35, 50, 65]) # specific buckets for policy
+
+        return delta, SOCIAL_DIFFERENTIAL_DESCRIPTORS[index]
+    
+    def policy_diff( policy, compare_policy ):
+        logDebug("policy_diff(",policy, compare_policy,")")
+
+        diff_summary = {}
+        diff = 0
+
+        for factor in POLICY_SCALE.keys():
+            if factor not in policy or factor not in compare_policy:
+                logWarning("Unable to perform full comparison. Policy factor",factor,"not in both given policies.")
+                continue
+
+            delta, summary = SimulaeNode.policy_factor_diff( policy[factor], compare_policy[factor])
+
+            diff_summary[factor] = summary
             diff += delta
 
-        return diff, summary
+        return diff, diff_summary
     
-    def social_diff( self, compare_personality ):
+    def social_diff( personality, compare_personality ):
         logDebug("social_diff(",compare_personality,")")
 
-        summary = {}
+        diff_summary = {}
         diff = 0
 
-        for key, value in self.References[PERSONALITY].items():
-            personality_value_index, personality_value_strength = value
+        for trait in PERSONALITY_SCALE.keys():
+            if trait not in personality or trait not in compare_personality:
+                logWarning("Unable to perform full comparison. Personality trait",trait,"not in both given personalities.")
+                continue
 
-            cmp_personality_value_index, cmp_personality_value_strength = compare_personality[key]
-    
-            delta = abs( personality_value_index - cmp_personality_value_index )       
+            delta, summary = SimulaeNode.personality_factor_diff( personality[trait], compare_personality[trait])
 
-            # TODO AE: Move descriptions to config
-            descr = [ "Similar", "Somewhat Similar", "Neutral", "Somewhat Different", "Different",  "Very Different", "Opposed" ][delta]
-            degree = ["", "Leans ", "Slightly ", "Moderately ", "Very ", "Strongly ", "Extremely " ][delta]
-
-            summary[key] = f"{degree}{descr}"
-            
+            diff_summary[trait] = summary
             diff += delta
         
-        return diff, summary
+        return diff, diff_summary
+    
 
-    def get_policy_index(self, factor:str, policy:str) -> int:
+    def get_policy_index(factor:str, policy:str) -> int:
         logDebug("get_policy_index(",factor,", ",policy,")")
 
         return POLICY_SCALE[factor].index(policy)
+    
+    def get_policy_value(self, factor:str, policy:str) -> int:
+        logDebug("get_policy_value(",factor,", ",policy,")")
 
-    def get_policy_stance(self, factor: str, index: int) -> str:
+        policy_index, policy_strength = self.get_policies()[factor]
+
+        return (policy_index * 10) + policy_strength
+
+    def get_policy(self, factor: str) -> str:
+        logDebug("get_policy(",factor,")")
+
+        return self.get_policy()[factor]
+
+    def get_policy_stance(factor: str, index: int) -> str:
         logDebug("get_policy_stance(",factor,", ",index,")")
 
         return POLICY_SCALE[factor][index]
@@ -772,7 +870,7 @@ def generate_person_body(gender: str, age: int, height: float, weight: float, co
     return head, torso, left_arm, right_arm, left_leg, right_leg
 
 
-def get_bellcurve_value_for_scale(scale_list: list, std_dev: float, std_deviation_frac: float = 0.3) -> int:
+def get_bellcurve_value_for_scale(scale_list: list, std_dev: float, std_deviation_frac: float = 1, rng: random.Random = None) -> int:
     logDebug("get_bellcurve_value_for_scale(",scale_list,")")
     ''' get_bellcurve_value_for_scale(scale_list) returns an index into the given scale_list
         using a bell curve distribution centered on the middle of the scale_list
@@ -789,12 +887,14 @@ def get_bellcurve_value_for_scale(scale_list: list, std_dev: float, std_deviatio
     max_index = len(scale_list) - 1
     average_index = (min_index + max_index) / 2
 
-    index = int(random_bell_curve_value(min_index, max_index, average_index, std_dev, std_deviation_frac))
+    value = random_bell_curve_value(min_index, max_index, average_index, std_dev, std_deviation_frac, rng)
+
+    index = int(round(value, 0))
 
     return index
 
 
-def random_bell_curve_value(min_val: float, max_val: float, average: float, std_dev: float, std_deviation_frac: float = None) -> float:
+def random_bell_curve_value(min_val: float, max_val: float, average: float, std_dev: float, std_deviation_frac: float = 1, rng: random.Random = None) -> float:
     logDebug("random_bell_curve_value(",min_val,", ",max_val,", ",average,", ",std_deviation_frac,")")
     """
     Generate a realistic random value along a bell curve (normal distribution),
@@ -811,11 +911,24 @@ def random_bell_curve_value(min_val: float, max_val: float, average: float, std_
     - float: Random value distributed normally, clipped to [min_val, max_val].
     """
 
+    if rng is None:
+        rng = random.Random()
+
     if std_dev is None and std_deviation_frac is not None:
         std_dev = (max_val - min_val) * std_deviation_frac
 
     # Generate values until one falls within range (clipping is optional but can bias the curve)
     while True:
-        value = random.gauss(average, std_dev)
+        value = rng.gauss(average, std_dev)
         if min_val <= value <= max_val:
             return round(value, 2)
+        
+def bucket_delta(delta: int, buckets: list[int]) -> int:
+    if not buckets:
+        raise ValueError("'buckets' cannot be None or empty list")
+
+    # returns 0..6
+    for i, b in enumerate(buckets):
+        if delta < b:
+            return i
+    return len(buckets)

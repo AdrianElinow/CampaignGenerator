@@ -207,21 +207,35 @@ class Test_SimulaeNode_POI(unittest.TestCase):
 
         print("Test_SimulaeNode_POI","test_get_policy_disposition:", "PASS")
 
-    def test_policy_diff(self):
+    def policy_factor_diff(self):
         node1 = SimulaeNode(given_id="n1", nodetype=POI)
         node2 = SimulaeNode(given_id="n2", nodetype=POI)
         # set minimal policy dicts for deterministic behavior
         node1.References[POLICY] = {"Economy": (2, 5)}
         compare_policy = {"Economy": (5, 7)}
-        diff, summary = node1.policy_diff(compare_policy)
-        self.assertEqual(diff, 3)
+        diff, summary = SimulaeNode.policy_diff(node1.get_policy("Economy"), node2.get_policy("Economy"))
+        self.assertEqual(diff, 32)
         self.assertIn("Economy", summary)
 
-        print("Test_SimulaeNode_POI","test_policy_diff:", "PASS")
+        print("Test_SimulaeNode_POI","policy_factor_diff:", "PASS")
+
+    def test_social_diff(self):
+        node1 = SimulaeNode(given_id="n1", nodetype=POI)
+        node1.References[PERSONALITY] = node1.generate_personality()
+
+        node2 = SimulaeNode(given_id="n2", nodetype=POI)
+        node2.References[PERSONALITY] = node2.generate_personality()
+
+        diff, summary = SimulaeNode.social_diff(node1.get_personality(), node2.get_personality())
+
+        self.assertNotEqual(diff, 0)
+        self.assertLess(diff, 450)
+
+        print("Test_SimulaeNode_POI","test_social_diff:", "PASS")
 
     def test_get_policy_index(self):
         node = SimulaeNode(given_id="node", nodetype=POI)
-        index = node.get_policy_index("Economy", "Indifferent")
+        index = SimulaeNode.get_policy_index("Economy", "Indifferent")
         self.assertEqual(index, 3)
 
         print("Test_SimulaeNode_POI","test_get_policy_index:", "PASS")

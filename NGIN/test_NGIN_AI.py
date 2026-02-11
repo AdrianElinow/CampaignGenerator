@@ -58,11 +58,11 @@ class Test_NGIN_AI_Socialize(unittest.TestCase):
         self.assertFalse(self.actor.has_relation(self.actor_partner.ID, self.actor_partner.Nodetype))
 
         # calculate relationship
-        relationship = self.actor.determine_relation(self.actor_partner, interaction=None)
+        relationship = self.actor.determine_relationship(self.actor_partner, interaction=None)
         self.assertIsNotNone(relationship)
 
         self.assertEqual(relationship[NODETYPE], POI)
-        self.assertEqual(relationship[INTERACTIONS], 0)
+        self.assertEqual(relationship[INTERACTIONS], [])
         self.assertEqual(relationship[STATUS], 'new')
 
         print("Test_NGIN_AI_Socialize","test_NGIN_AI_socialize_clone:", "PASS")
