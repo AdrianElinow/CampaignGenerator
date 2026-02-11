@@ -479,37 +479,39 @@ class SimulaeNode:
     def policy_factor_diff( policy_factor: tuple, compare_policy_factor: tuple ):
         logDebug("policy_factor_diff(",policy_factor, compare_policy_factor,")")
 
-        summary = {}
-        diff = 0
-
-        policy_index, policy_strength = policy_factor
-        cmp_policy_index, cmp_policy_strength = compare_policy_factor
-
-        policy_factor_value     = (policy_index      * 10) + policy_strength
-        cmp_factor_value        = (cmp_policy_index  * 10) + cmp_policy_strength
-        delta = abs(policy_factor_value - cmp_factor_value)  # 0..79
-
-        index = bucket_delta(delta, [5, 15, 25, 35, 50, 65]) # specific buckets for policy
-
-        return delta, POLICY_DIFFERENTIAL_DESCRIPTORS[index]
+        return SimulaeNode.get_scale_factor_diff(policy_factor, compare_policy_factor, SOCIAL_DIFFERENTIAL_DESCRIPTORS, [3, 5, 8, 13, 21, 34], 3)
     
     def personality_factor_diff( personality_trait: tuple, compare_personality_trait: tuple ):
         logDebug("personality_factor_diff(",personality_trait, compare_personality_trait,")")
 
+        return SimulaeNode.get_scale_factor_diff(personality_trait, compare_personality_trait, SOCIAL_DIFFERENTIAL_DESCRIPTORS, [3, 5, 8, 13, 21, 34], 3)
+    
+
+    def get_scale_factor_value(index: int, strength: int, center_index: int) -> int:
+        sign = index - center_index
+
+        if sign == 0:
+            return 0
+        
+        return sign * strength
+    
+    def get_scale_factor_diff( scale_factor: tuple, compare_scale_factor: tuple, descriptors: list[str], descriptors_buckets: list[int], scale_center_index: int = 3):
+        logDebug("get_scale_factor_diff(",scale_factor, compare_scale_factor,")")
+
         summary = {}
         diff = 0
 
-        personality_trait_index, personality_trait_strength = personality_trait
-        cmp_personality_trait_index, cmp_personality_trait_strength = compare_personality_trait
+        factor_index, factor_strength = scale_factor
+        compare_factor_index, compare_factor_strength = compare_scale_factor
 
-        policy_factor_value     = (personality_trait_index      * 10) + personality_trait_strength
-        cmp_factor_value        = (cmp_personality_trait_index  * 10) + cmp_personality_trait_strength
-        delta = abs(policy_factor_value - cmp_factor_value)  # 0..79
+        factor_value            = SimulaeNode.get_scale_factor_value(factor_index, factor_strength, scale_center_index)
+        compare_factor_value    = SimulaeNode.get_scale_factor_value(compare_factor_index, compare_factor_strength, scale_center_index)
+        delta = abs(factor_value - compare_factor_value)
 
-        index = bucket_delta(delta, [5, 15, 25, 35, 50, 65]) # specific buckets for policy
+        index = bucket_delta(delta, descriptors_buckets) # specific buckets for policy
 
-        return delta, SOCIAL_DIFFERENTIAL_DESCRIPTORS[index]
-    
+        return delta, descriptors[index]
+        
     def policy_diff( policy, compare_policy ):
         logDebug("policy_diff(",policy, compare_policy,")")
 
@@ -543,9 +545,12 @@ class SimulaeNode:
 
             diff_summary[trait] = summary
             diff += delta
-        
+
         return diff, diff_summary
     
+
+    def scale_diff( a, b, scale, descriptors):
+        pass
 
     def get_policy_index(factor:str, policy:str) -> int:
         logDebug("get_policy_index(",factor,", ",policy,")")
