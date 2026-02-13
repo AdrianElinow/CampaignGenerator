@@ -547,10 +547,6 @@ class SimulaeNode:
             diff += delta
 
         return diff, diff_summary
-    
-
-    def scale_diff( a, b, scale, descriptors):
-        pass
 
     def get_policy_index(factor:str, policy:str) -> int:
         logDebug("get_policy_index(",factor,", ",policy,")")
