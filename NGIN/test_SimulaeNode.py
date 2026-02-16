@@ -12,7 +12,7 @@ class Test_SimulaeNode(unittest.TestCase):
         self.assertIsNotNone(node.ID)
         self.assertEqual(node.Nodetype, OBJ)
 
-        self.assertFalse(node.get_check('Alive')) # OBJ nodes should not have Alive check by default
+        self.assertFalse(node.get_check('Alive')) # OBJ nodes should not have 'Alive' check by default
 
         self.assertIsNotNone(node.References)
         
@@ -22,7 +22,7 @@ class Test_SimulaeNode(unittest.TestCase):
 
         self.assertIsNotNone(node.Relations)
         for relation, relatives in node.Relations.items():
-            self.assertIn(relation, RELATIVE_TYPES)
+            self.assertIn(relation, RELATION_TYPES)
             relations_keys = relatives.keys()
             self.assertEqual(list(relations_keys).sort(), PHYSICAL_NODETYPES.sort())
 

@@ -1,9 +1,8 @@
 import sys, os, random
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from .NGIN_utils.ngin_utils import *
-from .NGIN_config.ngin_missions import *
-from .FactionGenerator.faction_generator import *
-from .SimulaeNode import *
+
+from NGIN import *
+from NGIN.NGIN_config.ngin_missions import NGIN_MISSIONS
+from NGIN.NGIN_console import user_choice
 
 class NGIN():
 
@@ -57,10 +56,13 @@ class NGIN():
 
     def import_world(self, save_file):
         logInfo('importing world data...')
-        self.state = SimulaeNode.from_json(save_file)
+        self.state = simulaenode_from_json(save_file)
 
 
     def save_to_file(self, filename: str):
+
+        if not self.state:
+            raise ValueError("No state to save")
 
         data = self.state.toJSON()
 
@@ -73,6 +75,10 @@ class NGIN():
         '''
 
         actor = self.get_simulae_node_by_id(self.select_actor(randomized=True), POI)
+
+        if not actor:
+            logError("Selected actor not found in state!")
+            return
 
         print("You are -> ",actor)
         print(actor.get_description())
@@ -98,7 +104,15 @@ class NGIN():
 
     def select_actor(self, randomized=False):
 
-        options = { node.summary():nid for nid, node in self.state.Relations[POI].items()}
+        if not self.state:
+            raise ValueError("State not initialized")
+
+        actor_nodes = self.state.get_relations_by_nodetype(POI)
+
+        if not actor_nodes:
+            raise Exception("No actor nodes found in state...")
+
+        options = { node.summary():nid for nid, node in actor_nodes.items()}
 
         if not options:
             raise Exception("No POI nodes to select from...")
@@ -138,7 +152,14 @@ class NGIN():
 
     def print_location_map(self):
         
-        locations = self.state.Relations[LOC]
+        if not self.state:
+            raise ValueError("State not initialized")
+
+        locations = self.state.get_relations_by_nodetype(LOC)
+
+        if not locations:
+            logWarning("No locations found in state...")
+            return
 
         loc_map = {}
 
@@ -152,29 +173,44 @@ class NGIN():
 
         return loc_map
 
-    def get_simulae_node_by_id(self, nid: str, nodetype: str=None) -> SimulaeNode:
+    def get_simulae_node_by_id(self, nid: str, nodetype: str | None = None) -> 'SimulaeNode | None':
+
+        if not self.state:
+            raise ValueError("State not initialized")
 
         if not nid:
             raise ValueError("'nid' cannot be null/empty")
 
         if not nodetype:
 
-            for nt in ALL_NODE_TYPES:
-                if nt in self.state.Relations and nid in self.state.Relations[nt]:
-                    return self.state.Relations[nt][nid]
+            # search all nodetypes for this id and return the first match (should be unique across all nodetypes)
+
+            return self.state.get_relation_by_ID(nid)
 
         else:
-            return self.state.Relations[nodetype][nid]
+            return self.state.get_relation_by_nodetype_and_ID(nodetype, nid)
 
-    def get_simulae_nodes_by_reference(self, reference_key: str, reference_value: str =None ,nodetype: str=None):
+    def get_simulae_nodes_by_reference(self, 
+                                       reference_key: str, 
+                                       reference_value: str | None = None,
+                                       nodetype: str | None = None):
         logDebug(f"get_simulae_nodes_by_reference( reference_key: {reference_key}, reference_value: {reference_value}, nodetype: {nodetype} )")
+
+        if not self.state:
+            raise ValueError("State not initialized")
 
         if nodetype:
             # return all nodes with reference to reference_key (and if provided a reference_value, must also have that value associated with the key)
             
             selected = {}
 
-            for snid, sn in self.state.Relations[nodetype].items():
+            relations = self.state.get_relations_by_nodetype(nodetype)
+
+            if not relations:
+                logWarning(f"No relations of nodetype '{nodetype}' found in state")
+                return selected
+
+            for snid, sn in relations.items():
 
                 if reference_value and sn:
                     if reference_value == sn.get_reference(reference_key):
@@ -194,8 +230,12 @@ class NGIN():
 
             return nodes_with_reference
 
-    def attach_loc(self, new_loc):
+    def attach_loc(self, new_loc: SimulaeNode):
         
+        if not self.world_root: 
+            logError("No world root found to attach location to!")
+            return
+
         # get 'stickiness' setting -> chance to attach to 'current' node
         stickiness = WORLD_GEN_STICKINESS
 
@@ -210,19 +250,34 @@ class NGIN():
             visited.append(node_id)
             node = self.get_simulae_node_by_id(node_id, LOC)
             
-            # filter visited nodes to prevent infinite loop due to circular references
-            adjs = [ adj for adj in node.get_adjacent_locations() if adj not in visited ]
+            if not node:
+                logError(f"Node with id '{node_id}' not found in state while attaching location!")
+                continue
 
-            if not adjs or len(adjs) < node.get_attribute('max_adjacent_locations'):
+            adjacent_locations = node.get_adjacent_locations()
+
+            if not adjacent_locations:
+                node.add_adjacent_location(new_loc) # attach to current location
+                new_loc.add_adjacent_location(node)
+                return
+
+            # filter visited nodes to prevent infinite loop due to circular references
+            adjs = [ adj for adj in adjacent_locations if adj not in visited ]
+
+            max_adjacent_locations = node.get_attribute_int('max_adjacent_locations')
+
+            if not adjs:
+                if max_adjacent_locations and len(adjacent_locations) >= max_adjacent_locations:
+                    continue
                 
                 if random.random() < stickiness:
-                    node.add_reference('Adjacent',new_loc.ID) # attach to current location
-                    new_loc.add_reference('Adjacent',node.ID)
+                    node.add_adjacent_location(new_loc) # attach to current location
+                    new_loc.add_adjacent_location(node)
                     return
                 
                 if not adjs and not nodes:
-                    node.add_reference('Adjacent', new_loc.ID)  # force-attach to last available node
-                    new_loc.add_reference('Adjacent',node.ID)
+                    node.add_adjacent_location(new_loc) # attach to current location
+                    new_loc.add_adjacent_location(node)
                     return
             
 
@@ -238,7 +293,6 @@ class NGIN():
 
         # generate feature(s)?
 
-
         # generate population
         population, faction = self.generate_population(location)
 
@@ -247,10 +301,10 @@ class NGIN():
             self.add_node(entity)
 
             # set entity's location
-            entity.add_reference(LOC, location.ID)
+            entity.set_location_by_ID(location.ID)
 
             if faction: # set faction ownership of location
-                location.References[FAC] = faction.ID
+                location.set_reference(FAC, faction.ID)
 
         return location
 
@@ -305,19 +359,29 @@ class NGIN():
 
         individual = generate_person_simulae_node(self.get_new_name())
 
-        individual.update_relation(location)
+        individual.set_location(location)
         
         return individual
 
-    def add_node(self, node):
+    def add_node(self, node: SimulaeNode):
         logDebug(f"add_node({node.summary()})")
 
-        self.state.Relations[node.Nodetype][node.ID] = node
+        if not self.state:
+            raise ValueError("State not initialized")
+        
+        self.state.set_relation(node)
 
         if 'Name' in node.References:
             self.taken_names = node.References['Name']
 
         if node.Nodetype == LOC:
+            current_num_locs = self.state.get_attribute_int('num_locations')
+
+            if not current_num_locs:
+                current_num_locs = 0
+
+            self.state.set_attribute('num_locations', current_num_locs + 1)
+
             if 'LOC_num' not in self.state.Attributes:
                 self.state.Attributes['LOC_num'] = 0
 
@@ -337,12 +401,9 @@ class NGIN():
         # acronym for quick/short reference (display purposes)
         acronym = ''.join( [ l for l in name if l.isupper() ] )
 
-        # randomize policy
-        policy = self.generate_policy(orgtype)
-
         # fix this
         faction = generate_simulae_node(FAC, name)
-        faction.References[POLICY] = policy
+        faction.set_reference('Acronym', acronym)
 
         return faction
 
@@ -369,10 +430,14 @@ class NGIN():
 
         name = random.choice( MADLIBS_NOUNS )
 
+        if not self.taken_names:
+            self.taken_names = []        
+
         while name in self.taken_names and name != "":
             name = random.choice( MADLIBS_NOUNS )
-
-        return name 
+    
+        self.taken_names.append(name)
+        return name
 
 
     def generate_element( self, nodetype ):
@@ -415,30 +480,32 @@ class NGIN():
         actor_loc = actor.get_reference(LOC)
 
         loc = self.get_simulae_node_by_id(actor_loc, LOC)
-        logDebug('Current Location:',loc.ID)
-        options.append(self.get_actions_for_node(actor, loc, note="current location"))
 
+        if loc:
 
-        # same location?
-        adjacents = self.get_simulae_nodes_by_reference(LOC, reference_value=actor_loc)
+            logDebug('Current Location:',loc.ID)
+            options.append(self.get_actions_for_node(actor, loc, note="current location"))
 
-        if not adjacents:
-            logWarning("No adjacent entities found")
+            # same location?
+            adjacents = self.get_simulae_nodes_by_reference(LOC, reference_value=actor_loc)
 
-        for adj_id, adj in adjacents.items():
-            actions = self.get_actions_for_node(actor, adj, note="adjacent entity")
-            options.append(actions)
+            if not adjacents:
+                logWarning("No adjacent entities found")
 
-        
-        # evaluate movement/travel options
-        adjacent_locations = loc.get_adjacent_locations()
+            for adj_id, adj in adjacents.items():
+                actions = self.get_actions_for_node(actor, adj, note="adjacent entity")
+                options.append(actions)
 
-        if not adjacent_locations:
-            logWarning("No adjacent locations found")
+            # evaluate movement/travel options
+            adjacent_locations = loc.get_adjacent_locations()
 
-        for adj_id in adjacent_locations:
-            adj_loc = self.get_simulae_node_by_id(adj_id, LOC)
-            options.append(self.get_actions_for_node(actor, adj_loc, note="Travel to", is_adjacent_loc=True))
+            if not adjacent_locations:
+                logWarning("No adjacent locations found")
+                
+            if adjacent_locations:
+                for adj_node in adjacent_locations:
+                    options.append(self.get_actions_for_node(actor, adj_node, note="Travel to", is_adjacent_loc=True))
+
 
         return options
 
@@ -596,15 +663,21 @@ class NGIN():
                     logInfo(f'{actor} traveling to {target}')
 
                     # actor & accompanyment travel to target
-                    actor.set_reference(LOC, target.ID)         # set actor loc to target
+                    actor.set_location_by_ID(target.ID)         # set actor loc to target
                     target.add_reference('Occupant', actor.ID) # add actor as occupant to target
 
                     accompanying_actors = actor.get_accompanyment() # get actor's accompanyment
                     if accompanying_actors: # if any accompanyment
                         for actor_id in accompanying_actors:
                             actor = self.get_simulae_node_by_id(actor_id, POI)
-                            actor.set_reference(LOC, target.ID) # set each actor's loc to target
-                            target.add_reference('Occupant', actor.ID) # add actor as occupant to target
+
+                            if not actor:
+                                logWarning(f"Accompanying actor with id '{actor_id}' not found in state!")
+                                continue
+
+                            actor.set_location_by_ID(target.ID) # set each accompanyment's loc to target
+                            target.add_reference('Occupant', actor.ID) # add accompanyment as occupant to target
+
 
             elif action == 'Fortify':
 
@@ -658,31 +731,45 @@ class NGIN():
         pass
 
 
-    def destroy_node(self, node):
-        node.status = Status.DEAD
+    def kill_node(self, node):
+        node.set_check('Status', 'Dead')
 
 
     def validate_state(self):
+        if not self.state:
+            raise ValueError("State not initialized")
+
         has_entities = False
         for nt in PHYSICAL_NODETYPES:
-            if len(self.state.Relations[nt]) >= 1:
+            
+            relations_by_nodetype = self.state.get_relations_by_nodetype(nt)
+
+            if relations_by_nodetype and len(relations_by_nodetype.keys()) < 1:
                 has_entities = True
 
 
     def display_state(self, actor_node=None):
         logInfo('\nGamestate:')
 
-        for nodetype, nodes in self.state.Relations.items():
-            logInfo(f"### {nodetype} ###")
+        if not self.state:
+            raise ValueError("State not initialized")
 
-            for node_id, node in nodes.items():
-                if node.status is not Status.DEAD:
+        relations = self.state.Relations
 
-                    if actor_node: # from perspective of...
-                        if not self.nodes_are_adjacent(actor_node, node) and not actor_node.knows_about(node):
-                            continue
+        if relations:
 
-                    logInfo(node)
+            for nodetype, nodes_dict in self.state.Relations.items():
+                logInfo(f"### {nodetype} ###")
+
+                for node_id, node in nodes_dict.items():
+
+                    if Type(node) == SimulaeNode and node.get_check('Alive'):
+
+                        if actor_node: # from perspective of...
+                            if not self.nodes_are_adjacent(actor_node, node) and not actor_node.knows_about(node):
+                                continue
+
+                        logInfo(node)
 
 
     def handle_mission(self, mission, subject):
@@ -691,19 +778,19 @@ class NGIN():
 
         # Handle success
 
-        success = self.user_choice( ['yes','no'], literal=True )
+        success = user_choice( ['yes','no'], literal=True )
 
         if success == 'yes':
 
             if mission[0] in ['Eliminate','Destroy']:
                 # find and remove subject
-                self.destroy_node(subject)
+                self.kill_node(subject)
                 
             elif mission[0] in ['Capture']:
 
                 if subject.Nodetype in INANIMATE_NODE_TYPES:
 
-                    self.state.Relations[subject.Nodetype][subject.ID].Relations
+                    #self.state.Relations[subject.Nodetype][subject.ID].Relations
 
                     #self.state.remove(subject)
                     # find and modify subject
@@ -711,9 +798,12 @@ class NGIN():
 
                     #self.state.append(subject)
 
+                    pass
+
                 else:
                     # find and remove subject
-                    del self.state.Relations[subject.Nodetype][subject.ID]
+                    #del self.state.Relations[subject.Nodetype][subject.ID]
+                    pass
 
         '''
         if random.random() <= 0.5:
