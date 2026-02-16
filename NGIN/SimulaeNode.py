@@ -82,11 +82,11 @@ class SimulaeNode:
 
     def __init__(self,  given_id=None, 
                         nodetype=OBJ,
-                        references: dict = None,
-                        attributes: dict = None,
-                        relations=None, 
-                        checks: dict = None, 
-                        abilities: dict = None):
+                        references: dict[str, Any] | None = None,
+                        attributes: dict[str, Any] | None = None,
+                        relations: dict[str, Any] | None = None, 
+                        checks: dict[str, Any] | None = None, 
+                        abilities: dict[str, Any] | None = None):
 
         self.ID = given_id if given_id else str(uuid.uuid1())
         self.Status = Status.ALIVE
@@ -182,7 +182,7 @@ class SimulaeNode:
 
 
     def knows_about(self, node):
-        logDebug("knows_about(",node,")", newline=False)
+        logDebug("knows_about(",node,")")
 
         knows_about = False
 
@@ -195,7 +195,7 @@ class SimulaeNode:
             if self.has_relation(node, node.Nodetype): # already has relationship
                 knows_about = True
 
-        logDebug("-> ",knows_about, newline=True)
+        logDebug("-> ",knows_about)
         return knows_about
 
 
@@ -214,6 +214,9 @@ class SimulaeNode:
     def add_reference(self, key: str, value: str):
         logDebug("add_reference(",key,value,")")
         
+        if self.References is None:
+            self.References = {}
+
         if key in self.References:
             
             reference = self.References[key]
@@ -378,13 +381,13 @@ class SimulaeNode:
     def set_check(self, key: str, value: bool):
         logDebug("set_check(",key,", ",value,")")
 
-        self.checks[key] = value
+        self.Checks[key] = value
 
     def get_check(self, key:str):
         logDebug("get_check(",key,")")
 
-        if key in self.checks:
-            return self.checks[key]
+        if key in self.Checks:
+            return self.Checks[key]
         return None
 
     def get_default_policy(self):
@@ -402,18 +405,18 @@ class SimulaeNode:
 
         return self.generate_values_for_scales(POLICY_SCALE, scale_strength_range=POLICY_STRENGTH_RANGE, use_rng=use_rng)
     
-    def get_policies(self):
+    def get_policies(self) -> dict | None:
         if self.Nodetype == POI:
-            return self.References[PERSONALITY]
+            return self.References[POLICY]
 
         return None
     
-    def generate_personality(self, use_rng: bool = True):
+    def generate_personality(self, use_rng: bool = True) -> dict:
         logDebug("generate_personality()")
 
         return self.generate_values_for_scales(PERSONALITY_SCALE, scale_strength_range=PERSONALITY_STRENGTH_RANGE, use_rng=use_rng)
     
-    def get_personality(self):
+    def get_personality(self) -> dict | None:
         if self.Nodetype == POI:
             return self.References[PERSONALITY]
 

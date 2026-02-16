@@ -542,10 +542,85 @@ class NGIN_Simulae_Actor(SimulaeNode):
     def status_summary(self):
         summary = f"Actor: {self.summary()}\n"
         
-        for attr in self.attributes:
+        for attr in self.Attributes:
             summary += f"{attr}: {self.get_attribute(attr)}\n"
 
         return summary
+    
+
+    def appraise_event(self, event):
+        pass
+
+    def appraise_encounter(self, encounter):
+        ''' what kind of encounter is this ? '''
+        
+        # Avoid, Ignore, Engage, Acknowledge
+
+        # Avoid -> Action (flee, hide, etc)
+        # Ignore -> Action (do nothing / continue with current plan)
+        # Acknowledge -> Passing interaction, no change to plan
+        # Engage -> Commence interaction, may change plan based on outcome
+        
+        pass    
+
+    def appraise_social_interaction(self, social_event):
+        return 0 # todo AE: implement
+    
+    def handle_social_interaction(self, social_event):
+        
+        # get appraisal of the social event
+        appraisal = self.appraise_social_interaction(social_event)
+
+        # determine meaning?
+
+        # evaluate response options 
+
+        # select response
+        
+        pass
+
+    def select_response(self, # includes emotional state
+                        social_event,
+                        npc,
+                        appraisal,
+                        relationship,
+                        conversation_history):
+        weights = {}
+
+        # get event response options
+        response_options = []
+
+        for response in response_options:
+            weight = EVENT_RESPONSE_WEIGHTS[social_event.type].get(response, 1.0)
+
+            # Hard limit (personality, social limitations, etc) prevent this response from being viable
+            if self.hard_gate(npc, relationship, appraisal, response, social_event, conversation_history):
+                continue
+
+            # apply modifiers
+
+            # personality traits
+            # politics?
+            # appraisal of the event
+            # relationship with the npc
+            # past interactions with the npc
+            # conversation history with the npc
+
+            # floor and clamp
+            weight = max(0.001, min(weight, 1000.0))
+            weights[response] = weight
+
+        # select response based on weights
+        if weights:
+            max_value = max(weights.values())
+            max_keys = [k for k, v in weights.items() if v == max_value]   
+
+            return max_keys[0] if max_keys else None
+
+        return None
+
+    def hard_gate(self, npc, relationship, appraisal, response, social_event, conversation_history):
+        return False # todo AE: implement
     
 
 def get_targets_nearby_node(node, target_criteria):
