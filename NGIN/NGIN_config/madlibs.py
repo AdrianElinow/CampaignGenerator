@@ -1,4 +1,7 @@
 
+POLICY = "Policy"
+PERSONALITY = "Personality"
+
 POLICY_SCALE = {
     "Economy":          ["Communist", "Socialist", "Interventionist", "Indifferent", "Capitalist", "Free-Capitalist","Hyper-Capitalist"],
     "Liberty":          ["Totalitarian","Authoritarian","Centralized","Indifferent","Liberal","Libertarian","Anarchist"],
@@ -325,6 +328,23 @@ POLICY_DESCRIPTIONS = {
         "Autocratic":"believes in a centralized authority headed by a strong leader", 
         "Dictatorial":"believes in a government run by a single dictator with absolute power"
     }
+}
+
+POLICY_SCALES = {
+    'name' : POLICY,
+    'scales' : POLICY_SCALE,
+    'descriptors' : POLICY_DESCRIPTIONS,
+    'strength_descriptors' : POLICY_BELIEF_STRENGTH_DESCRIPTORS,
+    'descriptor_buckets' : [3, 5, 8, 13, 21, 34],
+    'center_index' : 3
+}
+
+PERSONALITY_SCALES = {
+    'name' : PERSONALITY,
+    'scales' : PERSONALITY_SCALE,
+    'strength_descriptors' : PERSONALITY_TRAIT_STRENGTH_DESCRIPTORS,
+    'descriptor_buckets' : [3, 5, 8, 13, 21, 34],
+    'center_index' : 3
 }
 
 SKILLS = {

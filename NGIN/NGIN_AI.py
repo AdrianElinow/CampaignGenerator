@@ -624,6 +624,12 @@ class NGIN_Simulae_Actor(SimulaeNode):
     
 
 def get_targets_nearby_node(node, target_criteria):
+    '''
+    Get list of SimulaeNodes in the same location as 'node' that match 'target_criteria' (if applicable)
+    
+    :param node: Description
+    :param target_criteria: Description
+    '''
     
     loc = node.get_location()
     if loc:
@@ -661,8 +667,7 @@ def get_heuristic(actor, target, actions):
         act = action
         if act == Action.GOTO:
             logDebug('getting distance from ',actor,'to',target)
-            #value += distance_between(actor, target)
-            value += 1
+            value += distance_between(actor, target)
         elif act == Action.TAKE:
             value += 1
         elif act == Action.USE:
@@ -676,12 +681,25 @@ def get_heuristic(actor, target, actions):
 
 
 def distance_between(actor, target):
+    '''
+    Determine distance between actor and target. If they are adjacent (i.e. share a location), return 1. 
+    
+    :param actor: Description
+    :param target: Description
+    '''
+
     if nodes_are_adjacent(actor, target):
         return 1
     else:
-        return 2 # todo AE: implement
+        return 3 # todo AE: implement LOC search
 
 def nodes_are_adjacent(node1, node2):
+    '''
+    True if node1 and node2 are in the same location (i.e. they have a common LOC relation)
+    
+    :param node1: Description
+    :param node2: Description
+    '''
 
     containing_loc = node1.SimulaeNode.get_reference(LOC)
 
@@ -692,6 +710,11 @@ def nodes_are_adjacent(node1, node2):
 
 
 def generate_person(location=None):
+        '''
+        Test function to generate a person with some default attributes and relations for testing purposes
+        
+        :param location: Description
+        '''
 
         individual = SimulaeNode(nodetype=POI)
 
@@ -711,6 +734,10 @@ def generate_person(location=None):
         return individual
 
 def generate_food_item():
+    '''
+    Test function to generate a food item with some default attributes and relations for testing purposes
+    '''
+
     food = SimulaeNode(nodetype=OBJ)
 
     food.set_reference(NAME, "food")
@@ -722,6 +749,10 @@ def generate_food_item():
     return food
 
 def generate_drink_item():
+    '''
+    Test function to generate a drink item with some default attributes and relations for testing purposes
+    '''
+
     drink = SimulaeNode(nodetype=OBJ)
 
     drink.set_reference(NAME, "drink")

@@ -12,7 +12,7 @@ class Test_SimulaeNode(unittest.TestCase):
         self.assertIsNotNone(node.ID)
         self.assertEqual(node.Nodetype, OBJ)
 
-        self.assertEqual(node.Status, Status.ALIVE)
+        self.assertFalse(node.get_check('Alive')) # OBJ nodes should not have Alive check by default
 
         self.assertIsNotNone(node.References)
         
@@ -54,8 +54,8 @@ class Test_SimulaeNode(unittest.TestCase):
         # add adjacency by manipulating references directly to avoid broken reciprocal call
         loc1 = SimulaeNode(given_id="loc1", nodetype=LOC, references={NAME: "Loc1"})
         loc2 = SimulaeNode(given_id="loc2", nodetype=LOC, references={NAME: "Loc2"})
-        loc1.add_reference(ADJACENT, loc2.ID)
-        loc2.add_reference(ADJACENT, loc1.ID)
+        loc1.set_relation(loc2, ADJACENT)
+        loc2.set_relation(loc1, ADJACENT)
         adj1 = loc1.get_adjacent_locations()
         adj2 = loc2.get_adjacent_locations()
         self.assertIn(loc2.ID, adj1)
@@ -97,10 +97,10 @@ class Test_SimulaeNode(unittest.TestCase):
     def test_add_reference(self):
         node = SimulaeNode(given_id="node", references={NAME: "Test Node"})
         # add first reference (key not present initially)
-        node.add_reference(ADJACENT, "x")
+        node.add_relation(ADJACENT, "x")
         self.assertEqual(node.get_reference(ADJACENT), "x")
         # add second reference -> should become a list
-        node.add_reference(ADJACENT, "y")
+        node.add_relation(ADJACENT, "y")
         refs = node.get_reference(ADJACENT)
         self.assertIsInstance(refs, list)
         self.assertIn("x", refs)
@@ -254,8 +254,8 @@ class Test_generate_simulae_node(unittest.TestCase):
             self.assertIsInstance(generated.ID, str)
 
             if nt in SOCIAL_NODE_TYPES:
-                self.assertIn(POLICY, generated.References)
-                self.assertIsNotNone(generated.References[POLICY])
+                self.assertIn(POLICY, generated.Scales)
+                self.assertIsNotNone(generated.get_scale(POLICY))
 
         print("Test_generate_simulae_node","test_generate_simulae_node:", "PASS")
 
