@@ -1,4 +1,7 @@
 
+POLICY = "Policy"
+PERSONALITY = "Personality"
+
 POLICY_SCALE = {
     "Economy":          ["Communist", "Socialist", "Interventionist", "Indifferent", "Capitalist", "Free-Capitalist","Hyper-Capitalist"],
     "Liberty":          ["Totalitarian","Authoritarian","Centralized","Indifferent","Liberal","Libertarian","Anarchist"],
@@ -180,6 +183,19 @@ FACTION_TYPES = [
     "Political"
 ]
 
+PERSONALITY_TRAIT_STRENGTH_DESCRIPTORS = [
+    "barely",
+    "slightly",
+    "somewhat",
+    "moderately",
+    "fairly",
+    "mostly",
+    "very",
+    "strongly",
+    "staunchly",
+    "extremely"
+]
+
 POLICY_BELIEF_STRENGTH_DESCRIPTORS = [
     "barely",
     "slightly",
@@ -312,6 +328,221 @@ POLICY_DESCRIPTIONS = {
         "Autocratic":"believes in a centralized authority headed by a strong leader", 
         "Dictatorial":"believes in a government run by a single dictator with absolute power"
     }
+}
+
+POLICY_SCALES = {
+    'name' : POLICY,
+    'scales' : POLICY_SCALE,
+    'descriptors' : POLICY_DESCRIPTIONS,
+    'strength_descriptors' : POLICY_BELIEF_STRENGTH_DESCRIPTORS,
+    'descriptor_buckets' : [3, 5, 8, 13, 21, 34],
+    'center_index' : 3
+}
+
+PERSONALITY_SCALES = {
+    'name' : PERSONALITY,
+    'scales' : PERSONALITY_SCALE,
+    'strength_descriptors' : PERSONALITY_TRAIT_STRENGTH_DESCRIPTORS,
+    'descriptor_buckets' : [3, 5, 8, 13, 21, 34],
+    'center_index' : 3
+}
+
+SKILLS = {
+    "Physical": [
+        "Athletics",
+        "Endurance",
+        "Strength", 
+        "Agility",
+        "Balance",
+        "Stealth",
+        "Acrobatics",
+    ],
+    "Melee": [
+        "Unarmed",
+        "Blades",
+        "Blunt Weapons",
+        "Polearms",
+        "Improvised",
+        "Grappling",
+        "Shield"
+    ],
+    "Ranged": [
+        "Firearms",
+        "Bows",
+        "Throwing Weapons",
+        "Artillery",
+        "Energy Weapons",
+    ],
+    "Tactics": [
+        "Close-Quarters Combat",
+        "Formation Fighting",
+        "Ambush",
+        "Defense",
+        "Urban Warfare",
+        "Guerrilla Warfare",
+        "Siege Warfare",
+    ],
+    "Survival": [
+        "Wilderness Survival",
+        "Urban Survival",
+        "Foraging",
+        "Tracking",
+        "Hunting",
+        "Navigation"
+    ],
+    "Environmental": [
+        "Cold Weather Survival",
+        "Hot Weather Survival",
+        "Aquatic Survival",
+        "Zero-Gravity Survival",
+        "HAZMAT Survival"
+    ],
+    "Mechanics": [
+        "Repair",
+        "Mechanical Engineering",
+        "Electrical Engineering",
+        "Fabrication",
+        "Tools",
+        "Maintenance",
+        "Architecture",
+        "Reverse Physical Engineering"
+    ],
+    "Electronics": [
+        "Electrical Systems",
+        "Signal Systems",
+        "Power Systems",
+        "Circuitry",
+        "Diagnostics & Troubleshooting",
+        "Sensors",
+        "Robotics",
+        "Software Engineering",
+        "Computer Engineering",
+        "Reverse Software Engineering",
+    ],
+    "Crafting": [
+        "Metalworking",
+        "Woodworking",
+        "Textiles",
+        "Chemistry",
+        "Tailoring",
+    ],
+    "Academics": [
+        "History",
+        "Geography",
+        "Law",
+        "Economics",
+        "Politics",
+        "Philosophy",
+        "Theology",
+        "Linguistics",
+        "Sociology",
+        "Psychology",
+    ],
+    "Science": [
+        "Biology",
+        "Chemistry",
+        "Physics",
+        "Environmental Science",
+        "Computer Science",
+        "Mathematics",
+    ],
+    "Medicine": [
+        "First Aid",
+        "Anatomy",
+        "Disease Treatment",
+        "Trauma Care",
+        "Surgery",
+        "Pharmacology",
+        "Diagnostics",
+        "Field Medicine",
+        "PostHuman Medicine"
+    ],
+    "Analytics": [
+        "Investigation",
+        "Research",
+        "Data Analysis",
+        "Critical Thinking",
+        "Systems Analysis",
+        "Problem Solving",
+        "Strategy",
+        "Risk Assessment",
+        "Pattern Recognition"
+    ],
+    "Communication": [
+        "Persuasion",
+        "Negotiation",
+        "Intimidation",
+        "Counseling",
+        "Profiling",
+        "Deception",
+        "Leadership",
+        "Oratory",
+        "Interrogation",
+        "Teaching",
+        "Writing",
+        "Etiquette",
+        "Networking",
+        "Leadership",
+        "Command"
+    ],
+    "Infiltration": [
+        "Lockpicking",
+        "Bypass Systems",
+        "Disguise",
+        "Pickpocketing",
+        "Surveillance",
+        "Smuggling",
+        "Forgery",
+        "Sabotage",
+        "Assassination",
+        "Counter-Intelligence"
+    ],
+    "Vehicles": [
+        "Ground Vehicles",
+        "Aerial Vehicles",
+        "Offroad Vehicles",
+        "Convoy",
+        "Watercraft",
+        "Aircraft",
+        "Spacecraft",
+        "Navigation",
+        "Piloting",
+        "EVA Operations"
+    ],
+    "Culture": [
+        "Art",
+        "Music",
+        "Storytelling",
+        "Performance",
+        "Dance",
+        "Literature",
+        "Customs",
+        "Religion",
+        "Fashion",
+        "Cuisine",
+    ],
+    "Organization": [
+        "Logistics",
+        "Administration",
+        "Governance",
+        "Management",
+    ],
+    "Magic": [
+        "Spellcasting",
+        "Ritual",
+        "Summoning",
+        "Enchanting",
+        "Alchemy",
+        "Divination",
+        "Herbalism",
+        "Necromancy",
+        "Psionics",
+        "Telekinesis",
+        "Telepathy",
+        "Precognition",
+        "Enchantment",
+        "Illusion",
+    ],
 }
 
 MADLIBS_SUFFIXES = {
@@ -509,13 +740,46 @@ MADLIBS_NOUNS = [
 
 HUMAN_BODY_METRICS = {
     "male":{
-        "height": [170,190],
-        "weight": [60,90],
+        "height": {
+            'min': 1.55,
+            'avg': 1.74,
+            'max': 1.95,
+            'stddev': 0.1
+        },
+        "weight": {
+            "min": 60,
+            "avg": 75,
+            "max": 90,
+            "stddev": 9
+        },
         # todo ae: limbs
     },
     "female":{
-        "height": [155,175],
-        "weight": [50,75],
+        "height": {
+            "min": 1.45,
+            "avg": 1.61,
+            "max": 1.8,
+            "stddev": 0.1
+        },
+        "weight": {
+            "min": 50,
+            "avg": 65,
+            "max": 75,
+            "stddev": 10
+        },
         # todo ae: limbs
+    },
+    "limbs": {
+        'leg_height': 0.45,
+        'torso_height': 0.35,
+        'head_height': 0.15,
+        'foot_height': 0.05,
+        'arm_height': 0.45,
+        'head_weight': 0.08,
+        'leg_weight': 0.175,
+        'torso_weight': 0.5,
+        'arm_weight': 0.075,
+        'hand_weight': 0.005,
+        'foot_weight': 0.01,
     }
 }
