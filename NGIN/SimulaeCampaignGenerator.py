@@ -379,7 +379,7 @@ class NGIN():
         ''' creates a new node with random attributes ''' 
 
         name = self.get_new_name()
-        nodetype = random.choice( NODETYPES ) if not nodetype else nodetype
+        nodetype = random.choice( PHYSICAL_NODETYPES ) if not nodetype else nodetype
         references = {}
         attributes = {}
         relations  = {}
@@ -664,7 +664,7 @@ class NGIN():
 
     def validate_state(self):
         has_entities = False
-        for nt in NODETYPES:
+        for nt in PHYSICAL_NODETYPES:
             if len(self.state.Relations[nt]) >= 1:
                 has_entities = True
 

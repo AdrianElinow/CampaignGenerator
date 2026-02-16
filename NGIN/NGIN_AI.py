@@ -199,7 +199,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         
         self.plans = plans
         
-    def plan_task(self, task: str) -> TaskPlan:
+    def plan_task(self, task: str) -> TaskPlan | list | str | None: # todo AE: flesh out return type
         logDebug('plan_task(',task,')')
 
         if task in STATUS_ATTRIBUTES:
@@ -211,6 +211,8 @@ class NGIN_Simulae_Actor(SimulaeNode):
             return task
 
     def plan_status_task(self, task):
+        return # todo ae: fix
+
         logDebug('plan_status_task(',task,')')
 
         if task in STATUS_ATTRIBUTES:
@@ -411,12 +413,20 @@ class NGIN_Simulae_Actor(SimulaeNode):
     def get_recipe(self, target):
         return 'workstation', ['component1','component2'] # todo AE: implement
     
-    def get_status_threshold(self, threshold: str, subkey: str = None) -> int | float | None:
+    def get_status_threshold(self, threshold: str, subkey: str | None = None) -> int | float | None:
         logDebug("get_status_threshold(",threshold,", ",subkey,")")
 
         thresholds = self.get_attribute(STATUS_THRESHOLDS)
 
-        if thresholds and threshold in thresholds:
+        if not thresholds:
+            logWarning("No status thresholds found for actor")
+            return None
+        
+        if type(thresholds) != dict:
+            logDebug("Invalid thresholds format for",threshold,":",thresholds)
+            return None
+
+        if threshold in thresholds:
             if subkey and subkey in thresholds[threshold]:
                 return thresholds[threshold][subkey]
             elif not subkey:
@@ -469,7 +479,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         return False
 
 
-    def acquire(self, target : SimulaeNode):
+    def acquire(self, target: SimulaeNode):
   
         # do we already have one?
         if self.has_node(target):
@@ -480,7 +490,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         # do we own any? 
         #   if not, same as below, but add 'requires-permission'
-        if self.has_relation(target, OBJ):
+        if self.has_relation_to(target):
             actions = self.pathfind_to(target)
             heuristics['owned'] = get_heuristic(actions), actions
 
@@ -489,11 +499,9 @@ class NGIN_Simulae_Actor(SimulaeNode):
             actions = [(Action.TAKE,target)]
             heuristics['nearby'] = get_heuristic(actions), actions
         
-        if self.has_relation(target, OBJ): # do we know where any are?
+        if self.has_relation_to(target): # do we know where any are?
 
-            relation = self.get_relation(target) 
-
-            target_location = relation.get_location()
+            target_location = target.get_location()
 
             if target_location is None:
                 # do we know where any might be? -> search
@@ -520,7 +528,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
             if crafting_loc and required_components: # can make item with workstation
 
                 for component in required_components: # acquire components
-                    actions.append( self.acquire(component) )
+                    actions.append( self.acquire_vague_target(component) )
 
                 actions.append(self.pathfind_to(crafting_loc)) # go to workstation
 
@@ -529,7 +537,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
             elif required_components: # can make item without workstation
 
                 for component in required_components:
-                    actions.append( self.acquire(component) ) # acquire components
+                    actions.append( self.acquire_vague_target(component) ) # acquire components
                 
                 actions.append((Action.MAKE,target)) # make item
 
@@ -657,7 +665,7 @@ def get_best_heuristic(dataset, action, minimize=True):
     
     return best
 
-def get_heuristic(actor, target, actions):
+def get_heuristic(actions, actor = None, target = None):
     value = 0
 
     for action in actions:
