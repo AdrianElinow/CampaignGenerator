@@ -75,3 +75,31 @@ SCALE_DEGREE_DESCRIPTORS = [
     "Extremely ",          # 8
     "Diametrically ",      # 9 — categorical divergence
 ]
+
+STATUS_THRESHOLDS = "status_thresholds"
+THREAT = "threat"
+HUNGER = "hunger"
+THIRST = "thirst"
+DRINK = "drink"
+SLEEP = "sleep"
+SICK = "sick"
+TEMPERATURE = "temperature"
+COLD = "cold"
+HOT = "hot"
+EXHAUSTION = "exhaustion"
+LONELINESS = "loneliness"
+LOW = "low"
+HIGH = "high"
+MINIMUM = "min"
+MAXIMUM = "max"
+VALUE = "value"
+
+STATUS_ATTRIBUTES = [HUNGER, THIRST, HOT, COLD, EXHAUSTION, LONELINESS, SICK]
+
+PRIORITY_MODIFIERS = "priority_modifiers"
+CRITICAL_PRIORITY = "critical_priority"
+HIGH_PRIORITY = "high_priority"
+MEDIUM_PRIORITY = "medium_priority"
+LOW_PRIORITY = "low_priority"
+
+TASK_PRIORITIES = [CRITICAL_PRIORITY, HIGH_PRIORITY, MEDIUM_PRIORITY, LOW_PRIORITY]

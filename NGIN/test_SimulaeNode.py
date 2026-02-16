@@ -313,7 +313,7 @@ class TestSimulaeNodeRelations(unittest.TestCase):
 
         actor.set_location(loc)
         self.assertEqual(actor.get_location(), "loc-1")
-        self.assertIs(actor.Relations[CONTENTS][LOC]["loc-1"], loc)
+        self.assertIs(actor.References[LOC], loc.ID)
 
         actor.set_location_by_ID("loc-2")
         self.assertEqual(actor.get_location(), "loc-2")
