@@ -60,6 +60,7 @@ class NGIN():
 
 
     def save_to_file(self, filename: str):
+        logAll(f"save_to_file( filename: {filename} )")
 
         if not self.state:
             raise ValueError("No state to save")
@@ -87,7 +88,7 @@ class NGIN():
 
             #os.system('clear') # clear screen
 
-            self.validate_state()
+            #self.validate_state()
 
             #self.display_state()
 
@@ -103,11 +104,12 @@ class NGIN():
 
 
     def select_actor(self, randomized=False):
+        logDebug(f"select_actor( randomized: {randomized} )")
 
         if not self.state:
             raise ValueError("State not initialized")
 
-        actor_nodes = self.state.get_relations_by_nodetype(POI)
+        actor_nodes = self.state.get_relations_by_relation_type_and_nodetype(CONTENTS, POI)
 
         if not actor_nodes:
             raise Exception("No actor nodes found in state...")
@@ -156,9 +158,7 @@ class NGIN():
         if not self.state:
             raise ValueError("State not initialized")
 
-        pprint(self.state.Relations)
-
-        locations = self.state.get_relations_by_type()
+        locations = self.state.get_relations_by_relation_type_and_nodetype(CONTENTS, LOC)
 
         if not locations:
             logWarning("No locations found in state...")
@@ -171,8 +171,8 @@ class NGIN():
             print(f"{loc_node.Nodetype} {loc_node.References[NAME]}")
             loc_map[loc_id] = loc_node.get_adjacent_locations()
 
-            for adj_id in loc_map[loc_id]:
-                print(f"\tLOC {locations[adj_id]}")
+            for adjacent in loc_map[loc_id]:
+                print(f"\tLOC {adjacent.get_reference(NAME)}")
 
         return loc_map
 
@@ -194,49 +194,10 @@ class NGIN():
         else:
             return self.state.get_relation_by_nodetype_and_ID(nodetype, nid)
 
-    def get_simulae_nodes_by_reference(self, 
-                                       reference_key: str, 
-                                       reference_value: str | None = None,
-                                       nodetype: str | None = None):
-        logAll(f"get_simulae_nodes_by_reference( reference_key: {reference_key}, reference_value: {reference_value}, nodetype: {nodetype} )")
-
-        raise NotImplementedError("get_simulae_nodes_by_reference not implemented yet")
+    def attach_loc(self, new_loc: SimulaeNode):
 
         if not self.state:
             raise ValueError("State not initialized")
-
-        if nodetype:
-            # return all nodes with reference to reference_key (and if provided a reference_value, must also have that value associated with the key)
-            
-            selected = {}
-
-            relations = self.state.get_relations_by_nodetype(nodetype)
-
-            if not relations:
-                logWarning(f"No relations of nodetype '{nodetype}' found in state")
-                return selected
-
-            for snid, sn in relations.items():
-
-                if reference_value and sn:
-                    if reference_value == sn.get_reference(reference_key):
-                        selected[snid] = sn
-
-                #if sn.get_reference(reference_key):
-                    #selected[snid] = sn
-
-            return selected
-
-
-        else:
-            nodes_with_reference = {}
-
-            for nodetype, nodes in self.state.Relations.items():
-                nodes_with_reference = nodes_with_reference | self.get_simulae_nodes_by_reference(reference_key, reference_value, nodetype)
-
-            return nodes_with_reference
-
-    def attach_loc(self, new_loc: SimulaeNode):
         
         if not self.world_root: 
             logError("No world root found to attach location to!")
@@ -249,58 +210,53 @@ class NGIN():
         self.add_loc_to_world(new_loc)
 
         visited = [] 
-        nodes = [self.world_root.ID]
+        nodes = [self.world_root]
         
         while nodes:
-            node_id = nodes.pop()
-            visited.append(node_id)
 
-            if node_id == self.world_root.ID:
-                logDebug('popped world root')
-                
-            logDebug('attach_loc | Handling: ', node_id)
-            node = self.get_simulae_node_by_id(node_id, LOC)
-            
-            if not node:
-                #logError(f"Node with id '{node_id}' not found in state while attaching location!")
-                raise ValueError(f"Node with id '{node_id}' not found in state while attaching location!")
+            loc_node = nodes.pop()
+
+            if not loc_node:
+                logWarning("Node not found in state while attaching location!")
                 continue
 
-            adjacent_locations = node.get_adjacent_locations()
+            visited.append(loc_node.ID)
 
-            if not adjacent_locations:
-                node.add_adjacent_location(new_loc) # attach to current location
-                new_loc.add_adjacent_location(node)
-                return
+            adjacent_locations = loc_node.get_adjacent_locations()
 
-            # filter visited nodes to prevent infinite loop due to circular references
-            adjs = [ adj for adj in adjacent_locations if adj not in visited ]
+            # check if this location can accept more adjacent locations based on its 'max_adjacent_locations' attribute
+            max_adjacent_locations = loc_node.get_attribute_int('max_adjacent_locations')
+        
+            if not adjacent_locations: # no adjacent locations
 
-            summaries = [ adj.summary() for adj in adjacent_locations ]
+                if max_adjacent_locations and max_adjacent_locations > 0:
+                    
+                    # attach here
+                    if random.random() < stickiness:
+                        loc_node.add_adjacent_location(new_loc) # attach to current location
+                        #new_loc.add_adjacent_location(loc_node)
+                        return # attached!
 
-            logDebug(f"Adjacent locations: {summaries}")
+                # no adjacent locations and no max limit specified. Skip along
 
-            max_adjacent_locations = node.get_attribute_int('max_adjacent_locations')
+            else: # has adjacent locations
 
-            if not adjs:
-                if max_adjacent_locations and len(adjacent_locations) >= max_adjacent_locations:
-                    continue
-                
+                # filter visited nodes to prevent infinite loop due to circular references
+                adjs = [ adj for adj in adjacent_locations if adj.ID not in visited ]   
+
                 if random.random() < stickiness:
-                    node.add_adjacent_location(new_loc) # attach to current location
-                    new_loc.add_adjacent_location(node)
-                    return
+                    loc_node.add_adjacent_location(new_loc) # attach to current location
+                    #new_loc.add_adjacent_location(loc_node)
+                    return # attached!
                 
                 if not adjs and not nodes:
-                    node.add_adjacent_location(new_loc) # attach to current location
-                    new_loc.add_adjacent_location(node)
-                    return
-            
+                    loc_node.add_adjacent_location(new_loc) # attach to current location
+                    #new_loc.add_adjacent_location(loc_node)
+                    return # attached!
 
-            nodes = nodes + adjs
+                # not attached
+                nodes = nodes + adjs # add adjacent locations to 'nodes-to-visit'
                 
-
-
     def generate_location(self):
 
         # single-feature-location or multi-location (2-6)
@@ -376,7 +332,7 @@ class NGIN():
     def generate_individual(self, location, faction=None):
         logAll("generate_individual( location: ", location.summary(), ", faction: ", faction.summary() if faction else None, " )")
 
-        individual = generate_person_simulae_node(self.get_new_name())
+        individual = generate_person_simulae_node(self.get_new_name(), include_body=False)
 
         individual.set_location(location)
         
@@ -509,9 +465,7 @@ class NGIN():
         return False
 
 
-    def get_actions(self, actor):
-        raise NotImplementedError("get_simulae_nodes_by_reference not implemented yet")
-
+    def get_actions(self, actor):        
         logAll(f"get_actions( actor: {actor.summary()} )")
 
         # handle inanimates
@@ -533,14 +487,12 @@ class NGIN():
             options.append(self.get_actions_for_node(actor, loc, note="current location"))
 
             # same location?
-            adjacents = self.get_simulae_nodes_by_reference(LOC, reference_value=actor_loc)
+            adjacents = loc.get_adjacent_locations()
 
-            if not adjacents:
-                logWarning("No adjacent entities found")
-
-            for adj_id, adj in adjacents.items():
-                actions = self.get_actions_for_node(actor, adj, note="adjacent entity")
-                options.append(actions)
+            if adjacents:
+                for adj in adjacents:
+                    actions = self.get_actions_for_node(actor, adj, note="adjacent entity")
+                    options.append(actions)
 
             # evaluate movement/travel options
             adjacent_locations = loc.get_adjacent_locations()
@@ -557,6 +509,7 @@ class NGIN():
 
 
     def get_actions_for_node(self, actor, target, note=None, is_adjacent_loc=False):
+        logAll(f"get_actions_for_node( actor: {actor.summary()}, target: {target.summary()}, note: {note}, is_adjacent_loc: {is_adjacent_loc} )")
 
         # handle inanimates
         if actor.Nodetype not in SOCIAL_NODE_TYPES:
@@ -576,11 +529,12 @@ class NGIN():
         return target, actions, note
 
 
-    def select_action(self, actions, actor):
-        
+    def select_action(self, actions, actor: SimulaeNode):
+        logAll(f"select_action( actions: {actions}, actor: {actor.summary()} )")
+
         selection_idx = 0
         selected_action = None
-        selected_target = None
+        selected_target: tuple | None = None
 
         while not selected_action:
 
@@ -590,12 +544,17 @@ class NGIN():
                     print(f"{idx:3} | [{note:^16}] |{target} ")
 
                 selection_idx = robust_int_entry("Select Target > ", 0, len(actions))
+
                 selected_target = actions[selection_idx]
 
-            t, options, note = selected_target
+            target, options, note = selected_target
+
+            logDebug(f"Selected target: {target.summary()} with options: {options} and note: {note}")
+
+            logDebug(f"Actor's relation to target: {actor.get_relation(target)}")
 
             # display description of target
-            print(f"you are {actor.get_relation(actor)['Disposition']} towards {t.get_description()}")
+            print(f"you are {actor.get_relation(target)['Disposition']} towards {target.get_description()}")
 
             if len(options) > 1:
 
@@ -611,7 +570,7 @@ class NGIN():
                 selection_idx = 0
 
             selected_action = options[selection_idx]
-            selected_target = t
+            selected_target = target
 
         return selected_target, selected_action
 
@@ -777,13 +736,11 @@ class NGIN():
         pass
 
 
-    def kill_node(self, node):
-        node.set_check('Status', 'Dead')
-
-
     def validate_state(self):
         if not self.state:
             raise ValueError("State not initialized")
+
+        return True # todo ae: fix validation
 
         has_entities = False
         for nt in PHYSICAL_RELATIVE_TYPES:
@@ -809,7 +766,7 @@ class NGIN():
 
                 for node_id, node in nodes_dict.items():
 
-                    if Type(node) == SimulaeNode and node.get_check('Alive'):
+                    if type(node) == SimulaeNode and node.get_check('Alive'):
 
                         if actor_node: # from perspective of...
                             if not self.nodes_are_adjacent(actor_node, node) and not actor_node.knows_about(node):
@@ -830,7 +787,8 @@ class NGIN():
 
             if mission[0] in ['Eliminate','Destroy']:
                 # find and remove subject
-                self.kill_node(subject)
+                #self.kill_node(subject)
+                pass
                 
             elif mission[0] in ['Capture']:
 

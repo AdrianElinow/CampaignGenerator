@@ -519,7 +519,8 @@ class SimulaeNode:
             return False
 
         self.set_reference(LOC, location_node.ID)
-        return self.set_relation(location_node, relation_type=CONTENTS)
+
+        return True
 
     def set_location_by_ID(self: SimulaeNode, location_id: str):
         logAll("set_location_by_ID(",location_id,")")
@@ -528,17 +529,13 @@ class SimulaeNode:
 
     def get_adjacent_locations(self: SimulaeNode) -> list[SimulaeNode] | None:
         logAll("get_adjacent_locations()")
-        
-        adjacents = self.get_relations_by_type(ADJACENT)
 
-        if not adjacents:
+        adjacent_locations = self.get_relations_by_relation_type_and_nodetype(ADJACENT, LOC)
+        
+        if not adjacent_locations:
             return []
         
-        if type(adjacents) != dict:
-            logWarning(f"Expected adjacents to be a dict, got {type(adjacents)}")
-            return []
-        
-        return [ node for nodetype, nodes in adjacents.items() for nid, node in nodes.items() if node.Nodetype == LOC ]
+        return list(adjacent_locations.values())
 
     def add_adjacent_location(self: SimulaeNode, loc: SimulaeNode, reciprocate=True):
         logAll("add_adjacent_location(",loc,")")
@@ -745,39 +742,48 @@ class SimulaeNode:
         return summary
 
     def toJSON(self: SimulaeNode) -> dict:
+        logAll(f"toJSON({self.ID, self.References.get(NAME)})")
 
         try:
 
+            # break SimulaeNode down into JSON-serializable dict
             d = self.__dict__
 
-            for nodetype, nodes in self.Relations.items():
-                v = {}
+            # Process Relations sub-items, containing nested SimulaeNodes, into JSON-serializable dicts    
+            
+            for relation_type, nodetype_lookup in self.Relations.items():
+                logAll("Processing relation type:", relation_type)
+                physical_relation_lookup = {}
 
-                if type(nodes) == type(""):
-                    print(f'ERR | Unexpected type in "toJSON(..)" | why is this {nodetype}"nodes" a str?', nodes)
-                elif type(nodes) == type([]):
-                    print(f'ERR | Unexpected type in "toJSON(..)" | why is this {nodetype}"nodes" a list?', nodes)
-                    pass # todo AE: resolve SimulaeNode OBJ.Relations is type list
-                else:
+                for nodetype, nodes in nodetype_lookup.items():
+                    
+                    if not nodes:
+                        continue
+
+                    logAll("\tProcessing nodetype:", nodetype)
+
+                    nodetype_relation_lookup = {}
+
+                    if relation_type == ADJACENT and nodetype != LOC:
+                        nodetype_relation_lookup = { node_id: node_id for node_id, node in nodes.items() }
+                        continue
+
                     for node_id, node in nodes.items():
-                        if isinstance(node, dict):
-                            v[node_id] = {}
-                            for k, val in node.items():
-                                if hasattr(val, 'toJSON'):
-                                    v[node_id][k] = val.toJSON()
-                                else:
-                                    v[node_id][k] = val
-                        elif hasattr(node, 'toJSON'):
-                            v[node_id] = node.toJSON()
+                        logAll("\t\tProcessing node:", relation_type, nodetype, node)
+
+                        if hasattr(node, 'toJSON'):
+                            nodetype_relation_lookup[node_id] = node.toJSON()
                         else:
-                            v[node_id] = node
+                            nodetype_relation_lookup[node_id] = node
+                    
+                    physical_relation_lookup[nodetype] = nodetype_relation_lookup
 
-                d[RELATIONS][nodetype] = v
+                d[RELATIONS][relation_type] = physical_relation_lookup
 
+
+            # Process References
             for k,v in self.References.items():
                 d[REFERENCES][k] = v
-
-            #d[STATUS] = self.Status.toJSON()
 
             return d
 
@@ -855,7 +861,7 @@ def generate_simulae_node(node_type=None, node_name=None):
 
     return simulae_node
 
-def generate_person_simulae_node(node_name=None):
+def generate_person_simulae_node(node_name=None, include_body: bool = True):
     logAll("generate_person_simulae_node(",node_name,")")
     ''' generate_person_simulae_node() generates a SimulaeNode of type POI with random attributes '''
     
@@ -888,19 +894,20 @@ def generate_person_simulae_node(node_name=None):
     person.set_attribute("Height", round(total_height, 2))
     person.set_attribute("Weight", round(total_weight, 2))
 
-    head, torso, left_arm, right_arm, left_leg, right_leg = generate_person_body(
-        gender=gender,
-        age=age,
-        height=total_height,
-        weight=total_weight,
-        complete=True)
-    
-    person.Relations[COMPONENTS][OBJ][torso.ID] = torso
-    person.Relations[COMPONENTS][OBJ][left_arm.ID] = left_arm
-    person.Relations[COMPONENTS][OBJ][right_arm.ID] = right_arm
-    person.Relations[COMPONENTS][OBJ][left_leg.ID] = left_leg
-    person.Relations[COMPONENTS][OBJ][right_leg.ID] = right_leg
-    person.Relations[COMPONENTS][OBJ][head.ID] = head
+    if include_body:
+        head, torso, left_arm, right_arm, left_leg, right_leg = generate_person_body(
+            gender=gender,
+            age=age,
+            height=total_height,
+            weight=total_weight,
+            complete=True)
+        
+        person.Relations[COMPONENTS][OBJ][torso.ID] = torso
+        person.Relations[COMPONENTS][OBJ][left_arm.ID] = left_arm
+        person.Relations[COMPONENTS][OBJ][right_arm.ID] = right_arm
+        person.Relations[COMPONENTS][OBJ][left_leg.ID] = left_leg
+        person.Relations[COMPONENTS][OBJ][right_leg.ID] = right_leg
+        person.Relations[COMPONENTS][OBJ][head.ID] = head
 
     return person
 
