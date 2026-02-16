@@ -27,7 +27,7 @@ class Test_NGIN_AI_Planning(unittest.TestCase):
 
         self.actor.prioritize()
 
-        logDebug("Priorities: ",self.actor.priorities)
+        logAll("Priorities: ",self.actor.priorities)
 
         self.actor.plan()
 
@@ -42,7 +42,7 @@ class Test_NGIN_AI_Planning(unittest.TestCase):
             if self.actor.priorities:
                 completed_action = self.actor.act_next()
                 if completed_action:
-                    logDebug("Completed action:", completed_action)
+                    logAll("Completed action:", completed_action)
                     self.actor.plan()
 
         print("Test_NGIN_AI_Planning","test_NGIN_AI_plan_populated:", "PASS")

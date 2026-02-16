@@ -1,8 +1,7 @@
 
 
 import random
-from NGIN import SimulaeNode
-from NGIN.NGIN_utils.ngin_utils import logDebug, logWarning
+from .ngin_utils import logAll, logWarning
 
 def generate_values_for_scales(
     scales: dict[str, list[str]] | None,
@@ -28,7 +27,7 @@ def generate_values_for_scales(
     :rtype: dict[Any, Any]
     '''
     
-    logDebug("generate_values_for_scales(",scales,")")
+    logAll("generate_values_for_scales(",scales,")")
 
     if not scales:
         raise ValueError("Scales definition is required to generate values for scales")
@@ -68,7 +67,7 @@ def get_scale_diff( master_scale: dict[str, list[str]],
     :type scale_center_index: int
     '''
     
-    logDebug("scale_diff(",master_scale, scale, comparison_scale, descriptors, descriptors_buckets, scale_center_index,")")
+    logAll("scale_diff(",master_scale, scale, comparison_scale, descriptors, descriptors_buckets, scale_center_index,")")
 
     diff_summary = {}
     diff = 0
@@ -101,12 +100,12 @@ def scale_factor_diff(scale_factor: tuple, compare_scale_factor: tuple, descript
     :type scale_center_index: int
     '''
 
-    logDebug("scale_factor_diff(",scale_factor, compare_scale_factor,")")
+    logAll("scale_factor_diff(",scale_factor, compare_scale_factor,")")
 
     return get_scale_factor_diff(scale_factor, compare_scale_factor, descriptors, descriptors_buckets, scale_center_index)
 
 def get_scale_factor(scales, scale, key: str) -> tuple[int, int] | None:
-    logDebug("get_scale_factor(",scale,", ",key,")")
+    logAll("get_scale_factor(",scale,", ",key,")")
 
     if scale not in scales:
         logWarning(f"Scale '{scale}' not found in node scales")
@@ -123,7 +122,7 @@ def get_scale_factor(scales, scale, key: str) -> tuple[int, int] | None:
     return scales[scale][key] # returns tuple (index, strength)
 
 def get_scale_index(scales, scale, key: str) -> int | None:
-    logDebug("get_scale_index(",scale,", ",key,")")
+    logAll("get_scale_index(",scale,", ",key,")")
 
     factor = get_scale_factor(scales, scale, key)
 
@@ -170,7 +169,7 @@ def get_scale_factor_diff( scale_factor: tuple, compare_scale_factor: tuple, des
     :type scale_center_index: int
     '''
     
-    logDebug("get_scale_factor_diff(",scale_factor, compare_scale_factor,")")
+    logAll("get_scale_factor_diff(",scale_factor, compare_scale_factor,")")
 
     summary = {}
     diff = 0
@@ -187,7 +186,7 @@ def get_scale_factor_diff( scale_factor: tuple, compare_scale_factor: tuple, des
     return delta, descriptors[index]
 
 def get_bellcurve_value_for_scale(scale_list: list, std_dev: float | None, std_deviation_frac: float = 1, rng: random.Random | None = None) -> int:
-    logDebug("get_bellcurve_value_for_scale(",scale_list,")")
+    logAll("get_bellcurve_value_for_scale(",scale_list,")")
     ''' get_bellcurve_value_for_scale(scale_list) returns an index into the given scale_list
         using a bell curve distribution centered on the middle of the scale_list
     '''
@@ -210,7 +209,7 @@ def get_bellcurve_value_for_scale(scale_list: list, std_dev: float | None, std_d
     return index
 
 def random_bell_curve_value(min_val: float, max_val: float, average: float, std_dev: float | None, std_deviation_frac: float = 1, rng: random.Random | None = None) -> float:
-    logDebug("random_bell_curve_value(",min_val,", ",max_val,", ",average,", ",std_deviation_frac,")")
+    logAll("random_bell_curve_value(",min_val,", ",max_val,", ",average,", ",std_deviation_frac,")")
     """
     Generate a realistic random value along a bell curve (normal distribution),
     constrained within min and max, centered on average.
@@ -234,7 +233,7 @@ def random_bell_curve_value(min_val: float, max_val: float, average: float, std_
             std_dev = (max_val - min_val) * std_deviation_frac
         
         # std_dev is None
-        logWarning("std_dev is None, defaulting to 15% of range for moderate variance")
+        logAll("std_dev is None, defaulting to 15% of range for moderate variance")
         std_dev = (max_val - min_val) * 0.15
 
     # Generate values until one falls within range (clipping is optional but can bias the curve)
@@ -255,8 +254,8 @@ def bucket_delta(value: int, buckets: list[int]) -> int:
     :rtype: int
     '''
 
-    if not value: 
-        raise ValueError("'value' cannot be None or 0")
+    if value == None: 
+        raise ValueError("'value' cannot be None")
 
     if not buckets:
         raise ValueError("'buckets' cannot be None or empty list")

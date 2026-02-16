@@ -2,7 +2,7 @@ import sys, os, random
 
 from NGIN import *
 from NGIN.NGIN_config.ngin_missions import NGIN_MISSIONS
-from NGIN.NGIN_console import user_choice
+from .NGIN_utils.ngin_utils import user_choice
 
 class NGIN():
 
@@ -137,7 +137,8 @@ class NGIN():
        
         self.world_root = generate_simulae_node(LOC, self.get_new_name())
 
-        self.add_node(self.world_root)
+        logInfo('Attach world root: ', self.world_root)
+        self.add_loc_to_world(self.world_root)
 
         world_size = self.settings['world_size']
         lo, hi = self.settings['world_sizes'][world_size]
@@ -155,7 +156,9 @@ class NGIN():
         if not self.state:
             raise ValueError("State not initialized")
 
-        locations = self.state.get_relations_by_nodetype(LOC)
+        pprint(self.state.Relations)
+
+        locations = self.state.get_relations_by_type()
 
         if not locations:
             logWarning("No locations found in state...")
@@ -174,6 +177,7 @@ class NGIN():
         return loc_map
 
     def get_simulae_node_by_id(self, nid: str, nodetype: str | None = None) -> 'SimulaeNode | None':
+        logDebug(f"get_simulae_node_by_id( nid: {nid}, nodetype: {nodetype} )")
 
         if not self.state:
             raise ValueError("State not initialized")
@@ -194,7 +198,9 @@ class NGIN():
                                        reference_key: str, 
                                        reference_value: str | None = None,
                                        nodetype: str | None = None):
-        logDebug(f"get_simulae_nodes_by_reference( reference_key: {reference_key}, reference_value: {reference_value}, nodetype: {nodetype} )")
+        logAll(f"get_simulae_nodes_by_reference( reference_key: {reference_key}, reference_value: {reference_value}, nodetype: {nodetype} )")
+
+        raise NotImplementedError("get_simulae_nodes_by_reference not implemented yet")
 
         if not self.state:
             raise ValueError("State not initialized")
@@ -240,7 +246,7 @@ class NGIN():
         stickiness = WORLD_GEN_STICKINESS
 
         # add to world
-        self.add_node(new_loc)
+        self.add_loc_to_world(new_loc)
 
         visited = [] 
         nodes = [self.world_root.ID]
@@ -248,10 +254,16 @@ class NGIN():
         while nodes:
             node_id = nodes.pop()
             visited.append(node_id)
+
+            if node_id == self.world_root.ID:
+                logDebug('popped world root')
+                
+            logDebug('attach_loc | Handling: ', node_id)
             node = self.get_simulae_node_by_id(node_id, LOC)
             
             if not node:
-                logError(f"Node with id '{node_id}' not found in state while attaching location!")
+                #logError(f"Node with id '{node_id}' not found in state while attaching location!")
+                raise ValueError(f"Node with id '{node_id}' not found in state while attaching location!")
                 continue
 
             adjacent_locations = node.get_adjacent_locations()
@@ -263,6 +275,10 @@ class NGIN():
 
             # filter visited nodes to prevent infinite loop due to circular references
             adjs = [ adj for adj in adjacent_locations if adj not in visited ]
+
+            summaries = [ adj.summary() for adj in adjacent_locations ]
+
+            logDebug(f"Adjacent locations: {summaries}")
 
             max_adjacent_locations = node.get_attribute_int('max_adjacent_locations')
 
@@ -298,7 +314,7 @@ class NGIN():
 
         for entity in population:
 
-            self.add_node(entity)
+            self.add_node_to_world(entity)
 
             # set entity's location
             entity.set_location_by_ID(location.ID)
@@ -326,10 +342,11 @@ class NGIN():
 
 
     def generate_group(self, location):
+        logAll("generate_group( location: ", location.summary(), " )")
 
         # generate new faction
         faction = self.generate_faction()
-        self.add_node(faction)
+        self.add_node_to_world(faction)
 
         # small medium or large? -> generate more individuals
         group_size = random.choice( list(self.settings['groups'].keys()) )
@@ -337,13 +354,14 @@ class NGIN():
         lo, hi = int(self.settings['groups'][group_size][0]), int(self.settings['groups'][group_size][1])
         num_individuals = random.randrange(lo, hi)
 
-        logDebug(f"Generating group of size {num_individuals}")
+        logAll(f"Generating group of size {num_individuals}")
 
         group = []
         for i in range(num_individuals):
             individual = self.generate_individual(location, faction)
 
-            individual.update_relation(faction, interaction="Join")
+            # update individual's relation to faction
+            #individual.update_relation(faction, interaction="Join")
 
             #individual.References[FAC] = faction.ID
 
@@ -356,40 +374,60 @@ class NGIN():
 
 
     def generate_individual(self, location, faction=None):
+        logAll("generate_individual( location: ", location.summary(), ", faction: ", faction.summary() if faction else None, " )")
 
         individual = generate_person_simulae_node(self.get_new_name())
 
         individual.set_location(location)
         
         return individual
-
-    def add_node(self, node: SimulaeNode):
-        logDebug(f"add_node({node.summary()})")
+    
+    def add_loc_to_world(self, loc: SimulaeNode):
+        logAll(f"add_loc_to_world( loc: {loc.summary()} )")
 
         if not self.state:
             raise ValueError("State not initialized")
         
-        self.state.set_relation(node)
+        if loc.Nodetype != LOC:
+            raise ValueError(f"Expected nodetype 'LOC', got '{loc.Nodetype}'")
 
-        if 'Name' in node.References:
-            self.taken_names = node.References['Name']
+        self.state.set_relation(loc, relation_type=CONTENTS)
 
-        if node.Nodetype == LOC:
-            current_num_locs = self.state.get_attribute_int('num_locations')
+        name = loc.get_reference(NAME)
 
-            if not current_num_locs:
-                current_num_locs = 0
+        if name:
+            if self.taken_names and name not in self.taken_names:
+                self.taken_names.append(name)
 
-            self.state.set_attribute('num_locations', current_num_locs + 1)
+        current_num_locs = self.state.get_attribute_int('num_locations')
 
-            if 'LOC_num' not in self.state.Attributes:
-                self.state.Attributes['LOC_num'] = 0
+        if not current_num_locs:
+            current_num_locs = 0
 
-            self.state.Attributes['LOC_num'] += 1
+        self.state.set_attribute('num_locations', current_num_locs + 1)
+
+        if 'LOC_num' not in self.state.Attributes:
+            self.state.Attributes['LOC_num'] = 0
+
+        self.state.Attributes['LOC_num'] += 1
+
+    def add_node_to_world(self, node: SimulaeNode):
+        logAll(f"add_node_to_world({node.summary()})")
+
+        if not self.state:
+            raise ValueError("State not initialized")
+        
+        self.state.set_relation(node, relation_type=CONTENTS)
+
+        name = node.get_reference(NAME)
+
+        if name:
+            if self.taken_names and name not in self.taken_names:
+                self.taken_names.append(name)
 
 
     def generate_faction(self):
-        logDebug("generate_faction()")
+        logAll("generate_faction()")
         
         # choose organization subtype
         orgtype = random.choice(FACTION_TYPES)
@@ -409,6 +447,7 @@ class NGIN():
 
 
     def generate_policy(self, orgtype=None):
+        logAll(f"generate_policy( orgtype: {orgtype} )")
 
         policies = POLICY_SCALE
 
@@ -427,20 +466,23 @@ class NGIN():
 
 
     def get_new_name(self):
+        logAll("get_new_name()")
 
         name = random.choice( MADLIBS_NOUNS )
 
         if not self.taken_names:
             self.taken_names = []        
 
-        while name in self.taken_names and name != "":
+        while name and name in self.taken_names and len(self.taken_names) < len(MADLIBS_NOUNS):
             name = random.choice( MADLIBS_NOUNS )
     
         self.taken_names.append(name)
+
         return name
 
 
     def generate_element( self, nodetype ):
+        logAll(f"generate_element( nodetype: {nodetype} )")
         ''' creates a new node with random attributes ''' 
 
         name = self.get_new_name()
@@ -456,6 +498,7 @@ class NGIN():
             
 
     def nodes_are_adjacent(self, node1, node2):
+        logAll(f"nodes_are_adjacent( node1: {node1.summary()}, node2: {node2.summary()} )")
 
         loc1 = node1.get_reference(LOC)
         loc2 = node2.get_reference(LOC)
@@ -467,6 +510,9 @@ class NGIN():
 
 
     def get_actions(self, actor):
+        raise NotImplementedError("get_simulae_nodes_by_reference not implemented yet")
+
+        logAll(f"get_actions( actor: {actor.summary()} )")
 
         # handle inanimates
         if actor.Nodetype not in SOCIAL_NODE_TYPES:
@@ -483,7 +529,7 @@ class NGIN():
 
         if loc:
 
-            logDebug('Current Location:',loc.ID)
+            logAll('Current Location:',loc.ID)
             options.append(self.get_actions_for_node(actor, loc, note="current location"))
 
             # same location?
@@ -575,16 +621,16 @@ class NGIN():
         target, m = mission
         action, liminality = m
 
-        logDebug(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
+        logAll(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
 
 
     def resolve_action(self, actor, mission):
-        logDebug("resolve_action(",actor,mission,")")
+        logAll("resolve_action(",actor,mission,")")
         
         target, m = mission
         action, liminality = m
 
-        logDebug(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
+        logAll(f"{actor.summary()} -> ({liminality}) {action} {target.summary()}")
 
         if target.Nodetype in SOCIAL_NODE_TYPES:
             
@@ -740,7 +786,7 @@ class NGIN():
             raise ValueError("State not initialized")
 
         has_entities = False
-        for nt in PHYSICAL_NODETYPES:
+        for nt in PHYSICAL_RELATIVE_TYPES:
             
             relations_by_nodetype = self.state.get_relations_by_nodetype(nt)
 
@@ -838,10 +884,10 @@ def try_json_load(filename):
 
 
 def main():
+    logAll("Starting NGIN Simulae Campaign Generator")
     
     # Import NGIN
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 
     mission_struct = load_json_from_file( "NGIN/NGIN_config/story_struct.json" )
     ngin_settings = load_json_from_file( "NGIN/NGIN_config/ngin_settings.json" )

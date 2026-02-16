@@ -177,7 +177,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         }
 
     def plan(self):
-        logDebug('plan()')
+        logAll('plan()')
 
         if not self.priorities:
             self.prioritize()
@@ -185,7 +185,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         plans = {}
 
         for goal in self.priorities:
-            logDebug('Planning for goal:', goal)
+            logAll('Planning for goal:', goal)
 
             priority, task = goal
 
@@ -195,25 +195,25 @@ class NGIN_Simulae_Actor(SimulaeNode):
                 plans[task] = plan
                 continue
             
-            logDebug('no plan for',task)
+            logAll('no plan for',task)
         
         self.plans = plans
         
     def plan_task(self, task: str) -> TaskPlan | list | str | None: # todo AE: flesh out return type
-        logDebug('plan_task(',task,')')
+        logAll('plan_task(',task,')')
 
         if task in STATUS_ATTRIBUTES:
             return self.plan_status_task(task)
         elif task is THREAT:
             return self.plan_threat_reaction()
         else:
-            logDebug('no planning for',task)
+            logAll('no planning for',task)
             return task
 
     def plan_status_task(self, task):
         return # todo ae: fix
 
-        logDebug('plan_status_task(',task,')')
+        logAll('plan_status_task(',task,')')
 
         if task in STATUS_ATTRIBUTES:
             
@@ -237,26 +237,26 @@ class NGIN_Simulae_Actor(SimulaeNode):
         return self.acquire_vague_target(task)
 
     def plan_threat_reaction(self):
-        logDebug('plan_threat_reaction()')
+        logAll('plan_threat_reaction()')
 
         return None
 
     def act_next(self, prioritized=False):
-        logDebug('act_next(',prioritized,')')
+        logAll('act_next(',prioritized,')')
 
         if not self.priorities:
             if prioritized:
-                logDebug("no priorities??")
+                logAll("no priorities??")
                 return None
 
-            logDebug('re-prioritizing')
+            logAll('re-prioritizing')
             self.prioritize()
             return self.act_next(prioritized=True)
 
         task = self.priorities[0]
 
         if not task:
-            logDebug('no task?')
+            logAll('no task?')
             return None
         
         priority, goal = task
@@ -266,14 +266,14 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         plan = self.plans[goal]
 
-        logDebug(f"Need to solve: {goal} (priority: {priority})")
+        logAll(f"Need to solve: {goal} (priority: {priority})")
 
         if not plan:
-            logDebug(f'no plan for {goal}')
+            logAll(f'no plan for {goal}')
             pass
 
         else:
-            logDebug(plan.summary())
+            logAll(plan.summary())
 
             self.act(plan)
 
@@ -283,23 +283,23 @@ class NGIN_Simulae_Actor(SimulaeNode):
         next_action = plan.next_action()
 
         if next_action == Action.GOTO:
-            logDebug(f'went to {plan.target}')
+            logAll(f'went to {plan.target}')
         elif next_action == Action.USE:
             ''' consume item '''
             if plan.target in self.Relations[CONTENTS]:
                 del self.Relations[CONTENTS][plan.target]
-                logDebug(f'consumed {plan.target}')
+                logAll(f'consumed {plan.target}')
             else:
                 raise KeyError(f"Cannot use {plan.target} -> not in inventory")
 
         elif next_action == Action.TAKE:
             ''' add item to inv '''
             self.Relations[CONTENTS][plan.target.ID] = plan.target
-            logDebug(f'took {plan.target}')
+            logAll(f'took {plan.target}')
             
 
     def prioritize(self):
-        logDebug('prioritize()')
+        logAll('prioritize()')
         ''' Prioritize actions based on current needs '''
         ''' Follow rough Maslow's hierarchy of needs '''
 
@@ -414,7 +414,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
         return 'workstation', ['component1','component2'] # todo AE: implement
     
     def get_status_threshold(self, threshold: str, subkey: str | None = None) -> int | float | None:
-        logDebug("get_status_threshold(",threshold,", ",subkey,")")
+        logAll("get_status_threshold(",threshold,", ",subkey,")")
 
         thresholds = self.get_attribute(STATUS_THRESHOLDS)
 
@@ -423,7 +423,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
             return None
         
         if type(thresholds) != dict:
-            logDebug("Invalid thresholds format for",threshold,":",thresholds)
+            logAll("Invalid thresholds format for",threshold,":",thresholds)
             return None
 
         if threshold in thresholds:
@@ -674,7 +674,7 @@ def get_heuristic(actions, actor = None, target = None):
         
         act = action
         if act == Action.GOTO:
-            logDebug('getting distance from ',actor,'to',target)
+            logAll('getting distance from ',actor,'to',target)
             value += distance_between(actor, target)
         elif act == Action.TAKE:
             value += 1

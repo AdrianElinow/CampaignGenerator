@@ -1,6 +1,12 @@
-from NGIN import SimulaeNode
-from NGIN.NGIN_utils.ngin_utils import logDebug
+from __future__ import annotations
+
 from enum import Enum
+from typing import TYPE_CHECKING
+
+from .NGIN_utils.ngin_utils import logAll
+
+if TYPE_CHECKING:
+    from .SimulaeNode import SimulaeNode
 
 class SimulaeNodeStatus(Enum):
     ''' Simulae Node status '''
@@ -14,7 +20,7 @@ class SimulaeNodeStatus(Enum):
             return "DEAD"
 
 def jsonify( state: SimulaeNode ):
-    logDebug("jsonify(state)")
+    logAll("jsonify(state)")
 
     d = state.__dict__
 

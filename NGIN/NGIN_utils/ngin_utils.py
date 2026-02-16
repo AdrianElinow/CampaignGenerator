@@ -4,19 +4,17 @@ from math import e
 from enum import Enum
 import uuid
 from pprint import pprint
-from typing import *
 
 class DEBUG_LEVEL(Enum):
     ''' DEBUG level '''
     ERROR = 0
     WARNING = 1
-    DEBUG = 2
-    INFO = 3
+    INFO = 2
+    DEBUG = 3
     # ...
-    ALL = 4
+    ALL = 10
     
-DEBUG = False
-DEBUG_LEVEL = DEBUG_LEVEL.WARNING
+CURRENT_DEBUG_LEVEL = DEBUG_LEVEL.DEBUG
 
 MAX_ADJACENT_LOCATIONS = 6
 WORLD_GEN_STICKINESS = 0.4
@@ -24,6 +22,9 @@ WORLD_GEN_SUBLOCATION_CHANCE = 0.3
 WORLD_GEN_POPULATION_GROUP_CHANCE = 0.25
 
 def logInfo(*args):
+    log(*args, newline=True, level=DEBUG_LEVEL.INFO)
+
+def logAll(*args):
     log(*args, newline=True, level=DEBUG_LEVEL.ALL)
 
 def logDebug(*args):
@@ -36,17 +37,17 @@ def logWarning(*args):
     log(*args, newline=True, level=DEBUG_LEVEL.WARNING)
 
 def log(*args, newline=True, level: DEBUG_LEVEL = DEBUG_LEVEL.ALL):
-    if not DEBUG:
+    if level.value > CURRENT_DEBUG_LEVEL.value:
         return
     
-    if level.value > DEBUG_LEVEL.value:
+    if not args:
         return
+    
+    msg = ' '.join(str(arg) for arg in args)
+    print(f"[{level.name}] {msg}", end='\n' if newline else '')
 
-    for msg in args:
-        print(f"[DEBUG] {msg}", end='\n' if newline else '')
 
-
-def save_json_to_file( filename: str, data:dict, filepath : str =None, pretty: bool =False):
+def save_json_to_file( filename: str, data:dict, filepath : str | None =None, pretty: bool =False):
     if not filename:
         raise ValueError("filename cannot be null/empty")
 
@@ -67,7 +68,8 @@ def save_json_to_file( filename: str, data:dict, filepath : str =None, pretty: b
         print(f"Error while writing to file [{absolute_path}]\n{e}")
 
 
-def load_json_from_file( filename: str, filepath : str =None ):
+def load_json_from_file( filename: str, filepath : str | None = None ):
+    logAll(f"load_json_from_file( filename: {filename}, filepath: {filepath} )")
 
     if not filename:
         raise ValueError("filename cannot be null/empty")
@@ -86,16 +88,15 @@ def load_json_from_file( filename: str, filepath : str =None ):
                 data = json.load( open_file )
 
                 if data:
-                    if DEBUG:
-                        print(f"loaded [{absolute_path}]")
+                    logAll(f"loaded [{absolute_path}]")
 
                     return data
 
         except json.JSONDecodeError as e:
-            print(f"Error while parsing file [{absolute_path}]\n{e}")
+            logError(f"Error while parsing file [{absolute_path}]\n{e}")
 
     else:
-        print(f"No file found at {absolute_path}")
+        logWarning(f"No file found at {absolute_path}")
 
     return None
 
@@ -212,8 +213,12 @@ def prompt_mission( options ):
                         print("Invalid")
 
                 if entry not in options:
-                    log(options)
-                    log(entry, int(entry))
+                    entry_value = int(entry) if entry else None # try to interpret as numeric choice
+
+                    if not entry_value or entry_value not in range(len(options)):
+                        entry = None
+                        print('Invalid')
+                        continue
 
                     entry = options[int(entry)] # try to interpret as numeric choice
 
@@ -234,7 +239,7 @@ def prompt_mission( options ):
 
 
 
-def robust_int_entry(prompt=None, low=None, high=None):
+def robust_int_entry(prompt=None, low: int | None = None, high: int | None = None):
 
     if not prompt:
         prompt = ">"
@@ -248,10 +253,11 @@ def robust_int_entry(prompt=None, low=None, high=None):
 
             value = int(entry)
 
-            if value < low or value > high:
-                entry=None
-                print("Out-of-bounds value")
-                continue
+            if low and high:
+                if value < low or value > high:
+                    entry=None
+                    print("Out-of-bounds value")
+                    continue
 
             return value
 
@@ -283,6 +289,11 @@ def robust_str_entry(prompt, options=[]):
 
         try:
             entry = input(prompt).strip()
+
+            if not entry:
+                print("Entry cannot be empty")
+                continue
+
             if options:
                 if ',' in entry:
                     entries = entry.split(',')
@@ -306,10 +317,17 @@ def robust_str_entry(prompt, options=[]):
                         print("Invalid")
 
                 if entry not in options:
-                    log(options)
-                    log(entry, int(entry))
+                    entry_value = int(entry) if entry else None # try to interpret as numeric choice
 
-                    entry = options[int(entry)] # try to interpret as numeric choice
+                    if not entry_value or entry_value not in range(len(options)):
+                        entry = None
+                        print('Invalid')
+                        continue
+
+                    log(options)
+                    log(entry, entry_value)
+
+                    entry = options[entry_value] # try to interpret as numeric choice
 
                     if entry not in options: # still not valid
                         entry = None
