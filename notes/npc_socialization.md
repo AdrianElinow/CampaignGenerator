@@ -75,33 +75,65 @@ NPCs will be able to 'size-up' another NPC based on a number of factors:
 
 ## Conversation
 
-1. Introduction
-    - How does the exchange start?
-    1. Greeting    
-    2. Observation
-        - One NPC comments on an event, the other responds
-    3. Introduction
-    4. Request
-    5. Offer
-    6. Complaint
-    7. Joke
-    8. Challenge
-    9. Warning
+### Core Interactions
 
+- OPEN (greet, initiate)
+- CLOSE (farewell, withdraw, sever-ties)
+- TURN (interrupt, cede, stall)
+- TOPIC (change-topic, stay-topic)
+- INFORM (claim, disclose, reveal, confess, observe, clarify, retract)
+- INQUIRE (ask, probe, challenge)
+- STANCE (confirm, deny, agree, disagree, accept, refuse, validate, invalidate)
+- INFLUENCE (persuade, dissuade, reassure, pressure, threaten)
+- AFFECT (comfort, commiserate, praise, criticize, insult, apologize, joke, complain)
+- DIRECT (request, demand, command, task, delegate)
+- NEGOTIATE (offer, counteroffer, volunteer)
+- BOUNDARY (set-boundary, violate-boundary)
+- COORDINATE (rally, organize, promote, demote, resign)
+- DECEIVE (mislead, conceal, feign, impersonate, entrap, cover)
 
-    2. Social/Population Change
-        - Someone arrives/leaves, awkward silence?
-    3. Goal-driven
-        - need information
-        - make request / give order
-        - trade
-        - coordinate
-    4. Emotional state
-        - anger
-        - ...
-    5. Social-Norm
-        - expected greeting or response to action
-    6. 
+### Qualifiers
 
-
+- Domain
+    - Identity
+    - Fact
+    - Intent
+    - Policy
+    - Relationship
+    - Task
+    - Resource
+- Polarity
+    - pro 
+    - anti
+    - neutral
+- Force
+    - low
+    - medium
+    - high
+- Honesty
+    - truthful
+    - deceptive
+    - uncertain
+- Visibility?
+    - private
+    - dyadic
+    - public
+- Evidence
+    - none
+    - weak
+    - strong
+- Emotion
+    - calm
+    - hostile
+    - affirmative
+    - fearful
+- Authority
+    - peer
+    - superior
+    - subordinate
+- Time-Scope
+    - immediate
+    - ongoing
+    - future
+    - past
 

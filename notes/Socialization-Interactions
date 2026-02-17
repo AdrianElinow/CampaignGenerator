@@ -1,81 +1,63 @@
 
-Start Conversation
-- Greeting
-- Introduction
+### Core Interactions
 
-Conversation Flow
-- Interrupt / Cede
-- Change-Topic
-- Stall
+- OPEN (greet, initiate)
+- CLOSE (farewell, withdraw, sever-ties)
+- TURN (interrupt, cede, stall)
+- TOPIC (change-topic, stay-topic)
+- INFORM (claim, disclose, reveal, confess, observe, clarify, retract)
+- INQUIRE (ask, probe, challenge)
+- STANCE (confirm, deny, agree, disagree, accept, refuse, validate, invalidate)
+- INFLUENCE (persuade, dissuade, reassure, pressure, threaten)
+- AFFECT (comfort, commiserate, praise, criticize, insult, apologize, joke, complain)
+- DIRECT (request, demand, command, task, delegate)
+- NEGOTIATE (offer, counteroffer, volunteer)
+- BOUNDARY (set-boundary, violate-boundary)
+- COORDINATE (rally, organize, promote, demote, resign)
+- DECEIVE (mislead, conceal, feign, impersonate, entrap, cover)
 
-End Conversation
-- Attack / Defend
-- Withdraw
-- 
+### Qualifiers
 
-Information
-- Claim / Retract
-	- Confide / Announce?
-	- Disclose / Withhold..?
-	- Confess / 
-	- Reveal / 
-	- Synchronize
-- Confirm / Deny (Agree / Disagree) (Accept / Refuse) / (Legitimize / Invalidate)
-	- Validate / Invalidate
-- Inquire(Probe?) (topic)
-- Clarify / 
-- Persuade / Dissuade
-- Accuse / 
-- Blame / Exhonerate
-- Challenge(Question?) 
-
-- Justify / Undermine
-
-- Mislead (by action)
-- Conceal (by action)
-- Feign (by action)
-- Impersonate (by action)
-- Entrap (by action)
-- Cover (for node)
-
-Emotions
-- Comfort (Sympathize/Empathize/Console)
-- Reassure
-- Commiserate
-- Set boundary / 
-	- violate boundary?
-- Sever-Ties
-- Express Emotions
-- Apologize
-
-Negotiation
-- Offer / Counteroffer
-- Request
-- Demand 
-- volunteer / ?
-
-Escalation / Deescalation
-- Pressure / Alleviate
-- Accuse 
-- Praise / Criticize
-- Threaten / 
-- Insult
-- Submit / Dominate
-
-Groups
-- 
-
-Heirarchy
-- Command
-- Rally
-- Organize
-- Promote / Demote
-- Resign(Renounce?)
-- Task (node with 'quest'?) (to...?)
-	- Delegate?
-
-
-
-
-
+- Domain
+    - Identity
+    - Fact
+    - Intent
+    - Policy
+    - Relationship
+    - Task
+    - Resource
+- Polarity
+    - pro 
+    - anti
+    - neutral
+- Force
+    - low
+    - medium
+    - high
+- Honesty
+    - truthful
+    - deceptive
+    - uncertain
+- Visibility?
+    - private
+    - dyadic
+    - public
+- Evidence
+    - none
+    - weak
+    - strong
+- Emotion
+    - calm
+    - hostile
+    - affirmative
+    - fearful
+- Authority
+    - peer
+    - superior
+    - subordinate
+- Time-Scope
+    - immediate
+    - ongoing
+    - future
+    - past
 

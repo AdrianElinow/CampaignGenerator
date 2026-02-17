@@ -526,27 +526,32 @@ class NGIN_Simulae_Actor(SimulaeNode):
             summary += f"{attr}: {self.get_attribute(attr)}\n"
 
         return summary
-    
 
-    def appraise_event(self, event):
-        pass
-
-    def appraise_encounter(self, encounter):
-        ''' what kind of encounter is this ? '''
-        
-        # Avoid, Ignore, Engage, Acknowledge
-
-        # Avoid -> Action (flee, hide, etc)
-        # Ignore -> Action (do nothing / continue with current plan)
-        # Acknowledge -> Passing interaction, no change to plan
-        # Engage -> Commence interaction, may change plan based on outcome
-        
-        pass    
 
     def appraise_social_interaction(self, social_event):
-        return 0 # todo AE: implement
+
+        appraisal = {
+            "valence": 0, # how positive or negative is this encounter?
+            "fairness": 0, # how fair or unfair is this encounter?
+            "credibility": 0, # how credible is this encounter?
+            "urgency": 0, # how urgent is this encounter?
+            "intent_hostility": 0, # how hostile do we perceive the intent of this encounter to be?
+            "threat": {
+                "physical": 0, # Physical threat (to our body, health, safety, etc)
+                "social": 0, # Social Threat (to our social standing, relationships, etc)
+                "status": 0, # Status Threat (to our power, influence, job, etc)
+                "emotional": 0, # Emotional Threat (to our emotional well-being, mental health, etc)
+                "moral": 0, # Moral Threat (to our values, beliefs, etc)
+                "identity": 0, # Identity Threat (to our sense of self, who we are, etc)
+                "resource": 0 # Resource Threat (to our possessions, money, etc)
+            },
+        }
+
+        # TODO AE: Calculate appraisal Here
+
+        return appraisal
     
-    def handle_social_interaction(self, social_event):
+    def handle_social_interaction(self, social_event, parties, conversation_history):
         
         # get appraisal of the social event
         appraisal = self.appraise_social_interaction(social_event)
@@ -556,14 +561,17 @@ class NGIN_Simulae_Actor(SimulaeNode):
         # evaluate response options 
 
         # select response
+
+        response = self.select_response(social_event,
+                                        appraisal,
+                                        parties,
+                                        conversation_history)
         
-        pass
+        return response
 
     def select_response(self, # includes emotional state
                         social_event,
-                        npc,
-                        appraisal,
-                        relationship,
+                        relevant_parties,
                         conversation_history):
         weights = {}
 
@@ -574,7 +582,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
             weight = EVENT_RESPONSE_WEIGHTS[social_event.type].get(response, 1.0)
 
             # Hard limit (personality, social limitations, etc) prevent this response from being viable
-            if self.hard_gate(npc, relationship, appraisal, response, social_event, conversation_history):
+            if self.hard_gate(relevant_parties, relationship, appraisal, response, social_event, conversation_history):
                 continue
 
             # apply modifiers
@@ -599,7 +607,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         return None
 
-    def hard_gate(self, npc, relationship, appraisal, response, social_event, conversation_history):
+    def hard_gate(self, npcs, appraisal, response, social_event, conversation_history):
         return False # todo AE: implement
     
 
