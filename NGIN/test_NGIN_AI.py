@@ -79,12 +79,11 @@ class Test_NGIN_AI_Socialize(unittest.TestCase):
             'qualifiers': { qualifier: factors[0] for qualifier, factors in SOCIAL_INTERACTION_QUALIFIERS.items() }
         }
         
+        # iterate through ALL social event types and validate appraisal
         for social_event_type in SOCIAL_INTERACTION_TYPES:
-            print("Testing social event type:", social_event_type)
-
+    
             social_event['eventtype'] = social_event_type
-            
-            pprint(social_event)
+            # also update qualifiers        
 
             # appraise the social event
             appraisal = self.actor.appraise_social_event(social_event)
@@ -94,10 +93,8 @@ class Test_NGIN_AI_Socialize(unittest.TestCase):
 
             self.assertIsNotNone(appraisal)
 
-            print("Appraisal for event type", social_event_type)
-            pprint(appraisal)
+            # Todo AE: add additional assertions
 
-        print("Test_NGIN_AI_Socialize","test_NGIN_AI_appraise_social_event:", "PASS")
 
     def test_NGIN_AI_select_response(self):
         # create a social event
