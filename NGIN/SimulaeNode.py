@@ -21,7 +21,7 @@ class SimulaeNode:
                         checks: dict | None = None, 
                         abilities: dict | None = None,
                         scales: dict[str, dict] | None = None, 
-                        memory: list | None = None,):
+                        memory: dict | None = None,):
         '''
         Docstring for __init__
         
@@ -68,7 +68,7 @@ class SimulaeNode:
             CONTENTS:{ nt:{} for nt in PHYSICAL_NODETYPES},      # organs for POI, items contained for LOC/OBJ
             COMPONENTS:{ nt:{} for nt in PHYSICAL_NODETYPES},    # limbs for POI, parts for OBJ
             ATTACHMENTS:{ nt:{} for nt in PHYSICAL_NODETYPES},    # accessories, clothing, equipped items for POI, attachments for OBJ
-            ADJACENT: {} if nodetype != LOC else { nt:{} for nt in PHYSICAL_NODETYPES} # adjacent locations for LOC
+            ADJACENT: { nt:{} for nt in PHYSICAL_NODETYPES} # adjacent locations for LOC
         }
 
         if relations is not None:
@@ -77,7 +77,11 @@ class SimulaeNode:
         
         self.Checks = {} if checks is None else dict(checks)
         self.Abilities = {} if abilities is None else dict(abilities)
-        self.Memory = memory if memory is not None else []
+
+        self.Memory = { category: {} for category in MEMORY_CATEGORIES }
+        if memory is not None:
+            for k,v in memory.values():
+                self.Memory[k] = v
         
     # References Section
 
@@ -289,7 +293,7 @@ class SimulaeNode:
                             master_scale=scale['scales'], 
                             scale=self_scale, 
                             comparison_scale=node_scale,
-                            descriptors=scale['descriptors'],
+                            descriptors=scale['strength_descriptors'],
                             descriptors_buckets=scale['descriptors_buckets'],
                             scale_center_index=scale['center_index'])
 
@@ -357,7 +361,7 @@ class SimulaeNode:
         if relation_type:
             return self.Relations[relation_type][node.Nodetype][node.ID]
         
-        elif node.ID in self.Relations[node.Nodetype]:
+        elif node.Nodetype in self.Relations and node.ID in self.Relations[node.Nodetype]:
             return self.Relations[node.Nodetype][node.ID]    
 
         return None
@@ -496,8 +500,11 @@ class SimulaeNode:
 
         for relation_type in PHYSICAL_RELATIVE_TYPES:
 
-            if node_id in self.Relations[relation_type][nodetype]: # existing relationship found
+            relations_by_type = self.get_relations_by_type(relation_type)
+
+            if relations_by_type and node_id in relations_by_type.keys():
                 return relation_type
+
     
     def has_relationship( self: SimulaeNode, key: str, nodetype: str ):
         logAll("has_relationship(",key,", ",nodetype,")")
@@ -809,7 +816,7 @@ def simulaenode_from_json(data: dict):
         n_checks = data[CHECKS] if CHECKS in keys else {}
         n_abilities = data[ABILITIES] if ABILITIES in keys else {}
         n_scales = data[SCALES] if SCALES in keys else {}
-        n_memory = data[MEMORY] if MEMORY in keys else []
+        n_memory = data[MEMORY] if MEMORY in keys else {}
 
         if not n_id or not n_type:
             print(f"ERROR | from_json | missing ID or NODETYPE in data: {data}")

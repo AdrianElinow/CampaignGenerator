@@ -549,6 +549,8 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         # TODO AE: Calculate appraisal Here
 
+
+
         return appraisal
     
     def handle_social_interaction(self, social_event, parties, conversation_history):
@@ -571,6 +573,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
     def select_response(self, # includes emotional state
                         social_event,
+                        appraisal,
                         relevant_parties,
                         conversation_history):
         weights = {}
@@ -579,20 +582,17 @@ class NGIN_Simulae_Actor(SimulaeNode):
         response_options = []
 
         for response in response_options:
-            weight = EVENT_RESPONSE_WEIGHTS[social_event.type].get(response, 1.0)
-
-            # Hard limit (personality, social limitations, etc) prevent this response from being viable
-            if self.hard_gate(relevant_parties, relationship, appraisal, response, social_event, conversation_history):
-                continue
+            base_weight = RESPONSE_WEIGHTS[social_event.type].get(response, 1.0)
+            
+            personality_weight = 1.0 # todo AE: calculate personality weight based on NPC's personality traits and the nature of the response (e.g. if response is aggressive, then weight would be higher for NPCs with aggressive traits)
+            political_weight = 1.0 # todo AE: calculate political weight based on NPC's political beliefs and the nature of the response (e.g. if response is politically charged, then weight would be higher for NPCs with strong political beliefs)
+            appraisal_weight = 1.0 # todo AE: calculate appraisal weight based on the NPC's appraisal of the social event and how well the response addresses that appraisal (e.g. if NPC appraises the event as highly threatening, then a response that effectively mitigates that threat would have a higher weight)
+            relationship_weight = 1.0 # todo AE: calculate relationship weight based on the NPC's relationship with the relevant parties and how well the response aligns with that relationship (e.g. if NPC has a close relationship with the instigator of the event, then a response that defends or supports that instigator would have a higher weight)
+            past_interaction_weight = 1.0 # todo AE: calculate past interaction weight based on the NPC's past interactions with the relevant parties and how well the response aligns with those past interactions (e.g. if NPC has had positive interactions with the instigator in the past, then a response that is supportive of the instigator would have a higher weight)
+            conversation_history_weight = 1.0 # todo AE: calculate conversation history weight based on the NPC's conversation history with the relevant parties and how well the response aligns with that conversation history (e.g. if NPC has had a recent argument with the instigator, then a response that de-escalates the situation might have a higher weight)
 
             # apply modifiers
-
-            # personality traits
-            # politics?
-            # appraisal of the event
-            # relationship with the npc
-            # past interactions with the npc
-            # conversation history with the npc
+            weight = base_weight * personality_weight * political_weight * appraisal_weight * relationship_weight * past_interaction_weight * conversation_history_weight
 
             # floor and clamp
             weight = max(0.001, min(weight, 1000.0))

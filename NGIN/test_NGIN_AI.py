@@ -1,4 +1,6 @@
 import unittest
+
+from NGIN.NGIN_Socialization import RESPONSE_WEIGHTS
 from .NGIN_AI import *
 
 class Test_NGIN_AI_Planning(unittest.TestCase):
@@ -53,7 +55,6 @@ class Test_NGIN_AI_Socialize(unittest.TestCase):
         self.actor = NGIN_Simulae_Actor(generate_person())
 
     def test_NGIN_AI_socialize_clone(self):
-        return # todo ae: fix
 
         # create another actor with whom to socialize
         self.actor_partner = NGIN_Simulae_Actor(generate_person())
@@ -63,8 +64,11 @@ class Test_NGIN_AI_Socialize(unittest.TestCase):
 
         # calculate relationship
         relationship = self.actor.determine_relationship(self.actor_partner, interaction=None)
-        self.assertIsNotNone(relationship)
 
+        if not relationship:
+            self.fail("Relationship should not be None")
+
+        self.assertIsNotNone(relationship)
         self.assertEqual(relationship[NODETYPE], POI)
         self.assertEqual(relationship[INTERACTIONS], [])
         self.assertEqual(relationship[STATUS], 'new')
