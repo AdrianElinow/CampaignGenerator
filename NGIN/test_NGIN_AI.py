@@ -1,6 +1,6 @@
 import unittest
 
-from NGIN.NGIN_Socialization import RESPONSE_WEIGHTS, SOCIAL_INTERACTION_TYPES
+from NGIN.NGIN_Socialization import RESPONSE_WEIGHTS, SOCIAL_INTERACTION_QUALIFIERS, SOCIAL_INTERACTION_TYPES
 from .NGIN_AI import *
 
 class Test_NGIN_AI_Planning(unittest.TestCase):
@@ -76,12 +76,15 @@ class Test_NGIN_AI_Socialize(unittest.TestCase):
         # create a social event
         social_event = {
             'eventtype': 'greet',
+            'qualifiers': { qualifier: factors[0] for qualifier, factors in SOCIAL_INTERACTION_QUALIFIERS.items() }
         }
         
         for social_event_type in SOCIAL_INTERACTION_TYPES:
             print("Testing social event type:", social_event_type)
 
             social_event['eventtype'] = social_event_type
+            
+            pprint(social_event)
 
             # appraise the social event
             appraisal = self.actor.appraise_social_event(social_event)
