@@ -1,6 +1,6 @@
 import unittest
 
-from NGIN.NGIN_Socialization import RESPONSE_WEIGHTS
+from NGIN.NGIN_Socialization import RESPONSE_WEIGHTS, SOCIAL_INTERACTION_TYPES
 from .NGIN_AI import *
 
 class Test_NGIN_AI_Planning(unittest.TestCase):
@@ -53,12 +53,9 @@ class Test_NGIN_AI_Socialize(unittest.TestCase):
 
     def setUp(self):
         self.actor = NGIN_Simulae_Actor(generate_person())
+        self.actor_partner = NGIN_Simulae_Actor(generate_person())
 
     def test_NGIN_AI_socialize_clone(self):
-
-        # create another actor with whom to socialize
-        self.actor_partner = NGIN_Simulae_Actor(generate_person())
-        
         # no initial relationship
         self.assertFalse(self.actor.has_relation(self.actor_partner.ID, self.actor_partner.Nodetype))
 
@@ -75,12 +72,47 @@ class Test_NGIN_AI_Socialize(unittest.TestCase):
 
         print("Test_NGIN_AI_Socialize","test_NGIN_AI_socialize_clone:", "PASS")
 
+    def test_NGIN_AI_appraise_social_event(self):
+        # create a social event
+        social_event = {
+            'eventtype': 'greet',
+        }
+        
+        for social_event_type in SOCIAL_INTERACTION_TYPES:
+            print("Testing social event type:", social_event_type)
 
-def actor_tick_test(actor):
+            social_event['eventtype'] = social_event_type
+
+            # appraise the social event
+            appraisal = self.actor.appraise_social_event(social_event)
+
+            if not appraisal:
+                self.fail("Appraisal should not be None")
+
+            self.assertIsNotNone(appraisal)
+
+            print("Appraisal for event type", social_event_type)
+            pprint(appraisal)
+
+        print("Test_NGIN_AI_Socialize","test_NGIN_AI_appraise_social_event:", "PASS")
+
+    def test_NGIN_AI_select_response(self):
+        # create a social event
+       
+
+        pass
+
+
+def actor_tick_test(actor: SimulaeNode):
     # increment all status attributes    
     for attr in actor.Attributes:
         if attr in STATUS_ATTRIBUTES:
-            actor.Attributes[attr] += 1
+            attribute_value = actor.get_attribute(attr)
+
+            if not attribute_value:
+                attribute_value = 0
+
+            actor.set_attribute(attr, attribute_value + 1)
 
 if __name__ == '__main__':
     unittest.main()

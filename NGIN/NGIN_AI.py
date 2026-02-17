@@ -1,4 +1,6 @@
 from enum import Enum
+
+from NGIN.NGIN_Socialization import RESPONSE_WEIGHTS
 from .SimulaeNode import *
 
 class Action(Enum):
@@ -527,8 +529,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         return summary
 
-
-    def appraise_social_interaction(self, social_event):
+    def appraise_social_event(self, social_event):
 
         appraisal = {
             "valence": 0, # how positive or negative is this encounter?
@@ -556,7 +557,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
     def handle_social_interaction(self, social_event, parties, conversation_history):
         
         # get appraisal of the social event
-        appraisal = self.appraise_social_interaction(social_event)
+        appraisal = self.appraise_social_event(social_event)
 
         # determine meaning?
 
