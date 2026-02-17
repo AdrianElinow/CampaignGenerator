@@ -40,6 +40,93 @@ Adaptive and modular campaign/world generator for RPG scenarios, with a Simulae 
 - [x] Test suite currently runs and passes via `python -B -m unittest -v`
 - [ ] Some tests are placeholder stubs with early `return` (notably in `NGIN/test_NGIN_AI.py`)
 
+## System Diagrams
+
+### World-Generator (`NGIN/SimulaeCampaignGenerator.py`)
+
+```mermaid
+flowchart TD
+    A["Load configs"] --> B["Create NGIN instance"]
+    B --> C{"Save file provided?"}
+    C -- Yes --> D["import_world"]
+    C -- No --> E{"State empty and generate"=True?}
+    D --> E
+    E -- Yes --> F["generate_new_world"]
+    E -- No --> G["print_location_map"]
+    F --> H["Create world_root LOC"]
+    H --> I["add_loc_to_world(world_root)"]
+    I --> J["Loop world locations"]
+    J --> K["generate_location"]
+    K --> L["generate_population"]
+    L --> M{"Group or individual?"}
+    M -- Group --> N["generate_group<br/>+ generate_faction<br/>+ generate_individual x N"]
+    M -- "Individual" --> O["generate_individual"]
+    N --> P["add_node_to_world(entity)"]
+    O --> P
+    P --> Q["entity.set_location_by_ID(location.ID)"]
+    Q --> R["attach_loc(location)"]
+    R --> S["BFS/sticky attach via adjacent locations"]
+    S --> J
+    J --> G
+```
+
+### NGIN AI Task Planning (`NGIN/NGIN_AI.py`)
+
+```mermaid
+flowchart TD
+    A["NGIN_Simulae_Actor"] --> B["prioritize"]
+    B --> C["Collect needs<br/>threat/hunger/thirst/exhaustion/etc"]
+    C --> D["Add queued tasks by priority"]
+    D --> E["Sort priorities"]
+    E --> F["plan"]
+    F --> G["For each prioritized goal"]
+    G --> H["plan_task"]
+    H --> I{"Task type"}
+    I -- "Status attr" --> J["plan_status_task"]
+    I -- "THREAT" --> K["plan_threat_reaction"]
+    I -- "Other" --> L["Return raw task"]
+    J --> M["TODO currently returns None"]
+    K --> N["Currently returns None"]
+    L --> O["Store plan in self.plans"]
+    M --> O
+    N --> O
+    O --> P["act_next"]
+    P --> Q["Get highest priority goal"]
+    Q --> R["Ensure plan exists"]
+    R --> S["act(plan)"]
+    S --> T["next_action from TaskPlan"]
+    T --> U{"Action"}
+    U -- "GOTO" --> V["Move/log"]
+    U -- "USE" --> W["Consume"]
+    U -- "TAKE" --> X["Take item"]
+```
+
+### NGIN AI Socialization / Memory (Current State)
+
+```mermaid
+flowchart TD
+    A["handle_social_interaction(social_event)"] --> B["appraise_social_interaction"]
+    B --> C["Returns scalar appraisal"]
+    C --> D["select_response"]
+    D --> E["Build response_options"]
+    E --> F{"Any options?"}
+    F -- "No" --> G["Return None"]
+    F -- "Yes" --> H["Weight by EVENT_RESPONSE_WEIGHTS"]
+    H --> I["hard_gate filter"]
+    I --> J["Pick max weighted response"]
+    J --> K["Return response"]
+
+    subgraph Memory_and_Claims
+      M1["SimulaeNode.Memory list exists"]
+      M2["Claim model schema exists<br/>NGIN/Claim.py"]
+      M3["NGIN/MemoryEvent.py"]
+      M4["NGIN/NGIN_Socialization.py"]
+    end
+
+    M3 --> M5["Currently empty"]
+    M4 --> M6["Currently empty"]
+```
+
 ## Quick Start
 
 ### Prerequisites
