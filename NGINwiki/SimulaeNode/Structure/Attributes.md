@@ -1,0 +1,1 @@
+The 'Attributes' structure is the repository for numeric values associated with the SImulaeNode. 
