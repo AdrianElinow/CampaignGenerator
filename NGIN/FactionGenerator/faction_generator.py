@@ -97,7 +97,6 @@ def main():
 
         # display to user
         print( '[',orgtype,'](',acronym,')',name, end='\n')
-        pprint(policy)
 
         # check user opinion
         cmd = input('> ')

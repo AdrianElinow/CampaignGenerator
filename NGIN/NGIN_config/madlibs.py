@@ -335,15 +335,16 @@ POLICY_SCALES = {
     'scales' : POLICY_SCALE,
     'descriptors' : POLICY_DESCRIPTIONS,
     'strength_descriptors' : POLICY_BELIEF_STRENGTH_DESCRIPTORS,
-    'descriptor_buckets' : [3, 5, 8, 13, 21, 34],
+    'descriptors_buckets' : [3, 5, 8, 13, 21, 34],
     'center_index' : 3
 }
 
 PERSONALITY_SCALES = {
     'name' : PERSONALITY,
     'scales' : PERSONALITY_SCALE,
+    'descriptors' : {},
     'strength_descriptors' : PERSONALITY_TRAIT_STRENGTH_DESCRIPTORS,
-    'descriptor_buckets' : [3, 5, 8, 13, 21, 34],
+    'descriptors_buckets' : [3, 5, 8, 13, 21, 34],
     'center_index' : 3
 }
 
