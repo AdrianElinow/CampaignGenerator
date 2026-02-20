@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SimulaeNode/Socialization/Social Events.md",
+                "file": "SimulaeNode/Socialization/Social Event.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Social Events"
+              "title": "Social Event"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "SimulaeNode/Socialization/Social Events.md",
+                "file": "SimulaeNode/Socialization/Social Event.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Social Events"
+              "title": "Backlinks for Social Event"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "SimulaeNode/Socialization/Social Events.md",
+                "file": "SimulaeNode/Socialization/Social Event.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Social Events"
+              "title": "Outgoing links from Social Event"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "SimulaeNode/Socialization/Social Events.md",
+                "file": "SimulaeNode/Socialization/Social Event.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Social Events"
+              "title": "Outline of Social Event"
             }
           }
         ]
@@ -185,27 +185,37 @@
   },
   "active": "70c6c3277e14b192",
   "lastOpenFiles": [
-    "SimulaeNode/Socialization/Simulae Socialization.md",
-    "SimulaeNode/SimulaeNode.md",
-    "SimulaeNode/Structure/Relations.md",
+    "SimulaeNode/Socialization/Socialization.md",
+    "SimulaeNode/Socialization/Social Event.md",
+    "SimulaeNode/Socialization/Responses.md",
+    "SimulaeNode/Socialization/Personality Scale.md",
+    "SimulaeNode/Socialization/Politics Scale.md",
     "SimulaeNode/Structure/Scales.md",
-    "SimulaeNode/Planning/Simulae Actor Planning.md",
-    "SimulaeNode/Socialization/Social Events.md",
+    "SimulaeNode/Structure/Abilities.md",
+    "SimulaeNode/Structure/Attributes.md",
+    "SimulaeNode/Structure/Checks.md",
+    "SimulaeNode/Structure/Memories.md",
+    "Event.md",
+    "SimulaeNode/Structure/References.md",
+    "SimulaeNode/Structure/Relations.md",
+    "WorldGenerator/World Generator.md",
+    "WorldGenerator/Locations.md",
+    "WorldGenerator/Factions.md",
+    "SimulaeNode/Planning/Task Breakdown.md",
+    "SimulaeNode/Planning/Plan.md",
+    "SimulaeNode/Planning/Task.md",
+    "SimulaeNode/Simulae Actor.md",
+    "Simulae.md",
+    "SimulaeNode/SimulaeNode.md",
+    "Social Event.md",
     "SimulaeNode/Planning",
     "SimulaeNode/Socialization",
-    "SimulaeEvent.md",
-    "SimulaeNode/Structure/Memories.md",
-    "SimulaeNode/Structure/Checks.md",
-    "Simulae.md",
     "Welcome.md",
-    "SimulaeNode/Structure/Attributes.md",
-    "SimulaeNode/Structure/References.md",
     "Screenshot 2026-02-19 at 4.25.00 PM.png",
     "images/political-scales-diagram.png",
     "images/personality-scales-diagram.png",
     "images",
     "untitled folder",
-    "SimulaeNode/Structure/Abilities.md",
     "SimulaeNode/Structure",
     "SimulaeNode/SimulaeNode",
     "Untitled",

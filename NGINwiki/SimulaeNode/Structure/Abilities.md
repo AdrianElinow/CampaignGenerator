@@ -7,7 +7,7 @@ The abilities structure details the various actions that can be performed by the
 
 flowchart TB
 	perfAction["Perform Action"]
-	satCheck["Requirements Satisfied?"]{}
+	satCheck["Requirements Satisfied?"]
 	reqs["Requirements"]
 	
 	tAbility["Trigger Ability"]
@@ -16,4 +16,5 @@ flowchart TB
 	reqs --> satCheck
 
 ```
+
 
