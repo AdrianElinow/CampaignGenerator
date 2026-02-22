@@ -89,7 +89,6 @@ Qualifiers are important metadata attached to a given [[Social Event]]s that ind
 ## Most-Likely Responses
 
 While internally, each response will be evaluated for its merit as a valid response for a given [[Simulae Actor]]s reaction to a prompting [[Social Event]], a smaller set of "most-likely responses" can provide an optimization / shortcut to a possibly more costly calculation.
-
 #### Most-Likely Responses per given [[Social Event]]
 
 - Open ("Hello!")
@@ -143,3 +142,41 @@ While internally, each response will be evaluated for its merit as a valid respo
 - Summary
 	- Inform (provide additional detail or clarification)
 	- ...
+
+### Resolving `Inform` / `Inquire` Content
+
+If an NPC has already selected `Inform` or `Inquire`, the next step is to resolve a **topic payload** (what exactly they are talking about).
+
+Use this deterministic pipeline:
+
+1. Build candidate topics from:
+	- Prompting event (`social_event`) fields (`domain`, `topic`, `subject`, `claim`, `question`, `evidence`, `time`)
+	- Recent `conversation_history` (prior asks/claims, with recency bias)
+	- NPC memory buckets (claims, commitments, social threads, etc)
+2. Normalize each candidate into:
+	- `domain`
+	- `topic`
+	- `subject`
+	- `details`
+	- `evidence`
+	- `time`
+	- `source`
+	- `certainty` and `salience` (internal scoring metadata)
+3. Score candidates:
+	- Base: `salience`
+	- `Inform` boosts high-certainty items and unanswered recent inquiries
+	- `Inquire` boosts low-certainty / weak-evidence / missing-field items
+	- Boost same-domain and same-topic as the triggering event
+4. Pick top score and emit a payload:
+	- `Inform` -> `{ response_type: "Inform", intent: "answer_or_share", information_target: {...} }`
+	- `Inquire` -> `{ response_type: "Inquire", intent: "ask_for_evidence|ask_for_timeframe|ask_for_subject|ask_for_clarification", inquiry_target: {...} }`
+
+This separates:
+
+- **Response selection** (what type of act to take)
+- **Content resolution** (what information act to perform)
+
+Implementation reference:
+
+- `NGIN/NGIN_Socialization.py`: `resolve_information_response_payload(...)`
+- `NGIN/NGIN_AI.py`: `resolve_selected_response_content(...)`

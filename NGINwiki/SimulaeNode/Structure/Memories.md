@@ -5,13 +5,7 @@ For the most part this system applies primarily to sentient entities such as ind
 The [[Event]]s they accumulate as experiences can also be sub-classed as [[Social Event]]s by engaging in the realm of the [[Socialization]] system
 ## Experiences 
 
-An entity acquires experiences either by directly witnessing an [[Event]] occur or 
+An entity acquires experiences either by directly witnessing an [[Event]] occur or by having its details relayed to them piece by piece.
 
-## Recall
 
-## Relaying Information
-
-## Relaying Emotions
-
-## Emotional Impact
 
