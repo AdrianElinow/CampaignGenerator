@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "46cafc397c557f67",
+        "id": "eab67f98200c6174",
         "type": "tabs",
         "children": [
           {
-            "id": "70c6c3277e14b192",
+            "id": "8273bc26ecb8a2fa",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "SimulaeNode/Structure/Attributes.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Attributes"
             }
           }
         ]
@@ -90,6 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "SimulaeNode/Structure/Attributes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for Attributes"
             }
           },
           {
@@ -108,11 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "SimulaeNode/Structure/Attributes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links"
+              "title": "Outgoing links from Attributes"
             }
           },
           {
@@ -150,12 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "SimulaeNode/Structure/Attributes.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of Attributes"
             }
           }
         ]
@@ -176,18 +183,25 @@
       "bases:Create new base": false
     }
   },
-  "active": "70c6c3277e14b192",
+  "active": "8273bc26ecb8a2fa",
   "lastOpenFiles": [
+    "SimulaeNode/Structure/Abilities.md",
+    "SimulaeNode/Socialization/Socialization.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Phantom.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Good Twin.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Glitch.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Doctor.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Deputy.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Detective Roles.md",
+    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Townsfolk/Flowergirl.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Hybrid/Vindicator.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Independent/Mud Scientist.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Independent Roles.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Roles.md",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Deputy.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Hybrid Roles.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Jester Roles.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Traitor Roles.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Innocent Roles.md",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Detective Roles.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Independent/Zombie.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Independent/Werewolf.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Veteran.md",
@@ -197,13 +211,6 @@
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Detective/Tracker.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Taxidermist.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Jester/Swapper.md",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Survivalist.md",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Summoner.md",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Spy.md",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Spiritualist.md",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Jester/Sponge.md",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Soulmage.md",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Soulbound.md",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Hybrid",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Independent",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Jester",

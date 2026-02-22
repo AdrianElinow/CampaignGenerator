@@ -7,8 +7,7 @@
 ## Role Function
 Traitor-side twin role that tries to pass as the Good Twin and win the social identity duel.
 
-## Role Notes
-This page tracks the team-category placement for this role in Yogscast TTT role pools. Function summaries are concise and may vary by role-pack/server version.
+
 
 ## Related Pages
 - [[Trouble in Terrorist Town]]

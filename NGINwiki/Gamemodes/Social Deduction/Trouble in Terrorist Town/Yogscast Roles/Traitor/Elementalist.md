@@ -7,8 +7,7 @@
 ## Role Function
 Traitor utility role using elemental-style powers for control, pressure, and setup kills.
 
-## Role Notes
-This page tracks the team-category placement for this role in Yogscast TTT role pools. Function summaries are concise and may vary by role-pack/server version.
+
 
 ## Related Pages
 - [[Trouble in Terrorist Town]]

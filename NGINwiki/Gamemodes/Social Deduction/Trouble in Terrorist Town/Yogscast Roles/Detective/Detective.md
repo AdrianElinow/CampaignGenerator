@@ -7,9 +7,6 @@
 ## Role Function
 Investigative leader role with access to detective equipment and evidence-based team guidance.
 
-## Role Notes
-This page tracks the team-category placement for this role in Yogscast TTT role pools. Function summaries are concise and may vary by role-pack/server version.
-
 ## Related Pages
 - [[Trouble in Terrorist Town]]
 - [[Trouble in Terrorist Town Roles]]

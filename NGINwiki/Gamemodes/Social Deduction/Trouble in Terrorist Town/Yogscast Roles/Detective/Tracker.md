@@ -7,8 +7,7 @@
 ## Role Function
 Detective investigative role that follows movement trails/target traces for confirmations.
 
-## Role Notes
-This page tracks the team-category placement for this role in Yogscast TTT role pools. Function summaries are concise and may vary by role-pack/server version.
+
 
 ## Related Pages
 - [[Trouble in Terrorist Town]]
