@@ -9,6 +9,68 @@ Jester chaos role built around corpse/body-interaction deception and identity co
 
 
 
+## Simulae Ability ([[Abilities]])
+
+```json
+Ability = {
+  "id": "ability.bodysnatcher",
+  "name": "Bodysnatcher Ability",
+  "requirements": [
+    "Actor currently has the 'Bodysnatcher' role",
+    "Actor is in an eligible state to resolve role effects",
+    "Round/gamemode timing allows this role to activate"
+  ],
+  "activation": "Action | Reaction | Passive (role-dependent)",
+  "effects": [
+    {
+      "conditions": [
+        "Check the role's timing window (day/night/on-death/on-vote/etc.)",
+        "Check target validity, resource limits, and use-count constraints",
+        "Check role-specific trigger state before resolving outcome"
+      ],
+      "event": {
+        "Meta": {
+          "namespace": "Gamemodes/Social Deduction",
+          "version": "1.0"
+        },
+        "Event": {
+          "Class": "Social | Physical | System",
+          "Type": "RoleAbility",
+          "Subtype": "Bodysnatcher"
+        },
+        "Timestamps": {
+          "start_timestamp": "<resolution start>",
+          "end_timestamp": "<resolution end>"
+        },
+        "SimulaeNodes": {
+          "Location": "<role context location>",
+          "Sources": ["<actor>"],
+          "Targets": ["<selected target(s) or affected nodes>"],
+          "Observers": ["<based on visibility/privacy rules>"]
+        },
+        "Payload": {
+          "role": "Bodysnatcher",
+          "ability_function": "Jester chaos role built around corpse/body-interaction deception and identity confusion.",
+          "outcome": "<resolved effect data>"
+        },
+        "Causality": {
+          "cause_event_ids": ["<prior related event ids>"]
+        }
+      }
+    }
+  ]
+}
+```
+
+This ability specification follows [[Abilities]] and emits [[Event]] structures when its effect conditions are satisfied.
+
+## Task ([[Task]])
+
+- Goal State: Satisfy Bodysnatcher's personal jester-style victory trigger before standard team wins resolve.
+- Action Sequence: Use the role ability to create the board-state and social-state required by that goal.
+- Task Actions: Trigger role-ability [[Event]] outputs that advance this role's victory progress while blocking opposing victory paths.
+- Completion Signal: Emit/observe terminal [[Event]] evidence that confirms the goal state is achieved.
+
 ## Related Pages
 - [[Trouble in Terrorist Town]]
 - [[Trouble in Terrorist Town Roles]]

@@ -9,6 +9,61 @@ Detective chaos role that buys or triggers randomat-style events to reshape the 
 
 
 
+## Simulae Ability ([[Abilities]])
+
+```json
+Ability = {
+  "id": "ability.randoman",
+  "name": "Randoman Ability",
+  "requirements": [
+    "Actor currently has the 'Randoman' role",
+    "Actor is in an eligible state to resolve role effects",
+    "Round/gamemode timing allows this role to activate"
+  ],
+  "activation": "Action | Reaction | Passive (role-dependent)",
+  "effects": [
+    {
+      "conditions": [
+        "Check the role's timing window (day/night/on-death/on-vote/etc.)",
+        "Check target validity, resource limits, and use-count constraints",
+        "Check role-specific trigger state before resolving outcome"
+      ],
+      "event": {
+        "Meta": {
+          "namespace": "Gamemodes/Social Deduction",
+          "version": "1.0"
+        },
+        "Event": {
+          "Class": "Social | Physical | System",
+          "Type": "RoleAbility",
+          "Subtype": "Randoman"
+        },
+        "Timestamps": {
+          "start_timestamp": "<resolution start>",
+          "end_timestamp": "<resolution end>"
+        },
+        "SimulaeNodes": {
+          "Location": "<role context location>",
+          "Sources": ["<actor>"],
+          "Targets": ["<selected target(s) or affected nodes>"],
+          "Observers": ["<based on visibility/privacy rules>"]
+        },
+        "Payload": {
+          "role": "Randoman",
+          "ability_function": "Detective chaos role that buys or triggers randomat-style events to reshape the round.",
+          "outcome": "<resolved effect data>"
+        },
+        "Causality": {
+          "cause_event_ids": ["<prior related event ids>"]
+        }
+      }
+    }
+  ]
+}
+```
+
+This ability specification follows [[Abilities]] and emits [[Event]] structures when its effect conditions are satisfied.
+
 ## Related Pages
 - [[Trouble in Terrorist Town]]
 - [[Trouble in Terrorist Town Roles]]
