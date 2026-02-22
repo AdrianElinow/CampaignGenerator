@@ -1,8 +1,11 @@
-FAC = 'FAC'
-POI = 'POI'
-PTY = 'PTY'
-LOC = 'LOC'
-OBJ = 'OBJ'
+FAC = 'FAC' # Faction
+POI = 'POI' # Person (of Interest)
+PTY = 'PTY' # Party
+LOC = 'LOC' # Location
+OBJ = 'OBJ' # Object
+
+EVT = 'EVT' # Event
+CND = 'CND' # Conditional
 
 NAME = "Name"
 ADJACENT = "Adjacent"
@@ -30,6 +33,7 @@ SOCIAL_NODE_TYPES = [FAC,POI,PTY]
 GROUP_NODE_TYPES = [FAC,PTY]
 PEOPLE_NODE_TYPES = [POI,PTY]
 INANIMATE_NODE_TYPES = [LOC,OBJ]
+META_NODE_TYPES = [EVT, CND]
 
 RELATIONS = "Relations"
 CONTENTS = "Contents"

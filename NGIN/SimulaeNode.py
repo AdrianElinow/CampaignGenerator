@@ -45,44 +45,46 @@ class SimulaeNode:
         '''
 
         self.ID = given_id if given_id else str(uuid.uuid1())
-        
-        # avoid mutable default arguments being shared between instances
-        if references is None:
-            self.References = { NAME: None }
-        else:
-            self.References = dict(references)
-
         self.Nodetype = nodetype
 
+        # avoid mutable default arguments being shared between instances
+        self.References = {} if references is None else dict(references)
         self.Scales = {} if scales is None else dict(scales)
+        self.Attributes = {} if attributes is None else dict(attributes)            
+        self.Checks = {} if checks is None else dict(checks)
+        self.Abilities = {} if abilities is None else dict(abilities)
 
-        if self.Nodetype in SOCIAL_NODE_TYPES:
-            self.Scales[POLICY] = self.generate_policy()
-
-            if self.Nodetype is POI:
-                self.Scales[PERSONALITY] = self.generate_personality()
-
-        self.Attributes = {} if attributes is None else dict(attributes)
-
-        self.Relations = {
-            CONTENTS:{ nt:{} for nt in PHYSICAL_NODETYPES},      # organs for POI, items contained for LOC/OBJ
-            COMPONENTS:{ nt:{} for nt in PHYSICAL_NODETYPES},    # limbs for POI, parts for OBJ
-            ATTACHMENTS:{ nt:{} for nt in PHYSICAL_NODETYPES},    # accessories, clothing, equipped items for POI, attachments for OBJ
-            ADJACENT: { nt:{} for nt in PHYSICAL_NODETYPES} # adjacent locations for LOC
-        }
-
+        self.Relations = {} if relations is None else dict(relations)
         if relations is not None:
             for k,v in relations.items():
                 self.Relations[k] = v
-        
-        self.Checks = {} if checks is None else dict(checks)
-        self.Abilities = {} if abilities is None else dict(abilities)
 
         self.Memory = { category: {} for category in MEMORY_CATEGORIES }
         if memory is not None:
             for k,v in memory.values():
                 self.Memory[k] = v
-        
+
+        if self.Nodetype not in META_NODE_TYPES:
+            self.__post_init__()
+
+    def __post_init__(self):
+
+        if self.Nodetype not in META_NODE_TYPES:
+
+            if self.Nodetype in SOCIAL_NODE_TYPES:
+                self.Scales[POLICY] = self.generate_policy()
+
+                if self.Nodetype is POI:
+                    self.Scales[PERSONALITY] = self.generate_personality()
+
+
+            self.Relations = {
+                CONTENTS:{ nt:{} for nt in PHYSICAL_NODETYPES},      # organs for POI, items contained for LOC/OBJ
+                COMPONENTS:{ nt:{} for nt in PHYSICAL_NODETYPES},    # limbs for POI, parts for OBJ
+                ATTACHMENTS:{ nt:{} for nt in PHYSICAL_NODETYPES},    # accessories, clothing, equipped items for POI, attachments for OBJ
+                ADJACENT: { nt:{} for nt in PHYSICAL_NODETYPES} # adjacent locations for LOC
+            }
+
     # References Section
 
     def keyname(self, *args) -> str:

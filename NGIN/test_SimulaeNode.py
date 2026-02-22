@@ -55,7 +55,7 @@ class TestSimulaeNodeCore(unittest.TestCase):
 
         self.assertIsNotNone(node.ID)
         self.assertEqual(node.Nodetype, OBJ)
-        self.assertEqual(node.References, {NAME: None})
+        self.assertEqual(node.References, {})
         self.assertEqual(node.Scales, {})
         self.assertEqual(node.Checks, {})
         self.assertEqual(node.Abilities, {})
