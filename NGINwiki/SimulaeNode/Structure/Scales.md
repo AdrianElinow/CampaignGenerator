@@ -5,3 +5,12 @@ The Political and Personality scales are used by the [[Socialization]] system to
 The existing scales are for:
 - [[Politics Scale]]
 - [[Personality Scale]]
+
+> ex: Scales structure
+```json
+Scales = {
+	'Personality': {...},
+	'Policy': {...},
+	...
+}
+```
