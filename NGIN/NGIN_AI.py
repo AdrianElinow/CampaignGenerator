@@ -1,4 +1,6 @@
 from enum import Enum
+
+from NGIN.NGIN_Socialization import RESPONSE_WEIGHTS
 from .SimulaeNode import *
 
 class Action(Enum):
@@ -526,44 +528,54 @@ class NGIN_Simulae_Actor(SimulaeNode):
             summary += f"{attr}: {self.get_attribute(attr)}\n"
 
         return summary
+
+    def appraise_social_event(self, social_event):
+
+        appraisal = {
+            "valence": 0, # how positive or negative is this encounter?
+            "fairness": 0, # how fair or unfair is this encounter?
+            "credibility": 0, # how credible is this encounter?
+            "urgency": 0, # how urgent is this encounter?
+            "intent_hostility": 0, # how hostile do we perceive the intent of this encounter to be?
+            "threat": {
+                "physical": 0, # Physical threat (to our body, health, safety, etc)
+                "social": 0, # Social Threat (to our social standing, relationships, etc)
+                "status": 0, # Status Threat (to our power, influence, job, etc)
+                "emotional": 0, # Emotional Threat (to our emotional well-being, mental health, etc)
+                "moral": 0, # Moral Threat (to our values, beliefs, etc)
+                "identity": 0, # Identity Threat (to our sense of self, who we are, etc)
+                "resource": 0 # Resource Threat (to our possessions, money, etc)
+            },
+        }
+
+        # TODO AE: Calculate appraisal Here
+
+
+
+        return appraisal
     
-
-    def appraise_event(self, event):
-        pass
-
-    def appraise_encounter(self, encounter):
-        ''' what kind of encounter is this ? '''
-        
-        # Avoid, Ignore, Engage, Acknowledge
-
-        # Avoid -> Action (flee, hide, etc)
-        # Ignore -> Action (do nothing / continue with current plan)
-        # Acknowledge -> Passing interaction, no change to plan
-        # Engage -> Commence interaction, may change plan based on outcome
-        
-        pass    
-
-    def appraise_social_interaction(self, social_event):
-        return 0 # todo AE: implement
-    
-    def handle_social_interaction(self, social_event):
+    def handle_social_interaction(self, social_event, parties, conversation_history):
         
         # get appraisal of the social event
-        appraisal = self.appraise_social_interaction(social_event)
+        appraisal = self.appraise_social_event(social_event)
 
         # determine meaning?
 
         # evaluate response options 
 
         # select response
+
+        response = self.select_response(social_event,
+                                        appraisal,
+                                        parties,
+                                        conversation_history)
         
-        pass
+        return response
 
     def select_response(self, # includes emotional state
                         social_event,
-                        npc,
                         appraisal,
-                        relationship,
+                        relevant_parties,
                         conversation_history):
         weights = {}
 
@@ -571,20 +583,17 @@ class NGIN_Simulae_Actor(SimulaeNode):
         response_options = []
 
         for response in response_options:
-            weight = EVENT_RESPONSE_WEIGHTS[social_event.type].get(response, 1.0)
-
-            # Hard limit (personality, social limitations, etc) prevent this response from being viable
-            if self.hard_gate(npc, relationship, appraisal, response, social_event, conversation_history):
-                continue
+            base_weight = RESPONSE_WEIGHTS[social_event.type].get(response, 1.0)
+            
+            personality_weight = 1.0 # todo AE: calculate personality weight based on NPC's personality traits and the nature of the response (e.g. if response is aggressive, then weight would be higher for NPCs with aggressive traits)
+            political_weight = 1.0 # todo AE: calculate political weight based on NPC's political beliefs and the nature of the response (e.g. if response is politically charged, then weight would be higher for NPCs with strong political beliefs)
+            appraisal_weight = 1.0 # todo AE: calculate appraisal weight based on the NPC's appraisal of the social event and how well the response addresses that appraisal (e.g. if NPC appraises the event as highly threatening, then a response that effectively mitigates that threat would have a higher weight)
+            relationship_weight = 1.0 # todo AE: calculate relationship weight based on the NPC's relationship with the relevant parties and how well the response aligns with that relationship (e.g. if NPC has a close relationship with the instigator of the event, then a response that defends or supports that instigator would have a higher weight)
+            past_interaction_weight = 1.0 # todo AE: calculate past interaction weight based on the NPC's past interactions with the relevant parties and how well the response aligns with those past interactions (e.g. if NPC has had positive interactions with the instigator in the past, then a response that is supportive of the instigator would have a higher weight)
+            conversation_history_weight = 1.0 # todo AE: calculate conversation history weight based on the NPC's conversation history with the relevant parties and how well the response aligns with that conversation history (e.g. if NPC has had a recent argument with the instigator, then a response that de-escalates the situation might have a higher weight)
 
             # apply modifiers
-
-            # personality traits
-            # politics?
-            # appraisal of the event
-            # relationship with the npc
-            # past interactions with the npc
-            # conversation history with the npc
+            weight = base_weight * personality_weight * political_weight * appraisal_weight * relationship_weight * past_interaction_weight * conversation_history_weight
 
             # floor and clamp
             weight = max(0.001, min(weight, 1000.0))
@@ -599,7 +608,7 @@ class NGIN_Simulae_Actor(SimulaeNode):
 
         return None
 
-    def hard_gate(self, npc, relationship, appraisal, response, social_event, conversation_history):
+    def hard_gate(self, npcs, appraisal, response, social_event, conversation_history):
         return False # todo AE: implement
     
 

@@ -1,8 +1,15 @@
-FAC = 'FAC'
-POI = 'POI'
-PTY = 'PTY'
-LOC = 'LOC'
-OBJ = 'OBJ'
+FAC = 'Faction' # Faction
+POI = 'Person' # Person (of Interest)
+PTY = 'Party' # Party
+LOC = 'Location' # Location
+OBJ = 'Object' # Object
+
+EVT = 'Event' # Event
+CND = 'Condition' # Conditional
+
+SRC = "Source" # source
+TGT = "Target" # target
+OBS = "Observer" # Observer
 
 NAME = "Name"
 ADJACENT = "Adjacent"
@@ -18,6 +25,7 @@ ATTRIBUTES = "Attributes"
 CHECKS = "Checks"
 ABILITIES = "Abilities"
 MEMORY = "Memory"
+
 SCALES = "Scales"
 DISPOSITION_SUFFIX = "Disposition"
 POLICY_DISPOSITION = "PolicyDisposition"
@@ -29,6 +37,7 @@ SOCIAL_NODE_TYPES = [FAC,POI,PTY]
 GROUP_NODE_TYPES = [FAC,PTY]
 PEOPLE_NODE_TYPES = [POI,PTY]
 INANIMATE_NODE_TYPES = [LOC,OBJ]
+META_NODE_TYPES = [EVT, CND]
 
 RELATIONS = "Relations"
 CONTENTS = "Contents"
@@ -36,6 +45,16 @@ COMPONENTS = "Components"
 ATTACHMENTS = "Attachments"
 PHYSICAL_RELATIVE_TYPES = [CONTENTS, COMPONENTS, ATTACHMENTS, ADJACENT]
 RELATION_TYPES = PHYSICAL_RELATIVE_TYPES + PHYSICAL_NODETYPES
+
+EVENTS = "Events"
+TIMELINE = "Timeline"
+CLAIMS = "Claims"
+COMMITMENTS = "Commitments"
+SOCIAL = "Social"
+THREADS = "Threads"
+
+MEMORY_CLASSIFICATIONS = [EVENTS, TIMELINE, CLAIMS, COMMITMENTS, SOCIAL, THREADS]
+MEMORY_CATEGORIES = MEMORY_CLASSIFICATIONS + ALL_NODE_TYPES
 
 DEFAULT_POLICY_VALUE = 4 # halfway between 1 and 7
 DEFAULT_PERSONALITY_VALUE = 3 # halfway between 0 and 6

@@ -1,5 +1,6 @@
 
 
+from pprint import pprint
 import random
 from .ngin_utils import logAll, logWarning
 
@@ -48,7 +49,8 @@ def generate_values_for_scales(
 
 def get_scale_diff( master_scale: dict[str, list[str]], 
                scale: dict[str, tuple[int, int]], 
-               comparison_scale, descriptors: list[str], 
+               comparison_scale: dict[str, tuple[int, int]], 
+               descriptors: list[str], 
                descriptors_buckets: list[int], 
                scale_center_index: int = 3):
     '''
@@ -77,32 +79,21 @@ def get_scale_diff( master_scale: dict[str, list[str]],
             logWarning("Unable to perform full comparison. Scale factor",factor,"not in both given scales.")
             continue
 
-        delta, summary = scale_factor_diff( scale[factor], comparison_scale[factor], descriptors, descriptors_buckets, scale_center_index)
+        scale_factor = scale[factor]
+        comparison_scale_factor = comparison_scale[factor]
+
+        delta = get_scale_factor_diff( scale_factor, comparison_scale_factor, scale_center_index)
+
+        summary = ""
+        if descriptors and factor in descriptors and delta is not None:
+            bucket_index = bucket_delta(delta, descriptors_buckets)
+            summary = descriptors[bucket_index]
 
         diff_summary[factor] = summary
         diff += delta
 
     return diff, diff_summary
 
-def scale_factor_diff(scale_factor: tuple, compare_scale_factor: tuple, descriptors: list[str], descriptors_buckets: list[int], scale_center_index: int = 3):
-    '''
-    Determine difference between two factors of the same scale, returning a delta value and a descriptor of the difference.
-    
-    :param scale_factor: Description
-    :type scale_factor: tuple
-    :param compare_scale_factor: Description
-    :type compare_scale_factor: tuple
-    :param descriptors: Description
-    :type descriptors: list[str]
-    :param descriptors_buckets: Description
-    :type descriptors_buckets: list[int]
-    :param scale_center_index: Description
-    :type scale_center_index: int
-    '''
-
-    logAll("scale_factor_diff(",scale_factor, compare_scale_factor,")")
-
-    return get_scale_factor_diff(scale_factor, compare_scale_factor, descriptors, descriptors_buckets, scale_center_index)
 
 def get_scale_factor(scales, scale, key: str) -> tuple[int, int] | None:
     logAll("get_scale_factor(",scale,", ",key,")")
@@ -153,7 +144,10 @@ def get_scale_factor_value(index: int, strength: int, center_index: int) -> int:
     
     return sign * strength
     
-def get_scale_factor_diff( scale_factor: tuple, compare_scale_factor: tuple, descriptors: list[str], descriptors_buckets: list[int], scale_center_index: int = 3):
+def get_scale_factor_diff( 
+        scale_factor: tuple, 
+        compare_scale_factor: tuple, 
+        scale_center_index: int = 3):
     '''
     Determine the difference between two scale factors, returning a delta value and a descriptor of the difference.
     
@@ -181,11 +175,12 @@ def get_scale_factor_diff( scale_factor: tuple, compare_scale_factor: tuple, des
     compare_factor_value    = get_scale_factor_value(compare_factor_index, compare_factor_strength, scale_center_index)
     delta = abs(factor_value - compare_factor_value)
 
-    index = bucket_delta(delta, descriptors_buckets) # specific buckets for policy
+    return delta
 
-    return delta, descriptors[index]
-
-def get_bellcurve_value_for_scale(scale_list: list, std_dev: float | None, std_deviation_frac: float = 1, rng: random.Random | None = None) -> int:
+def get_bellcurve_value_for_scale(  scale_list: list, 
+                                    std_dev: float | None,
+                                    std_deviation_frac: float = 1, 
+                                    rng: random.Random | None = None) -> int:
     logAll("get_bellcurve_value_for_scale(",scale_list,")")
     ''' get_bellcurve_value_for_scale(scale_list) returns an index into the given scale_list
         using a bell curve distribution centered on the middle of the scale_list

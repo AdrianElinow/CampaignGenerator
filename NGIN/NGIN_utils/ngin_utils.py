@@ -4,6 +4,7 @@ from math import e
 from enum import Enum
 import uuid
 from pprint import pprint
+from typing import Any
 
 class DEBUG_LEVEL(Enum):
     ''' DEBUG level '''
@@ -46,6 +47,21 @@ def log(*args, newline=True, level: DEBUG_LEVEL = DEBUG_LEVEL.ALL):
     msg = ' '.join(str(arg) for arg in args)
     print(f"[{level.name}] {msg}", end='\n' if newline else '')
 
+def normalize_str(value: str | None) -> str:
+    if not value:
+        return ""
+    
+    norm = str(value).strip()
+
+    return norm if norm else ""
+
+def get_unique_strs(values: list[str] | None) -> list[str]:
+    uniques = []
+
+    if values:
+        [uniques.append(s.strip()) for s in values if s not in uniques if s.strip()]
+    
+    return uniques    
 
 def save_json_to_file( filename: str, data:dict, filepath : str | None =None, pretty: bool =False):
     if not filename:
@@ -99,8 +115,6 @@ def load_json_from_file( filename: str, filepath : str | None = None ):
         logWarning(f"No file found at {absolute_path}")
 
     return None
-
-
 
 
 def user_choice(user_options, literal=False, random_opt=False ):
@@ -237,8 +251,6 @@ def prompt_mission( options ):
     return entry
 
 
-
-
 def robust_int_entry(prompt=None, low: int | None = None, high: int | None = None):
 
     if not prompt:
@@ -266,9 +278,6 @@ def robust_int_entry(prompt=None, low: int | None = None, high: int | None = Non
             print("Invalid")
         except KeyboardInterrupt as ki:
             sys.exit(0)
-
-
-
 
 
 def robust_str_entry(prompt, options=[]):

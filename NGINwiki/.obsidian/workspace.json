@@ -1,0 +1,229 @@
+{
+  "main": {
+    "id": "d23b0c6c45ce0e4e",
+    "type": "split",
+    "children": [
+      {
+        "id": "e739b54a72bcc104",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6a4d67036e4bf72e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "SimulaeNode/Structure/Memories.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Memories"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7899e0676c3f4027",
+    "type": "split",
+    "children": [
+      {
+        "id": "d9974deae1d0fc59",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "48df2a141f589d1a",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "f0ede74ef905f134",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "de079d51383a7fb3",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "cfe4c42c3424022b",
+    "type": "split",
+    "children": [
+      {
+        "id": "a8511f6e6ebbd85f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c39fc5b4dc709429",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "SimulaeNode/Structure/Memories.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Memories"
+            }
+          },
+          {
+            "id": "08860c2109da0c35",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "SimulaeNode/Structure/Memories.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Memories"
+            }
+          },
+          {
+            "id": "ee96e7ef3f4e1fa0",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "4a8087bcf6df352b",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "4c0250fddce7e664",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "SimulaeNode/Structure/Memories.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Memories"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "6a4d67036e4bf72e",
+  "lastOpenFiles": [
+    "SimulaeNode/Structure/Abilities.md",
+    "SimulaeNode/Structure/Scales.md",
+    "SimulaeNode/Structure/Relations.md",
+    "SimulaeNode/SimulaeNode.md",
+    "Simulae Event.md",
+    "Simulae.md",
+    "SimulaeNode/Socialization/Social Event.md",
+    "SimulaeNode/Socialization/Socialization.md",
+    "Untitled.canvas",
+    "SimulaeNode/Planning/Task.md",
+    "Gamemodes/Faction Warfare.md",
+    "SimulaeNode/Planning/Plan.md",
+    "Gamemodes/Gamemodes.md",
+    "Gamemodes/Escort and Extraction.md",
+    "Gamemodes/Gamemode.md",
+    "Gamemodes/Mystery Investigation.md",
+    "Gamemodes/Bounty Contracts.md",
+    "Gamemodes/Trade and Economy.md",
+    "Gamemodes/Insurgency and Rebellion.md",
+    "Gamemodes/Expedition Crawl.md",
+    "Gamemodes/Survival and Scarcity.md",
+    "Gamemodes/Heist Operations.md",
+    "Gamemodes/Political Intrigue.md",
+    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Demon/Vortox.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Bad Twin.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Traitor Roles.md",
+    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Townsfolk/Ravenkeeper.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Hybrid",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Independent",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Jester",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Detective",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles",
+    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Outsider",
+    "Gamemodes/Social Deduction/Blood on the Clocktower/Scripts",
+    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Townsfolk/Information",
+    "Screenshot 2026-02-19 at 4.25.00 PM.png",
+    "images/political-scales-diagram.png",
+    "images/personality-scales-diagram.png"
+  ]
+}
