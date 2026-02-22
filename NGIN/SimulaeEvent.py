@@ -21,29 +21,31 @@ class SimulaeEvent(SimulaeNode):
                  event_subtype: str,
                  start_timestamp: str | None,
                  end_timestamp: str | None,
-                 location_id: str | None,
-                 source_ids: list[str],
-                 target_ids: list[str],
-                 observer_ids: list[str],
+                 sources: list,
+                 targets: list,
+                 observers: list,
                  effects):
         
         references = {
             "created_timestamp": str(datetime.now()), # created now
-            "source_ids": source_ids,
-            "target_ids": target_ids,
-            "observer_ids": observer_ids,
             "event_class": event_class,
             "event_type": event_type,
             "event_subtype": event_subtype,
             "start_timestamp": start_timestamp,
             "end_timestamp": end_timestamp,
-            LOC: location_id,
+        }
+
+        relations = {
+            SRC: {}, # sources -> who/what triggered the event
+            TGT: {}, # targets -> who/what was affected & how
+            OBS: {}, # observers -> who/what witnessed the event
         }
 
         super().__init__(
             id, 
             nodetype=EVT,
             references=references,
+            relations=relations,
         )
 
         self.Effects = effects

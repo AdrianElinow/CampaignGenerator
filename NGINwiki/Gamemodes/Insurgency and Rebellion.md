@@ -3,7 +3,7 @@
 ## Core Loop
 1. Cells assign clandestine [[Task]]s for recruitment, sabotage, and intel.
 2. Authorities issue counter-operations and surveillance plans.
-3. Public sentiment and covert actions resolve through visible and hidden [[Event]] layers.
+3. Public sentiment and covert actions resolve through visible and hidden [[Simulae Event]] layers.
 4. Momentum shifts based on legitimacy, fear, and strategic disruption.
 
 ## Simulae Fit

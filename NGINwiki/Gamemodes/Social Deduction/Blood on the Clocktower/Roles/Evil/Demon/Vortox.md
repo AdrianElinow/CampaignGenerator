@@ -64,14 +64,14 @@ Ability = {
 }
 ```
 
-This ability specification follows [[Abilities]] and emits [[Event]] structures when its effect conditions are satisfied.
+This ability specification follows [[Abilities]] and emits [[Simulae Event]] structures when its effect conditions are satisfied.
 
 ## Task ([[Task]])
 
 - Goal State: Maintain daily executions while surviving long enough for Evil to win under persistent false-information pressure.
 - Action Sequence: Use the role ability to create the board-state and social-state required by that goal.
-- Task Actions: Trigger role-ability [[Event]] outputs that advance this role's victory progress while blocking opposing victory paths.
-- Completion Signal: Emit/observe terminal [[Event]] evidence that confirms the goal state is achieved.
+- Task Actions: Trigger role-ability [[Simulae Event]] outputs that advance this role's victory progress while blocking opposing victory paths.
+- Completion Signal: Emit/observe terminal [[Simulae Event]] evidence that confirms the goal state is achieved.
 
 ## Linked Roles
 - [[Blood on the Clocktower Role]]

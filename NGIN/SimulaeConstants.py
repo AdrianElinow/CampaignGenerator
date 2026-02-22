@@ -1,11 +1,15 @@
-FAC = 'FAC' # Faction
-POI = 'POI' # Person (of Interest)
-PTY = 'PTY' # Party
-LOC = 'LOC' # Location
-OBJ = 'OBJ' # Object
+FAC = 'Faction' # Faction
+POI = 'Person' # Person (of Interest)
+PTY = 'Party' # Party
+LOC = 'Location' # Location
+OBJ = 'Object' # Object
 
-EVT = 'EVT' # Event
-CND = 'CND' # Conditional
+EVT = 'Event' # Event
+CND = 'Condition' # Conditional
+
+SRC = "Source" # source
+TGT = "Target" # target
+OBS = "Observer" # Observer
 
 NAME = "Name"
 ADJACENT = "Adjacent"

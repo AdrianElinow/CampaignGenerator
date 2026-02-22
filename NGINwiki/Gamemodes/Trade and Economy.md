@@ -2,7 +2,7 @@
 
 ## Core Loop
 1. Actors issue production, transport, and sales [[Task]]s.
-2. Supply and demand shifts are resolved into market [[Event]] updates.
+2. Supply and demand shifts are resolved into market [[Simulae Event]] updates.
 3. Negotiation scenes alter pricing, contracts, and alliances.
 4. Wealth, scarcity, and political leverage evolve over time.
 

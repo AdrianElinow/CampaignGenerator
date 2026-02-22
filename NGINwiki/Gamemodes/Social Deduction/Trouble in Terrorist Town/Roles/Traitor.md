@@ -57,7 +57,7 @@ Ability = {
 }
 ```
 
-This ability specification follows [[Abilities]] and emits [[Event]] structures when its effect conditions are satisfied.
+This ability specification follows [[Abilities]] and emits [[Simulae Event]] structures when its effect conditions are satisfied.
 
 ## Typical Social Behavior
 - Blend into normal [[Innocent]] discussion.

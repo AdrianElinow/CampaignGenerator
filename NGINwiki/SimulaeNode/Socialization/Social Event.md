@@ -1,4 +1,4 @@
-[[Social Event]]s are a subtype of a [[Event]] which specifically relates to the abstract concept of a 'social interaction' codified into a data structure formatted for use a [[Simulae Actor]] (Sentient Simulae Entity) which, through socialization, experiences and generates these events in doing so. 
+[[Social Event]]s are a subtype of a [[Simulae Event]] which specifically relates to the abstract concept of a 'social interaction' codified into a data structure formatted for use a [[Simulae Actor]] (Sentient Simulae Entity) which, through socialization, experiences and generates these events in doing so. 
 
 ```mermaid
 flowchart RL

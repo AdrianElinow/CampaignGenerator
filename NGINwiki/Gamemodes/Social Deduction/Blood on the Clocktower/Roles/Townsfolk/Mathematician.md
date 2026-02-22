@@ -60,7 +60,7 @@ Ability = {
 }
 ```
 
-This ability specification follows [[Abilities]] and emits [[Event]] structures when its effect conditions are satisfied.
+This ability specification follows [[Abilities]] and emits [[Simulae Event]] structures when its effect conditions are satisfied.
 
 ## Linked Roles
 - [[Blood on the Clocktower Role]]

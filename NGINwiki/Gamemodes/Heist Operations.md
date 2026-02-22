@@ -3,7 +3,7 @@
 ## Core Loop
 1. Team composes a multi-step [[Plan]] (infiltration, access, extraction).
 2. Specialists receive synchronized [[Task]]s with timing constraints.
-3. Security reactions and stealth failures generate branching [[Event]] outcomes.
+3. Security reactions and stealth failures generate branching [[Simulae Event]] outcomes.
 4. Escape and reward distribution finalize success or failure state.
 
 ## Simulae Fit
