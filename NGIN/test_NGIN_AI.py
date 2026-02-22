@@ -15,13 +15,9 @@ class Test_NGIN_AI_Planning(unittest.TestCase):
         self.assertIsNotNone(self.actor)
         self.assertEqual(self.actor.priorities, [])
 
-        print("Test_NGIN_AI","test_initial_attributes:", "PASS")
-
     def test_NGIN_AI_plan_empty(self):
         self.actor.plan()
         self.assertEqual(self.actor.priorities, [])
-
-        print("Test_NGIN_AI","test_NGIN_AI_plan_empty:", "PASS")
 
     def test_NGIN_AI_plan_populated(self):
         return # todo ae: fix
@@ -47,8 +43,6 @@ class Test_NGIN_AI_Planning(unittest.TestCase):
                     logAll("Completed action:", completed_action)
                     self.actor.plan()
 
-        print("Test_NGIN_AI_Planning","test_NGIN_AI_plan_populated:", "PASS")
-
 class Test_NGIN_AI_Socialize(unittest.TestCase):
 
     def setUp(self):
@@ -69,8 +63,6 @@ class Test_NGIN_AI_Socialize(unittest.TestCase):
         self.assertEqual(relationship[NODETYPE], POI)
         self.assertEqual(relationship[INTERACTIONS], [])
         self.assertEqual(relationship[STATUS], 'new')
-
-        print("Test_NGIN_AI_Socialize","test_NGIN_AI_socialize_clone:", "PASS")
 
     def test_NGIN_AI_appraise_social_event(self):
         # create a social event
