@@ -1,0 +1,10 @@
+[[Trade and Economy]] is a [[Gamemode]] centered on production chains, market behavior, and negotiation.
+
+## Core Loop
+1. Actors issue production, transport, and sales [[Task]]s.
+2. Supply and demand shifts are resolved into market [[Event]] updates.
+3. Negotiation scenes alter pricing, contracts, and alliances.
+4. Wealth, scarcity, and political leverage evolve over time.
+
+## Simulae Fit
+- Combines social bargaining with simulation-grade resource state tracking.

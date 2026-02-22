@@ -1,4 +1,3 @@
-Current Gamemodes:
-- [[Social Deduction]]
-- [[Blood on the Clocktower]]
-- [[Trouble in Terrorist Town]]
+[[Gamemode]] is the base concept for a playable rule-set in [[Simulae]].
+
+See the full index at [[Gamemodes]].

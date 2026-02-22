@@ -7,7 +7,11 @@
 ## Ability Summary
 Each night, choose a player to die; Townsfolk information is false and good must execute daily.
 
-## Simulae Ability ([[Abilities]])
+## Simulae Abilities ([[Abilities]])
+
+- At Night, choose a player to die (kill)
+- Passively, invert all information
+- Passively, win if no one is executed during the day
 
 ```json
 Ability = {
