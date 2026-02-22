@@ -43,6 +43,15 @@ flowchart TB
 ```
 
 
+> ex: Relations
+```json
+Relations = {
+	'Components': {...},
+	'Contents': {...},
+	'Accessories': {...},
+	'Adjacents': {...},
+}
+```
 ## Components
 
 ## Contents
