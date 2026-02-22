@@ -1,0 +1,21 @@
+[[Yogscast Innocent Roles]] in [[Trouble in Terrorist Town]].
+
+## Roles
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Deputy|Deputy]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Doctor|Doctor]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Glitch|Glitch]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Good Boy|Good Boy]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Good Twin|Good Twin]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Innocent|Innocent]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Mercenary|Mercenary]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Paramedic|Paramedic]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Phantom|Phantom]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Phoenix|Phoenix]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Possum|Possum]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Revenger|Revenger]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Romantic|Romantic]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Scout|Scout]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Spiritualist|Spiritualist]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Survivalist|Survivalist]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Trickster|Trickster]]
+- [[Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Veteran|Veteran]]

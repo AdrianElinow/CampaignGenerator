@@ -2,6 +2,7 @@
 
 ## Roles
 - [[Trouble in Terrorist Town Roles]]
+- [[Yogscast Roles]]
 - [[Innocent]]
 - [[Detective]]
 - [[Traitor]]

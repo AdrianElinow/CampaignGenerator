@@ -11,14 +11,10 @@
             "id": "70c6c3277e14b192",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Gamemodes/Social Deduction/Trouble in Terrorist Town/Roles/Traitor.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Traitor"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           }
         ]
@@ -94,7 +90,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Gamemodes/Social Deduction/Trouble in Terrorist Town/Roles/Traitor.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +99,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Traitor"
+              "title": "Backlinks"
             }
           },
           {
@@ -113,12 +108,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Gamemodes/Social Deduction/Trouble in Terrorist Town/Roles/Traitor.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Traitor"
+              "title": "Outgoing links"
             }
           },
           {
@@ -156,13 +150,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Gamemodes/Social Deduction/Trouble in Terrorist Town/Roles/Traitor.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Traitor"
+              "title": "Outline"
             }
           }
         ]
@@ -183,44 +176,44 @@
       "bases:Create new base": false
     }
   },
-  "active": "48df2a141f589d1a",
+  "active": "70c6c3277e14b192",
   "lastOpenFiles": [
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Hybrid/Vindicator.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Independent/Mud Scientist.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Independent Roles.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Roles.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Deputy.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Hybrid Roles.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Jester Roles.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Traitor Roles.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Innocent Roles.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Yogscast Detective Roles.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Independent/Zombie.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Independent/Werewolf.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Veteran.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Hybrid/Turncoat.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Trickster.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Traitor.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Detective/Tracker.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Taxidermist.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Jester/Swapper.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Survivalist.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Summoner.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Spy.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent/Spiritualist.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Jester/Sponge.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Soulmage.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor/Soulbound.md",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Hybrid",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Independent",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Jester",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Traitor",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Innocent",
+    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles/Detective",
     "Gamemodes/Social Deduction/Trouble in Terrorist Town/Yogscast Roles",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Roles/Innocent.md",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Roles/Detective.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Minion/Minion Roles.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Minion/Devil's Advocate.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Minion/Godfather.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Minion/Baron.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Minion/Mastermind.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Minion/Pit-Hag.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Blood on the Clocktower Role.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Demon/Zombuul.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Demon/Demon.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Townsfolk/Artist.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Scripts/Sects and Violets.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Blood on the Clocktower.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Demon/Shabaloth.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Scripts/Bad Moon Rising.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Townsfolk/Tea Lady.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Townsfolk/Townsfolk.md",
-    "Gamemodes/Social Deduction/Social Deduction.md",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Roles/Trouble in Terrorist Town Roles.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Demon/Vortox.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Demon/No Dashii.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Demon/Vigormortis.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Demon/Fang Gu.md",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Demon/Po.md",
     "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Outsider",
     "Gamemodes/Social Deduction/Blood on the Clocktower/Scripts",
     "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Townsfolk/Information",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Townsfolk/Action",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Minion",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil/Demon",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Evil",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles/Townsfolk",
-    "Gamemodes/Social Deduction/Trouble in Terrorist Town/Roles",
-    "Gamemodes/Social Deduction/Blood on the Clocktower/Roles",
     "Screenshot 2026-02-19 at 4.25.00 PM.png",
     "images/political-scales-diagram.png",
     "images/personality-scales-diagram.png"
