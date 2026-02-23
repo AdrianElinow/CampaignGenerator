@@ -1,6 +1,8 @@
 
 While the [[World Generator]] may generate many [[Locations]] that comprise a certain 'world', a single 'location' may initially include a 'population' of [[Simulae Actor]](s)
 
+## Initial Implementation Structure
+
 A 'location' is an abstract type of [[SimulaeNode]] organized as discrete 'places' organized in a network of other [[Locations]] connected as an adjacency-matrix by linking pairs as 'adjacent' [[Relations]]
 
 ```mermaid

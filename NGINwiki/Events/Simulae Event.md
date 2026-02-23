@@ -15,6 +15,9 @@ Event = {
 		'start_timestamp': ...,
 		'end_timestamp': ...,
 	},
+	Effects: {
+		...
+	},
 	Relations: {
 		"sources": {
 			...
@@ -29,4 +32,27 @@ Event = {
 	...
 }
 ```
+
+## Event Structure
+
+### References
+- class
+- type
+- subtype
+
+### Attributes
+- timestamps
+	- start
+	- end
+
+### Effects
+- ...
+
+### Relations
+
+- sources - [[SimulaeNode]](s) that triggered the event
+- targets - [[SimulaeNode]](s) that were affected by the event
+- observers - [[SimulaeNode]](s) that 'experienced' the event
+	- While perhaps not themselves affected, they 'witnessed' the event occur, and therefore also have knowledge of it
+
 

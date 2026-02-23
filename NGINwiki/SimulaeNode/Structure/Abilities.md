@@ -46,7 +46,9 @@ flowchart TB
 
 ## Ability Requirements
 
-The requirements for abilities, if applicable, can be combinations of physical components ([[SimulaeNode]]s) or satisfied states
+The requirements for abilities are [[Simulae Condition]]s.
+
+When applicable, can be combinations of physical components ([[SimulaeNode]]s) or satisfied states
 
 > ex: A spell may require a `mana` level above 50 points and a spell-component such as a wand and/or a crystal which may be consumed in the process of casting
 
@@ -72,6 +74,7 @@ Possible effects may include:
 	- [[Relations]]
 	- [[Abilities]] - Cause them to be disabled/fail/upgrade/etc
 	- [[Memories]] - Causing hallucinations or erasing memories
+- Generating abstract events
 
 ### Effect conditions
 
